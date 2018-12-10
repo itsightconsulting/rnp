@@ -1,13 +1,11 @@
 package com.itsight.component;
 
-import com.itsight.domain.Base01a;
-import com.itsight.domain.SecurityPrivilege;
-import com.itsight.domain.SecurityRole;
-import com.itsight.domain.SecurityUser;
+import com.itsight.domain.*;
 import com.itsight.domain.oauth.OauthClientDetails;
 import com.itsight.repository.Base01aRepository;
 import com.itsight.repository.OauthClientDetailsRepository;
 import com.itsight.repository.SecurityUserRepository;
+import com.itsight.service.CardService;
 import com.itsight.util.Utilitarios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +27,9 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
     private SecurityUserRepository userRepository;
 
     @Autowired
+    private CardService cardService;
+
+    @Autowired
     private OauthClientDetailsRepository oauthClientDetailsRepository;
 
     @Autowired
@@ -41,10 +42,16 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-
+        addingDemoCard();
         addingToContextSession();
         addingInitUsers();
         creatingFileDirectories();
+    }
+
+    public void addingDemoCard(){
+        if (cardService.findOne(1) == null) {
+            cardService.save(new Card("Demo"));
+        }
     }
 
     public void addingToContextSession() {

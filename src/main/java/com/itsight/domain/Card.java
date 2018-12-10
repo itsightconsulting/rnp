@@ -23,6 +23,8 @@ public class Card implements Serializable {
 
     private String description;
 
+    public Card(String description) { this.description = description; }
+
     public Card(int id) { this.id = id; }
 
     public Card() { }
