@@ -27,9 +27,6 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
     private SecurityUserRepository userRepository;
 
     @Autowired
-    private CardService cardService;
-
-    @Autowired
     private OauthClientDetailsRepository oauthClientDetailsRepository;
 
     @Autowired
@@ -49,9 +46,9 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
     }
 
     public void addingDemoCard(){
-        if (cardService.findOne(1) == null) {
+        /*if (cardService.findOne(1) == null) {
             cardService.save(new Card("Demo"));
-        }
+        }*/
     }
 
     public void addingToContextSession() {

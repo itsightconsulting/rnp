@@ -4,6 +4,7 @@ import com.itsight.constants.ViewConstant;
 import com.itsight.repository.CardRepository;
 import com.itsight.repository.OauthApprovalsRepository;
 import com.itsight.repository.OauthClientDetailsRepository;
+import com.itsight.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
@@ -42,8 +43,11 @@ public class AuthController {
     @Autowired
     private OauthApprovalsRepository oauthApprovalsRepository;
 
+/*    @Autowired
+    private CardRepository cardRepository;*/
+
     @Autowired
-    private CardRepository cardRepository;
+    private CardService cardService;
 
     @Autowired
     private DataSource dataSource;
@@ -131,9 +135,14 @@ public class AuthController {
     $$;
 
      */
-    @GetMapping(value = "/function/demo/{id}/{descripcion}")//Para ejecutar cualquier peticion http debes loguearte primero
+    /*@GetMapping(value = "/function/demo/{id}/{descripcion}")//Para ejecutar cualquier peticion http debes loguearte primero
     public @ResponseBody Integer probandoPgFunctionDemo(@PathVariable(name = "id") String id, @PathVariable(name = "descripcion") String descripcion) {
         Integer output = cardRepository.updateWithSp(Integer.parseInt(id), descripcion);
         return output;
+    }*/
+
+    @GetMapping(value = "/get/suma/{num1}/{num2}")//Para ejecutar cualquier peticion http debes loguearte primero
+    public @ResponseBody Integer getSimpleSumaFromSqlSeverStoredProcedure(@PathVariable(name = "num1") Integer num1, @PathVariable(name = "num2") Integer num2) {
+        return cardService.getSimpleSumaSp(num1, num2);
     }
 }
