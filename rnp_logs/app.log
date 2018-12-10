@@ -137,3 +137,159 @@
 [INFO ] 2018-12-06 15:25:27.284 [http-nio-8080-exec-5] AspectController - AuthController.loginForm(..) method called.
 [INFO ] 2018-12-06 15:26:09.238 [restartedMain] RnpApplication - The following profiles are active: devazure
 [INFO ] 2018-12-06 15:26:35.952 [restartedMain] RnpApplication - Started RnpApplication in 31.743 seconds (JVM running for 34.211)
+[INFO ] 2018-12-10 06:13:19.826 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-10 06:13:54.288 [restartedMain] RnpApplication - Started RnpApplication in 45.984 seconds (JVM running for 57.204)
+[INFO ] 2018-12-10 06:17:54.723 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 06:18:12.056 [restartedMain] RnpApplication - Started RnpApplication in 23.537 seconds (JVM running for 26.444)
+[INFO ] 2018-12-10 06:19:14.474 [http-nio-8080-exec-1] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:19:16.277 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:19:16.314 [http-nio-8080-exec-7] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:19:32.911 [http-nio-8080-exec-10] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 06:19:52.004 [http-nio-8080-exec-3] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 06:20:20.564 [http-nio-8080-exec-4] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 06:21:21.978 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 06:21:36.522 [restartedMain] RnpApplication - Started RnpApplication in 19.57 seconds (JVM running for 22.233)
+[INFO ] 2018-12-10 06:21:39.710 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:21:40.491 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:21:40.528 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:21:41.564 [http-nio-8080-exec-7] SecurityUserServiceImpl - > Excepción | (?): CUY_ADMIN
+[INFO ] 2018-12-10 06:21:41.703 [http-nio-8080-exec-8] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:21:41.864 [http-nio-8080-exec-10] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:21:41.892 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:21:45.667 [http-nio-8080-exec-4] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 06:24:37.864 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 06:24:54.666 [restartedMain] RnpApplication - Started RnpApplication in 22.951 seconds (JVM running for 27.685)
+[INFO ] 2018-12-10 06:25:05.958 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:25:06.814 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:25:06.848 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:25:10.922 [http-nio-8080-exec-7] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 06:25:45.053 [http-nio-8080-exec-9] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 06:25:53.092 [http-nio-8080-exec-1] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 06:35:45.402 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 06:36:03.131 [restartedMain] RnpApplication - Started RnpApplication in 22.811 seconds (JVM running for 26.146)
+[INFO ] 2018-12-10 06:37:22.504 [http-nio-8080-exec-1] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:37:23.354 [http-nio-8080-exec-5] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:37:23.392 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:37:24.845 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 06:42:58.451 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 06:43:14.315 [restartedMain] RnpApplication - Started RnpApplication in 21.289 seconds (JVM running for 24.088)
+[INFO ] 2018-12-10 06:43:26.579 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:43:27.464 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:43:27.511 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:43:28.626 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 06:44:30.274 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 06:44:44.518 [restartedMain] RnpApplication - Started RnpApplication in 19.394 seconds (JVM running for 23.763)
+[INFO ] 2018-12-10 06:44:52.987 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:44:53.790 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:44:53.834 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:44:55.052 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 06:49:13.510 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 06:49:28.332 [restartedMain] RnpApplication - Started RnpApplication in 20.77 seconds (JVM running for 24.134)
+[INFO ] 2018-12-10 06:49:41.761 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:49:42.648 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:49:42.679 [http-nio-8080-exec-5] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:49:43.834 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 06:52:38.618 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 06:52:52.919 [restartedMain] RnpApplication - Started RnpApplication in 19.905 seconds (JVM running for 22.815)
+[INFO ] 2018-12-10 06:52:53.949 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:52:55.077 [http-nio-8080-exec-3] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:52:55.115 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:52:56.196 [http-nio-8080-exec-7] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 06:54:05.291 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 06:54:21.169 [restartedMain] RnpApplication - Started RnpApplication in 21.714 seconds (JVM running for 24.603)
+[INFO ] 2018-12-10 06:54:22.744 [http-nio-8080-exec-1] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:54:23.861 [http-nio-8080-exec-3] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:54:23.894 [http-nio-8080-exec-7] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:54:25.030 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 06:55:23.328 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 06:55:38.336 [restartedMain] RnpApplication - Started RnpApplication in 21.02 seconds (JVM running for 24.096)
+[INFO ] 2018-12-10 06:55:46.250 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:55:47.169 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:55:47.207 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 06:55:48.528 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:00:47.485 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:01:01.585 [restartedMain] RnpApplication - Started RnpApplication in 19.747 seconds (JVM running for 23.269)
+[INFO ] 2018-12-10 07:01:03.625 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:01:04.447 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:01:04.490 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:01:05.585 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:01:41.592 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:01:55.526 [restartedMain] RnpApplication - Started RnpApplication in 19.238 seconds (JVM running for 22.109)
+[INFO ] 2018-12-10 07:02:15.722 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:02:16.618 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:02:16.653 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:02:17.739 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:09:41.211 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:09:55.822 [restartedMain] RnpApplication - Started RnpApplication in 20.103 seconds (JVM running for 23.654)
+[INFO ] 2018-12-10 07:09:57.693 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:09:58.851 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:09:58.888 [http-nio-8080-exec-5] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:10:00.644 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:10:54.173 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:11:07.161 [restartedMain] RnpApplication - Started RnpApplication in 18.388 seconds (JVM running for 20.956)
+[INFO ] 2018-12-10 07:11:11.498 [http-nio-8080-exec-10] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:11:12.503 [http-nio-8080-exec-7] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:11:12.536 [http-nio-8080-exec-5] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:11:13.501 [http-nio-8080-exec-3] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:12:08.369 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:12:23.239 [restartedMain] RnpApplication - Started RnpApplication in 20.744 seconds (JVM running for 23.7)
+[INFO ] 2018-12-10 07:12:23.491 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:12:25.101 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:12:25.134 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:12:26.338 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:15:14.008 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:15:27.176 [restartedMain] RnpApplication - Started RnpApplication in 17.931 seconds (JVM running for 20.82)
+[INFO ] 2018-12-10 07:16:04.990 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:16:05.826 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:16:05.873 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:16:06.809 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:19:49.650 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:20:02.963 [restartedMain] RnpApplication - Started RnpApplication in 18.293 seconds (JVM running for 21.057)
+[INFO ] 2018-12-10 07:20:03.340 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:20:04.704 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:20:04.739 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:20:06.014 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:21:43.300 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:23:29.494 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:23:43.556 [restartedMain] RnpApplication - Started RnpApplication in 19.869 seconds (JVM running for 23.291)
+[INFO ] 2018-12-10 07:23:43.913 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:23:45.275 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:23:45.319 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:23:46.842 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:25:52.577 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:26:07.234 [restartedMain] RnpApplication - Started RnpApplication in 19.914 seconds (JVM running for 22.715)
+[INFO ] 2018-12-10 07:26:27.000 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:26:27.924 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:26:27.960 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:26:29.019 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:29:48.663 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:30:03.576 [restartedMain] RnpApplication - Started RnpApplication in 20.632 seconds (JVM running for 23.522)
+[INFO ] 2018-12-10 07:30:05.886 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:30:06.745 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:30:06.783 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:30:08.326 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:30:17.693 [http-nio-8080-exec-1] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:30:51.354 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:31:04.815 [restartedMain] RnpApplication - Started RnpApplication in 18.703 seconds (JVM running for 21.442)
+[INFO ] 2018-12-10 07:31:16.946 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:31:17.944 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:31:17.982 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:31:18.968 [http-nio-8080-exec-9] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:31:52.434 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:32:06.260 [restartedMain] RnpApplication - Started RnpApplication in 19.079 seconds (JVM running for 21.853)
+[INFO ] 2018-12-10 07:32:15.733 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:32:16.489 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:32:16.525 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:32:17.844 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:33:35.595 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:33:50.421 [restartedMain] RnpApplication - Started RnpApplication in 20.553 seconds (JVM running for 24.57)
+[INFO ] 2018-12-10 07:34:14.245 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:34:15.133 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:34:15.167 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:34:16.214 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
+[INFO ] 2018-12-10 07:38:47.604 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-10 07:39:01.231 [restartedMain] RnpApplication - Started RnpApplication in 18.956 seconds (JVM running for 22.486)
+[INFO ] 2018-12-10 07:40:16.673 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:40:17.925 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:40:17.985 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-10 07:40:25.827 [http-nio-8080-exec-8] AspectController - AuthController.probandoPgFunctionDemo(..) method called.
