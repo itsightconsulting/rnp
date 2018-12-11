@@ -63,7 +63,8 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
         addingToContextSession();
         addingInitUsers();
         creatingFileDirectories();
-        registroPais();
+        actualizarPais();
+        //        registroPais();
 //        eliminar();
 //        buscar();   
 //        sumar();
@@ -111,6 +112,23 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
 		}
     	
     }
+
+    public void actualizarPais() {
+    	   
+    	try {
+		
+    		
+    		System.out.println("__INICIA__");
+    		
+        	coPaisRepository.updatePais(14, "Japon");
+        	
+		} catch (Exception e) {
+			System.out.println("__ERROR__");
+			e.printStackTrace();
+		}
+    	
+    }
+
     
 //    public CoPais buscar() {
 ////    	CoPais co = new CoPais();

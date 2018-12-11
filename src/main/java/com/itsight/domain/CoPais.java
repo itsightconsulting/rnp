@@ -22,6 +22,15 @@ import lombok.Data;
           @StoredProcedureParameter(mode=ParameterMode.IN, name="descripcion", type=String.class)
 //          @StoredProcedureParameter(mode=ParameterMode.OUT, name="outputParam", type=String.class)
     }),
+    @NamedStoredProcedureQuery(
+            name = "sp_update_pais",
+            procedureName = "[sp_updatePais]",
+            parameters = {
+              @StoredProcedureParameter(mode=ParameterMode.IN, name="codPais", type=Integer.class),
+              @StoredProcedureParameter(mode=ParameterMode.IN, name="descripcion", type=String.class)
+
+              //              @StoredProcedureParameter(mode=ParameterMode.OUT, name="outputParam", type=String.class)
+    }),
 })
 @Data
 //@Table(name = "CoPais")

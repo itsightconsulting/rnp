@@ -20,6 +20,11 @@ public interface CoPaisRepository extends JpaRepository<CoPais, Integer>{
     @Procedure(name = "sp_insert_pais")
     void insertPais(@Param("descripcion") String descripcion);
 
+    @Transactional
+    @Procedure(name = "sp_update_pais")
+    void updatePais(@Param("codPais") Integer codPais, @Param("descripcion") String descripcion);
+
+    
 //	CoPais findByid(int id);
 //    @Procedure(name = "sp_insertarPais")
 //    void procedureName(@Param("Descripcion") String inputParam1);
