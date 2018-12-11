@@ -14,18 +14,17 @@ import javax.persistence.Table;
 import lombok.Data;
 
 @Entity
-//@NamedStoredProcedureQueries({
-//    @NamedStoredProcedureQuery(
-//        name = "sp_insertarPais",
-//        procedureName = "PromartCopaCapaBD.sp_insertarPais",
-//        parameters = {
-//          @StoredProcedureParameter(mode=ParameterMode.IN, name="descripcion", type=String.class)
-////          @StoredProcedureParameter(mode=ParameterMode.IN, name="inputParam2", type=String.class),
-////          @StoredProcedureParameter(mode=ParameterMode.OUT, name="outputParam", type=String.class)
-//    })
-//})
+@NamedStoredProcedureQueries({
+    @NamedStoredProcedureQuery(
+        name = "sp_insert_pais",
+        procedureName = "sp_insertarPais",
+        parameters = {
+          @StoredProcedureParameter(mode=ParameterMode.IN, name="descripcion", type=String.class)
+//          @StoredProcedureParameter(mode=ParameterMode.OUT, name="outputParam", type=String.class)
+    }),
+})
 @Data
-@Table(name = "CoPais")
+//@Table(name = "CoPais")
 public class CoPais {
 
 	@Id

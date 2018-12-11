@@ -11,6 +11,8 @@ import javax.servlet.ServletContext;
 import com.itsight.domain.*;
 import com.itsight.domain.oauth.OauthClientDetails;
 import com.itsight.repository.Base01aRepository;
+import com.itsight.repository.CardRepository;
+import com.itsight.repository.CoPaisRepository;
 import com.itsight.repository.OauthClientDetailsRepository;
 import com.itsight.repository.SecurityUserRepository;
 import com.itsight.service.CardService;
@@ -44,6 +46,12 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private ServletContext context;
 
+    @Autowired
+    private CardRepository cardRepository;
+
+    @Autowired
+    private CoPaisRepository coPaisRepository;
+    
     @Value("${main.repository}")
     private String mainRoute;
 
@@ -55,10 +63,11 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
         addingToContextSession();
         addingInitUsers();
         creatingFileDirectories();
-//        registroPais();
+        registroPais();
 //        eliminar();
 //        buscar();   
-        }
+//        sumar();
+    }
 
     public void addingDemoCard(){
         /*if (cardService.findOne(1) == null) {
@@ -66,6 +75,20 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
         }*/
     }
 
+    public void sumar() {
+    	
+    	int resultado;
+    	try {
+			
+    		resultado = cardRepository.getSumaDemo(2, 3);
+        	System.out.println("RESPUESTA ES: "+resultado);
+    		
+		} catch (Exception e) {
+			e.printStackTrace();// TODO: handle exception
+		}
+    	
+    }
+    
     public void addingToContextSession() {
         context.setAttribute("version", currentVersion);
     }
@@ -77,9 +100,10 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
    
     	try {
 		
+    		
     		System.out.println("__INICIA__");
     		
-        	coPaisService.registrar("China");
+        	coPaisRepository.insertPais("Mexico");
         	
 		} catch (Exception e) {
 			System.out.println("__ERROR__");

@@ -19,6 +19,7 @@ public interface CardRepository extends JpaRepository<Card,Integer> {
     @Procedure(name = "update_card")
     Integer updateWithSp(@Param("id") Integer id, @Param("description") String description);
 
+    @Transactional
     @Procedure(name = "sp_suma_demo")
     Integer getSumaDemo(@Param("numOne") Integer numOne, @Param("numTwo") Integer numTwo);
 
