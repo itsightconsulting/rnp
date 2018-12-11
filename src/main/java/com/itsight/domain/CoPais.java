@@ -5,11 +5,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
+import javax.persistence.Table;
 
 import lombok.Data;
 
 @Entity
+//@NamedStoredProcedureQueries({
+//    @NamedStoredProcedureQuery(
+//        name = "sp_insertarPais",
+//        procedureName = "PromartCopaCapaBD.sp_insertarPais",
+//        parameters = {
+//          @StoredProcedureParameter(mode=ParameterMode.IN, name="descripcion", type=String.class)
+////          @StoredProcedureParameter(mode=ParameterMode.IN, name="inputParam2", type=String.class),
+////          @StoredProcedureParameter(mode=ParameterMode.OUT, name="outputParam", type=String.class)
+//    })
+//})
 @Data
+@Table(name = "CoPais")
 public class CoPais {
 
 	@Id
@@ -18,5 +34,5 @@ public class CoPais {
 	private Integer codPais;
 	
 	@Column(name = "descripcion")
-	private String Descripcion;
+	private String descripcion;
 }

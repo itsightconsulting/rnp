@@ -1,14 +1,13 @@
 package com.itsight.component;
 
-import com.itsight.domain.Base01a;
-import com.itsight.domain.SecurityPrivilege;
-import com.itsight.domain.SecurityRole;
-import com.itsight.domain.SecurityUser;
-import com.itsight.domain.oauth.OauthClientDetails;
-import com.itsight.repository.Base01aRepository;
-import com.itsight.repository.OauthClientDetailsRepository;
-import com.itsight.repository.SecurityUserRepository;
-import com.itsight.util.Utilitarios;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
@@ -16,11 +15,15 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletContext;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import com.itsight.domain.CoPais;
+import com.itsight.domain.SecurityPrivilege;
+import com.itsight.domain.SecurityRole;
+import com.itsight.domain.SecurityUser;
+import com.itsight.domain.oauth.OauthClientDetails;
+import com.itsight.repository.OauthClientDetailsRepository;
+import com.itsight.repository.SecurityUserRepository;
+import com.itsight.service.CoPaisService;
+import com.itsight.util.Utilitarios;
 
 @Component
 public class StartUpListener implements ApplicationListener<ContextRefreshedEvent> {
@@ -45,11 +48,53 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
         addingToContextSession();
         addingInitUsers();
         creatingFileDirectories();
-    }
+//        registroPais();
+//        eliminar();
+//        buscar();   
+        }
 
     public void addingToContextSession() {
         context.setAttribute("version", currentVersion);
     }
+    
+    @Autowired
+    private CoPaisService coPaisService;
+    
+    public void registroPais() {
+   
+    	try {
+		
+    		System.out.println("__INICIA__");
+    		
+        	coPaisService.registrar("China");
+        	
+		} catch (Exception e) {
+			System.out.println("__ERROR__");
+			e.printStackTrace();
+		}
+    	
+    }
+    
+//    public CoPais buscar() {
+////    	CoPais co = new CoPais();
+//    	try {
+//			System.out.println("LISTAR");
+//    		CoPais co = coPaisService.buscar(2);
+//    		System.out.println("DATO"+co.getDescripcion());
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//    	return null;
+//    }
+    
+    public void eliminar() {
+		try {
+			System.out.println("ELIMINAR");
+			coPaisService.eliminar(11);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
     public void addingInitUsers() {
         SecurityUser securityUser = userRepository.findByUsername("rnp_admin");
