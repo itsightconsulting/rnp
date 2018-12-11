@@ -47,4 +47,8 @@ public class CardServiceImpl extends BaseServiceImpl<CardRepository> implements 
         return repository.findAll();
     }
 
+    @Override
+    public Integer getSimpleSumaSp(int n1, int n2) {
+        return repository.getSumaDemo(n1, n2);
+    }
 }

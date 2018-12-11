@@ -1,8 +1,10 @@
 package com.itsight.controller;
 
 import com.itsight.constants.ViewConstant;
+import com.itsight.repository.CardRepository;
 import com.itsight.repository.OauthApprovalsRepository;
 import com.itsight.repository.OauthClientDetailsRepository;
+import com.itsight.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
@@ -40,6 +42,12 @@ public class AuthController {
 
     @Autowired
     private OauthApprovalsRepository oauthApprovalsRepository;
+
+/*    @Autowired
+    private CardRepository cardRepository;*/
+
+    @Autowired
+    private CardService cardService;
 
     @Autowired
     private DataSource dataSource;
@@ -102,12 +110,13 @@ public class AuthController {
     }
 
     @GetMapping(value = "/session-multiple")
-    public String expiredBySessionMultiple(Model model) {
+    public String expiredBySessionMultiple() {
         return "lock";
     }
 
     /* //-------------- LA FUNCTION DEMO -------------------------------
-    CREATE OR REPLACE FUNCTION update_card(p_id INT, p_description VARCHAR(255))
+
+    CREATE OR REPLACE FUNCTION update_card(p_id INT, p_description VARCHAR(255), OUT retrn_id INT)
       RETURNS INT
     LANGUAGE plpgsql
     AS $$
@@ -115,24 +124,25 @@ public class AuthController {
       IF p_id IS NULL
       THEN
         INSERT INTO card (card_id, description) VALUES (p_id, p_description);
+        retrn_id=p_id;
       ELSE
         UPDATE card
         SET description = p_description
         WHERE card_id = p_id;
+        retrn_id=p_id;
       END IF;
-      RETURN p_id;
     END;
     $$;
-     */
-    @GetMapping(value = "/function/demo/{id}/{descripcion}")//Para ejecutar cualquier peticion http debes loguearte primero
-    public @ResponseBody String probandoPgFunctionDemo(@PathVariable(name = "id") String id, @PathVariable(name = "descripcion") String descripcion) {
-        final SimpleJdbcCall updateEmployeeCall = new SimpleJdbcCall(dataSource).withFunctionName("update_card");
-        final Map<String, Object> params = new HashMap<>();
-        params.put("p_id", id);
-        params.put("p_description", descripcion);
 
-        final Map<String, Object> result = updateEmployeeCall.execute(params);
-        System.out.println(result.get("returnvalue"));
-        return "1";//1:Éxito
+     */
+    /*@GetMapping(value = "/function/demo/{id}/{descripcion}")//Para ejecutar cualquier peticion http debes loguearte primero
+    public @ResponseBody Integer probandoPgFunctionDemo(@PathVariable(name = "id") String id, @PathVariable(name = "descripcion") String descripcion) {
+        Integer output = cardRepository.updateWithSp(Integer.parseInt(id), descripcion);
+        return output;
+    }*/
+
+    @GetMapping(value = "/get/suma/{num1}/{num2}")//Para ejecutar cualquier peticion http debes loguearte primero
+    public @ResponseBody Integer getSimpleSumaFromSqlSeverStoredProcedure(@PathVariable(name = "num1") Integer num1, @PathVariable(name = "num2") Integer num2) {
+        return cardService.getSimpleSumaSp(num1, num2);
     }
 }

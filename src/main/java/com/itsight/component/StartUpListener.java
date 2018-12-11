@@ -8,6 +8,13 @@ import java.util.Set;
 
 import javax.servlet.ServletContext;
 
+import com.itsight.domain.*;
+import com.itsight.domain.oauth.OauthClientDetails;
+import com.itsight.repository.Base01aRepository;
+import com.itsight.repository.OauthClientDetailsRepository;
+import com.itsight.repository.SecurityUserRepository;
+import com.itsight.service.CardService;
+import com.itsight.util.Utilitarios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
@@ -44,7 +51,7 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-
+        addingDemoCard();
         addingToContextSession();
         addingInitUsers();
         creatingFileDirectories();
@@ -52,6 +59,12 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
 //        eliminar();
 //        buscar();   
         }
+
+    public void addingDemoCard(){
+        /*if (cardService.findOne(1) == null) {
+            cardService.save(new Card("Demo"));
+        }*/
+    }
 
     public void addingToContextSession() {
         context.setAttribute("version", currentVersion);
