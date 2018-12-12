@@ -16,7 +16,7 @@ spring:
         order_inserts: true
         order_updates: true
         session_factory:
-          interceptor: com.itsight.interceptor.EntityInterceptorImpl
+          interceptor: pe.gob.osce.rnp.seg.interceptor.EntityInterceptorImpl
         jdbc:
           batch_size: 400
           batch_versioned_data: true

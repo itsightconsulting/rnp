@@ -28,11 +28,11 @@
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="com.itsight" level="info" additivity="false">
+        <Logger name="pe.gob.osce.rnp.seg" level="info" additivity="false">
             <AppenderRef ref="AppFileAppender"/>
             <AppenderRef ref="ConsoleAppender"/>
         </Logger>
-        <Logger name="com.itsight.controller" level="warn" additivity="false">
+        <Logger name="pe.gob.osce.rnp.seg.controller" level="warn" additivity="false">
            <AppenderRef ref="AppFileAppenderWarn"/>
         </Logger>
         <Root level="info">
