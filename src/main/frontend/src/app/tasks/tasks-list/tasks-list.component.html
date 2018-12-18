@@ -6,7 +6,7 @@
                     (change)="onTaskChange($event, task)"
                     [checked]="task.completed"/>
             <span ngClass="{{task.completed ? 'name completed' : 'name'}}">{{task.name}}</span>
-            <span class="label {{getDueDateLabel(task)}} float-right">{{task.dueDate}}</span>
+            <span class="label {{getDueDateLabel(task)}} float-right">{{task.dueDate.year +'/'+task.dueDate.monthValue+'/'+ task.dueDate.dayOfMonth}}</span>
         </div>
     </li>
 </ul>

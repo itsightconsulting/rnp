@@ -63,6 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/session-expirada").permitAll()
                 .antMatchers("/session-multiple").permitAll()
                 .antMatchers("/vista/**").permitAll()
+                .antMatchers("/api/**").permitAll()
                 .antMatchers("/oauth/token**").permitAll();
 /*
                 .antMatchers("/cuy/**").permitAll();
