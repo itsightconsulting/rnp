@@ -754,3 +754,172 @@
 [INFO ] 2018-12-16 23:66:10.370 [restartedMain] RnpApplication - Started RnpApplication in 51.499 seconds (JVM running for 55.346)
 [INFO ] 2018-12-16 23:76:10.370 [restartedMain] RnpApplication - Started RnpApplication in 51.499 seconds (JVM running for 55.346)
 [INFO ] 2018-12-16 23:86:10.370 [restartedMain] RnpApplication - Started RnpApplication in 51.499 seconds (JVM running for 55.346)
+[INFO ] 2018-12-17 12:36:23.455 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-17 12:38:03.896 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 12:39:11.532 [restartedMain] RnpApplication - Started RnpApplication in 77.384 seconds (JVM running for 86.052)
+[INFO ] 2018-12-17 12:39:18.870 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 12:40:53.353 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 12:41:47.684 [restartedMain] RnpApplication - Started RnpApplication in 67.774 seconds (JVM running for 76.821)
+[INFO ] 2018-12-17 12:41:55.405 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 12:49:02.464 [http-nio-8080-exec-1] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 12:56:44.620 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 12:57:05.609 [restartedMain] RnpApplication - Started RnpApplication in 23.942 seconds (JVM running for 28.162)
+[INFO ] 2018-12-17 12:57:07.064 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 12:57:48.909 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 12:58:04.029 [restartedMain] RnpApplication - Started RnpApplication in 17.504 seconds (JVM running for 20.433)
+[INFO ] 2018-12-17 12:59:10.885 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 12:59:27.199 [restartedMain] RnpApplication - Started RnpApplication in 19.349 seconds (JVM running for 22.299)
+[INFO ] 2018-12-17 12:59:28.570 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 13:15:05.139 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 13:15:22.283 [restartedMain] RnpApplication - Started RnpApplication in 20.078 seconds (JVM running for 23.314)
+[INFO ] 2018-12-17 14:07:43.496 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 14:08:06.510 [restartedMain] RnpApplication - Started RnpApplication in 26.646 seconds (JVM running for 29.613)
+[INFO ] 2018-12-17 14:08:43.731 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 14:08:57.889 [restartedMain] RnpApplication - Started RnpApplication in 16.909 seconds (JVM running for 20.068)
+[INFO ] 2018-12-17 14:10:13.700 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 14:10:29.156 [restartedMain] RnpApplication - Started RnpApplication in 18.303 seconds (JVM running for 20.856)
+[INFO ] 2018-12-17 14:10:55.331 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 14:11:10.272 [restartedMain] RnpApplication - Started RnpApplication in 17.512 seconds (JVM running for 20.027)
+[INFO ] 2018-12-17 14:12:27.975 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 14:12:44.337 [restartedMain] RnpApplication - Started RnpApplication in 19.421 seconds (JVM running for 22.095)
+[INFO ] 2018-12-17 14:15:39.339 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 14:17:40.027 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 14:20:17.010 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 14:37:17.969 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 14:37:51.396 [restartedMain] RnpApplication - Started RnpApplication in 40.18 seconds (JVM running for 44.165)
+[INFO ] 2018-12-17 14:53:04.790 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 14:54:31.969 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 14:56:08.625 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 14:56:22.904 [restartedMain] RnpApplication - Started RnpApplication in 17.124 seconds (JVM running for 19.661)
+[INFO ] 2018-12-17 14:59:02.561 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 14:59:58.953 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:00:31.464 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:04:14.195 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:17:14.227 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:19:05.830 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:19:19.679 [restartedMain] RnpApplication - Started RnpApplication in 16.135 seconds (JVM running for 18.548)
+[INFO ] 2018-12-17 15:19:57.435 [http-nio-8080-exec-2] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 15:19:59.633 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:19:59.648 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:20:04.058 [http-nio-8080-exec-7] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:20:04.718 [http-nio-8080-exec-8] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:20:04.926 [http-nio-8080-exec-10] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:20:04.942 [http-nio-8080-exec-1] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:20:36.472 [http-nio-8080-exec-3] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:20:36.584 [http-nio-8080-exec-5] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:20:36.605 [http-nio-8080-exec-7] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:20:49.942 [http-nio-8080-exec-8] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:20:50.090 [http-nio-8080-exec-10] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:20:50.104 [http-nio-8080-exec-1] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:21:07.219 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:21:07.374 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:21:07.389 [http-nio-8080-exec-8] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:21:37.595 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:21:52.325 [restartedMain] RnpApplication - Started RnpApplication in 17.438 seconds (JVM running for 20.103)
+[INFO ] 2018-12-17 15:21:59.153 [http-nio-8080-exec-1] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:22:00.156 [http-nio-8080-exec-3] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:22:00.175 [http-nio-8080-exec-5] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:22:07.630 [http-nio-8080-exec-7] SecurityUserServiceImpl - > Excepción | (?): INFO@RUNFIT.PE
+[INFO ] 2018-12-17 15:22:07.820 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:22:07.918 [http-nio-8080-exec-8] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:22:07.936 [http-nio-8080-exec-1] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:22:17.220 [http-nio-8080-exec-4] AspectController - AuthController.root(..) method called.
+[INFO ] 2018-12-17 15:22:21.492 [http-nio-8080-exec-6] AspectController - AuthController.root(..) method called.
+[INFO ] 2018-12-17 15:22:25.781 [http-nio-8080-exec-8] AspectController - AuthController.root(..) method called.
+[INFO ] 2018-12-17 15:25:22.021 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:29:23.996 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:33:41.574 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:40:14.655 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:41:42.684 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:42:00.470 [restartedMain] RnpApplication - Started RnpApplication in 20.279 seconds (JVM running for 23.158)
+[INFO ] 2018-12-17 15:42:28.769 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:42:59.795 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:43:17.286 [restartedMain] RnpApplication - Started RnpApplication in 19.79 seconds (JVM running for 22.264)
+[INFO ] 2018-12-17 15:43:33.226 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:45:35.221 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:45:51.255 [restartedMain] RnpApplication - Started RnpApplication in 18.242 seconds (JVM running for 21.164)
+[INFO ] 2018-12-17 15:46:00.664 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:46:01.513 [http-nio-8080-exec-5] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:46:01.541 [http-nio-8080-exec-9] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:46:18.977 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:47:49.507 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:50:22.364 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:50:52.567 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:51:25.750 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:52:06.374 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:52:43.654 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:53:10.400 [restartedMain] RnpApplication - Started RnpApplication in 30.282 seconds (JVM running for 33.036)
+[INFO ] 2018-12-17 15:54:06.257 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:54:43.572 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:55:09.461 [restartedMain] RnpApplication - Started RnpApplication in 28.525 seconds (JVM running for 31.27)
+[INFO ] 2018-12-17 15:55:24.968 [http-nio-8080-exec-1] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:55:25.622 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:55:25.631 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:55:31.668 [http-nio-8080-exec-3] AspectController - AuthController.root(..) method called.
+[INFO ] 2018-12-17 15:55:41.325 [http-nio-8080-exec-10] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:56:16.018 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 15:56:52.166 [restartedMain] RnpApplication - Started RnpApplication in 39.042 seconds (JVM running for 41.542)
+[INFO ] 2018-12-17 15:56:53.799 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:56:54.572 [http-nio-8080-exec-3] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:56:54.591 [http-nio-8080-exec-5] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:57:18.775 [http-nio-8080-exec-7] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 15:57:18.970 [http-nio-8080-exec-10] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:57:18.992 [http-nio-8080-exec-1] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:57:29.761 [http-nio-8080-exec-4] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 15:57:29.892 [http-nio-8080-exec-7] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:57:29.911 [http-nio-8080-exec-9] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:57:34.720 [http-nio-8080-exec-10] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:57:34.826 [http-nio-8080-exec-1] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:57:34.843 [http-nio-8080-exec-4] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 15:57:38.164 [http-nio-8080-exec-7] AspectController - AuthController.root(..) method called.
+[INFO ] 2018-12-17 15:57:46.895 [http-nio-8080-exec-9] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 15:59:20.013 [http-nio-8080-exec-4] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 15:59:20.738 [http-nio-8080-exec-6] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 15:59:21.219 [http-nio-8080-exec-8] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 16:04:12.805 [http-nio-8080-exec-1] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 16:04:13.966 [http-nio-8080-exec-4] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 16:04:17.018 [http-nio-8080-exec-6] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 16:05:49.614 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 16:06:32.962 [restartedMain] RnpApplication - Started RnpApplication in 46.082 seconds (JVM running for 48.623)
+[INFO ] 2018-12-17 16:06:41.657 [http-nio-8080-exec-1] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 16:06:44.253 [http-nio-8080-exec-3] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 16:07:18.271 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 16:08:03.404 [restartedMain] RnpApplication - Started RnpApplication in 47.639 seconds (JVM running for 50.135)
+[INFO ] 2018-12-17 16:11:39.876 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 16:12:18.823 [restartedMain] RnpApplication - Started RnpApplication in 41.268 seconds (JVM running for 43.72)
+[INFO ] 2018-12-17 16:12:35.024 [http-nio-8080-exec-2] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 16:12:57.098 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 16:13:31.074 [restartedMain] RnpApplication - Started RnpApplication in 36.318 seconds (JVM running for 39.453)
+[INFO ] 2018-12-17 16:13:38.259 [http-nio-8080-exec-1] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 16:13:43.692 [http-nio-8080-exec-3] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 16:15:59.156 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 16:17:24.772 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 16:17:57.577 [restartedMain] RnpApplication - Started RnpApplication in 35.424 seconds (JVM running for 37.99)
+[INFO ] 2018-12-17 16:18:08.565 [http-nio-8080-exec-1] AspectController - SunatSsoController.obtenerVistaSsoDeSunat() method called.
+[INFO ] 2018-12-17 16:18:49.364 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 16:19:36.698 [restartedMain] RnpApplication - Started RnpApplication in 50.361 seconds (JVM running for 53.868)
+[INFO ] 2018-12-17 16:20:39.255 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 16:21:11.582 [restartedMain] RnpApplication - Started RnpApplication in 35.179 seconds (JVM running for 37.946)
+[INFO ] 2018-12-17 16:21:17.233 [http-nio-8080-exec-1] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 16:21:18.245 [http-nio-8080-exec-6] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 16:21:18.968 [http-nio-8080-exec-9] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 16:21:19.271 [http-nio-8080-exec-3] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 16:21:20.060 [http-nio-8080-exec-5] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 16:21:20.390 [http-nio-8080-exec-8] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 16:21:20.712 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 17:00:55.526 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 17:03:46.827 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 17:09:43.695 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 17:13:46.999 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 18:51:11.123 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 18:52:09.121 [restartedMain] RnpApplication - Started RnpApplication in 63.942 seconds (JVM running for 69.767)
+[INFO ] 2018-12-17 18:52:12.857 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 18:52:48.602 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 18:53:25.173 [restartedMain] RnpApplication - Started RnpApplication in 40.525 seconds (JVM running for 43.632)
+[INFO ] 2018-12-17 18:56:59.697 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 18:57:48.070 [restartedMain] RnpApplication - Started RnpApplication in 52.794 seconds (JVM running for 56.335)
+[INFO ] 2018-12-17 18:59:07.608 [http-nio-8080-exec-5] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 18:59:17.422 [http-nio-8080-exec-7] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-17 19:04:19.885 [http-nio-8080-exec-1] AspectController - AuthController.root(..) method called.
+[INFO ] 2018-12-17 19:10:23.943 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-17 19:10:56.890 [restartedMain] RnpApplication - Started RnpApplication in 37.863 seconds (JVM running for 43.336)

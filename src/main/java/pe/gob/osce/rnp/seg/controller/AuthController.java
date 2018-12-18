@@ -1,12 +1,5 @@
 package pe.gob.osce.rnp.seg.controller;
 
-import static java.util.Arrays.asList;
-
-import java.util.Collection;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,19 +9,18 @@ import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
 import pe.gob.osce.rnp.seg.constants.ViewConstant;
 import pe.gob.osce.rnp.seg.dao.OauthApprovalsRepository;
 import pe.gob.osce.rnp.seg.dao.OauthClientDetailsRepository;
 import pe.gob.osce.rnp.seg.svc.CardService;
+
+import javax.sql.DataSource;
+import java.util.Collection;
+import java.util.Map;
+
+import static java.util.Arrays.asList;
 
 @Controller
 public class AuthController {
