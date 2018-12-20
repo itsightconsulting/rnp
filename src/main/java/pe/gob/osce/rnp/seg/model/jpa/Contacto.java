@@ -7,6 +7,18 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+
+//@NamedStoredProcedureQueries({
+//    @NamedStoredProcedureQuery(
+//        name = "sp_obtenercorreousuario",
+//        procedureName = "spobtenercorreousuario",
+//        parameters = {
+//          @StoredProcedureParameter(mode=ParameterMode.IN, name="C_DES_RUC", type=String.class),
+//          @StoredProcedureParameter(mode=ParameterMode.OUT, name="RESPUESTA", type=String.class),
+//          @StoredProcedureParameter(mode=ParameterMode.OUT, name="MENSAJE", type=String.class)
+//    }),
+//})
+
 @Data
 public class Contacto {
 

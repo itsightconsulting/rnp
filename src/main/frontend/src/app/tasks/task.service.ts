@@ -1,14 +1,18 @@
-import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
-    providedIn: "root"
+    providedIn: 'root'
 })
-export class TaskService{
+export class TaskService {
 
-    constructor(private http: HttpClient){}
+    constructor(private http: HttpClient) {}
 
-    getTask(){
-        return this.http.get("/api/tasks");
+    getTask() {
+        return this.http.get('/api/tasks');
+    }
+
+    consultar() {
+        return this.http.get('/api/listar');
     }
 }

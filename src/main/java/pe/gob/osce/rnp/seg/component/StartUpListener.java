@@ -15,9 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import pe.gob.osce.rnp.seg.dao.CardRepository;
+import pe.gob.osce.rnp.seg.dao.ClaveAccesoRepository;
 import pe.gob.osce.rnp.seg.dao.CoPaisRepository;
 import pe.gob.osce.rnp.seg.dao.OauthClientDetailsRepository;
 import pe.gob.osce.rnp.seg.dao.SecurityUserRepository;
+import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityPrivilege;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityRole;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityUser;
@@ -54,8 +56,8 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
         addingToContextSession();
         addingInitUsers();
         creatingFileDirectories();
-        actualizarPais();
-        //        registroPais();
+//        actualizarPais();
+        registroPais();
 //        eliminar();
 //        buscar();   
 //        sumar();
@@ -91,17 +93,27 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
     public void registroPais() {
    
     	try {
-		
-    		
+
     		System.out.println("__INICIA__");
     		
-        	coPaisRepository.insertPais("Mexico");
+        	coPaisService.registrar("Belgica");
         	
 		} catch (Exception e) {
 			System.out.println("__ERROR__");
 			e.printStackTrace();
 		}
-    	
+    	 
+    }
+    
+    @Autowired
+    private ClaveAccesoRepository claveAccesoRepository;
+    
+    private void updateUsuario() {
+    	try {
+ 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 
     public void actualizarPais() {
@@ -136,7 +148,7 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
     public void eliminar() {
 		try {
 			System.out.println("ELIMINAR");
-			coPaisService.eliminar(11);
+			coPaisService.eliminar(15);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -949,3 +949,44 @@
 [INFO ] 2018-12-18 18:42:06.485 [http-nio-8080-exec-7] AspectController - TaskController.retornarTodasLasTareas() method called.
 [INFO ] 2018-12-18 18:42:20.765 [http-nio-8080-exec-9] AspectController - TaskController.retornarTodasLasTareas() method called.
 [INFO ] 2018-12-18 18:42:35.287 [http-nio-8080-exec-10] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-19 10:58:58.689 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-19 10:59:54.246 [restartedMain] RnpApplication - Started RnpApplication in 56.465 seconds (JVM running for 57.777)
+[INFO ] 2018-12-19 11:08:36.815 [http-nio-8080-exec-1] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-19 11:08:49.187 [http-nio-8080-exec-2] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-19 11:14:11.512 [http-nio-8080-exec-3] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-19 11:14:20.450 [http-nio-8080-exec-4] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-19 11:14:33.707 [http-nio-8080-exec-5] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-19 11:15:19.742 [http-nio-8080-exec-6] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-19 11:15:29.919 [http-nio-8080-exec-7] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-19 15:27:07.380 [http-nio-8080-exec-8] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-19 15:27:09.378 [http-nio-8080-exec-9] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-19 16:03:53.470 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-19 16:04:16.349 [restartedMain] RnpApplication - Started RnpApplication in 23.694 seconds (JVM running for 18319.387)
+[INFO ] 2018-12-19 16:07:39.271 [http-nio-8080-exec-1] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-20 15:29:40.010 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 15:30:47.411 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 15:33:46.988 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 15:34:22.084 [restartedMain] RnpApplication - Started RnpApplication in 36.025 seconds (JVM running for 37.142)
+[INFO ] 2018-12-20 15:37:08.594 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 15:45:03.833 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 15:45:44.429 [restartedMain] RnpApplication - Started RnpApplication in 41.527 seconds (JVM running for 42.49)
+[INFO ] 2018-12-20 15:46:30.354 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 15:47:13.434 [restartedMain] RnpApplication - Started RnpApplication in 43.282 seconds (JVM running for 131.498)
+[INFO ] 2018-12-20 15:49:21.245 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 16:36:23.338 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 16:36:54.098 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 16:58:29.764 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 17:00:29.050 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 17:05:56.946 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 17:10:05.179 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 17:10:20.793 [restartedMain] RnpApplication - Started RnpApplication in 16.511 seconds (JVM running for 17.65)
+[INFO ] 2018-12-20 17:11:22.179 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 17:11:31.579 [restartedMain] RnpApplication - Started RnpApplication in 9.607 seconds (JVM running for 88.431)
+[INFO ] 2018-12-20 17:13:21.625 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 17:13:35.826 [restartedMain] RnpApplication - Started RnpApplication in 15.101 seconds (JVM running for 16.024)
+[INFO ] 2018-12-20 17:15:00.898 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 17:15:18.023 [restartedMain] RnpApplication - Started RnpApplication in 18.156 seconds (JVM running for 19.078)
+[INFO ] 2018-12-20 17:27:37.615 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 17:27:52.952 [restartedMain] RnpApplication - Started RnpApplication in 16.365 seconds (JVM running for 17.329)
+[INFO ] 2018-12-20 17:41:37.017 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-20 17:41:46.489 [restartedMain] RnpApplication - Started RnpApplication in 9.677 seconds (JVM running for 850.885)

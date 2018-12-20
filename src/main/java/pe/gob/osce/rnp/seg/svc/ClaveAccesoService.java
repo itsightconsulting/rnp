@@ -5,4 +5,5 @@ import pe.gob.osce.rnp.seg.model.jpa.ClaveAcceso;
 
 public interface ClaveAccesoService extends BaseService<ClaveAcceso>{
 
+	public String registrar(String string);
 }
