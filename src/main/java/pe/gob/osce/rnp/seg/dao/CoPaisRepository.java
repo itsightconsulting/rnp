@@ -22,7 +22,6 @@ public interface CoPaisRepository extends JpaRepository<CoPais, Integer>{
     @Transactional
     @Procedure(name = "sp_insert_pais")
     StoredProcedureQuery insertPais(@Param("descripcion") String descripcion);
-    
 
     @Transactional
     @Procedure(name = "sp_update_pais")

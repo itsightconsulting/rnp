@@ -79,6 +79,7 @@ public class CoPaisServiceImpl implements CoPaisService{
 	public String registrar(String string) {
 		
 		coPaisRepository.insertPais(string);
+//		Integer res1 = (Integer) proc.getOutputParameterValue("res1");
         return "1";//1:Éxito
 
 		

@@ -5,36 +5,36 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import pe.gob.osce.rnp.seg.dao.Base01Repository;
-import pe.gob.osce.rnp.seg.model.jpa.Base01;
-import pe.gob.osce.rnp.seg.svc.Base01Service;
+import pe.gob.osce.rnp.seg.dao.PrmClaConfiguracionRepository;
+import pe.gob.osce.rnp.seg.model.jpa.PrmClaConfiguracion;
+import pe.gob.osce.rnp.seg.svc.PrmClaConfiguracionService;
 
 @Service
-public class Base01ServiceImpl implements Base01Service{
+public class PrmClaConfiguracionServiceImpl implements PrmClaConfiguracionService{
 
 	@Autowired
-	private Base01Repository base01Repository;
+	private PrmClaConfiguracionRepository prmClaConfiguracionRepository;
 	
 	@Override
-	public Base01 save(Base01 entity) {
+	public PrmClaConfiguracion save(PrmClaConfiguracion entity) {	
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Base01 update(Base01 entity) {
+	public PrmClaConfiguracion update(PrmClaConfiguracion entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Base01 findOne(int id) {
+	public PrmClaConfiguracion findOne(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Base01 findOneWithFT(int id) {
+	public PrmClaConfiguracion findOneWithFT(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -46,19 +46,9 @@ public class Base01ServiceImpl implements Base01Service{
 	}
 
 	@Override
-	public List<Base01> findAll() {
+	public List<PrmClaConfiguracion> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public String obtenerOpciones(String ruc) {
-		
-		base01Repository.obtenerOpciones(ruc);
-		
-		return "1";
-	}
-
-
   
 }

@@ -12,8 +12,8 @@ import pe.gob.osce.rnp.seg.model.jpa.Base01;
 
 public interface Base01Repository extends JpaRepository<Base01, Integer>{
 
-//    @Transactional
-//    @Procedure(name = "sp_obteneropciones")
-//    void obtenerOpciones(@Param("RUC") String ruc);
+    @Transactional
+    @Procedure(name = "sp_obteneropciones")
+    void obtenerOpciones(@Param("RUC") String ruc);
 
 }

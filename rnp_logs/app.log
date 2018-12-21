@@ -990,3 +990,5 @@
 [INFO ] 2018-12-20 17:27:52.952 [restartedMain] RnpApplication - Started RnpApplication in 16.365 seconds (JVM running for 17.329)
 [INFO ] 2018-12-20 17:41:37.017 [restartedMain] RnpApplication - The following profiles are active: devazure
 [INFO ] 2018-12-20 17:41:46.489 [restartedMain] RnpApplication - Started RnpApplication in 9.677 seconds (JVM running for 850.885)
+[INFO ] 2018-12-21 10:17:07.937 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2018-12-21 10:17:32.154 [restartedMain] RnpApplication - Started RnpApplication in 24.437 seconds (JVM running for 60590.775)
