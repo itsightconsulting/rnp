@@ -7,7 +7,7 @@ import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
-
+/**/
 @Service
 public class ProcedureInvoker implements ProcedureInvokerRepository {
     private final EntityManager entityManager;
