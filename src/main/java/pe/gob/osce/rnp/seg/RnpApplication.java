@@ -33,9 +33,9 @@ public class RnpApplication extends SpringBootServletInitializer implements Comm
 
         String[] beanNames = ctx.getBeanDefinitionNames();
         Arrays.sort(beanNames);
-        for (String beanName : beanNames) {
-            System.out.println(beanName);
-        }
+//        for (String beanName : beanNames) {
+//            System.out.println(beanName);
+//        }
     }
 
     @Override
