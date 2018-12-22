@@ -7,7 +7,11 @@ import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
-/**/
+/*INTERACE: PrmConfigurationProcedureInvoker
+ * -> public Mensaje registrarCodVerificacion()
+ * -> public Mensaje actualizarCodVerificacion()
+ * SERVICE: PrmConfigurationProcedureInvokerImpl
+ * */
 @Service
 public class ProcedureInvoker implements ProcedureInvokerRepository {
     private final EntityManager entityManager;
@@ -18,7 +22,7 @@ public class ProcedureInvoker implements ProcedureInvokerRepository {
     }
 
     @Override
-    public Mensaje ejecutarSPDemo(){
+    public Mensaje ejecutarSPDemo(String nombre){
         StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("sp_insertarPais");
 
         // Registrar los parámetros de entrada y salida
@@ -27,7 +31,7 @@ public class ProcedureInvoker implements ProcedureInvokerRepository {
         storedProcedureQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
 
         // Configuramos el valor de entrada
-        storedProcedureQuery.setParameter("descripcion", "value");
+        storedProcedureQuery.setParameter("descripcion", nombre);
 
         // Realizamos la llamada al procedimiento
         storedProcedureQuery.execute();
@@ -36,6 +40,6 @@ public class ProcedureInvoker implements ProcedureInvokerRepository {
         String outputValue1 = (String) storedProcedureQuery.getOutputParameterValue("mensaje");
         String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
         System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2);
-        return new Mensaje();
+        return new Mensaje(outputValue1, outputValue2);
     }
 }

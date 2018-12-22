@@ -93,7 +93,7 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
    
     	try {
     		System.out.println("__INICIA__");
-            procedureInvokerRepository.ejecutarSPDemo();
+            //procedureInvokerRepository.ejecutarSPDemo();
         	//coPaisService.registrar("Belgica");
         	
 		} catch (Exception e) {

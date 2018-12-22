@@ -7,15 +7,18 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import pe.gob.osce.rnp.seg.dao.ProcedureInvokerRepository;
+import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
 import pe.gob.osce.rnp.seg.svc.CoPaisService;
 
-@Controller
-//@RequestMapping("/pais")
+@RestController
+@RequestMapping("/pais")
 public class CoPaisController {
 	
 //	@Autowired
@@ -27,6 +30,9 @@ public class CoPaisController {
 //    @Autowired
 //    private OauthApprovalsRepository oauthApprovalsRepository;
 //
+	@Autowired
+	private ProcedureInvokerRepository procedureInvokerRepository; 
+	
     @Autowired
     private DataSource dataSource;
 
@@ -37,12 +43,10 @@ public class CoPaisController {
 //	@Autowired
 //	private ProcedureInvoker procedureInvoker;
 	
-//    @RequestMapping("/")
-//    public ModelAndView root(Map<String,Object> model){
-//        model.put("approvals", oauthApprovalsRepository.findAll());
-//        model.put("clientDetails",oauthClientDetailsRepository.findAll());
-//        return new ModelAndView ("index",model);
-//    }
+    @RequestMapping("/{nombre}")
+    public Mensaje root(@PathVariable(value = "nombre") String nombre){
+    	return procedureInvokerRepository.ejecutarSPDemo(nombre);
+    }
 //	
 //    @Autowired
 //    private TokenStore tokenStore;
