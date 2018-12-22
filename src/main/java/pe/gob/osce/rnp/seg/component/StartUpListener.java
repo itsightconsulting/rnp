@@ -14,11 +14,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import pe.gob.osce.rnp.seg.dao.CardRepository;
-import pe.gob.osce.rnp.seg.dao.ClaveAccesoRepository;
-import pe.gob.osce.rnp.seg.dao.CoPaisRepository;
-import pe.gob.osce.rnp.seg.dao.OauthClientDetailsRepository;
-import pe.gob.osce.rnp.seg.dao.SecurityUserRepository;
+import pe.gob.osce.rnp.seg.dao.*;
 import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityPrivilege;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityRole;
@@ -44,6 +40,9 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
 
     @Autowired
     private CoPaisRepository coPaisRepository;
+
+    @Autowired
+    private ProcedureInvokerRepository procedureInvokerRepository;
     
     @Value("${main.repository}")
     private String mainRoute;
@@ -93,10 +92,9 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
     public void registroPais() {
    
     	try {
-
     		System.out.println("__INICIA__");
-    		
-        	coPaisService.registrar("Belgica");
+            procedureInvokerRepository.ejecutarSPDemo();
+        	//coPaisService.registrar("Belgica");
         	
 		} catch (Exception e) {
 			System.out.println("__ERROR__");

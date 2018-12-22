@@ -5,9 +5,9 @@ import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 @ImportResource({
-    "classpath*:demoBeanConfig.xml",
-    "classpath*:rnp-security-htmlview.xml",
-    "classpath*:rnp-security.xml"})
+    "classpath*:demoBeanConfig.xml"/*,*/
+    /*"classpath*:rnp-security-htmlview.xml",
+    "classpath*:rnp-security.xml"*/})
 public class XmlConfiguration {
 
 }

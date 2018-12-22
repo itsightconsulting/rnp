@@ -1,3 +1,4 @@
+/*
 package pe.gob.osce.rnp.seg.model.jpa;
 
 import java.util.Date;
@@ -56,3 +57,4 @@ public class PrmClaConfiguracion {
 	private String desIpUsuRegistro;
 	
 }
+*/

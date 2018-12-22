@@ -1,3 +1,4 @@
+/*
 package pe.gob.osce.rnp.seg.svc.impl;
 
 import java.util.List;
@@ -52,3 +53,4 @@ public class PrmClaConfiguracionServiceImpl implements PrmClaConfiguracionServic
 	}
   
 }
+*/

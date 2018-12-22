@@ -1,3 +1,4 @@
+/*
 package pe.gob.osce.rnp.seg.controller;
 
 import javax.persistence.EntityManager;
@@ -43,3 +44,4 @@ public class ProcedureInvoker {
 	        
 	        // Registrar los parámetros de entrada y salida
 	   }
+*/

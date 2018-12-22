@@ -1,3 +1,4 @@
+/*
 package pe.gob.osce.rnp.seg.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,3 +22,4 @@ public interface PrmClaConfiguracionRepository extends JpaRepository<PrmClaConfi
     		@Param("C_DES_IP") String desIp, 
     		@Param("C_DES_CODVERIFICACION") String desCodVerificacion);		
 }
+*/
