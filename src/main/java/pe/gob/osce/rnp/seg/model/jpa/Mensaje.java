@@ -11,6 +11,8 @@ public class Mensaje {
 	
 	public String mensaje;
 	
+	public String desCodVerifiacion;
+	
 	public Mensaje() {}
 	
 }

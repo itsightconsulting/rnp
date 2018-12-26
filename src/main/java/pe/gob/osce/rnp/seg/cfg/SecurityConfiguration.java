@@ -60,6 +60,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
+        		.antMatchers("/base01/**").permitAll()
+        		.antMatchers("/configuracion/**").permitAll()
                 .antMatchers("/session-expirada").permitAll()
                 .antMatchers("/session-multiple").permitAll()
                 .antMatchers("/vista/**").permitAll()

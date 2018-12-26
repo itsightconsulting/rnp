@@ -78,7 +78,7 @@ public class CoPaisServiceImpl implements CoPaisService{
 	@Override
 	public String registrar(String string) {
 		
-		coPaisRepository.insertPais(string);
+//		coPaisRepository.insertPais(string);
 //		Integer res1 = (Integer) proc.getOutputParameterValue("res1");
         return "1";//1:Éxito
 
@@ -87,7 +87,7 @@ public class CoPaisServiceImpl implements CoPaisService{
 	
 	public String eliminar(int id) {
 		
-		coPaisRepository.eliminar(id);
+//		coPaisRepository.eliminar(id);
 //		System.out.println("ESTA ELIMINANDO");
 //        final SimpleJdbcCall updateEmployeeCall = new SimpleJdbcCall(dataSource).withFunctionName("sp_eliminarPais");
 //        final Map<String, Object> params = new HashMap<>();
