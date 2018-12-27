@@ -15,20 +15,6 @@ import javax.persistence.StoredProcedureParameter;
 import lombok.Data;
 
 @Entity
-//@NamedStoredProcedureQueries({
-//    @NamedStoredProcedureQuery(
-//        name = "sp_registrarcodverificacion",
-//        procedureName = "spregistrarcodverificacion",
-//        parameters = {
-//          @StoredProcedureParameter(mode=ParameterMode.IN, name="C_DES_RUC", type=String.class),
-//          @StoredProcedureParameter(mode=ParameterMode.IN, name="C_DES_CORREO", type=String.class),
-//          @StoredProcedureParameter(mode=ParameterMode.IN, name="C_COD_UID", type=String.class),
-//          @StoredProcedureParameter(mode=ParameterMode.IN, name="C_DES_IP", type=String.class),
-//          @StoredProcedureParameter(mode=ParameterMode.IN, name="C_DES_CODVERIFICACION", type=String.class),
-//          @StoredProcedureParameter(mode=ParameterMode.OUT, name="RESPUESTA", type=String.class),
-//          @StoredProcedureParameter(mode=ParameterMode.OUT, name="MENSAJE", type=String.class)
-//    })
-//})
 @Data
 public class PrmClaConfiguracion {
 

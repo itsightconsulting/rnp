@@ -10,16 +10,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 @Entity
-
-//@NamedStoredProcedureQueries({
-//    @NamedStoredProcedureQuery(
-//        name = "sp_obteneropciones",
-//        procedureName = "spobteneropciones",
-//        parameters = {
-//          @StoredProcedureParameter(mode=ParameterMode.IN, name="RUC", type=String.class)
-// 	})
-//})
-
 @Data
 public class Base01 {
 
