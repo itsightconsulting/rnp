@@ -34,14 +34,6 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
 
         // Realizamos la llamada al procedimiento
         storedProcedureQuery.execute();
-
-        // Obtenemos los valores de salida
-//        String outputValue1 = (String) storedProcedureQuery.getOutputParameterValue("mensaje");
-//        String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
-//        String outputValue3 = "Paso con exito";
-//        System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
-            
-//        return new Mensaje(outputValue1, outputValue2, outputValue3);
         return "Exito al Buscar";
     }
 	

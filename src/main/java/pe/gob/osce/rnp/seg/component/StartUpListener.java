@@ -77,8 +77,8 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
     	int resultado;
     	try {
 			
-    		resultado = cardRepository.getSumaDemo(2, 3);
-        	System.out.println("RESPUESTA ES: "+resultado);
+    		//resultado = cardRepository.getSumaDemo(2, 3);
+        	//System.out.println("RESPUESTA ES: "+resultado);
     		
 		} catch (Exception e) {
 			e.printStackTrace();// TODO: handle exception

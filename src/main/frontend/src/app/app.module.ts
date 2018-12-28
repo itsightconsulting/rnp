@@ -8,13 +8,17 @@ import { TasksAddComponent } from './tasks/tasks-add/tasks-add.component';
 import { TasksListComponent } from './tasks/tasks-list/tasks-list.component';
 import {TaskService} from "./tasks/task.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { AuthenticationComponent } from './authentication/authentication.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TasksComponent,
     TasksAddComponent,
-    TasksListComponent
+    TasksListComponent,
+    AuthenticationComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

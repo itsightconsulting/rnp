@@ -1558,3 +1558,27 @@
 [INFO ] 2018-12-27 16:19:10.691 [http-nio-8080-exec-10] AspectController - AuthController.loginForm(..) method called.
 [INFO ] 2018-12-27 16:19:19.175 [http-nio-8080-exec-1] AspectController - ContactoController.obtenerCorreoUsuario(..) method called.
 [INFO ] 2018-12-27 16:19:19.229 [http-nio-8080-exec-3] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2018-12-28 07:38:56.254 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-28 07:39:34.890 [restartedMain] RnpApplication - Started RnpApplication in 43.203 seconds (JVM running for 49.837)
+[INFO ] 2018-12-28 07:42:56.378 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-28 07:43:09.444 [restartedMain] RnpApplication - Started RnpApplication in 16.85 seconds (JVM running for 19.623)
+[INFO ] 2018-12-28 07:56:25.140 [http-nio-8080-exec-1] AspectController - ClaveAccesoController.validarProveedor(..) method called.
+[INFO ] 2018-12-28 07:59:23.976 [http-nio-8080-exec-4] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-28 07:59:29.658 [http-nio-8080-exec-5] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-28 08:01:06.537 [http-nio-8080-exec-6] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-28 08:03:20.054 [http-nio-8080-exec-7] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-28 08:03:54.760 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-28 08:04:08.088 [restartedMain] RnpApplication - Started RnpApplication in 16.857 seconds (JVM running for 19.818)
+[INFO ] 2018-12-28 08:04:31.745 [http-nio-8080-exec-1] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-28 08:04:40.691 [http-nio-8080-exec-2] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-28 08:05:00.696 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-28 08:05:14.139 [restartedMain] RnpApplication - Started RnpApplication in 17.519 seconds (JVM running for 20.824)
+[INFO ] 2018-12-28 08:05:25.430 [http-nio-8080-exec-1] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-28 08:05:25.430 [http-nio-8080-exec-2] AspectController - ClaveAccesoController.validarProveedor(..) method called.
+[INFO ] 2018-12-28 08:06:07.580 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-28 08:06:20.909 [restartedMain] RnpApplication - Started RnpApplication in 17.204 seconds (JVM running for 20.168)
+[INFO ] 2018-12-28 08:06:35.477 [http-nio-8080-exec-1] AspectController - TaskController.retornarTodasLasTareas() method called.
+[INFO ] 2018-12-28 08:10:54.352 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-28 08:11:07.304 [restartedMain] RnpApplication - Started RnpApplication in 16.861 seconds (JVM running for 19.716)
+[INFO ] 2018-12-28 08:12:12.744 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2018-12-28 08:12:25.856 [restartedMain] RnpApplication - Started RnpApplication in 16.874 seconds (JVM running for 19.876)

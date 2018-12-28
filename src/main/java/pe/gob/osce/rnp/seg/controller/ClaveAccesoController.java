@@ -1,37 +1,38 @@
 package pe.gob.osce.rnp.seg.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import pe.gob.osce.rnp.seg.dao.ClaveAccesoProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
 import pe.gob.osce.rnp.seg.model.jpa.Mensaje2;
+import pe.gob.osce.rnp.seg.model.jpa.dto.CredencialesDto;
 
 @RestController
-@RequestMapping("/clave")
+@RequestMapping("/api/clave")
 public class ClaveAccesoController {
 	
 	@Autowired
 	private ClaveAccesoProcedureInvokerRepository claveAccesoProcedureInvokerRepository; 
 	
-	@RequestMapping("/validarProveedor/{ruc}")
+	@GetMapping("/validarProveedor/{ruc}")
 	public Mensaje validarProveedor(@PathVariable(value = "ruc") String ruc) {
 		return claveAccesoProcedureInvokerRepository.validaProveedorRnp(ruc);
 	}
 	
-	@RequestMapping("/guardarClave/{ruc}/{clave}")
-	public Mensaje guardarClave(@PathVariable(value = "ruc") String ruc, @PathVariable(value = "clave") String clave) {
-		return claveAccesoProcedureInvokerRepository.guardarClave(ruc, clave);
+	@PostMapping("/guardarClave")
+	public Mensaje guardarClave(@RequestBody CredencialesDto credencialesDto) {
+		System.out.println(credencialesDto.getRuc() + "|" + credencialesDto.getClave());
+		return claveAccesoProcedureInvokerRepository.guardarClave(credencialesDto.getRuc(), credencialesDto.getClave());
 	}
 	
-	@RequestMapping("/validaUsuario/{ruc}/{clave}")
-	public Mensaje validaUsuario(@PathVariable(value = "ruc") String ruc, @PathVariable(value = "clave") String clave) {
+	@PostMapping("/validaUsuario")
+	public Mensaje validaUsuario(@RequestParam(value = "ruc") String ruc, @RequestParam(value = "clave") String clave) {
+		System.out.println(ruc + "|"+clave);
 		return claveAccesoProcedureInvokerRepository.validaUsuario(ruc, clave);
 	}
 	
-	@RequestMapping("/validaNuevaClave/{clave1}/{clave2}")
+	@GetMapping("/validaNuevaClave/{clave1}/{clave2}")
 	public Mensaje validaNuevaClave(@PathVariable(value = "clave1") String clave1, @PathVariable(value = "clave2") String clave2) {
 		return claveAccesoProcedureInvokerRepository.validaNuevaClave(clave1, clave2);
 	}
