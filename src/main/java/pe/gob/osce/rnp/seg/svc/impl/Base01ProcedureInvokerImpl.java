@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 
 import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
+import pe.gob.osce.rnp.seg.model.jpa.Opcion;
+
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
@@ -20,7 +23,7 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
     }
 
 	@Override
-	public String obtenerOpciones(String ruc) {
+	public List<Opcion> obtenerOpciones(String ruc) {
 	    StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spobteneropciones");
 	    
         // Registrar los parámetros de entrada y salida
@@ -34,7 +37,9 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
 
         // Realizamos la llamada al procedimiento
         storedProcedureQuery.execute();
-        return "Exito al Buscar";
-    }
+        
+        return storedProcedureQuery.getResultList();
+ 
+	}
 	
 }
