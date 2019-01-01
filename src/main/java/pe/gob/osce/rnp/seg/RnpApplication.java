@@ -18,7 +18,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import javax.sql.DataSource;
-import java.util.Arrays;
 
 @SpringBootApplication
 @Configuration
@@ -29,10 +28,10 @@ public class RnpApplication extends SpringBootServletInitializer implements Comm
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("Let's inspect the beans provided by Spring Boot:");
+        //System.out.println("Let's inspect the beans provided by Spring Boot:");
 
-        String[] beanNames = ctx.getBeanDefinitionNames();
-        Arrays.sort(beanNames);
+        /*String[] beanNames = ctx.getBeanDefinitionNames();
+        Arrays.sort(beanNames);*/
 //        for (String beanName : beanNames) {
 //            System.out.println(beanName);
 //        }
