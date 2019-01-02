@@ -26,9 +26,7 @@ public class ClaveAccesoController {
 	
 	@PostMapping("/validaUsuario")
 	public ResponseDTO validaUsuario(@RequestParam(value = "ruc") String ruc, @RequestParam(value = "clave") String clave) {
-		System.out.println(ruc + "|"+ clave);
-		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, "Login exitoso");
-		//return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, claveAccesoProcedureInvokerRepository.validaUsuario(ruc, clave));
+		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, claveAccesoProcedureInvokerRepository.validaUsuario(ruc, clave));
 	}
 	
 	@GetMapping("/validaNuevaClave/{clave1}/{clave2}")
