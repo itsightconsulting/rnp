@@ -60,19 +60,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
-        		.antMatchers("/contacto/**").permitAll()
-        		.antMatchers("/verificacion/**").permitAll()
-        		.antMatchers("/clave/**").permitAll()
-        		.antMatchers("/base01/**").permitAll()
-        		.antMatchers("/configuracion/**").permitAll()
                 .antMatchers("/session-expirada").permitAll()
                 .antMatchers("/session-multiple").permitAll()
-                .antMatchers("/vista/**").permitAll()
+                .antMatchers("/oauth/token**").permitAll()
                 .antMatchers("/api/**").permitAll()
-                .antMatchers("/oauth/token**").permitAll();
-/*
-                .antMatchers("/cuy/**").permitAll();
-*/
+                .antMatchers("/sunatsso.html").permitAll();
+
         http.authorizeRequests()
                 .anyRequest().authenticated();
         http.authorizeRequests()

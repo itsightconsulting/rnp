@@ -43,6 +43,8 @@ public class TipoAsuntoBandejaDet {
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_TIPO_ASUNTO")
-	private TipoAsuntoBandeja tipoAsuntoBandeja;	
+	private TipoAsuntoBandeja tipoAsuntoBandeja;
+
+	public TipoAsuntoBandejaDet(){}
 	
 }

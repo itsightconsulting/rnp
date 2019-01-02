@@ -12,10 +12,11 @@ import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
 
 @Service
 public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvokerRepository {
-    private final EntityManager entityManager;
+
+    private EntityManager entityManager;
 
     @Autowired
-    public ClaveAccesoProcedureInvokerImpl(final EntityManager entityManager) {
+    public ClaveAccesoProcedureInvokerImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

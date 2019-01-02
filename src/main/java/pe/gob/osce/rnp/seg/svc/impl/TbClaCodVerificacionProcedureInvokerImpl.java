@@ -14,10 +14,11 @@ import javax.persistence.StoredProcedureQuery;
 
 @Service
 public class TbClaCodVerificacionProcedureInvokerImpl implements TbClaCodVerificacionProcedureInvokerRepository{
-    private final EntityManager entityManager;
+
+    private EntityManager entityManager;
 
     @Autowired
-    public TbClaCodVerificacionProcedureInvokerImpl(final EntityManager entityManager) {
+    public TbClaCodVerificacionProcedureInvokerImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

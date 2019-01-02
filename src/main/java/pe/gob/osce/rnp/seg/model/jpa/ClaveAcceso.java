@@ -6,28 +6,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-
-//@NamedStoredProcedureQueries({
-//    @NamedStoredProcedureQuery(
-//        name = "sp_validausuario",
-//        procedureName = "spvalidausuario",
-//        parameters = {
-//          @StoredProcedureParameter(mode=ParameterMode.IN, name="ruc", type=String.class),
-//          @StoredProcedureParameter(mode=ParameterMode.IN, name="clave", type=String.class),
-//          @StoredProcedureParameter(mode=ParameterMode.OUT, name="resultado", type=String.class),
-//          @StoredProcedureParameter(mode=ParameterMode.OUT, name="mensaje", type=String.class)
-//    }),
-//    @NamedStoredProcedureQuery(
-//            name = "sp_guardarclave",
-//            procedureName = "spguardarclave",
-//            parameters = {
-//              @StoredProcedureParameter(mode=ParameterMode.IN, name="C_DES_RUC", type=String.class),
-//              @StoredProcedureParameter(mode=ParameterMode.IN, name="clave", type=String.class),
-//              @StoredProcedureParameter(mode=ParameterMode.OUT, name="resultado", type=String.class),
-//              @StoredProcedureParameter(mode=ParameterMode.OUT, name="mensaje", type=String.class)
-//        }),
-//})    
-
 @Data
 public class ClaveAcceso {
 

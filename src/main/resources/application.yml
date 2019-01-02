@@ -3,7 +3,7 @@ spring:
     active: devazure
   jpa:
     hibernate:
-        ddl-auto: none
+        ddl-auto: create
     #https://stackoverflow.com/questions/30549489/what-is-this-spring-jpa-open-in-view-true-property-in-spring-boot
     open-in-view: false
     properties:

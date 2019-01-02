@@ -16,14 +16,14 @@
         <form class="body-content" action="">
             <div class="form-group">
                 <label>USUARIO</label>
-                <input class="form-control" id="RUC" type="text" placeholder="RUC o Código de Extranjero no domiciliado">
+                <input class="form-control" id="RUC" type="text" maxlength="11" minlength="11" required="required" placeholder="RUC o Código de Extranjero no domiciliado">
             </div>
             <div class="form-group">
                 <label>CONTRASEÑA</label>
-                <input class="form-control" id="Clave" type="password" placeholder="Clave RNP">
+                <input class="form-control" id="Clave" type="password" placeholder="Clave RNP" required="required">
             </div>
             <div class="form-group">
-                <button class="btn btn-success full" type="button" (click)="autenticacion($event)">INICIAR SESIÓN</button>
+                <button id="btnLogin" class="btn btn-success full" type="button" (click)="autenticacion($event)">INICIAR SESIÓN</button>
             </div>
             <ul class="option-login">
                 <li><a href="/recuperar/password">¿No puedes iniciar sesión?</a></li>

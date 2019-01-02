@@ -7,6 +7,7 @@ import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
 import pe.gob.osce.rnp.seg.model.jpa.Opcion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,31 +16,31 @@ import javax.persistence.StoredProcedureQuery;
 
 @Service
 public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerRepository {
-    private final EntityManager entityManager;
+
+    private EntityManager entityManager;
 
     @Autowired
-    public Base01ProcedureInvokerImpl(final EntityManager entityManager) {
+    public Base01ProcedureInvokerImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
 	@Override
 	public List<Opcion> obtenerOpciones(String ruc) {
 	    StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spobteneropciones");
-	    
+
         // Registrar los parámetros de entrada y salida
         storedProcedureQuery.registerStoredProcedureParameter("ruc", String.class, ParameterMode.IN);
-//        storedProcedureQuery.registerStoredProcedureParameter("mensaje", String.class, ParameterMode.OUT);
-//        storedProcedureQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
-
-        // Configuramos el valor de entrada
-        System.out.println("TOMA PARAMETRO DE ENTRADA ___" + ruc);
         storedProcedureQuery.setParameter("ruc", ruc);
-
-        // Realizamos la llamada al procedimiento
-        storedProcedureQuery.execute();
-        
-        return storedProcedureQuery.getResultList();
- 
+        List<Object[]> resultSet = storedProcedureQuery.getResultList();
+        int size = resultSet.size();
+        if(size > 0){
+            List<Opcion> opciones = new ArrayList<>(resultSet.size());
+            resultSet.forEach(x-> opciones.add(new Opcion(String.valueOf(x[0]), String.valueOf(x[1]), String.valueOf(x[2]), String.valueOf(x[3]))));
+            return opciones;
+        }else{
+            System.out.println(">>EMPTY RESULT SET");
+        }
+        return null;
 	}
 	
 }

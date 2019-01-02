@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import pe.gob.osce.rnp.seg.model.jpa.base.AuditingEntity;
 
 @Entity
-public class Parameter extends AuditingEntity implements Serializable {
+public class Parametro extends AuditingEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,12 +46,12 @@ public class Parameter extends AuditingEntity implements Serializable {
         this.value = value;
     }
 
-    public Parameter(String name, String value) {
+    public Parametro(String name, String value) {
         this.name = name;
         this.value = value;
     }
 
-    public Parameter(int id) { this.id = id; }
+    public Parametro(int id) { this.id = id; }
 
-    public Parameter(){}
+    public Parametro(){}
 }

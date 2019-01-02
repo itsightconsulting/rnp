@@ -2,8 +2,6 @@ package pe.gob.osce.rnp.seg.svc.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.dao.ContactoProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
 
@@ -13,10 +11,10 @@ import javax.persistence.StoredProcedureQuery;
 
 @Service
 public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRepository {
-    private final EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Autowired
-    public ContactoProcedureInvokerImpl(final EntityManager entityManager) {
+    public ContactoProcedureInvokerImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -43,7 +41,5 @@ public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRep
         System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
             
         return new Mensaje(outputValue1, outputValue2, outputValue3);
-//        return "Exito al Buscar";
     }
-	
 }

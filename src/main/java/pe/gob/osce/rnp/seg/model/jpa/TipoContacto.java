@@ -32,4 +32,6 @@ public class TipoContacto {
     
     @Column(name = "ID_TIPO_ASIENTO")
 	private int idTipoAsiento;
+
+	public TipoContacto(){}
 }

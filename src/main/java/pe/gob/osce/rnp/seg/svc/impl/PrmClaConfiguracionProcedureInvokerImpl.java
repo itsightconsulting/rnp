@@ -13,10 +13,10 @@ import javax.persistence.StoredProcedureQuery;
 
 @Service
 public class PrmClaConfiguracionProcedureInvokerImpl implements PrmClaConfiguracionProcedureInvokerRepository {
-    private final EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Autowired
-    public PrmClaConfiguracionProcedureInvokerImpl(final EntityManager entityManager) {
+    public PrmClaConfiguracionProcedureInvokerImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

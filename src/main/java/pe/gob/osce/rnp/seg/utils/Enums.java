@@ -2,31 +2,25 @@ package pe.gob.osce.rnp.seg.utils;
 
 public class Enums {
 
-    public enum ResidueRanges {
-        MINIMO, MAXIMO
-    }
-
-    public enum SubPlanType {
-        ZERO, PREPAGO, POSTPAGO, FREE
-    }
-
     public enum ResponseCode {
-        SUCCESS(1),
-        DENIED(0),
-        ERROR_GENERAL(-500),
-        SUCCESS_UPDATE(-1),
-
-        ERROR_NO_EXISTE(-10),
-        ERROR_DESHABILITADO(-11),
-        ERROR_SIN_REGISTROS(-12),
-        ERROR_FALTAN_DATOS(-13),
-        ERROR_DATOS(-14),
-
-        EX_NULL_POINTER(-97),
-        EX_JACKSON_INVALID_FORMAT(-98),
+        REGISTRO(-1),
+        ACTUALIZACION(-2),
+        ELIMINACION(-3),
+        EXITO_GENERICA(-4),
+        EX_VALIDATION_FAILED(-5),
+        EMPTY_RESPONSE(-6),
+        SESSION_VALUE_NOT_FOUND(-7),
+        SUCCESS_QUERY(-8),
+        EX_GENERIC(-9),
+        EX_NULL_POINTER(-10),
+        EX_JACKSON_INVALID_FORMAT(-11),
+        NOT_FOUND_MATCHES(-12),
+        EX_SQL_GRAMMAR_EXCEPTION(-13),
         EX_NUMBER_FORMAT(-99),
         EX_MAX_SIZE_MULTIPART(-100),
-        EX_MAX_UPLOAD_SIZE(-101);
+        EX_MAX_UPLOAD_SIZE(-101),
+        EX_ARRAY_INDEX_OUT(-102),
+        VF_USUARIO_REPETIDO(-150);
 
         final int code;
 
@@ -34,23 +28,8 @@ public class Enums {
             this.code = code;
         }
 
-        public String get() {
-            return String.valueOf(code);
-        }
-    }
-
-    public enum ETransactionType{
-        RECHARGE_TYPE("Recarga");
-
-
-        final String code;
-
-        ETransactionType(String code) {
-            this.code = code;
-        }
-
-        public String get() {
-            return String.valueOf(code);
+        public int get() {
+            return code;
         }
     }
 

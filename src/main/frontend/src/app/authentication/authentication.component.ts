@@ -14,15 +14,32 @@ export class AuthenticationComponent implements OnInit {
   }
 
     autenticacion(){
-        /*const ruc = document.getElementById('RUC').value;
-        const pass = document.getElementById('Clave').value;*/
-        /*const params = new Object();
-        params.ruc = "aaa";
-        params.clave = "bbb";*/
-        const bodyCredentials = JSON.stringify({ruc: "RucEnDuro", clave: "ClaveEnDuro"});
-        this.authenticationService.authProcess(bodyCredentials).subscribe(()=>{
-            alert('Usted se ha autenticado satisfactoriamente...');
-        });
+        const ruc = document.getElementById('RUC');
+        const pass = document.getElementById('Clave');
+        let val = false;
+        if(ruc.length == 11) {
+            val = true;
+            alert('ruc debe tener 11 dígitos');
+        }else{
+            alert('Ingrese una password');
+            val = false;
+        }
+        if(pass.length>0) {
+
+        }else{
+            val = false;
+        }
+
+        if(val){
+            this.authenticationService.authProcess(ruc.value, pass.value).subscribe((d) => {
+                if(d.flag){
+                    window.location.href = "/recuperar/password"
+                }else{
+                    alert('Las credenciales ingresadas son incorrectas');
+                }
+            });
+
+        }
     }
 
 }

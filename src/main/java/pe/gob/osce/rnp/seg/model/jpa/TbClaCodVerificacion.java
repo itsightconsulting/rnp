@@ -58,5 +58,7 @@ public class TbClaCodVerificacion {
 	@Column(name = "C_DES_OBSERVACION")
 	public String desObservacion;
 
+	public TbClaCodVerificacion(){}
+
 }
 
