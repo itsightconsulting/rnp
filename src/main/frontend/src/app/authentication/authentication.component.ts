@@ -17,16 +17,16 @@ export class AuthenticationComponent implements OnInit {
         const ruc = document.getElementById('RUC');
         const pass = document.getElementById('Clave');
         let val = false;
-        if(ruc.length == 11) {
+        if(ruc.value.length == 11) {
             val = true;
-            alert('ruc debe tener 11 dígitos');
         }else{
-            alert('Ingrese una password');
+            alert('ruc debe tener 11 dígitos');
             val = false;
         }
-        if(pass.length>0) {
-
+        if(pass.value.length>0) {
+            val = true;
         }else{
+            alert('Ingrese una password');
             val = false;
         }
 
@@ -41,5 +41,4 @@ export class AuthenticationComponent implements OnInit {
 
         }
     }
-
 }
