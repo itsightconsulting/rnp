@@ -35,9 +35,9 @@ public class ResourcesServerConfiguration extends ResourceServerConfigurerAdapte
     public void configure(HttpSecurity http) throws Exception {
         http
                 .requestMatchers()
-                .antMatchers("/api/**").and()
-                .authorizeRequests().antMatchers("/api/**").access("#oauth2.hasScope('read')").and()
-                .authorizeRequests().antMatchers( "/api/**").access("#oauth2.hasScope('write')")
+                .antMatchers("/api2/**").and()
+                .authorizeRequests().antMatchers("/api2/**").access("#oauth2.hasScope('read')").and()
+                .authorizeRequests().antMatchers( "/api2/**").access("#oauth2.hasScope('write')")
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(customAuthEntryPoint());//Al colocar el entryPoint en esta configuración la intercepcion solo aplica cuando este se hace directamente desde un navegador o una simple http request sin el Authorization header
