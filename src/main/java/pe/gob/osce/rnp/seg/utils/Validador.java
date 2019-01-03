@@ -45,14 +45,6 @@ public class Validador {
 
     }
 
-    public static boolean validarSoloNumeros(String text){
-        if (text.contains("[a-zA-Z]+") == false && text.length() == 11){
-            return true;
-        }else{
-            return false,
-        }
-    }
-
     public static boolean esCero(Integer numero) {
         if (esNulo(numero))
             return false;

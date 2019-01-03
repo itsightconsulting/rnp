@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: development
+    active: devazure
   jpa:
     hibernate:
         ddl-auto: none
