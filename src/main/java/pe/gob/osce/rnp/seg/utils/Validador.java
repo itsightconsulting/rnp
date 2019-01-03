@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.hibernate.hql.internal.ast.tree.IsNullLogicOperatorNode;
+
 public class Validador {
 
     public static boolean esListaVacia(List<?> lista) {
@@ -63,6 +65,16 @@ public class Validador {
             return true;
 
         return false;
+    }
+    
+    public static boolean validarRuc(String string) {
+    	
+    	if(string == "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}")
+    		return true;
+    	if(string == "")
+    		return false;
+    	return false;
+     
     }
 
 }
