@@ -1,5 +1,6 @@
 package pe.gob.osce.rnp.seg.controller.rest;
 
+import org.hibernate.exception.SQLGrammarException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.gob.osce.rnp.seg.dao.ClaveAccesoProcedureInvokerRepository;
@@ -26,14 +27,15 @@ public class ClaveAccesoController {
 	
 	@PostMapping("/validaUsuario")
 	public ResponseDTO validaUsuario(@RequestParam(value = "ruc") String ruc, @RequestParam(value = "clave") String clave) {
-		System.out.println(ruc + "|"+ clave);
-		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, "Login exitoso");
-		//return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, claveAccesoProcedureInvokerRepository.validaUsuario(ruc, clave));
+		try {
+			return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, claveAccesoProcedureInvokerRepository.validaUsuario(ruc, clave));
+		} catch (Exception ex){
+			return new ResponseDTO(Enums.ResponseCode.EX_SQL_GRAMMAR_EXCEPTION.get(), false, null);
+		}
 	}
 	
 	@GetMapping("/validaNuevaClave/{clave1}/{clave2}")
 	public ResponseDTO validaNuevaClave(@PathVariable(value = "clave1") String clave1, @PathVariable(value = "clave2") String clave2) {
 		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, claveAccesoProcedureInvokerRepository.validaNuevaClave(clave1, clave2));
 	}
-	
 }
