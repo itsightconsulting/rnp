@@ -29,8 +29,8 @@ public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRep
         storedProcedureQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
 
         // Configuramos el valor de entrada
-        if(Validador.validarRuc(ruc)) {
-        	System.out.println("valor " + Validador.validarRuc(ruc));
+        if(Validador.validRuc(ruc)) {
+        	System.out.println("valor " + Validador.validRuc(ruc));
         	System.out.println("TOMA PARAMETRO DE ENTRADA ___" + ruc);	
 	        storedProcedureQuery.setParameter("C_DES_RUC", ruc);
 	        
@@ -43,7 +43,7 @@ public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRep
         String outputValue3 = "Salida";
         System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
 		}else {
-			System.out.println("valor " + Validador.validarRuc(ruc));
+			System.out.println("valor " + Validador.validRuc(ruc));
 			System.out.println("Fallo en la transacción");
 		}    
         return new Mensaje();

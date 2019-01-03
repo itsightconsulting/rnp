@@ -67,14 +67,20 @@ public class Validador {
         return false;
     }
     
-    public static boolean validarRuc(String string) {
-    	
-    	if(string == "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}")
-    		return true;
-    	if(string == "")
-    		return false;
-    	return false;
-     
+    public static boolean validRuc(String ruc){
+        if(ruc!= null && ruc.length() == 11){
+            char[] charArray = ruc.toCharArray();
+            for(int i=0; i<charArray.length;i++){
+                try {
+                    System.out.println(Integer.parseInt(Character.toString(charArray[i])));
+                }catch (NumberFormatException ex){
+                    ex.printStackTrace();
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
 }
