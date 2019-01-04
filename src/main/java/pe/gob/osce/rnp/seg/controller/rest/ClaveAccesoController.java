@@ -21,8 +21,8 @@ public class ClaveAccesoController {
 	}
 	
 	@PostMapping("/guardarClave")
-	public ResponseDTO guardarClave(@RequestParam(value = "clave") String clave, @RequestParam(value = "reClave") String reClave) {
-		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, claveAccesoProcedureInvokerRepository.guardarClave(clave, reClave));
+	public ResponseDTO guardarClave(@RequestParam(value = "ruc") String ruc, @RequestParam(value = "clave") String clave) {
+		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, claveAccesoProcedureInvokerRepository.guardarClave(ruc, clave));
 	}
 	
 	@PostMapping("/validaUsuario")
