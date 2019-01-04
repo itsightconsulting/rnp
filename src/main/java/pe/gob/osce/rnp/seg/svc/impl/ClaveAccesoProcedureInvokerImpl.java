@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import pe.gob.osce.rnp.seg.dao.ClaveAccesoProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
+import pe.gob.osce.rnp.seg.utils.Validador;
 
 @Service
 public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvokerRepository {
@@ -30,7 +31,8 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         storedProcedureQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
 
         // Configuramos el valor de entrada
-        System.out.println("TOMA PARAMETRO DE ENTRADA ___" + ruc);
+        if(Validador.validRuc(ruc)) {
+     	System.out.println("valor " + Validador.validRuc(ruc));
         storedProcedureQuery.setParameter("ruc", ruc);
 
         // Realizamos la llamada al procedimiento
@@ -41,8 +43,11 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
         String outputValue3 = "Paso con exito";
         System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
-            
-        return new Mensaje(outputValue1, outputValue2, outputValue3);
+        }else {
+			System.out.println("valor " + Validador.validRuc(ruc));
+			System.out.println("Fallo en la transacción");
+		}            
+        return new Mensaje();
 //        return "Exito al Buscar";
     }
 
@@ -57,6 +62,8 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         storedProcedureQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
 
         // Configuramos el valor de entrada
+        if(Validador.validRuc(ruc)) {
+     	System.out.println("valor " + Validador.validRuc(ruc));
         System.out.println("TOMA PARAMETRO DE ENTRADA ___" + ruc);
         storedProcedureQuery.setParameter("C_DES_RUC", ruc);
         storedProcedureQuery.setParameter("CLAVE", clave);
@@ -69,9 +76,11 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
         String outputValue3 = "Registro con exito";
         System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
-            
-        return new Mensaje(outputValue1, outputValue2, outputValue3);
-//        return "Exito al Buscar";
+        }else {
+			System.out.println("valor " + Validador.validRuc(ruc));
+			System.out.println("Fallo en la transacción");
+		}            
+        return new Mensaje();
     }
 
 	@Override
@@ -85,6 +94,8 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         storedProcedureQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
 
         // Configuramos el valor de entrada
+        if(Validador.validRuc(ruc)) {
+     	System.out.println("valor " + Validador.validRuc(ruc));
         System.out.println("TOMA PARAMETRO DE ENTRADA ___" + ruc);
         storedProcedureQuery.setParameter("RUC", ruc);
         storedProcedureQuery.setParameter("CLAVE", clave);
@@ -97,8 +108,11 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
         String outputValue3 = "validado con exito";
         System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
-            
-        return new Mensaje(outputValue1, outputValue2, outputValue3);
+		}else {
+			System.out.println("valor " + Validador.validRuc(ruc));
+			System.out.println("Fallo en la transacción");
+		}            
+        return new Mensaje();
 	}
 
 	@Override
