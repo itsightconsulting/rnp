@@ -25,31 +25,31 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
         this.entityManager = entityManager;
     }
 
-	@Override
-	public List<Opcion> obtenerOpciones(String ruc) {
-	    StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spobteneropciones");
+    @Override
+    public List<Opcion> obtenerOpciones(String ruc) {
+        StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spobteneropciones");
 
         // Registrar los parámetros de entrada y salida
         storedProcedureQuery.registerStoredProcedureParameter("ruc", String.class, ParameterMode.IN);
         if(Validador.validRuc(ruc)) {
-	     	System.out.println("valor " + Validador.validRuc(ruc));
-	        storedProcedureQuery.setParameter("ruc", ruc);
-	        List<Object[]> resultSet = storedProcedureQuery.getResultList();
-	        int size = resultSet.size();
-		        if(size > 0){
-		            List<Opcion> opciones = new ArrayList<>(resultSet.size());
-		            resultSet.forEach(x-> opciones.add(new Opcion(String.valueOf(x[0]), String.valueOf(x[1]), String.valueOf(x[2]), String.valueOf(x[3]))));
-		            return opciones;
-		        }else{
-		            System.out.println(">>EMPTY RESULT SET");
-		        }
+            System.out.println("valor " + Validador.validRuc(ruc));
+            storedProcedureQuery.setParameter("ruc", ruc);
+            List<Object[]> resultSet = storedProcedureQuery.getResultList();
+            int size = resultSet.size();
+            if(size > 0){
+                List<Opcion> opciones = new ArrayList<>(resultSet.size());
+                resultSet.forEach(x-> opciones.add(new Opcion(String.valueOf(x[0]), String.valueOf(x[1]), String.valueOf(x[2]), String.valueOf(x[3]))));
+                return opciones;
+            }else{
+                System.out.println(">>EMPTY RESULT SET");
+            }
         }else {
-			System.out.println("valor " + Validador.validRuc(ruc));
-			System.out.println("Fallo en la transacción");
-		}    
-        
+            System.out.println("valor " + Validador.validRuc(ruc));
+            System.out.println("Fallo la validación");
+        }
+
         return null;
-        
-	}
-	
+
+    }
+
 }

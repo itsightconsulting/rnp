@@ -10,9 +10,7 @@ public class Mensaje {
 	public String respuesta;
 	
 	public String mensaje;
-	
-	public String desCodVerifiacion;
-	
+
 	public Mensaje() {}
 	
 }

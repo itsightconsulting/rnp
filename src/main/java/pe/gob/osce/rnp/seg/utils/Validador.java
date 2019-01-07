@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.hibernate.hql.internal.ast.tree.IsNullLogicOperatorNode;
-
 public class Validador {
 
     public static boolean esListaVacia(List<?> lista) {
@@ -37,14 +35,23 @@ public class Validador {
     public static boolean validarCorreo(String correo) {
         Pattern pat = null;
         Matcher mat = null;
+        if(correo != "") {
+            pat = Pattern
+                    .compile("[a-zA-Z0-9]+[.[a-zA-Z0-9_-]+]*@[a-z0-9][\\w\\.-]*[a-z0-9]\\.[a-z][a-z\\.]*[a-z]$");
 
-        pat = Pattern
-                .compile("[a-zA-Z0-9]+[.[a-zA-Z0-9_-]+]*@[a-z0-9][\\w\\.-]*[a-z0-9]\\.[a-z][a-z\\.]*[a-z]$");
+            mat = pat.matcher(correo);
 
-        mat = pat.matcher(correo);
+            return mat.find();
+        }
+        return false;
+    }
 
-        return mat.find();
-
+    public static boolean validarSoloNumeros(String text){
+        if (text.contains("[a-zA-Z]+") == false && text.length() == 11){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public static boolean esCero(Integer numero) {
@@ -66,23 +73,22 @@ public class Validador {
 
         return false;
     }
-    
+
     public static boolean validRuc(String ruc){
-    	
-    	if(ruc.startsWith("10") || ruc.startsWith("20")) {
-	        if(ruc!= null && ruc.length() == 11){
-	            char[] charArray = ruc.toCharArray();
-	            for(int i=0; i<charArray.length;i++) {        	
-	                try {	                	
-	                    System.out.println(Integer.parseInt(Character.toString(charArray[i])));
-	                }catch (NumberFormatException ex){
-	                    ex.printStackTrace();
-	                    return false;
-	                }  
-	            }	        
-	    	}
-	        return true;
-    	}
+        if(ruc.startsWith("10") || ruc.startsWith("20")) {
+            if (ruc != null && ruc.length() == 11) {
+                char[] charArray = ruc.toCharArray();
+                for (int i = 0; i < charArray.length; i++) {
+                    try {
+                        Integer.parseInt(Character.toString(charArray[i]));
+                    } catch (NumberFormatException ex) {
+                        ex.printStackTrace();
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
         return false;
     }
 
@@ -97,4 +103,5 @@ public class Validador {
         return mat.find();
 
     }
+
 }

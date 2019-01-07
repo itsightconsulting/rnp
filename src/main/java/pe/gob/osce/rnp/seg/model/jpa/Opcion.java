@@ -2,14 +2,9 @@ package pe.gob.osce.rnp.seg.model.jpa;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 @Data
-@Entity
 public class Opcion {
 
-	@Id
 	public String opcion1;
 	
 	public String opcion2;

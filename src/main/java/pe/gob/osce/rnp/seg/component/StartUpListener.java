@@ -8,10 +8,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import pe.gob.osce.rnp.seg.dao.OauthClientDetailsRepository;
 import pe.gob.osce.rnp.seg.dao.SecurityUserRepository;
+import pe.gob.osce.rnp.seg.model.jpa.Parametro;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityPrivilege;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityRole;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityUser;
 import pe.gob.osce.rnp.seg.model.jpa.oauth.OauthClientDetails;
+import pe.gob.osce.rnp.seg.svc.EmailService;
+import pe.gob.osce.rnp.seg.svc.ParametroService;
 import pe.gob.osce.rnp.seg.utils.Utilitarios;
 
 import javax.servlet.ServletContext;
@@ -37,15 +40,48 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private OauthClientDetailsRepository oauthClientDetailsRepository;
 
+    @Autowired
+    private ParametroService parametroService;
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        addingInitialParameters();
         addingToContextSession();
         addingInitUsers();
         creatingFileDirectories();
     }
+
+    public void addingInitialParameters(){
+        if(parametroService.findByParametro("MAIL_HOST") == null){
+            parametroService.save(new Parametro("MAIL_HOST","smpt.custom.host.com"));
+        }
+        if(parametroService.findByParametro("MAIL_PORT") == null){
+            parametroService.save(new Parametro("MAIL_PORT","25"));
+        }
+        if(parametroService.findByParametro("MAIL_USERNAME") == null){
+            parametroService.save(new Parametro("MAIL_USERNAME","production_email@gmail.com"));
+        }
+        if(parametroService.findByParametro("MAIL_PASSWORD") == null){
+            parametroService.save(new Parametro("MAIL_PASSWORD","password"));
+        }
+        if(parametroService.findByParametro("WS_SUNAT_USERNAME") == null){
+            parametroService.save(new Parametro("WS_SUNAT_USERNAME","sunat_ws_username"));
+        }
+        if(parametroService.findByParametro("WS_SUNAT_PASSWORD") == null){
+            parametroService.save(new Parametro("WS_SUNAT_PASSWORD","sunat_ws_password"));
+        }
+        if(parametroService.findByParametro("GOOGLE_API_KEY") == null){
+            parametroService.save(new Parametro("GOOGLE_API_KEY","6Le0RDQUAAAAAF7HWOT2J2eIE7R1Xc3-YQYGbxy0"));
+        }
+    }
     
     public void addingToContextSession() {
         context.setAttribute("version", currentVersion);
+        //MAIL PROPERTIES
+        context.setAttribute("MAIL_HOST", parametroService.findByParametro("MAIL_HOST"));
+        context.setAttribute("MAIL_PORT", parametroService.findByParametro("MAIL_PORT"));
+        context.setAttribute("MAIL_USERNAME", parametroService.findByParametro("MAIL_USERNAME"));
+        context.setAttribute("MAIL_PASSWORD", parametroService.findByParametro("MAIL_PASSWORD"));
     }
 
     public void addingInitUsers() {
@@ -85,7 +121,7 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
 
         //Init application's client
         Optional<OauthClientDetails> optionalOauthClient =  oauthClientDetailsRepository.findById("rnp_osce");
-        if(!optionalOauthClient.isPresent()){
+        if(!optionalOauthClient.isPresent()) {
             OauthClientDetails oauthCli = new OauthClientDetails();
             oauthCli.setClientId("rnp_osce");
             oauthCli.setResourceIds("rnp_api");
@@ -99,12 +135,14 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
             oauthCli.setAdditionalInformation("{\"Info\":\"Rnp Api\"}");
             oauthCli.setAutoapprove("true");
             oauthClientDetailsRepository.save(oauthCli);
-        }else
+        } else
             System.out.println("INIT APPLICATION'S CLIENT ALREADY EXISTS");
     }
 
     public void creatingFileDirectories() {
         String[] childPaths = {};
         Utilitarios.createDirectoryStartUp(mainRoute, childPaths);
+        System.out.println(">>> IMPORTANTE: EN CASO LAS CREDENCIALES DEL CORREO CONFIGURADO EN LA APLICACIÓN HAYAN CAMBIADO,\"" +
+                            "NO OLVIDE ACTUALIZAR ESTAS CRENDECIALES MEDIANTE EL MÓDULO DE GESTIÓN DE PARÁMETROS");
     }
 }

@@ -6,4 +6,7 @@ public interface ContactoProcedureInvokerRepository {
 
 	Mensaje obtenerCorreoUsuario(String ruc);
 
+	Mensaje enviarCorreoRecuperacionPassword(String ruc);
+
+	Mensaje validacionCambioPassword(String hashRuc);
 }

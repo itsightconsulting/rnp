@@ -1,10 +1,8 @@
 package pe.gob.osce.rnp.seg.controller.rest;
 
-import org.hibernate.exception.SQLGrammarException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.gob.osce.rnp.seg.dao.ClaveAccesoProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ResponseDTO;
 import pe.gob.osce.rnp.seg.utils.Enums;
 

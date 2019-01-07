@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AuthenticationComponent} from "./authentication/authentication.component";
 import {TasksComponent} from "./tasks/tasks.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
+import {NuevaPasswordComponent} from "./nueva-password/nueva-password.component";
 
 const routes: Routes = [
     {
@@ -19,6 +20,10 @@ const routes: Routes = [
     {
         path: 'recuperar/password',
         component: ResetPasswordComponent
+    },
+    {
+        path: 'cambio/password',
+        component: NuevaPasswordComponent
     }
 ];
 

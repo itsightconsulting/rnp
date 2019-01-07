@@ -64,7 +64,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/session-multiple").permitAll()
                 .antMatchers("/oauth/token**").permitAll()
                 .antMatchers("/api/**").permitAll()
-                .antMatchers("/sunatsso.html").permitAll();
+                .antMatchers("/sunatsso.html").permitAll()
+                .antMatchers("/externaluserauth**").permitAll()
+                .antMatchers("/vista/**").permitAll();
 
         http.authorizeRequests()
                 .anyRequest().authenticated();

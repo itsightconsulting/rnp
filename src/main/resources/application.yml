@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: devazure
+    active: devpg
   jpa:
     hibernate:
         ddl-auto: none
@@ -21,6 +21,5 @@ spring:
     suffix: .html
   servlet:
     multipart:
-      max-request-size: 16MB
-      max-file-size: 8MB
-    
+      max-request-size: 1MB
+      max-file-size: 2MB

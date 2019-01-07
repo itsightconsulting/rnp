@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8"/>
+
+    <title>RNP</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+  </head>
+
+  <body>
+	
+	<div class="container">
+	
+		<h1>Gestión de Parámetros</h1>
+		<br/>
+		<div class="panel panel-default">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Nombre del parámetro</th>
+						<th>Valor del parámetro</th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="par : ${lstParametro}">
+						<td th:text="${par.id}"></td>
+						<td th:text="${par.parametro}"></td>
+						<td th:text="${par.valor}"></td>
+						<td>
+							<a th:title="Editar" href="#" th:href="@{'/gestion/parametro/edicion/'+${par.id}}"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<br/>
+			<a href="#" th:href="@{/}">
+				<button class="btn btn-lg btn-primary btn-block" type="submit">
+					<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Volver
+				</button>
+			</a>
+		</div>
+	</div>
+
+
+</body>
+</html>

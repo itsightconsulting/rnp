@@ -1,11 +1,11 @@
 package pe.gob.osce.rnp.seg.controller.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import pe.gob.osce.rnp.seg.dao.PrmClaConfiguracionProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ResponseDTO;
 import pe.gob.osce.rnp.seg.utils.Enums;
 
@@ -16,8 +16,8 @@ public class PrmClaConfigurarionController {
 	@Autowired
 	private PrmClaConfiguracionProcedureInvokerRepository prmClaConfiguracionProcedureInvokerRepository; 
 	
-	@PostMapping("/registrar")
-	public ResponseDTO obtenerOpciones(@RequestParam(value = "ruc") String ruc, @RequestParam(value = "correo") String correo,
+	@PostMapping("/registrarCodigoVerificacion")
+	public ResponseDTO registrarCodigoVerificacion(@RequestParam(value = "ruc") String ruc, @RequestParam(value = "correo") String correo,
 								   @RequestParam(value = "codUid") String codUid, @RequestParam(value = "desIp") String desIp) {
 		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, prmClaConfiguracionProcedureInvokerRepository.registrarCodVerificacion(ruc, correo, codUid, desIp));
 	}

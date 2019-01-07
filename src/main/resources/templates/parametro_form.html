@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>RNP</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Parámetro</h1>
+			<br/>
+			<form action="#" th:action="@{/gestion/parametro/add}" th:object="${paramModel}" th:method="POST">
+				<input type="text" class="hidden" th:field="*{id}"/>
+				Nombre del parámetro: <input type="text" class="form-control" th:field="*{parametro}" disabled/>
+				<br/>
+				Valor del parámetro: <input type="text" class="form-control" th:field="*{valor}"/>
+				<div th:if="${error != null}">
+					<br/>
+					<span class="text-danger label-warning" style="padding: 5px; border-radius: 10px" th:text="${error}"></span>
+				</div>
+				<br/>
+				<br/>
+				<br/>
+				<button class="btn btn-lg btn-primary btn-block" type="submit">
+					<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Guardar
+				</button>
+			</form>
+			<br/>
+			<a href="#" th:href="@{/gestion/parametro}">
+				<button class="btn btn-lg btn-primary btn-block" type="submit">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar
+				</button>
+			</a>
+		</div>
+	</div>
+
+</body>
+</html>
