@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.dao.PrmClaConfiguracionProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
+import pe.gob.osce.rnp.seg.model.jpa.Mensaje2;
+import pe.gob.osce.rnp.seg.utils.Validador;
 
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
@@ -21,7 +23,7 @@ public class PrmClaConfiguracionProcedureInvokerImpl implements PrmClaConfigurac
     }
 
 	@Override
-	public Mensaje registrarCodVerificacion(String ruc, String correo, String codUid, String desIp) {
+	public Mensaje2 registrarCodVerificacion(String ruc, String correo, String codUid, String desIp) {
 	    StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spregistrarcodverificacion");
 	    
         // Registrar los parámetros de entrada y salida
@@ -34,23 +36,31 @@ public class PrmClaConfiguracionProcedureInvokerImpl implements PrmClaConfigurac
         storedProcedureQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
 
         // Configuramos el valor de entrada
-        System.out.println("TOMA PARAMETRO DE ENTRADA ___" + ruc);
-        storedProcedureQuery.setParameter("C_DES_RUC", ruc);
-        storedProcedureQuery.setParameter("C_DES_CORREO", correo);
-        storedProcedureQuery.setParameter("C_COD_UID", codUid);
-        storedProcedureQuery.setParameter("C_DES_IP", desIp);
-        
-
-        // Realizamos la llamada al procedimiento
-        storedProcedureQuery.execute();
-
-        // Obtenemos los valores de salida
-        String outputValue1 = (String) storedProcedureQuery.getOutputParameterValue("mensaje");
-        String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
-        String outputValue3 = (String) storedProcedureQuery.getOutputParameterValue("C_DES_CODVERIFICACION");
-        System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
-            
-        return new Mensaje(outputValue1, outputValue2, outputValue3);
+        if(Validador.validRuc(ruc) && Validador.validarCorreo(correo)) {
+	     	System.out.println("valor " + Validador.validRuc(ruc));
+	     	System.out.println("valor correo " + Validador.validarCorreo(correo));
+	        storedProcedureQuery.setParameter("C_DES_RUC", ruc);
+	        storedProcedureQuery.setParameter("C_DES_CORREO", correo);
+	        storedProcedureQuery.setParameter("C_COD_UID", codUid);
+	        storedProcedureQuery.setParameter("C_DES_IP", desIp);
+	        
+	
+	        // Realizamos la llamada al procedimiento
+	        storedProcedureQuery.execute();
+	
+	        // Obtenemos los valores de salida
+	        String outputValue1 = (String) storedProcedureQuery.getOutputParameterValue("mensaje");
+	        String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
+	        String outputValue3 = (String) storedProcedureQuery.getOutputParameterValue("C_DES_CODVERIFICACION");
+	        System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
+	        
+	        return new Mensaje2(outputValue1,outputValue2, outputValue3);
+        }else {
+			System.out.println("valor " + Validador.validRuc(ruc));
+			System.out.println("valor correo " + Validador.validarCorreo(correo));
+			System.out.println("Fallo en la transacción");
+		}        
+        return new Mensaje2();
 //        return "Exito al Buscar";
     }
 	

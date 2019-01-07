@@ -16,8 +16,8 @@ public class PrmClaConfigurarionController {
 	@Autowired
 	private PrmClaConfiguracionProcedureInvokerRepository prmClaConfiguracionProcedureInvokerRepository; 
 	
-	@PostMapping("/registrar")
-	public ResponseDTO obtenerOpciones(@RequestParam(value = "ruc") String ruc, @RequestParam(value = "correo") String correo,
+	@PostMapping("/registrarCodigoVerificacion")
+	public ResponseDTO registrarCodigoVerificacion(@RequestParam(value = "ruc") String ruc, @RequestParam(value = "correo") String correo,
 								   @RequestParam(value = "codUid") String codUid, @RequestParam(value = "desIp") String desIp) {
 		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, prmClaConfiguracionProcedureInvokerRepository.registrarCodVerificacion(ruc, correo, codUid, desIp));
 	}

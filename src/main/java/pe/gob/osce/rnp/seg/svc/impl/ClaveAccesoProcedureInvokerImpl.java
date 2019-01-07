@@ -39,10 +39,10 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         storedProcedureQuery.execute();
 
         // Obtenemos los valores de salida
-        String outputValue1 = (String) storedProcedureQuery.getOutputParameterValue("mensaje");
-        String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
-        String outputValue3 = "Paso con exito";
-        System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
+	        String outputValue1 = (String) storedProcedureQuery.getOutputParameterValue("mensaje");
+	        String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
+	        System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2);
+	        return new Mensaje(outputValue1,outputValue2);
         }else {
 			System.out.println("valor " + Validador.validRuc(ruc));
 			System.out.println("Fallo en la transacción");
@@ -62,7 +62,7 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         storedProcedureQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
 
         // Configuramos el valor de entrada
-        if(Validador.validRuc(ruc) && Validador.validarClave(clave)) {
+        if(Validador.validRuc(ruc)) {
 	     	System.out.println("valor " + Validador.validRuc(ruc));
 	        System.out.println("TOMA PARAMETRO DE ENTRADA ___" + ruc);
 	        storedProcedureQuery.setParameter("C_DES_RUC", ruc);
@@ -74,8 +74,8 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         // Obtenemos los valores de salida
         String outputValue1 = (String) storedProcedureQuery.getOutputParameterValue("mensaje");
         String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
-        String outputValue3 = "Registro con exito";
-        System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
+        System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2);
+        return new Mensaje(outputValue1,outputValue2);
         }else {
 			System.out.println("valor " + Validador.validRuc(ruc));
 			System.out.println("valor Clave " + Validador.validarClave(clave));
@@ -107,8 +107,8 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         // Obtenemos los valores de salida
         String outputValue1 = (String) storedProcedureQuery.getOutputParameterValue("mensaje");
         String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
-        String outputValue3 = "validado con exito";
-        System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
+        System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2);
+        return new Mensaje(outputValue1,outputValue2);
 		}else {
 			System.out.println("valor " + Validador.validRuc(ruc));
 			System.out.println("Fallo en la transacción");
@@ -136,10 +136,9 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         // Obtenemos los valores de salida
         String outputValue1 = (String) storedProcedureQuery.getOutputParameterValue("mensaje");
         String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
-        String outputValue3 = "validado nueva clave con exito";
-        System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
+        System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2);
             
-        return new Mensaje(outputValue1, outputValue2, outputValue3);
+        return new Mensaje(outputValue1, outputValue2);
 	}
 	
 }

@@ -5,12 +5,14 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Mensaje {
+public class Mensaje2 {
 
 	public String respuesta;
 	
 	public String mensaje;
 	
-	public Mensaje() {}
+	public String desCodVerifiacion;
+	
+	public Mensaje2() {}
 	
 }

@@ -37,11 +37,12 @@ public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRep
 	        // Realizamos la llamada al procedimiento
 	        storedProcedureQuery.execute();
         
-        // Obtenemos los valores de salida
-        String outputValue1 = (String) storedProcedureQuery.getOutputParameterValue("mensaje");
-        String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
-        String outputValue3 = "Salida";
-        System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
+	        // Obtenemos los valores de salida
+	        String outputValue1 = (String) storedProcedureQuery.getOutputParameterValue("mensaje");
+	        String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
+	        String outputValue3 = "Salida";
+	        System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
+	        return new Mensaje(outputValue1,outputValue2, outputValue3);
 		}else {
 			System.out.println("valor " + Validador.validRuc(ruc));
 			System.out.println("Fallo en la transacción");

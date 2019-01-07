@@ -35,16 +35,18 @@ public class Validador {
     }
 
     public static boolean validarCorreo(String correo) {
-        Pattern pat = null;
-        Matcher mat = null;
-
-        pat = Pattern
-                .compile("[a-zA-Z0-9]+[.[a-zA-Z0-9_-]+]*@[a-z0-9][\\w\\.-]*[a-z0-9]\\.[a-z][a-z\\.]*[a-z]$");
-
-        mat = pat.matcher(correo);
-
-        return mat.find();
-
+    	if(correo != "") {
+	        Pattern pat = null;
+	        Matcher mat = null;
+	
+	        pat = Pattern
+	                .compile("[a-zA-Z0-9]+[.[a-zA-Z0-9_-]+]*@[a-z0-9][\\w\\.-]*[a-z0-9]\\.[a-z][a-z\\.]*[a-z]$");
+	
+	        mat = pat.matcher(correo);
+	
+	        return mat.find();
+    	}
+    	return false;
     }
 
     public static boolean esCero(Integer numero) {
@@ -70,18 +72,18 @@ public class Validador {
     public static boolean validRuc(String ruc){
     	
     	if(ruc.startsWith("10") || ruc.startsWith("20")) {
-	        if(ruc!= null && ruc.length() == 11){
+	        if(ruc!= null && ruc.length() == 11){      	
 	            char[] charArray = ruc.toCharArray();
-	            for(int i=0; i<charArray.length;i++) {        	
-	                try {	                	
+	            for(int i=0; i<charArray.length;i++) {
+	                try {
 	                    System.out.println(Integer.parseInt(Character.toString(charArray[i])));
 	                }catch (NumberFormatException ex){
 	                    ex.printStackTrace();
 	                    return false;
-	                }  
-	            }	        
+	                }
+	            }
+	        return true;    
 	    	}
-	        return true;
     	}
         return false;
     }
