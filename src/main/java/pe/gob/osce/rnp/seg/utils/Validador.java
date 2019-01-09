@@ -89,14 +89,9 @@ public class Validador {
     }
 
     public static boolean validarClave(String clave) {
-        Pattern pat = null;
-        Matcher mat = null;
-
-        pat = Pattern.compile("/^(?=.\\d)(?=.[a-z])[0-9a-zA-Z!@#\\$%\\^\\&*\\)\\(+=._-]{8,}$/");
-
-        mat = pat.matcher(clave);
-
-        return mat.find();
-
+        if (clave != "") {
+			return true;
+		}
+        return false;
     }
 }

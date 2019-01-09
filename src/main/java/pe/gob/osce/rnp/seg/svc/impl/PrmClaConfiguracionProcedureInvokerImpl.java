@@ -36,7 +36,7 @@ public class PrmClaConfiguracionProcedureInvokerImpl implements PrmClaConfigurac
         storedProcedureQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
 
         // Configuramos el valor de entrada
-        if(Validador.validRuc(ruc) && Validador.validarCorreo(correo)) {
+        if(Validador.validRuc(ruc) && Validador.validarCorreo(correo) && codUid != "" && desIp != "") {
 	     	System.out.println("valor " + Validador.validRuc(ruc));
 	     	System.out.println("valor correo " + Validador.validarCorreo(correo));
 	        storedProcedureQuery.setParameter("C_DES_RUC", ruc);

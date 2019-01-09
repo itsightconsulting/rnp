@@ -21,4 +21,8 @@ public class ContactoController {
 		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, contactoProcedureInvokerRepository.obtenerCorreoUsuario(ruc));
 	}
 
+	@GetMapping("/obtenerCorreoRepresentante/{ruc}")
+	public ResponseDTO obtenerCorreoRepresentante(@PathVariable(value = "ruc") String ruc) {
+		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, contactoProcedureInvokerRepository.obtenerCorreoRepresentante(ruc));
+	}
 }
