@@ -1,15 +1,14 @@
 package pe.gob.osce.rnp.seg.svc.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pe.gob.osce.rnp.seg.dao.ClaveAccesoProcedureInvokerRepository;
+import pe.gob.osce.rnp.seg.model.jpa.dto.ProcedureOutputDTO;
+import pe.gob.osce.rnp.seg.utils.Validador;
+
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import pe.gob.osce.rnp.seg.dao.ClaveAccesoProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
-import pe.gob.osce.rnp.seg.utils.Validador;
 
 @Service
 public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvokerRepository {
@@ -22,7 +21,7 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
     }
 
     @Override
-    public Mensaje validaProveedorRnp(String ruc) {
+    public ProcedureOutputDTO validaProveedorRnp(String ruc) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spvalidaproveedorrnp");
 
         // Registrar los parámetros de entrada y salida
@@ -47,12 +46,12 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
             System.out.println("valor " + Validador.validRuc(ruc));
             System.out.println("Fallo en la transacción");
         }
-        return new Mensaje();
+        return new ProcedureOutputDTO();
 //        return "Exito al Buscar";
     }
 
     @Override
-    public Mensaje guardarClave(String ruc, String clave) {
+    public ProcedureOutputDTO guardarClave(String ruc, String clave) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spguardarclave");
 
         // Registrar los parámetros de entrada y salida
@@ -81,11 +80,11 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
             System.out.println("valor Clave " + Validador.validarClave(clave));
             System.out.println("Fallo en la transacción");
         }
-        return new Mensaje();
+        return new ProcedureOutputDTO();
     }
 
     @Override
-    public Mensaje validaUsuario(String ruc, String clave) {
+    public ProcedureOutputDTO validaUsuario(String ruc, String clave) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spvalidausuario");
 
         // Registrar los parámetros de entrada y salida
@@ -113,11 +112,11 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
             System.out.println("valor " + Validador.validRuc(ruc));
             System.out.println("Fallo en la transacción");
         }
-        return new Mensaje();
+        return new ProcedureOutputDTO();
     }
 
     @Override
-    public Mensaje validaNuevaClave(String clave1, String clave2) {
+    public ProcedureOutputDTO validaNuevaClave(String clave1, String clave2) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spvalidanuevaclave");
 
         // Registrar los parámetros de entrada y salida
@@ -139,7 +138,7 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         String outputValue3 = "validado nueva clave con exito";
         System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
 
-        return new Mensaje(outputValue1, outputValue2);
+        return new ProcedureOutputDTO(outputValue1, outputValue2);
     }
 
 }

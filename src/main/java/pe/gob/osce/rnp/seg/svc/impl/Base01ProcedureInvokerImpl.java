@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
-import pe.gob.osce.rnp.seg.model.jpa.Opcion;
+import pe.gob.osce.rnp.seg.model.jpa.dto.OpcionDTO;
 import pe.gob.osce.rnp.seg.utils.Validador;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
     }
 
     @Override
-    public List<Opcion> obtenerOpciones(String ruc) {
+    public List<OpcionDTO> obtenerOpciones(String ruc) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spobteneropciones");
 
         // Registrar los parámetros de entrada y salida
@@ -37,8 +36,8 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
             List<Object[]> resultSet = storedProcedureQuery.getResultList();
             int size = resultSet.size();
             if(size > 0){
-                List<Opcion> opciones = new ArrayList<>(resultSet.size());
-                resultSet.forEach(x-> opciones.add(new Opcion(String.valueOf(x[0]), String.valueOf(x[1]), String.valueOf(x[2]), String.valueOf(x[3]))));
+                List<OpcionDTO> opciones = new ArrayList<>(resultSet.size());
+                resultSet.forEach(x-> opciones.add(new OpcionDTO(String.valueOf(x[0]), String.valueOf(x[1]), String.valueOf(x[2]), String.valueOf(x[3]))));
                 return opciones;
             }else{
                 System.out.println(">>EMPTY RESULT SET");

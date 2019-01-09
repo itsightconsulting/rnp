@@ -17,6 +17,8 @@ import pe.gob.osce.rnp.seg.svc.EmailService;
 import pe.gob.osce.rnp.seg.svc.ParametroService;
 import pe.gob.osce.rnp.seg.utils.Utilitarios;
 
+import javax.persistence.EntityManager;
+import javax.persistence.StoredProcedureQuery;
 import javax.servlet.ServletContext;
 import java.util.Date;
 import java.util.HashSet;
@@ -42,6 +44,9 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
 
     @Autowired
     private ParametroService parametroService;
+
+    @Autowired
+    private EntityManager entityManager;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {

@@ -2,11 +2,8 @@ package pe.gob.osce.rnp.seg.svc.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.dao.TbClaCodVerificacionProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.dao.TbClaCodVerificacionRepository;
-import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
+import pe.gob.osce.rnp.seg.model.jpa.dto.ProcedureOutputDTO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
@@ -23,7 +20,7 @@ public class TbClaCodVerificacionProcedureInvokerImpl implements TbClaCodVerific
     }
 
 	@Override
-	public Mensaje validarCodVerificacion(String ruc, String desCodVerificacion) {
+	public ProcedureOutputDTO validarCodVerificacion(String ruc, String desCodVerificacion) {
 	    StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spvalidarcodverificacion");
 	    
         // Registrar los parámetros de entrada y salida
@@ -45,8 +42,7 @@ public class TbClaCodVerificacionProcedureInvokerImpl implements TbClaCodVerific
         String outputValue3 = "Paso con exito";
         System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2);
             
-        return new Mensaje(outputValue1, outputValue2);
-//        return "Exito al Buscar";
+        return new ProcedureOutputDTO(outputValue1, outputValue2);
     }
 	
 }

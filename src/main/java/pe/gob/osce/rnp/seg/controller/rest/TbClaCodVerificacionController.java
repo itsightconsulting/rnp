@@ -5,16 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.dao.PrmClaConfiguracionProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.dao.TbClaCodVerificacionProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ResponseDTO;
 import pe.gob.osce.rnp.seg.utils.Enums;
 
 @RestController
-@RequestMapping("/api/verificacion")
+@RequestMapping(value = "/api/verificacion")
 public class TbClaCodVerificacionController {
 	
 	@Autowired

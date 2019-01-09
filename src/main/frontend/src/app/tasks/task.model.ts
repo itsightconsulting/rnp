@@ -10,5 +10,4 @@ export class Task {
         this.completed = completed;
         this.dueDate = dueDate;
     }
-
 }

@@ -1,12 +1,12 @@
 package pe.gob.osce.rnp.seg.dao;
 
-import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
+import pe.gob.osce.rnp.seg.model.jpa.dto.ProcedureOutputDTO;
 
 public interface ContactoProcedureInvokerRepository {
 
-	Mensaje obtenerCorreoUsuario(String ruc);
+	ProcedureOutputDTO obtenerCorreoUsuario(String ruc);
 
-	Mensaje enviarCorreoRecuperacionPassword(String ruc);
+	ProcedureOutputDTO enviarCorreoRecuperacionPassword(String ruc);
 
-	Mensaje validacionCambioPassword(String hashRuc);
+	ProcedureOutputDTO validacionCambioPassword(String hashRuc);
 }

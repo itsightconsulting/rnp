@@ -3,7 +3,7 @@ package pe.gob.osce.rnp.seg.svc.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.gob.osce.rnp.seg.dao.ContactoProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
+import pe.gob.osce.rnp.seg.model.jpa.dto.ProcedureOutputDTO;
 import pe.gob.osce.rnp.seg.svc.EmailService;
 import pe.gob.osce.rnp.seg.utils.MailContents;
 import pe.gob.osce.rnp.seg.utils.Parseador;
@@ -30,7 +30,7 @@ public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRep
     }
 
 	@Override
-	public Mensaje obtenerCorreoUsuario(String ruc) {
+	public ProcedureOutputDTO obtenerCorreoUsuario(String ruc) {
 	    if(Validador.validRuc(ruc)){
             StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spobtenercorreousuario");
             // Registrar los parámetros de entrada y salida
@@ -50,20 +50,20 @@ public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRep
             String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
             String outputValue3 = "Paso con exito";
             System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2);
-            return new Mensaje(outputValue1, outputValue2);
+            return new ProcedureOutputDTO(outputValue1, outputValue2);
         }
         return null;
     }
 
     @Override
-    public Mensaje enviarCorreoRecuperacionPassword(String ruc) {
+    public ProcedureOutputDTO enviarCorreoRecuperacionPassword(String ruc) {
         if(Validador.validRuc(ruc)) {
-            Optional<Mensaje> optRes = Optional.ofNullable(obtenerCorreoUsuario(ruc));
+            Optional<ProcedureOutputDTO> optRes = Optional.ofNullable(obtenerCorreoUsuario(ruc));
             if(optRes.isPresent()) {
                 String codVerificacion = "O2X1Z1";
                 StringBuilder sbContentMail = MailContents.recuperarPassword(ruc, codVerificacion);
                 emailService.enviarCorreoRecuperarContrasena("Olvidó de contraseña", optRes.get().getMensaje().trim(), sbContentMail.toString());
-                return new Mensaje();
+                return new ProcedureOutputDTO();
             }else{
                 return null;
             }
@@ -72,15 +72,15 @@ public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRep
     }
 
     @Override
-    public Mensaje validacionCambioPassword(String hashRuc) {
+    public ProcedureOutputDTO validacionCambioPassword(String hashRuc) {
         String ruc = String.valueOf(Parseador.getDecodeHash32Id(hashSchema, hashRuc));
         if(Validador.validRuc(ruc)) {
-            Optional<Mensaje> optRes = Optional.ofNullable(obtenerCorreoUsuario(ruc));
+            Optional<ProcedureOutputDTO> optRes = Optional.ofNullable(obtenerCorreoUsuario(ruc));
             if(optRes.isPresent()) {
                 String codVerificacion = "O2X1Z1";
                 StringBuilder sbContentMail = MailContents.recuperarPassword(ruc, codVerificacion);
                 emailService.enviarCorreoRecuperarContrasena("Olvidó de contraseña", optRes.get().getMensaje().trim(), sbContentMail.toString());
-                return new Mensaje();
+                return new ProcedureOutputDTO();
             }else{
                 return null;
             }

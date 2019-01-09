@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.model.jpa.Opcion;
+import pe.gob.osce.rnp.seg.model.jpa.dto.OpcionDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ResponseDTO;
 import pe.gob.osce.rnp.seg.utils.Enums;
 
@@ -22,7 +22,7 @@ public class Base01Controller {
 	
 	@GetMapping("/obtenerOpciones/{ruc}")
 	public ResponseDTO obtenerOpciones(@PathVariable(value = "ruc") String ruc) {
-		Optional<List<Opcion>> optionalLst = Optional.ofNullable(base01ProcedureInvokerRepository.obtenerOpciones(ruc));
+		Optional<List<OpcionDTO>> optionalLst = Optional.ofNullable(base01ProcedureInvokerRepository.obtenerOpciones(ruc));
 		if(optionalLst.isPresent()){
 			return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, optionalLst.get());
 		}

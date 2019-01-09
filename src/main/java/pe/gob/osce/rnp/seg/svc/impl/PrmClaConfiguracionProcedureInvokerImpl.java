@@ -3,7 +3,9 @@ package pe.gob.osce.rnp.seg.svc.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.gob.osce.rnp.seg.dao.PrmClaConfiguracionProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.model.jpa.Mensaje2;
+import pe.gob.osce.rnp.seg.model.jpa.dto.CodigoVerificacionDTO;
+import pe.gob.osce.rnp.seg.model.jpa.dto.ProcedureOutputDTO;
+import pe.gob.osce.rnp.seg.svc.EmailService;
 import pe.gob.osce.rnp.seg.utils.Validador;
 
 import javax.persistence.EntityManager;
@@ -14,14 +16,16 @@ import javax.persistence.StoredProcedureQuery;
 public class PrmClaConfiguracionProcedureInvokerImpl implements PrmClaConfiguracionProcedureInvokerRepository {
     private EntityManager entityManager;
 
+    private EmailService emailService;
+
     @Autowired
     public PrmClaConfiguracionProcedureInvokerImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
 	@Override
-	public Mensaje2 registrarCodVerificacion(String ruc, String correo, String codUid, String desIp) {
-        if(Validador.validRuc(ruc) && Validador.validarCorreo(correo)) {
+	public ProcedureOutputDTO registrarCodVerificacion(CodigoVerificacionDTO codigoVerificacionDto) {
+        if(Validador.validRuc(String.valueOf(codigoVerificacionDto.getRuc())) && Validador.validarCorreo(codigoVerificacionDto.getCorreo())) {
             StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spregistrarcodverificacion");
 
             // Registrar los parámetros de entrada y salida
@@ -33,27 +37,15 @@ public class PrmClaConfiguracionProcedureInvokerImpl implements PrmClaConfigurac
             storedProcedureQuery.registerStoredProcedureParameter("mensaje", String.class, ParameterMode.OUT);
             storedProcedureQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
 
-            // Configuramos el valor de entrada
-            System.out.println("TOMA PARAMETRO DE ENTRADA ___" + ruc);
-            storedProcedureQuery.setParameter("C_DES_RUC", ruc);
-            storedProcedureQuery.setParameter("C_DES_CORREO", correo);
-            storedProcedureQuery.setParameter("C_COD_UID", codUid);
-            storedProcedureQuery.setParameter("C_DES_IP", desIp);
-
-
             // Realizamos la llamada al procedimiento
             storedProcedureQuery.execute();
 
             // Obtenemos los valores de salida
-            String outputValue1 = (String) storedProcedureQuery.getOutputParameterValue("mensaje");
             String outputValue2 = (String) storedProcedureQuery.getOutputParameterValue("respuesta");
             String outputValue3 = (String) storedProcedureQuery.getOutputParameterValue("C_DES_CODVERIFICACION");
-            System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
 
-            return new Mensaje2(outputValue1, outputValue2, outputValue3);
+            return new ProcedureOutputDTO(outputValue2, outputValue3);
         }
         return null;
-//        return "Exito al Buscar";
     }
-	
 }

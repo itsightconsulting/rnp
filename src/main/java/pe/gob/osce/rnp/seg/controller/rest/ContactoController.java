@@ -6,11 +6,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pe.gob.osce.rnp.seg.dao.ContactoProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
+import pe.gob.osce.rnp.seg.model.jpa.dto.ProcedureOutputDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ResponseDTO;
-import pe.gob.osce.rnp.seg.svc.EmailService;
 import pe.gob.osce.rnp.seg.utils.Enums;
-import pe.gob.osce.rnp.seg.utils.Validador;
 
 import java.util.Optional;
 
@@ -26,7 +24,7 @@ public class ContactoController {
 	
 	@GetMapping("/obtenerCorreoUsuario/{ruc}")
 	public ResponseDTO obtenerCorreoUsuario(@PathVariable(value = "ruc") String ruc) {
-		Optional<Mensaje> optRes = Optional.ofNullable(contactoProcedureInvokerRepository.obtenerCorreoUsuario(ruc));
+		Optional<ProcedureOutputDTO> optRes = Optional.ofNullable(contactoProcedureInvokerRepository.obtenerCorreoUsuario(ruc));
 		if(optRes.isPresent())
 			return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, optRes.get());
 		else
@@ -35,7 +33,7 @@ public class ContactoController {
 
 	@GetMapping("/correoRecuperacion/{ruc}")
 	public ResponseDTO enviarCorreoRecuperacionPassword(@PathVariable(value = "ruc") String ruc) {
-		Optional<Mensaje> optRes = Optional.ofNullable(contactoProcedureInvokerRepository.enviarCorreoRecuperacionPassword(ruc));
+		Optional<ProcedureOutputDTO> optRes = Optional.ofNullable(contactoProcedureInvokerRepository.enviarCorreoRecuperacionPassword(ruc));
 		if(optRes.isPresent())
 			return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, null);
 		else
@@ -44,7 +42,7 @@ public class ContactoController {
 
 	@GetMapping("/validacion/cambio-password/{hashRuc}")
 	public ResponseDTO validacionCambioPassword(@PathVariable(value = "hashRuc") String hashRuc) {
-		Optional<Mensaje> optRes = Optional.ofNullable(contactoProcedureInvokerRepository.validacionCambioPassword(hashRuc));
+		Optional<ProcedureOutputDTO> optRes = Optional.ofNullable(contactoProcedureInvokerRepository.validacionCambioPassword(hashRuc));
 		if(optRes.isPresent())
 			return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, null);
 		else

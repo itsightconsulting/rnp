@@ -1,9 +1,9 @@
-package pe.gob.osce.rnp.seg.model.jpa;
+package pe.gob.osce.rnp.seg.model.jpa.dto;
 
 import lombok.Data;
 
 @Data
-public class Opcion {
+public class OpcionDTO {
 
 	public String opcion1;
 	
@@ -13,11 +13,11 @@ public class Opcion {
 	
 	public String opcion4;
 	
-	public Opcion() {
+	public OpcionDTO() {
 		
 	}
 
-	public Opcion(String opcion1, String opcion2, String opcion3, String opcion4) {
+	public OpcionDTO(String opcion1, String opcion2, String opcion3, String opcion4) {
 		this.opcion1 = opcion1;
 		this.opcion2 = opcion2;
 		this.opcion3 = opcion3;

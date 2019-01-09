@@ -20,7 +20,6 @@ import static java.util.Arrays.asList;
 @Controller
 public class AuthController {
 
-
     @Autowired
     private ApprovalStore approvalStore;
 
@@ -78,5 +77,4 @@ public class AuthController {
     public String expiredBySessionMultiple() {
         return "lock";
     }
-
 }

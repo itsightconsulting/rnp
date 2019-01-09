@@ -92,7 +92,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
         try{
-            if(profileActive.equals("devazure")){
+            if(profileActive.equals("production")){
                 props.put("mail.smtp.EnableSSL.enable","true");
                 mailSender.setHost(context.getAttribute("MAIL_HOST").toString());
                 mailSender.setPort(Integer.parseInt(context.getAttribute("MAIL_PORT").toString()));
