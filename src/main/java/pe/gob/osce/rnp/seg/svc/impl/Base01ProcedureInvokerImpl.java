@@ -1,10 +1,13 @@
 package pe.gob.osce.rnp.seg.svc.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
+import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
 
 import org.apache.axis2.databinding.types.xsd.DateTime;
@@ -16,6 +19,7 @@ import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
 import pe.gob.osce.rnp.seg.model.jpa.dto.DatosIdentificacionDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoCorreosProvExtDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoEmpresaExtDTO;
+import pe.gob.osce.rnp.seg.model.jpa.dto.MensajeCuerpoDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.OpcionDTO;
 import pe.gob.osce.rnp.seg.utils.Validador;
 
@@ -204,15 +208,15 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
 	}
 
 	@Override
-	public List<ListadoEmpresaExtDTO> validaEmpresaExtNoDom(String coPais, Integer indPnp, String razonSocial) {
-	   StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spobteneropciones");
+	public List<ListadoEmpresaExtDTO> validaEmpresaExtNoDom(String codPais, Integer indPnp, String razonSocial) {
+	   StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spvalidarempresaextnodom");
 
 	        // Registrar los parámetros de entrada y salida
         storedProcedureQuery.registerStoredProcedureParameter("C_COD_PAIS", String.class, ParameterMode.IN);
         storedProcedureQuery.registerStoredProcedureParameter("N_IND_PNPJ", Integer.class, ParameterMode.IN);
         storedProcedureQuery.registerStoredProcedureParameter("C_NOM_RAZSOCIAL", String.class, ParameterMode.IN);
         
-        storedProcedureQuery.setParameter("C_COD_PAIS", coPais);
+        storedProcedureQuery.setParameter("C_COD_PAIS", codPais);
         storedProcedureQuery.setParameter("N_IND_PNPJ", indPnp);
         storedProcedureQuery.setParameter("C_NOM_RAZSOCIAL", razonSocial);
         List<Object[]> resultSet = storedProcedureQuery.getResultList();
@@ -226,5 +230,22 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
 	        }
         return null;        
 	}
+
+	@Override
+	public String obtenerMensaje(MensajeCuerpoDTO mensajeCuerpoDto) {
+			String query = "SELECT dbo.fnobtenermensaje(?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)";
+			Query nativeQuery = entityManager.createNativeQuery(query);
+			nativeQuery.setParameter(1, mensajeCuerpoDto.getIndTipo());//Integer
+			nativeQuery.setParameter(2, "");//VARCHAR
+			nativeQuery.setParameter(3, new DateTime());//DATETIME
+			nativeQuery.setParameter(4, mensajeCuerpoDto.getCodVerificacion());//VARCHAR(6)
+			nativeQuery.setParameter(5, null);//OBS 1 VARCHAR NULLABLE
+			nativeQuery.setParameter(6, null);//OBS 2 VARCHAR NULLABLE
+			nativeQuery.setParameter(7, null);//OBS 3 VARCHAR NULLABLE
+			nativeQuery.setParameter(8, null);//OBS 4 VARCHAR NULLABLE
+			Optional<Object> opt = Optional.ofNullable(nativeQuery.getSingleResult());
+			return opt.isPresent() ? opt.get().toString() : null;
+	}
+	
 	
 }

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.model.jpa.dto.DatosIdentificacionDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoCorreosProvExtDTO;
-import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoDatosIdentifiacionDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoEmpresaExtDTO;
+import pe.gob.osce.rnp.seg.model.jpa.dto.MensajeCuerpoDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.OpcionDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ResponseDTO;
 import pe.gob.osce.rnp.seg.utils.Enums;
@@ -72,13 +72,18 @@ public class Base01Controller {
 		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, base01ProcedureInvokerRepository.validarDatosIdentificacion(datosIdentificacionDto));
 	}
 	
-	@GetMapping("/validaEmpresaExtNoDom")
-	public ResponseDTO validaEmpresaExtNoDom(@RequestParam(value = "codPais") String correo, @RequestParam(value = "indPnp") Integer indPnp,@RequestParam(value = "indPnp") String razonSocial) {
+	@GetMapping("/validaEmpresaExtNoDom/{codPais}/{indPnp}/{razonSocial}")
+	public ResponseDTO validaEmpresaExtNoDom(@PathVariable(value = "codPais") String correo, @PathVariable(value = "indPnp") Integer indPnp, @PathVariable(value = "razonSocial") String razonSocial) {
 		Optional<List<ListadoEmpresaExtDTO>> optionalLst = Optional.ofNullable(base01ProcedureInvokerRepository.validaEmpresaExtNoDom(correo, indPnp, razonSocial));
 		if(optionalLst.isPresent()){
 			return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, optionalLst.get());
 		}
 		return new ResponseDTO(Enums.ResponseCode.EMPTY_RESPONSE.get(), false, optionalLst.get());
+	}
+	
+	@PostMapping("/obtenerMensaje")
+	public ResponseDTO obtenerMensaje(@ModelAttribute MensajeCuerpoDTO mensajeCuerpoDto) {
+		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, base01ProcedureInvokerRepository.obtenerMensaje(mensajeCuerpoDto));
 	}
 		
 }

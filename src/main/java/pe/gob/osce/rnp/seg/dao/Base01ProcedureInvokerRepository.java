@@ -6,6 +6,7 @@ import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
 import pe.gob.osce.rnp.seg.model.jpa.dto.DatosIdentificacionDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoCorreosProvExtDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoEmpresaExtDTO;
+import pe.gob.osce.rnp.seg.model.jpa.dto.MensajeCuerpoDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.OpcionDTO;
 
 public interface Base01ProcedureInvokerRepository {
@@ -22,5 +23,7 @@ public interface Base01ProcedureInvokerRepository {
 
 	public Mensaje validarDatosIdentificacion(DatosIdentificacionDTO datosIdentificacionDto);
 
-	public List<ListadoEmpresaExtDTO> validaEmpresaExtNoDom(String coPais, Integer indPnp, String razonSocial);
+	public List<ListadoEmpresaExtDTO> validaEmpresaExtNoDom(String codPais, Integer indPnp, String razonSocial);
+
+	public String obtenerMensaje(MensajeCuerpoDTO mensajeCuerpoDto);
 }
