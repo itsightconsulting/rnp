@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.gob.osce.rnp.seg.dao.ContactoProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ProcedureOutputDTO;
+import pe.gob.osce.rnp.seg.model.jpa.dto.Respuesta;
 import pe.gob.osce.rnp.seg.svc.EmailService;
+import pe.gob.osce.rnp.seg.utils.Enums;
 import pe.gob.osce.rnp.seg.utils.MailContents;
 import pe.gob.osce.rnp.seg.utils.Parseador;
 import pe.gob.osce.rnp.seg.utils.Validador;
@@ -86,5 +88,30 @@ public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRep
             }
         }
         return null;
+    }
+
+    @Override
+    public Respuesta<String> obtenerCorreo(String ruc) {
+        if(Validador.validRuc(ruc)){
+            StoredProcedureQuery spQuery = entityManager.createStoredProcedureQuery("spobtenercorreousuario");
+            // Registrar los parámetros de entrada y salida
+            spQuery.registerStoredProcedureParameter("C_DES_RUC", String.class, ParameterMode.IN);
+            spQuery.registerStoredProcedureParameter("mensaje", String.class, ParameterMode.OUT);
+            spQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
+
+            // Configuramos el valor de entrada
+            spQuery.setParameter("C_DES_RUC", ruc);
+            // Realizamos la llamada al procedimiento
+            spQuery.execute();
+            // Obtenemos los valores de salida
+            boolean existeRuc = spQuery.getOutputParameterValue("respuesta") == "1";
+
+            if(existeRuc){
+                String correo = spQuery.getOutputParameterValue("mensaje").toString();
+                return new Respuesta<>(Enums.ResponseCode.EXITO_GENERICA.get(), 1, correo);
+            }
+            return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0);
+        }
+        return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0);
     }
 }

@@ -1,5 +1,8 @@
 package pe.gob.osce.rnp.seg.cfg;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -19,13 +22,12 @@ import javax.sql.DataSource;
 @EnableResourceServer
 public class ResourcesServerConfiguration extends ResourceServerConfigurerAdapter {
 
-    @Bean
-    @ConfigurationProperties(prefix="spring.datasource")
-    public DataSource ouathDataSource(){return DataSourceBuilder.create().build();}
+    @Autowired
+    public DataSource oauthDataSource;
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources){
-        TokenStore tokenStore=new JdbcTokenStore(ouathDataSource());
+        TokenStore tokenStore=new JdbcTokenStore(oauthDataSource);
         resources.resourceId("rnp_api").stateless(false).tokenStore(tokenStore);
         /*resources.authenticationEntryPoint(customAuthEntryPoint());*/ //Al colocar el entryPoint en este nivel la intercepcion aplica cuando se hace peticiones tipo rest asi como también peticiones simples sin el Authorization header
     }

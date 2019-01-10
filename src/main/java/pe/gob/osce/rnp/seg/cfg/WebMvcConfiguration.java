@@ -109,9 +109,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         }catch (Exception ex){
             ex.printStackTrace();
         }
-
-
-
         return mailSender;
     }
 

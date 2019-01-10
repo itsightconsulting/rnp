@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pe.gob.osce.rnp.seg.dao.PrmClaConfiguracionProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.model.jpa.dto.CodigoVerificacionDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ProcedureOutputDTO;
-import pe.gob.osce.rnp.seg.svc.EmailService;
 import pe.gob.osce.rnp.seg.utils.Validador;
 
 import javax.persistence.EntityManager;
@@ -15,8 +14,6 @@ import javax.persistence.StoredProcedureQuery;
 @Service
 public class PrmClaConfiguracionProcedureInvokerImpl implements PrmClaConfiguracionProcedureInvokerRepository {
     private EntityManager entityManager;
-
-    private EmailService emailService;
 
     @Autowired
     public PrmClaConfiguracionProcedureInvokerImpl(EntityManager entityManager) {

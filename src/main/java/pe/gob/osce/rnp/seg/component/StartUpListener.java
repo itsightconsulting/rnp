@@ -13,12 +13,9 @@ import pe.gob.osce.rnp.seg.model.jpa.SecurityPrivilege;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityRole;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityUser;
 import pe.gob.osce.rnp.seg.model.jpa.oauth.OauthClientDetails;
-import pe.gob.osce.rnp.seg.svc.EmailService;
 import pe.gob.osce.rnp.seg.svc.ParametroService;
 import pe.gob.osce.rnp.seg.utils.Utilitarios;
 
-import javax.persistence.EntityManager;
-import javax.persistence.StoredProcedureQuery;
 import javax.servlet.ServletContext;
 import java.util.Date;
 import java.util.HashSet;
@@ -44,9 +41,6 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
 
     @Autowired
     private ParametroService parametroService;
-
-    @Autowired
-    private EntityManager entityManager;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -147,7 +141,6 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
     public void creatingFileDirectories() {
         String[] childPaths = {};
         Utilitarios.createDirectoryStartUp(mainRoute, childPaths);
-        System.out.println(">>> IMPORTANTE: EN CASO LAS CREDENCIALES DEL CORREO CONFIGURADO EN LA APLICACIÓN HAYAN CAMBIADO,\"" +
-                            "NO OLVIDE ACTUALIZAR ESTAS CRENDECIALES MEDIANTE EL MÓDULO DE GESTIÓN DE PARÁMETROS");
     }
+
 }

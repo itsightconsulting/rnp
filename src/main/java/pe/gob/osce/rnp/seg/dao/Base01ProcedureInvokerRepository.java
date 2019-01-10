@@ -1,10 +1,8 @@
 package pe.gob.osce.rnp.seg.dao;
 
-import java.util.List;
-
-import pe.gob.osce.rnp.seg.model.jpa.dto.OpcionDTO;
+import pe.gob.osce.rnp.seg.model.jpa.dto.Respuesta;
 
 public interface Base01ProcedureInvokerRepository {
 
-	 List<OpcionDTO> obtenerOpciones(String ruc);
+	Respuesta obtenerOpciones(String ruc);
 }

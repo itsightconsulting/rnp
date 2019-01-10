@@ -62,11 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/session-expirada").permitAll()
                 .antMatchers("/session-multiple").permitAll()
-                .antMatchers("/oauth/token**").permitAll()
-                .antMatchers("/api/**").permitAll()
-                .antMatchers("/sunatsso.html").permitAll()
-                .antMatchers("/externaluserauth**").permitAll()
-                .antMatchers("/vista/**").permitAll();
+                .antMatchers("/api/**").permitAll();//Include: /api/oauth/token
 
         http.authorizeRequests()
                 .anyRequest().authenticated();

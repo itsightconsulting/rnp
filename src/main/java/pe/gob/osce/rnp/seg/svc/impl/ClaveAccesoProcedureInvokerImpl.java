@@ -140,5 +140,4 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
 
         return new ProcedureOutputDTO(outputValue1, outputValue2);
     }
-
 }

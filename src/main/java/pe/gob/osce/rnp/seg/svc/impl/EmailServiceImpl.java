@@ -1,5 +1,7 @@
 package pe.gob.osce.rnp.seg.svc.impl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -8,9 +10,12 @@ import org.springframework.stereotype.Service;
 import pe.gob.osce.rnp.seg.generic.EmailGeneric;
 import pe.gob.osce.rnp.seg.svc.EmailService;
 
+import java.util.Optional;
+
 @Service
 public class EmailServiceImpl extends EmailGeneric implements EmailService {
 
+    public static final Logger LOGGER = LogManager.getLogger(EmailServiceImpl.class);
 
     private JavaMailSender emailSender;
     
@@ -26,8 +31,7 @@ public class EmailServiceImpl extends EmailGeneric implements EmailService {
         try {
             emailSender.send(preparator);
         } catch (MailException ex) {
-            ex.printStackTrace();
-            System.err.println(ex.getMessage());
+            LOGGER.info(ex.getMessage());
         }
     }
 
@@ -37,8 +41,7 @@ public class EmailServiceImpl extends EmailGeneric implements EmailService {
         try {
             emailSender.send(preparator);
         } catch (MailException ex) {
-            ex.printStackTrace();
-            System.err.println(ex.getMessage());
+            LOGGER.info(ex.getMessage());
         }
     }
 
@@ -48,8 +51,7 @@ public class EmailServiceImpl extends EmailGeneric implements EmailService {
         try {
             emailSender.send(preparator);
         } catch (MailException ex) {
-            ex.printStackTrace();
-            System.err.println(ex.getMessage());
+            LOGGER.info(ex.getMessage());
         }
     }
 }

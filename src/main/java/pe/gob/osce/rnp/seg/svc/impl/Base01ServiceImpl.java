@@ -1,13 +1,12 @@
 package pe.gob.osce.rnp.seg.svc.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import pe.gob.osce.rnp.seg.dao.Base01Repository;
 import pe.gob.osce.rnp.seg.model.jpa.Base01;
 import pe.gob.osce.rnp.seg.svc.Base01Service;
+
+import java.util.List;
 
 @Service
 public class Base01ServiceImpl implements Base01Service{
@@ -50,15 +49,5 @@ public class Base01ServiceImpl implements Base01Service{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public String obtenerOpciones(String ruc) {
-		
-		base01Repository.obtenerOpciones(ruc);
-		
-		return "1";
-	}
-
-
   
 }
