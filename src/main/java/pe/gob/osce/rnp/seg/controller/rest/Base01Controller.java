@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
+import pe.gob.osce.rnp.seg.model.jpa.dto.CorreosProvExtDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.DatosIdentificacionDTO;
-import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoCorreosProvExtDTO;
-import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoEmpresaExtDTO;
+import pe.gob.osce.rnp.seg.model.jpa.dto.EmpresaExtDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.OpcionDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ResponseDTO;
 import pe.gob.osce.rnp.seg.utils.Enums;
@@ -50,7 +50,7 @@ public class Base01Controller {
 	
 	@GetMapping("/validaCorreoExtNoDom/{correo}")
 	public ResponseDTO validaCorreoExtNoDom(@PathVariable(value = "correo") String correo) {
-		Optional<List<ListadoCorreosProvExtDTO>> optionalLst = Optional.ofNullable(base01ProcedureInvokerRepository.validaCorreoExtNoDom(correo));
+		Optional<List<CorreosProvExtDTO>> optionalLst = Optional.ofNullable(base01ProcedureInvokerRepository.validaCorreoExtNoDom(correo));
 		if(optionalLst.isPresent()){
 			return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, optionalLst.get());
 		}
@@ -59,7 +59,7 @@ public class Base01Controller {
 	
 	@GetMapping("/validaCorreoRepExtNoDom")
 	public ResponseDTO validaCorreoRepExtNoDom(@RequestParam(value = "correo") String correo) {
-		Optional<List<ListadoCorreosProvExtDTO>> optionalLst = Optional.ofNullable(base01ProcedureInvokerRepository.validaCorreoRepExtNoDom(correo));
+		Optional<List<CorreosProvExtDTO>> optionalLst = Optional.ofNullable(base01ProcedureInvokerRepository.validaCorreoRepExtNoDom(correo));
 		if(optionalLst.isPresent()){
 			return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, optionalLst.get());
 		}
@@ -73,7 +73,7 @@ public class Base01Controller {
 	
 	@GetMapping("/validaEmpresaExtNoDom/{codPais}/{indPnp}/{razonSocial}")
 	public ResponseDTO validaEmpresaExtNoDom(@PathVariable(value = "codPais") String correo, @PathVariable(value = "indPnp") Integer indPnp, @PathVariable(value = "razonSocial") String razonSocial) {
-		Optional<List<ListadoEmpresaExtDTO>> optionalLst = Optional.ofNullable(base01ProcedureInvokerRepository.validaEmpresaExtNoDom(correo, indPnp, razonSocial));
+		Optional<List<EmpresaExtDTO>> optionalLst = Optional.ofNullable(base01ProcedureInvokerRepository.validaEmpresaExtNoDom(correo, indPnp, razonSocial));
 		if(optionalLst.isPresent()){
 			return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, optionalLst.get());
 		}

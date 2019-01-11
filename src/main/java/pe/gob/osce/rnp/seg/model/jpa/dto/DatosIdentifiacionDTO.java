@@ -5,18 +5,18 @@ import javax.persistence.Id;
 import lombok.Data;
 
 @Data
-public class ListadoDatosIdentifiacionDTO {
+public class DatosIdentifiacionDTO {
 
 	@Id
 	public String iden;
 	
 	public String valor;
 	
-	public ListadoDatosIdentifiacionDTO() {
+	public DatosIdentifiacionDTO() {
 		
 	}
 
-	public ListadoDatosIdentifiacionDTO(String iden, String valor) {
+	public DatosIdentifiacionDTO(String iden, String valor) {
 		this.iden = iden;
 		this.valor = valor;
 	}

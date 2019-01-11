@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import pe.gob.osce.rnp.seg.dao.CoPaisProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoDatosIdentifiacionDTO;
+import pe.gob.osce.rnp.seg.model.jpa.dto.DatosIdentifiacionDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ResponseDTO;
 import pe.gob.osce.rnp.seg.utils.Enums;
 
@@ -23,7 +23,7 @@ public class CoPaisController {
 	
 	@GetMapping("/obtenerDatosIdentificacion/{indTipo}")
 	public ResponseDTO obtenerDatosIdentificacion(@PathVariable(value = "indTipo") String indTipo) {
-		Optional<List<ListadoDatosIdentifiacionDTO>> optionalLst = Optional.ofNullable(coPaisProcedureInvokerRepository.obtenerDatosIdentificacion(indTipo));
+		Optional<List<DatosIdentifiacionDTO>> optionalLst = Optional.ofNullable(coPaisProcedureInvokerRepository.obtenerDatosIdentificacion(indTipo));
 		if(optionalLst.isPresent()){
 			return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, optionalLst.get());
 		}

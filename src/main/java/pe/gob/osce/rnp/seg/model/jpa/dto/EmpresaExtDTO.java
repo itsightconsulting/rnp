@@ -5,18 +5,18 @@ import javax.persistence.Id;
 import lombok.Data;
 
 @Data
-public class ListadoEmpresaExtDTO {
+public class EmpresaExtDTO {
 
 	@Id
 	public String codExtNoDom;
 	
 	public String razonSocial;
 	
-	public ListadoEmpresaExtDTO() {
+	public EmpresaExtDTO() {
 		
 	}
 
-	public ListadoEmpresaExtDTO(String codExtNoDom, String razonSocial) {
+	public EmpresaExtDTO(String codExtNoDom, String razonSocial) {
 		this.codExtNoDom = codExtNoDom;
 		this.razonSocial = razonSocial;
 	}

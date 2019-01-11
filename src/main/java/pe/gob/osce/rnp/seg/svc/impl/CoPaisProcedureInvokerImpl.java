@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pe.gob.osce.rnp.seg.dao.CoPaisProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoDatosIdentifiacionDTO;
+import pe.gob.osce.rnp.seg.model.jpa.dto.DatosIdentifiacionDTO;
 
 @Service
 public class CoPaisProcedureInvokerImpl implements CoPaisProcedureInvokerRepository {
@@ -24,7 +24,7 @@ public class CoPaisProcedureInvokerImpl implements CoPaisProcedureInvokerReposit
     }
 
 	@Override
-	public List<ListadoDatosIdentifiacionDTO> obtenerDatosIdentificacion(String indTipo) {
+	public List<DatosIdentifiacionDTO> obtenerDatosIdentificacion(String indTipo) {
 	    StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spobtenerdatosidentif");
 
         // Registrar los parámetros de entrada y salida
@@ -33,8 +33,8 @@ public class CoPaisProcedureInvokerImpl implements CoPaisProcedureInvokerReposit
         List<Object[]> resultSet = storedProcedureQuery.getResultList();
         int size = resultSet.size();
 	        if(size > 0){
-	            List<ListadoDatosIdentifiacionDTO> opciones = new ArrayList<>(resultSet.size());
-	            resultSet.forEach(x-> opciones.add(new ListadoDatosIdentifiacionDTO(String.valueOf(x[0]), String.valueOf(x[1]))));
+	            List<DatosIdentifiacionDTO> opciones = new ArrayList<>(resultSet.size());
+	            resultSet.forEach(x-> opciones.add(new DatosIdentifiacionDTO(String.valueOf(x[0]), String.valueOf(x[1]))));
 	            return opciones;
 	        }else{
 	            System.out.println(">>EMPTY RESULT SET");

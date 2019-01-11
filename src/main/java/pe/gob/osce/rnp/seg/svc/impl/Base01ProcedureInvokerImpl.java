@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 
 import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
+import pe.gob.osce.rnp.seg.model.jpa.dto.CorreosProvExtDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.DatosIdentificacionDTO;
-import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoCorreosProvExtDTO;
-import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoEmpresaExtDTO;
+import pe.gob.osce.rnp.seg.model.jpa.dto.EmpresaExtDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.OpcionDTO;
 import pe.gob.osce.rnp.seg.utils.Validador;
 
@@ -119,7 +119,7 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
 	}
 
 	@Override
-	public List<ListadoCorreosProvExtDTO> validaCorreoExtNoDom(String correo) {
+	public List<CorreosProvExtDTO> validaCorreoExtNoDom(String correo) {
 	    StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spvalidarcorreoextnodom");
 
         // Registrar los parámetros de entrada y salida
@@ -129,8 +129,8 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
         List<Object[]> resultSet = storedProcedureQuery.getResultList();
         int size = resultSet.size();
 	        if(size > 0){
-	            List<ListadoCorreosProvExtDTO> opciones = new ArrayList<>(resultSet.size());
-	            resultSet.forEach(x-> opciones.add(new ListadoCorreosProvExtDTO(String.valueOf(x[0]), String.valueOf(x[1]))));
+	            List<CorreosProvExtDTO> opciones = new ArrayList<>(resultSet.size());
+	            resultSet.forEach(x-> opciones.add(new CorreosProvExtDTO(String.valueOf(x[0]), String.valueOf(x[1]))));
 	            return opciones;
 	        }else{
 	            System.out.println(">>EMPTY RESULT SET");
@@ -140,7 +140,7 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
 	}
 	
 	@Override
-	public List<ListadoCorreosProvExtDTO> validaCorreoRepExtNoDom(String correo) {
+	public List<CorreosProvExtDTO> validaCorreoRepExtNoDom(String correo) {
 	    StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spvalidarcorreorepextnodom");
 
         // Registrar los parámetros de entrada y salida
@@ -150,8 +150,8 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
         List<Object[]> resultSet = storedProcedureQuery.getResultList();
         int size = resultSet.size();
 	        if(size > 0){
-	            List<ListadoCorreosProvExtDTO> opciones = new ArrayList<>(resultSet.size());
-	            resultSet.forEach(x-> opciones.add(new ListadoCorreosProvExtDTO(String.valueOf(x[0]), String.valueOf(x[1]))));
+	            List<CorreosProvExtDTO> opciones = new ArrayList<>(resultSet.size());
+	            resultSet.forEach(x-> opciones.add(new CorreosProvExtDTO(String.valueOf(x[0]), String.valueOf(x[1]))));
 	            return opciones;
 	        }else{
 	            System.out.println(">>EMPTY RESULT SET");
@@ -204,7 +204,7 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
 	}
 
 	@Override
-	public List<ListadoEmpresaExtDTO> validaEmpresaExtNoDom(String codPais, Integer indPnp, String razonSocial) {
+	public List<EmpresaExtDTO> validaEmpresaExtNoDom(String codPais, Integer indPnp, String razonSocial) {
 	   StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spvalidarempresaextnodom");
 
 	        // Registrar los parámetros de entrada y salida
@@ -218,8 +218,8 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
         List<Object[]> resultSet = storedProcedureQuery.getResultList();
         int size = resultSet.size();
 	        if(size > 0){
-	            List<ListadoEmpresaExtDTO> opciones = new ArrayList<>(resultSet.size());
-	            resultSet.forEach(x-> opciones.add(new ListadoEmpresaExtDTO(String.valueOf(x[0]), String.valueOf(x[1]))));
+	            List<EmpresaExtDTO> opciones = new ArrayList<>(resultSet.size());
+	            resultSet.forEach(x-> opciones.add(new EmpresaExtDTO(String.valueOf(x[0]), String.valueOf(x[1]))));
 	            return opciones;
 	        }else{
 	            System.out.println(">>EMPTY RESULT SET");

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import pe.gob.osce.rnp.seg.dao.ContactoProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
-import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoCorreosDTO;
+import pe.gob.osce.rnp.seg.model.jpa.dto.CorreosDTO;
 import pe.gob.osce.rnp.seg.utils.Validador;
 
 @Service
@@ -55,7 +55,7 @@ public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRep
     }
 	
 	@Override
-	public List<ListadoCorreosDTO> obtenerCorreoRepresentante(String ruc) {
+	public List<CorreosDTO> obtenerCorreoRepresentante(String ruc) {
 	    StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spobtenercorreorepresentante");
 	    
         // Registrar los parámetros de entrada y salida
@@ -64,8 +64,8 @@ public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRep
         List<Object[]> resultSet = storedProcedureQuery.getResultList();
         int size = resultSet.size();
 	        if(size > 0){
-	            List<ListadoCorreosDTO> opciones = new ArrayList<>(resultSet.size());
-	            resultSet.forEach(x-> opciones.add(new ListadoCorreosDTO(String.valueOf(x[0]), String.valueOf(x[1]))));
+	            List<CorreosDTO> opciones = new ArrayList<>(resultSet.size());
+	            resultSet.forEach(x-> opciones.add(new CorreosDTO(String.valueOf(x[0]), String.valueOf(x[1]))));
 	            return opciones;
 	        }else{
 	            System.out.println(">>EMPTY RESULT SET");
