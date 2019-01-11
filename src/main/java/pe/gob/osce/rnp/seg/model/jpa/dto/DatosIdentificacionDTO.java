@@ -1,10 +1,13 @@
 package pe.gob.osce.rnp.seg.model.jpa.dto;
 
+import java.util.Date;
+
 import javax.persistence.Id;
 
-import org.apache.axis2.databinding.types.soapencoding.DateTime;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.Data;
+import pe.gob.osce.rnp.seg.json.JsonDateSimpleSerializer;
 
 @Data
 public class DatosIdentificacionDTO {
@@ -22,7 +25,8 @@ public class DatosIdentificacionDTO {
 	
 	public String nroPartida;
 	
-	public DateTime fecIngreso;
+	@JsonSerialize(using = JsonDateSimpleSerializer.class)
+	public Date fecIngreso;
 	
 	public String idTipoCondicion;
 	
@@ -31,7 +35,7 @@ public class DatosIdentificacionDTO {
 	}
 
 	public DatosIdentificacionDTO(String ruc, String idPais, String idTipoDocu, String desDocu, Integer idZonaRegistral,
-			String nroPartida, DateTime fecIngreso, String idTipoCondicion) {
+			String nroPartida, Date fecIngreso, String idTipoCondicion) {
 		this.ruc = ruc;
 		this.idTipoDocu = idTipoDocu;
 		this.desDocu = desDocu;

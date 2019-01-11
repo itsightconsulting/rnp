@@ -1,17 +1,15 @@
 package pe.gob.osce.rnp.seg.svc.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.dao.PrmClaConfiguracionProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
-import pe.gob.osce.rnp.seg.model.jpa.Mensaje2;
-import pe.gob.osce.rnp.seg.utils.Validador;
-
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import pe.gob.osce.rnp.seg.dao.PrmClaConfiguracionProcedureInvokerRepository;
+import pe.gob.osce.rnp.seg.model.jpa.Mensaje2;
+import pe.gob.osce.rnp.seg.utils.Validador;
 
 @Service
 public class PrmClaConfiguracionProcedureInvokerImpl implements PrmClaConfiguracionProcedureInvokerRepository {

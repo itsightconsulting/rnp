@@ -1,17 +1,15 @@
 package pe.gob.osce.rnp.seg.svc.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.dao.TbClaCodVerificacionProcedureInvokerRepository;
-import pe.gob.osce.rnp.seg.dao.TbClaCodVerificacionRepository;
-import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
-import pe.gob.osce.rnp.seg.utils.Validador;
-
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import pe.gob.osce.rnp.seg.dao.TbClaCodVerificacionProcedureInvokerRepository;
+import pe.gob.osce.rnp.seg.model.jpa.Mensaje;
+import pe.gob.osce.rnp.seg.utils.Validador;
 
 @Service
 public class TbClaCodVerificacionProcedureInvokerImpl implements TbClaCodVerificacionProcedureInvokerRepository{

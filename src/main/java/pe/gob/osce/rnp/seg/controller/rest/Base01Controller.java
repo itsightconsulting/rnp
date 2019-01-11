@@ -16,7 +16,6 @@ import pe.gob.osce.rnp.seg.dao.Base01ProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.model.jpa.dto.DatosIdentificacionDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoCorreosProvExtDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ListadoEmpresaExtDTO;
-import pe.gob.osce.rnp.seg.model.jpa.dto.MensajeCuerpoDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.OpcionDTO;
 import pe.gob.osce.rnp.seg.model.jpa.dto.ResponseDTO;
 import pe.gob.osce.rnp.seg.utils.Enums;
@@ -80,10 +79,10 @@ public class Base01Controller {
 		}
 		return new ResponseDTO(Enums.ResponseCode.EMPTY_RESPONSE.get(), false, optionalLst.get());
 	}
-	
-	@PostMapping("/obtenerMensaje")
-	public ResponseDTO obtenerMensaje(@ModelAttribute MensajeCuerpoDTO mensajeCuerpoDto) {
-		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, base01ProcedureInvokerRepository.obtenerMensaje(mensajeCuerpoDto));
-	}
+
+//	@PostMapping("/obtenerMensaje")
+//	public ResponseDTO obtenerMensaje(@ModelAttribute MensajeCuerpoDTO mensajeCuerpoDto) {
+//		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, base01ProcedureInvokerRepository.obtenerMensaje(mensajeCuerpoDto));
+//	}
 		
 }
