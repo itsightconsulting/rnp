@@ -14,6 +14,7 @@ import pe.gob.osce.rnp.seg.model.jpa.SecurityRole;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityUser;
 import pe.gob.osce.rnp.seg.model.jpa.oauth.OauthClientDetails;
 import pe.gob.osce.rnp.seg.svc.ParametroService;
+import pe.gob.osce.rnp.seg.svc.ProveedorService;
 import pe.gob.osce.rnp.seg.utils.Utilitarios;
 
 import javax.servlet.ServletContext;

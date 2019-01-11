@@ -57,12 +57,8 @@ public class ParametroController {
 
         return new ModelAndView(ViewConstant.REDIRECT_MAIN_PARAMETRO);
     }
-
     @GetMapping(value = "/cancelar")
     public ModelAndView cancelar() {
         return new ModelAndView(ViewConstant.MAIN_PARAMETRO);
     }
-
-
-
 }

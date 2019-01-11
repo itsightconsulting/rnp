@@ -138,7 +138,6 @@
             <artifactId>axis2-jaxws</artifactId>
             <version>1.7.8</version>
         </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-hibernate5</artifactId>
@@ -170,37 +169,6 @@
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
             <version>3.3.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.sunat</groupId>
-            <artifactId>menu-sso-cliente</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.sunat</groupId>
-            <artifactId>framework-util</artifactId>
-            <version>1.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.sunat</groupId>
-            <artifactId>framework-web</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.sunat</groupId>
-            <artifactId>framework-core</artifactId>
-            <version>1.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.sunat</groupId>
-            <artifactId>framework-security</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <!--https://mvnrepository.com/artifact/log4j/log4j-->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.14</version>
         </dependency>
         <dependency>
             <groupId>org.hashids</groupId>

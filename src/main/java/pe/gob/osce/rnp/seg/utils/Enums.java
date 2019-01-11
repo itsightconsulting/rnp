@@ -16,6 +16,7 @@ public class Enums {
         EX_JACKSON_INVALID_FORMAT(-11),
         NOT_FOUND_MATCHES(-12),
         EX_SQL_GRAMMAR_EXCEPTION(-13),
+        EX_SP_VALIDATION_FAILED(-14),
         EX_NUMBER_FORMAT(-99),
         EX_MAX_SIZE_MULTIPART(-100),
         EX_MAX_UPLOAD_SIZE(-101),
