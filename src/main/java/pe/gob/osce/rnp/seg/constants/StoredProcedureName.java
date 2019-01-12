@@ -17,7 +17,7 @@ public class StoredProcedureName {
     public static final String SP_REGISTRAR_COD_VERIFICACION =      "spregistrarcodverificacion";
     public static final String SP_VALIDAR_COD_VERIFICACION =        "spvalidarcodverificacion";
 
-    public static final String FN_OBTENER_BODY_CORREO =             "SELECT * FROM dbo.fnobtenermensaje(?1, ?2, ?3, ?4, ?5, ?6, ?7, ?8)";
+    public static final String SP_OBTENER_BODY_CORREO =             "spobtenermensaje";
     public static final String SP_REGISTRAR_CORREO_ENVIADO =        "spregistrarmensaje";
 
     public static final String SP_VALIDAR_NUEVA_CLAVE =             "spvalidanuevaclave";

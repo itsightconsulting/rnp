@@ -1,7 +1,9 @@
 package pe.gob.osce.rnp.seg.dao;
 
-import pe.gob.osce.rnp.seg.model.jpa.dto.OpcionDTO;
+import pe.gob.osce.rnp.seg.model.jpa.dto.*;
 import pe.gob.osce.rnp.seg.model.jpa.pojo.ContenidoCorreoPOJO;
+
+import java.util.List;
 
 public interface ProveedorProcedureInvoker {
 
@@ -17,4 +19,13 @@ public interface ProveedorProcedureInvoker {
 
     String registrarCorreoEnviado(String ruc, Integer idAsunto, String cuerpoCorreo);
 
+    List<ForaneaProveedorDTO> obtenerListadoForanea(String tipo);
+
+    Boolean validarDatosIdentificacion(DatosIdentificacionDTO dtsIdentificacion);
+
+    Boolean validarExistenciaCorreoExtNoDom(String correo);
+
+    ProcedureOutputDTO actualizarCorreoExtNoDom(String ruc, String correo);
+
+    List<CorreoRepDTO> obtenerListadoCorreoRepresentante(String ruc);
 }

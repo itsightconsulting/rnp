@@ -33,7 +33,7 @@ public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRep
 
 	@Override
 	public ProcedureOutputDTO obtenerCorreoUsuario(String ruc) {
-	    if(Validador.validRuc(ruc)){
+	    if(Validador.validRuc(Long.valueOf(ruc))){
             StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spobtenercorreousuario");
             // Registrar los parámetros de entrada y salida
             storedProcedureQuery.registerStoredProcedureParameter("C_DES_RUC", String.class, ParameterMode.IN);
@@ -59,7 +59,7 @@ public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRep
 
     @Override
     public ProcedureOutputDTO enviarCorreoRecuperacionPassword(String ruc) {
-        if(Validador.validRuc(ruc)) {
+        if(Validador.validRuc(Long.valueOf(ruc))) {
             Optional<ProcedureOutputDTO> optRes = Optional.ofNullable(obtenerCorreoUsuario(ruc));
             if(optRes.isPresent()) {
                 String codVerificacion = "O2X1Z1";
@@ -76,7 +76,7 @@ public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRep
     @Override
     public ProcedureOutputDTO validacionCambioPassword(String hashRuc) {
         String ruc = String.valueOf(Parseador.getDecodeHash32Id(hashSchema, hashRuc));
-        if(Validador.validRuc(ruc)) {
+        if(Validador.validRuc(Long.valueOf(ruc))) {
             Optional<ProcedureOutputDTO> optRes = Optional.ofNullable(obtenerCorreoUsuario(ruc));
             if(optRes.isPresent()) {
                 String codVerificacion = "O2X1Z1";
@@ -92,7 +92,7 @@ public class ContactoProcedureInvokerImpl implements ContactoProcedureInvokerRep
 
     @Override
     public Respuesta<String> obtenerCorreo(String ruc) {
-        if(Validador.validRuc(ruc)){
+        if(Validador.validRuc(Long.valueOf(ruc))){
             StoredProcedureQuery spQuery = entityManager.createStoredProcedureQuery("spobtenercorreousuario");
             // Registrar los parámetros de entrada y salida
             spQuery.registerStoredProcedureParameter("C_DES_RUC", String.class, ParameterMode.IN);

@@ -36,7 +36,7 @@ public class Base01ProcedureInvokerImpl implements Base01ProcedureInvokerReposit
     @Override
     public Respuesta obtenerOpciones(String ruc) {
         StoredProcedureQuery spQuery;
-        if(Validador.validRuc(ruc)) {
+        if(Validador.validRuc(Long.valueOf(ruc))) {
             spQuery = entityManager.createStoredProcedureQuery(StoredProcedureName.SP_EXISTE_PROVEEDOR);
             spQuery.registerStoredProcedureParameter("ruc", String.class, ParameterMode.IN);
             spQuery.registerStoredProcedureParameter("mensaje", String.class, ParameterMode.OUT);

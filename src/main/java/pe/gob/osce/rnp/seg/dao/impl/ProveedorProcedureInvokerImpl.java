@@ -5,13 +5,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pe.gob.osce.rnp.seg.constants.StoredProcedureName;
 import pe.gob.osce.rnp.seg.dao.ProveedorProcedureInvoker;
-import pe.gob.osce.rnp.seg.model.jpa.dto.OpcionDTO;
+import pe.gob.osce.rnp.seg.model.jpa.dto.*;
 import pe.gob.osce.rnp.seg.model.jpa.pojo.ContenidoCorreoPOJO;
+import pe.gob.osce.rnp.seg.utils.Enums;
 
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
-import javax.persistence.Query;
 import javax.persistence.StoredProcedureQuery;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -57,15 +58,29 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
 
     @Override
     public String obtenerCorreo(String ruc) {
-        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_OBTENER_OPCS_P_CAMBIO_PASS);
+        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_OBTENER_CORREO_PROVEEDOR);
         // Registrar los parámetros de entrada y salida
-        spQuery.registerStoredProcedureParameter("ruc", String.class, ParameterMode.IN);
-        spQuery.registerStoredProcedureParameter("mensaje", String.class, ParameterMode.OUT);
-        spQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter("C_DES_RUC", String.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("MENSAJE", String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter("RESPUESTA", String.class, ParameterMode.OUT);
         spQuery.setParameter("ruc", ruc);
         spQuery.execute();
-        boolean existeCorreo = spQuery.getOutputParameterValue("respuesta") == "1";
-        return existeCorreo ? spQuery.getOutputParameterValue("mensaje").toString() : null;
+        boolean existeCorreo = spQuery.getOutputParameterValue("RESPUESTA") == "1";
+        return existeCorreo ? spQuery.getOutputParameterValue("MENSAJE").toString() : null;
+    }
+
+    @Override
+    public List<CorreoRepDTO> obtenerListadoCorreoRepresentante(String ruc) {
+        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_OBTENER_CORREO_PROVEEDOR);
+        spQuery.registerStoredProcedureParameter("C_DES_RUC", String.class, ParameterMode.IN);
+        spQuery.setParameter("C_DES_RUC", ruc);
+        List<Object[]> result = spQuery.getResultList();
+        List<CorreoRepDTO> lstCorreosRep = new ArrayList<>();
+        if(result.size()>0){
+            result.forEach(x->lstCorreosRep.add(new CorreoRepDTO(x[0].toString(), x[1].toString())));
+            return lstCorreosRep;
+        }
+        return null;
     }
 
     @Override
@@ -90,17 +105,18 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
 
     @Override
     public ContenidoCorreoPOJO obtenerContenidoCorreoByTipo(int tipo, String ruc, String codVerificacion) {
-        String query = StoredProcedureName.FN_OBTENER_BODY_CORREO;
-        Query nativeQuery = em.createNativeQuery(query);
-        nativeQuery.setParameter(1, tipo);//Integer
-        nativeQuery.setParameter(2, ruc);//VARCHAR
-        nativeQuery.setParameter(3, new Date());//DATETIME
-        nativeQuery.setParameter(4, codVerificacion);//VARCHAR(6)
-        nativeQuery.setParameter(5, null);//OBS 1 VARCHAR NULLABLE
-        nativeQuery.setParameter(6, null);//OBS 2 VARCHAR NULLABLE
-        nativeQuery.setParameter(7, null);//OBS 3 VARCHAR NULLABLE
-        nativeQuery.setParameter(8, null);//OBS 4 VARCHAR NULLABLE
-        List<Object[]> result =nativeQuery.getResultList();
+        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_OBTENER_BODY_CORREO);
+
+        // Registrar los parámetros de entrada y salida
+        spQuery.registerStoredProcedureParameter("N_IND_TIPO", Integer.class, ParameterMode.IN);//Integer
+        spQuery.registerStoredProcedureParameter("C_DES_RUC", String.class, ParameterMode.IN);//VARCHAR
+        spQuery.registerStoredProcedureParameter("D_FEC_CAMBIO", Date.class, ParameterMode.IN);//DATETIME
+        spQuery.registerStoredProcedureParameter("C_COD_VERIFIC", String.class, ParameterMode.IN);//VARCHAR(6)
+        spQuery.registerStoredProcedureParameter("C_DES_OBSERV1", String.class, ParameterMode.IN);//OBS 1 VARCHAR NULLABLE
+        spQuery.registerStoredProcedureParameter("C_DES_OBSERV2", String.class, ParameterMode.IN);//OBS 2 VARCHAR NULLABLE
+        spQuery.registerStoredProcedureParameter("C_DES_OBSERV3", String.class, ParameterMode.IN);//OBS 3 VARCHAR NULLABLE
+        spQuery.registerStoredProcedureParameter("C_DES_OBSERV4", String.class, ParameterMode.IN);//OBS 4 VARCHAR NULLABLE
+        List<Object[]> result = spQuery.getResultList();
         return result.size() > 0 ?
                 new ContenidoCorreoPOJO(
                     Integer.parseInt(result.get(0)[0].toString()),
@@ -124,5 +140,80 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
         spQuery.setParameter("C_DES_MENSAJE", cuerpoCorreo);
         spQuery.execute();
         return spQuery.getOutputParameterValue("respuesta").toString();
+    }
+
+    @Override
+    public List<ForaneaProveedorDTO> obtenerListadoForanea(String tipo) {
+        List<ForaneaProveedorDTO> lstForanea = new ArrayList<>();
+
+        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_OBTENER_FORANEAS_PROVEEDOR);
+        // Registrar los parámetros de entrada y salida
+        spQuery.registerStoredProcedureParameter("C_IND_TIPO", String.class, ParameterMode.IN);//Integer
+        spQuery.setParameter("C_IND_TIPO", tipo);
+        List<Object[]> result = spQuery.getResultList();
+        if(result.size() > 0) {
+            result.forEach(x -> lstForanea.add(new ForaneaProveedorDTO(Integer.parseInt(x[0].toString()), x[1].toString())));
+            return lstForanea;
+        }
+        return null;
+    }
+
+    @Override
+    public Boolean validarDatosIdentificacion(DatosIdentificacionDTO dtsIdentificacion) {
+        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_VALIDAR_DATOS_IDEN_PROVEEDOR);
+        // Registrar los parámetros de entrada y salida
+        spQuery.registerStoredProcedureParameter("C_DES_RUC", String.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("C_ID_PAIS", String.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("C_ID_TIPODOCU", Integer.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("C_DES_DOCU", String.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("N_ID_ZONAREGISTRAL", Integer.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("C_NRO_PARTIDA", String.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("D_FEC_INGRESO", String.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("C_ID_TIPOCONDICION", Integer.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter("mensaje", String.class, ParameterMode.OUT);
+
+        spQuery.setParameter("C_DES_RUC", dtsIdentificacion.getDesDocu());
+        spQuery.setParameter("C_ID_PAIS", dtsIdentificacion.getPaisId());
+        spQuery.setParameter("C_ID_TIPODOCU", dtsIdentificacion.getTipoDocuId());
+        spQuery.setParameter("C_DES_DOCU", dtsIdentificacion.getDesDocu());
+        spQuery.setParameter("N_ID_ZONAREGISTRAL", dtsIdentificacion.getZonaRegistralId());
+        spQuery.setParameter("C_NRO_PARTIDA", dtsIdentificacion.getNroPartida());
+        spQuery.setParameter("D_FEC_INGRESO", dtsIdentificacion.getFecIngreso());
+        spQuery.setParameter("C_ID_TIPOCONDICION", dtsIdentificacion.getTipoCondicionId());
+
+        return spQuery.getOutputParameterValue("respuesta") == "1";
+    }
+
+    @Override
+    public Boolean validarExistenciaCorreoExtNoDom(String correo) {
+        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_VALIDAR_CORREO_PROV_EXT_NO_DOM);
+        // Registrar los parámetros de entrada y salida
+        spQuery.registerStoredProcedureParameter("CORREO", String.class, ParameterMode.IN);
+        spQuery.setParameter("CORREO", correo);
+        List<Object> lstCorreo = spQuery.getResultList();
+        return lstCorreo.size()>0;
+    }
+
+    @Override
+    public ProcedureOutputDTO actualizarCorreoExtNoDom(String ruc, String correo) {
+        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_REGISTRAR_ACTUALIZAR_CORREO);
+
+        // Registrar los parámetros de entrada y salida
+        spQuery.registerStoredProcedureParameter("C_DES_RUC", String.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("C_DES_CORREO", String.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("MENSAJE", String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter("RESPUESTA", String.class, ParameterMode.OUT);
+
+        spQuery.setParameter("C_DES_RUC", ruc);
+        spQuery.setParameter("C_DES_CORREO", correo);
+        spQuery.execute();
+
+        if(spQuery.getOutputParameterValue("RESPUESTA") == "1")
+            return new ProcedureOutputDTO();
+        else
+            return new ProcedureOutputDTO(
+                spQuery.getOutputParameterValue("RESPUESTA").toString(),
+                spQuery.getOutputParameterValue("MENSAJE").toString());
     }
 }

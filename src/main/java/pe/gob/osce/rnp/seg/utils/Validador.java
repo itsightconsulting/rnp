@@ -74,23 +74,27 @@ public class Validador {
         return false;
     }
 
-    public static boolean validRuc(String ruc){
-        if(ruc.startsWith("10") || ruc.startsWith("20")) {
-            if (ruc != null && ruc.length() == 11) {
-                char[] charArray = ruc.toCharArray();
-                for (int i = 0; i < charArray.length; i++) {
-                    try {
-                        Integer.parseInt(Character.toString(charArray[i]));
-                    } catch (NumberFormatException ex) {
-                        ex.printStackTrace();
-                        return false;
-                    }
+    public static boolean validRuc(Long ruc){
+        if (ruc != null){
+            String vRuc = String.valueOf(ruc);
+            if(vRuc.startsWith("10") || vRuc.startsWith("20")) {
+                if (vRuc.length() == 11) {
+                    return true;
                 }
-                return true;
             }
         }
         return false;
     }
+
+    public static boolean validNumberWithLength(Long number, int length){
+        if (number != null){
+            if(number.toString().length() == length)
+                return true;
+        }
+        return false;
+    }
+
+
 
     public static boolean validarClave(String clave) {
         Pattern pat = null;

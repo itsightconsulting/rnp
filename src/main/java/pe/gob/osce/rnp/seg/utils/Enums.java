@@ -2,6 +2,21 @@ package pe.gob.osce.rnp.seg.utils;
 
 public class Enums {
 
+    public enum Foranea {
+        PAIS("P"),
+        TIPO_DOCUMENTO("D"),
+        ZONA_REGISTRAL("O"),
+        TIPO_CONDICION("C");
+
+        final String tp;
+
+        Foranea(String tp){
+            this.tp = tp;
+        }
+
+        public String get(){ return tp; }
+    }
+
     public enum ResponseCode {
         REGISTRO(-1),
         ACTUALIZACION(-2),
