@@ -22,7 +22,7 @@ public class PrmClaConfiguracionProcedureInvokerImpl implements PrmClaConfigurac
 
 	@Override
 	public ProcedureOutputDTO registrarCodVerificacion(CodigoVerificacionDTO codigoVerificacionDto) {
-        if(Validador.validRuc(Long.valueOf(String.valueOf(codigoVerificacionDto.getRuc()))) && Validador.validarCorreo(codigoVerificacionDto.getCorreo())) {
+        if(Validador.validarUsuario(Long.valueOf(String.valueOf(codigoVerificacionDto.getRuc()))) && Validador.validarCorreo(codigoVerificacionDto.getCorreo())) {
             StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("spregistrarcodverificacion");
 
             // Registrar los parámetros de entrada y salida

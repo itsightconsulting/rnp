@@ -73,11 +73,11 @@ public class Validador {
 
         return false;
     }
-
-    public static boolean validRuc(Long ruc){
+    //Entiendase por usuario como número de ruc o código de proveedor extranjero no domiciliado
+    public static boolean validarUsuario(Long ruc){
         if (ruc != null){
             String vRuc = String.valueOf(ruc);
-            if(vRuc.startsWith("10") || vRuc.startsWith("20")) {
+            if(vRuc.startsWith("10") || vRuc.startsWith("20") || vRuc.startsWith("9")) {
                 if (vRuc.length() == 11) {
                     return true;
                 }

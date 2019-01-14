@@ -8,4 +8,5 @@ public interface SeguridadProcedureInvokerRepository {
 
     Boolean actualizarClave(String ruc, String nuevaClave);
 
+    Boolean validarIngreso(String toString, String clave);
 }

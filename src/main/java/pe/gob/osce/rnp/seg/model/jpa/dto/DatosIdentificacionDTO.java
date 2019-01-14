@@ -21,7 +21,7 @@ public class DatosIdentificacionDTO implements Serializable {
     public Long ruc;
 
     @NotNull
-    @Max(3)
+    @Size(max = 3)
     public String paisId;
 
     @NotNull
@@ -29,6 +29,7 @@ public class DatosIdentificacionDTO implements Serializable {
     public Integer tipoDocuId;
 
     @NotNull
+    @Size(min = 1)
     public String desDocu;
 
     @NotNull
@@ -36,6 +37,7 @@ public class DatosIdentificacionDTO implements Serializable {
     public Integer zonaRegistralId;
 
     @NotNull
+    @Size(min = 1)
     public String nroPartida;
 
     @NotNull

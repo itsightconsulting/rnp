@@ -6,9 +6,7 @@ import lombok.Data;
 public class OpcionDTO {
 
 	public String opcion1;
-	
 	public String opcion2;
-	
 	public String opcion3;
 	
 	public String opcion4;

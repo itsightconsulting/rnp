@@ -7,7 +7,6 @@ import pe.gob.osce.rnp.seg.constants.StoredProcedureName;
 import pe.gob.osce.rnp.seg.dao.ProveedorProcedureInvoker;
 import pe.gob.osce.rnp.seg.model.jpa.dto.*;
 import pe.gob.osce.rnp.seg.model.jpa.pojo.ContenidoCorreoPOJO;
-import pe.gob.osce.rnp.seg.utils.Enums;
 
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
@@ -71,12 +70,12 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
 
     @Override
     public List<CorreoRepDTO> obtenerListadoCorreoRepresentante(String ruc) {
-        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_OBTENER_CORREO_PROVEEDOR);
+        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_OBTENER_CORREO_REPRESENTANTE);
         spQuery.registerStoredProcedureParameter("C_DES_RUC", String.class, ParameterMode.IN);
         spQuery.setParameter("C_DES_RUC", ruc);
         List<Object[]> result = spQuery.getResultList();
-        List<CorreoRepDTO> lstCorreosRep = new ArrayList<>();
         if(result.size()>0){
+            List<CorreoRepDTO> lstCorreosRep = new ArrayList<>();
             result.forEach(x->lstCorreosRep.add(new CorreoRepDTO(x[0].toString(), x[1].toString())));
             return lstCorreosRep;
         }
@@ -186,13 +185,33 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
     }
 
     @Override
-    public Boolean validarExistenciaCorreoExtNoDom(String correo) {
-        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_VALIDAR_CORREO_PROV_EXT_NO_DOM);
+    public List<ProExtNoDom> validarExistenciaCorreoExtNoDom(String correo) {
+        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_VALIDAR_CORREO_PROV_EXT_NO_DOM);//Se valida a traves del tamaño del resulset de coincidencias
         // Registrar los parámetros de entrada y salida
         spQuery.registerStoredProcedureParameter("CORREO", String.class, ParameterMode.IN);
         spQuery.setParameter("CORREO", correo);
-        List<Object> lstCorreo = spQuery.getResultList();
-        return lstCorreo.size()>0;
+        List<Object[]> lstProveedor = spQuery.getResultList();
+        if(lstProveedor.size()>0){
+            List<ProExtNoDom> lstCoincidencia = new ArrayList<>(lstProveedor.size());
+            lstProveedor.forEach(x->lstCoincidencia.add(new ProExtNoDom(x[0].toString(), x[1].toString())));
+            return lstCoincidencia;
+        }
+        return null;
+    }
+
+    @Override
+    public List<ProExtNoDom> validarExistenciaCorreoRepExtNoDom(String correo) {
+        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_VALIDAR_CORREO_REP_EXT_NO_DOM);//Se valida a traves del tamaño del resulset de coincidencias
+        // Registrar los parámetros de entrada y salida
+        spQuery.registerStoredProcedureParameter("CORREO", String.class, ParameterMode.IN);
+        spQuery.setParameter("CORREO", correo);
+        List<Object[]> lstProveedor = spQuery.getResultList();
+        if(lstProveedor.size()>0){
+            List<ProExtNoDom> lstCoincidencia = new ArrayList<>(lstProveedor.size());
+            lstProveedor.forEach(x->lstCoincidencia.add(new ProExtNoDom(x[0].toString(), x[1].toString())));
+            return lstCoincidencia;
+        }
+        return null;
     }
 
     @Override
@@ -215,5 +234,24 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
             return new ProcedureOutputDTO(
                 spQuery.getOutputParameterValue("RESPUESTA").toString(),
                 spQuery.getOutputParameterValue("MENSAJE").toString());
+    }
+
+    @Override
+    public List<ProExtNoDom> obtenerListadoEmpresasExtNoDom(String paisId, Integer tipoPersonaId, String razonSocial) {
+        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_CONSULTAR_PROV_EXT_NO_DOM);//Se valida a traves del tamaño del resulset de coincidencias
+        // Registrar los parámetros de entrada y salida
+        spQuery.registerStoredProcedureParameter("C_COD_PAIS", String.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("N_IND_PNPJ", Integer.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("C_NOM_RAZSOCIAL", String.class, ParameterMode.IN);
+        spQuery.setParameter("C_COD_PAIS", paisId);
+        spQuery.setParameter("N_IND_PNPJ", tipoPersonaId);
+        spQuery.setParameter("C_NOM_RAZSOCIAL", razonSocial);
+        List<Object[]> lstProveedor = spQuery.getResultList();
+        if(lstProveedor.size()>0){
+            List<ProExtNoDom> lstCoincidencia = new ArrayList<>(lstProveedor.size());
+            lstProveedor.forEach(x->lstCoincidencia.add(new ProExtNoDom(x[0].toString(), x[1].toString())));
+            return lstCoincidencia;
+        }
+        return null;
     }
 }

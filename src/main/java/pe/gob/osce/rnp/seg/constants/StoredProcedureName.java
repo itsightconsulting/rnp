@@ -22,5 +22,4 @@ public class StoredProcedureName {
 
     public static final String SP_VALIDAR_NUEVA_CLAVE =             "spvalidanuevaclave";
     public static final String SP_REGISTRAR_NUEVA_CLAVE =           "spguardarclave";
-
 }

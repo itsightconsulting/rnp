@@ -30,8 +30,8 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         storedProcedureQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
 
         // Configuramos el valor de entrada
-        if(Validador.validRuc(Long.valueOf(ruc))) {
-            System.out.println("valor " + Validador.validRuc(Long.valueOf(ruc)));
+        if(Validador.validarUsuario(Long.valueOf(ruc))) {
+            System.out.println("valor " + Validador.validarUsuario(Long.valueOf(ruc)));
             storedProcedureQuery.setParameter("ruc", ruc);
 
             // Realizamos la llamada al procedimiento
@@ -43,7 +43,7 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
             String outputValue3 = "Paso con exito";
             System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
         }else {
-            System.out.println("valor " + Validador.validRuc(Long.valueOf(ruc)));
+            System.out.println("valor " + Validador.validarUsuario(Long.valueOf(ruc)));
             System.out.println("Fallo en la transacción");
         }
         return new ProcedureOutputDTO();
@@ -61,8 +61,8 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         storedProcedureQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
 
         // Configuramos el valor de entrada
-        if(Validador.validRuc(Long.valueOf(ruc)) && Validador.validarClave(clave)) {
-            System.out.println("valor " + Validador.validRuc(Long.valueOf(ruc)));
+        if(Validador.validarUsuario(Long.valueOf(ruc)) && Validador.validarClave(clave)) {
+            System.out.println("valor " + Validador.validarUsuario(Long.valueOf(ruc)));
             System.out.println("TOMA PARAMETRO DE ENTRADA ___" + ruc);
             storedProcedureQuery.setParameter("C_DES_RUC", ruc);
             System.out.println("valor Clave " + Validador.validarClave(clave));
@@ -76,7 +76,7 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
             String outputValue3 = "Registro con exito";
             System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
         }else {
-            System.out.println("valor " + Validador.validRuc(Long.valueOf(ruc)));
+            System.out.println("valor " + Validador.validarUsuario(Long.valueOf(ruc)));
             System.out.println("valor Clave " + Validador.validarClave(clave));
             System.out.println("Fallo en la transacción");
         }
@@ -94,8 +94,8 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
         storedProcedureQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
 
         // Configuramos el valor de entrada
-        if(Validador.validRuc(Long.valueOf(ruc))) {
-            System.out.println("valor " + Validador.validRuc(Long.valueOf(ruc)));
+        if(Validador.validarUsuario(Long.valueOf(ruc))) {
+            System.out.println("valor " + Validador.validarUsuario(Long.valueOf(ruc)));
             System.out.println("TOMA PARAMETRO DE ENTRADA ___" + ruc);
             storedProcedureQuery.setParameter("RUC", ruc);
             storedProcedureQuery.setParameter("CLAVE", clave);
@@ -109,7 +109,7 @@ public class ClaveAccesoProcedureInvokerImpl implements ClaveAccesoProcedureInvo
             String outputValue3 = "validado con exito";
             System.out.println("OUT1: "+ outputValue1+ " | OUT2: "+outputValue2 + " | OUT3: "+outputValue3);
         }else {
-            System.out.println("valor " + Validador.validRuc(Long.valueOf(ruc)));
+            System.out.println("valor " + Validador.validarUsuario(Long.valueOf(ruc)));
             System.out.println("Fallo en la transacción");
         }
         return new ProcedureOutputDTO();

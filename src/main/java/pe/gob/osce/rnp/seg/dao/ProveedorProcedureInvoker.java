@@ -23,9 +23,13 @@ public interface ProveedorProcedureInvoker {
 
     Boolean validarDatosIdentificacion(DatosIdentificacionDTO dtsIdentificacion);
 
-    Boolean validarExistenciaCorreoExtNoDom(String correo);
+    List<ProExtNoDom> validarExistenciaCorreoExtNoDom(String correo);
+
+    List<ProExtNoDom> validarExistenciaCorreoRepExtNoDom(String correo);
 
     ProcedureOutputDTO actualizarCorreoExtNoDom(String ruc, String correo);
 
     List<CorreoRepDTO> obtenerListadoCorreoRepresentante(String ruc);
+
+    List<ProExtNoDom> obtenerListadoEmpresasExtNoDom(String paisId, Integer tipoPersonaId, String razonSocial);
 }

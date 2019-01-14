@@ -20,5 +20,9 @@ public interface ProveedorService {
 
     Respuesta<String> actualizarCorreoExtNoDom(Long ruc, String correo);
 
-    Respuesta<String> validarCorreoExtNoDom(String correo);
+    Respuesta<String> enviarCorreoProvExtNoDom(String correo);
+
+    Respuesta<String> enviarCorreoRepProvExtNoDom(String correo);
+
+    Respuesta<List<ProExtNoDom>> obtenerListadoEmpresasExtNoDom(String paisId, Integer tipoPersonaId, String razonSocial);
 }

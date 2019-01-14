@@ -53,4 +53,17 @@ public class SeguridadProcedureInvokerImpl implements SeguridadProcedureInvokerR
         spQuery.execute();
         return spQuery.getOutputParameterValue("respuesta") == "1";
     }
+
+    @Override
+    public Boolean validarIngreso(String ruc, String clave) {
+        StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_AUTENTICAR_PROVEEDOR);
+        spQuery.registerStoredProcedureParameter("RUC", String.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("CLAVE", String.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("MENSAJE", String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter("RESPUESTA", String.class, ParameterMode.OUT);
+        spQuery.setParameter("RUC", ruc);
+        spQuery.setParameter("CLAVE", clave);
+        spQuery.execute();
+        return spQuery.getOutputParameterValue("respuesta") == "1";
+    }
 }

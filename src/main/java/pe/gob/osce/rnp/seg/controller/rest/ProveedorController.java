@@ -82,9 +82,24 @@ public class ProveedorController {
         return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0);
     }
 
-    @GetMapping("/recuperar-pass/sc/validar/correo/ext-nodom/{correo}")
-    public Respuesta<String> validarCorreoExtNoDom(@PathVariable(value = "correo") String correo){
-        return proveedorService.validarCorreoExtNoDom(correo);
+    @PostMapping("/recuperar-pass/su/enviar/correo/ext-nodom")
+    public Respuesta<String> enviarCorreoProvExtNoDom(@RequestParam(value = "correo") String correo){
+        return proveedorService.enviarCorreoProvExtNoDom(correo);
+    }
+
+    @PostMapping("/recuperar-pass/su/enviar/correo/rep-ext-nodom")
+    public Respuesta<String> enviarCorreoRepProExtNoDom(@RequestParam(value = "correo") String correo){
+        return proveedorService.enviarCorreoRepProvExtNoDom(correo);
+    }
+
+    @GetMapping("/recuperar-pass/su/obtener/listado/empresa-ext-no-dom")
+    public Respuesta<List<ProExtNoDom>> obtenerListadoEmpresaExtNoDom(
+            @RequestParam(value = "paisId") String paisId,
+            @RequestParam(value = "tipoPersonaId") Integer tipoPersonaId,
+            @RequestParam(value = "razonSocial") String razonSocial){
+        if(paisId != null && paisId.length()>0 && tipoPersonaId != null && tipoPersonaId>0 && razonSocial != null && razonSocial.length()>4)
+            return proveedorService.obtenerListadoEmpresasExtNoDom(paisId, tipoPersonaId, razonSocial);
+        return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0);
     }
 
 }
