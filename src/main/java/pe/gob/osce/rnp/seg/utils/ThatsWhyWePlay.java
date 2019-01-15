@@ -1,6 +1,7 @@
 package pe.gob.osce.rnp.seg.utils;
 
 import pe.gob.osce.rnp.seg.model.jpa.dto.ProExtNoDom;
+import pe.gob.osce.rnp.seg.model.jpa.dto.ProcedureOutputDTO;
 
 import java.util.ArrayList;
 import java.util.List;

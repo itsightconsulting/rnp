@@ -1,8 +1,11 @@
 package pe.gob.osce.rnp.seg.model.jpa.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.hibernate.validator.constraints.Length;
+import pe.gob.osce.rnp.seg.json.JsonDateSimpleDeserializer;
 import pe.gob.osce.rnp.seg.json.JsonDateSimpleSerializer;
 
 import javax.validation.constraints.Max;
@@ -17,23 +20,24 @@ import java.util.Date;
 public class DatosIdentificacionDTO implements Serializable {
 
     @NotNull
-    @Size(min = 11, max = 11)
+    @Min(1999999999)
     public Long ruc;
 
     @NotNull
-    @Size(max = 3)
-    public String paisId;
+    @Min(0)
+    @Max(999)
+    public Integer paisId;
 
     @NotNull
-    @Min(0)
-    public Integer tipoDocuId;
+    @Length(min = 1, max = 2)
+    public String tipoDocuId;
 
     @NotNull
     @Size(min = 1)
     public String desDocu;
 
     @NotNull
-    @Min(0)
+    @Min(1)
     public Integer zonaRegistralId;
 
     @NotNull
@@ -41,10 +45,12 @@ public class DatosIdentificacionDTO implements Serializable {
     public String nroPartida;
 
     @NotNull
-    @JsonSerialize(using = JsonDateSimpleSerializer.class)
+    //@JsonSerialize(using = JsonDateSimpleSerializer.class)
+    //@JsonDeserialize(using = JsonDateSimpleDeserializer.class)
     public Date fecIngreso;
 
     @NotNull
     @Min(0)
+    @Max(9)
     public Integer tipoCondicionId;
 }

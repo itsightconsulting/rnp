@@ -8,6 +8,8 @@ import pe.gob.osce.rnp.seg.svc.ProveedorService;
 import pe.gob.osce.rnp.seg.utils.Enums;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -97,9 +99,10 @@ public class ProveedorController {
             @RequestParam(value = "paisId") String paisId,
             @RequestParam(value = "tipoPersonaId") Integer tipoPersonaId,
             @RequestParam(value = "razonSocial") String razonSocial){
-        if(paisId != null && paisId.length()>0 && tipoPersonaId != null && tipoPersonaId>0 && razonSocial != null && razonSocial.length()>4)
+        if(paisId != null && paisId.length()>0 && paisId.length()<4 && tipoPersonaId != null && tipoPersonaId>0 && razonSocial != null && razonSocial.length()>4)
             return proveedorService.obtenerListadoEmpresasExtNoDom(paisId, tipoPersonaId, razonSocial);
-        return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0);
+        List<ProExtNoDom> lst = new ArrayList<>();
+        lst.add(new ProExtNoDom(null,"Los datos ingresados son inválidos"));
+        return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0, lst);
     }
-
 }

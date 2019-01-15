@@ -7,6 +7,7 @@ import pe.gob.osce.rnp.seg.dao.ProveedorProcedureInvoker;
 import pe.gob.osce.rnp.seg.dao.SeguridadProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.generic.BaseServiceImpl;
 import pe.gob.osce.rnp.seg.model.jpa.dto.Respuesta;
+import pe.gob.osce.rnp.seg.model.jpa.dto.UpdClaveDto;
 import pe.gob.osce.rnp.seg.model.jpa.pojo.ContenidoCorreoPOJO;
 import pe.gob.osce.rnp.seg.svc.EmailService;
 import pe.gob.osce.rnp.seg.svc.ProveedorService;
@@ -56,44 +57,51 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
     }
 
     @Override
-    public Respuesta<String> actualizarClave(Long ruc, String clave, String correoDestino) {
+    public Respuesta<String> actualizarClave(UpdClaveDto updClave) {
         try {
-            if (!Validador.validarUsuario(ruc)) {
+            String ruc = updClave.getRuc().toString();
+            String correo = updClave.getCorreo();
+            if (!Validador.validarUsuario(updClave.getRuc())) {
                 LOGGER.info("Ruc inválido");
                 return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Ruc inválido");
             }
-            if (!Validador.validarClave(clave)) {
+            if (updClave.getClave().length() < 8) {
                 LOGGER.info("Clave tiene un formato inválido o vacio");
                 return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Clave tiene un formato inválido o vacio");
             }
 
-            if (!Validador.validarCorreo(correoDestino)) {
-                LOGGER.info("El correo presenta un formato inválido: " + correoDestino);
-                return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El correo presenta un formato inválido: " + correoDestino);
+            if (!Validador.validarCorreo(updClave.getCorreo())) {
+                LOGGER.info("El correo presenta un formato inválido: " + correo);
+                return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El correo presenta un formato inválido: " + correo);
             }
 
-            boolean exito = repository.validarClave(ruc.toString());
+            /*if(!repository.validarCodVer(ruc, updClave.getCodVerificacion())){
+                LOGGER.info("El código de verificación proporcionado o a cadudado o no es válido: COD-"+updClave.getCodVerificacion());
+                return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El código de verificación proporcionado o a cadudado o no es válido: COD-"+updClave.getCodVerificacion());
+            }*/
+
+            boolean exito = repository.validarClave(ruc);
             if (exito) {
-                exito = repository.actualizarClave(ruc.toString(), clave);
+                exito = repository.actualizarClave(ruc, updClave.getClave());
                 if (exito) {
-                    Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(proveedorRepository.obtenerContenidoCorreoByTipo(2, ruc.toString(), ""));
+                    Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(proveedorRepository.obtenerContenidoCorreoByTipo(2, ruc, ""));
                     if (optCorreo.isPresent()) {
                         ContenidoCorreoPOJO contenidoCorreo = optCorreo.get();
-                        emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correoDestino, contenidoCorreo.getCuerpo());
-                        boolean exitoRegistro = proveedorRepository.registrarCorreoEnviado(ruc.toString(), contenidoCorreo.getAsuntoId(), correoDestino) == "1";
+                        emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correo, contenidoCorreo.getCuerpo());
+                        boolean exitoRegistro = proveedorRepository.registrarCorreoEnviado(ruc, contenidoCorreo.getAsuntoId(), correo).equals("1");
                         if (exitoRegistro)
                             return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "La clave ha sido actualizada satisfactoriamente");
                         LOGGER.info("El correo ha sido enviado pero no ha sido registrado en envió en BD");
-                        return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 0, "El correo ha sido enviado pero no ha sido registrado en envió en BD");
+                        return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 0, "El correo ha sido enviado pero no ha sido registrado en BD");
                     }
                     LOGGER.info("La clave ha sido actualizada pero el correo no ha sido enviado");
                     return new Respuesta(ResponseCode.EXITO_GENERICA.get(), 1, "La clave ha sido actualizada pero el correo no ha sido enviado");
                 }
                 LOGGER.info("Lamentablemente la clave no ha podido ser actualizada. Intentarlo más tarde");
-                return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0);
+                return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Lamentablemente la clave no ha podido ser actualizada. Intentarlo más tarde");
             }
-            LOGGER.info("Clave tiene un formato inválido o vacio");
-            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0);
+            LOGGER.info("La clave tiene un formato inválido");
+            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "La clave tiene un formato");
         }catch (Exception ex){
             LOGGER.info("Excepción: "+ex.getMessage());
             return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
@@ -108,10 +116,10 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
                 if(exito)
                     return new Respuesta(ResponseCode.EXITO_GENERICA.get(), 1, "Autenticación correcta");
                 LOGGER.info("Usuario o clave no válida");
-                return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0);
+                return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Usuario o clave no válida");
             }
             LOGGER.info("Ruc inválido");
-            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0);
+            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Ruc inválido");
         } catch (Exception ex){
             return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
         }

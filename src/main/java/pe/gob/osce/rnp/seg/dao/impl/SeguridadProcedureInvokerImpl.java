@@ -27,7 +27,7 @@ public class SeguridadProcedureInvokerImpl implements SeguridadProcedureInvokerR
         spQuery.setParameter("C_DES_RUC", ruc);
         spQuery.setParameter("C_DES_CODVERIFICACION", codVer);
         spQuery.execute();
-        return spQuery.getOutputParameterValue("respuesta") == "1";
+        return spQuery.getOutputParameterValue("RESPUESTA").equals("1");
     }
 
     @Override
@@ -38,7 +38,7 @@ public class SeguridadProcedureInvokerImpl implements SeguridadProcedureInvokerR
         spQuery.registerStoredProcedureParameter("RESPUESTA", String.class, ParameterMode.OUT);
         spQuery.setParameter("CLAVE", clave);
         spQuery.execute();
-        return spQuery.getOutputParameterValue("respuesta") == "1";
+        return spQuery.getOutputParameterValue("RESPUESTA").equals("1");
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SeguridadProcedureInvokerImpl implements SeguridadProcedureInvokerR
         spQuery.setParameter("C_DES_RUC", ruc);
         spQuery.setParameter("CLAVE", nuevaClave);
         spQuery.execute();
-        return spQuery.getOutputParameterValue("respuesta") == "1";
+        return spQuery.getOutputParameterValue("RESPUESTA").equals("1");
     }
 
     @Override
@@ -64,6 +64,6 @@ public class SeguridadProcedureInvokerImpl implements SeguridadProcedureInvokerR
         spQuery.setParameter("RUC", ruc);
         spQuery.setParameter("CLAVE", clave);
         spQuery.execute();
-        return spQuery.getOutputParameterValue("respuesta") == "1";
+        return spQuery.getOutputParameterValue("RESPUESTA").equals("1");
     }
 }

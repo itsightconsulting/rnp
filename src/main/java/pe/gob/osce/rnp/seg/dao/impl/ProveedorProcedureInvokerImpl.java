@@ -30,7 +30,7 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
         spQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
         spQuery.setParameter("ruc", ruc);
         spQuery.execute();
-        return spQuery.getOutputParameterValue("respuesta") == "1";
+        return spQuery.getOutputParameterValue("respuesta").equals("1");
     }
 
     @Override
@@ -62,9 +62,9 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
         spQuery.registerStoredProcedureParameter("C_DES_RUC", String.class, ParameterMode.IN);
         spQuery.registerStoredProcedureParameter("MENSAJE", String.class, ParameterMode.OUT);
         spQuery.registerStoredProcedureParameter("RESPUESTA", String.class, ParameterMode.OUT);
-        spQuery.setParameter("ruc", ruc);
+        spQuery.setParameter("C_DES_RUC", ruc);
         spQuery.execute();
-        boolean existeCorreo = spQuery.getOutputParameterValue("RESPUESTA") == "1";
+        boolean existeCorreo = spQuery.getOutputParameterValue("RESPUESTA").equals("1");
         return existeCorreo ? spQuery.getOutputParameterValue("MENSAJE").toString() : null;
     }
 
@@ -98,7 +98,7 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
         spQuery.setParameter("C_DES_IP", ipCliente);
 
         spQuery.execute();
-        boolean existeRuc = spQuery.getOutputParameterValue("respuesta") == "1";
+        boolean existeRuc = spQuery.getOutputParameterValue("respuesta").equals("1");
         return existeRuc ? spQuery.getOutputParameterValue("mensaje").toString() : null;
     }
 
@@ -115,12 +115,17 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
         spQuery.registerStoredProcedureParameter("C_DES_OBSERV2", String.class, ParameterMode.IN);//OBS 2 VARCHAR NULLABLE
         spQuery.registerStoredProcedureParameter("C_DES_OBSERV3", String.class, ParameterMode.IN);//OBS 3 VARCHAR NULLABLE
         spQuery.registerStoredProcedureParameter("C_DES_OBSERV4", String.class, ParameterMode.IN);//OBS 4 VARCHAR NULLABLE
+
+        spQuery.setParameter("N_IND_TIPO", tipo);
+        spQuery.setParameter("C_DES_RUC", ruc);
+        spQuery.setParameter("D_FEC_CAMBIO", new Date());
+        spQuery.setParameter("C_COD_VERIFIC", codVerificacion);
         List<Object[]> result = spQuery.getResultList();
         return result.size() > 0 ?
                 new ContenidoCorreoPOJO(
-                    Integer.parseInt(result.get(0)[0].toString()),
-                    result.get(0)[1].toString(),
-                    result.get(0)[2].toString())
+                    Integer.parseInt(result.get(0)[0].toString()),//AsuntoId
+                    result.get(0)[1].toString(),//NombreAsunto
+                    result.get(0)[2] == null ? "Correo nulo" : result.get(0)[2].toString())//Cuerpo
                : null;
     }
 
@@ -131,14 +136,14 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
         // Registrar los parámetros de entrada y salida
         spQuery.registerStoredProcedureParameter("C_DES_RUC", String.class, ParameterMode.IN);
         spQuery.registerStoredProcedureParameter("N_ID_ASUNTO", Integer.class, ParameterMode.IN);
-        spQuery.registerStoredProcedureParameter("C_DES_MENSAJE", String.class, ParameterMode.OUT);
-        spQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
-        spQuery.registerStoredProcedureParameter("mensaje", String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter("C_DES_MENSAJE", String.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("RESPUESTA", String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter("MENSAJE", String.class, ParameterMode.OUT);
         spQuery.setParameter("C_DES_RUC", ruc);
         spQuery.setParameter("N_ID_ASUNTO", idAsunto);
         spQuery.setParameter("C_DES_MENSAJE", cuerpoCorreo);
         spQuery.execute();
-        return spQuery.getOutputParameterValue("respuesta").toString();
+        return spQuery.getOutputParameterValue("RESPUESTA").toString();
     }
 
     @Override
@@ -151,7 +156,7 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
         spQuery.setParameter("C_IND_TIPO", tipo);
         List<Object[]> result = spQuery.getResultList();
         if(result.size() > 0) {
-            result.forEach(x -> lstForanea.add(new ForaneaProveedorDTO(Integer.parseInt(x[0].toString()), x[1].toString())));
+            result.forEach(x -> lstForanea.add(new ForaneaProveedorDTO(x[0].toString(), x[1].toString())));
             return lstForanea;
         }
         return null;
@@ -163,17 +168,16 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
         // Registrar los parámetros de entrada y salida
         spQuery.registerStoredProcedureParameter("C_DES_RUC", String.class, ParameterMode.IN);
         spQuery.registerStoredProcedureParameter("C_ID_PAIS", String.class, ParameterMode.IN);
-        spQuery.registerStoredProcedureParameter("C_ID_TIPODOCU", Integer.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("C_ID_TIPODOCU", String.class, ParameterMode.IN);
         spQuery.registerStoredProcedureParameter("C_DES_DOCU", String.class, ParameterMode.IN);
         spQuery.registerStoredProcedureParameter("N_ID_ZONAREGISTRAL", Integer.class, ParameterMode.IN);
         spQuery.registerStoredProcedureParameter("C_NRO_PARTIDA", String.class, ParameterMode.IN);
-        spQuery.registerStoredProcedureParameter("D_FEC_INGRESO", String.class, ParameterMode.IN);
-        spQuery.registerStoredProcedureParameter("C_ID_TIPOCONDICION", Integer.class, ParameterMode.OUT);
-        spQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
-        spQuery.registerStoredProcedureParameter("mensaje", String.class, ParameterMode.OUT);
-
+        spQuery.registerStoredProcedureParameter("D_FEC_INGRESO", Date.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("C_ID_TIPOCONDICION", Integer.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("RESPUESTA", String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter("MENSAJE", String.class, ParameterMode.OUT);
         spQuery.setParameter("C_DES_RUC", dtsIdentificacion.getDesDocu());
-        spQuery.setParameter("C_ID_PAIS", dtsIdentificacion.getPaisId());
+        spQuery.setParameter("C_ID_PAIS", dtsIdentificacion.getPaisId().toString());
         spQuery.setParameter("C_ID_TIPODOCU", dtsIdentificacion.getTipoDocuId());
         spQuery.setParameter("C_DES_DOCU", dtsIdentificacion.getDesDocu());
         spQuery.setParameter("N_ID_ZONAREGISTRAL", dtsIdentificacion.getZonaRegistralId());
@@ -181,7 +185,7 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
         spQuery.setParameter("D_FEC_INGRESO", dtsIdentificacion.getFecIngreso());
         spQuery.setParameter("C_ID_TIPOCONDICION", dtsIdentificacion.getTipoCondicionId());
 
-        return spQuery.getOutputParameterValue("respuesta") == "1";
+        return spQuery.getOutputParameterValue("RESPUESTA").equals("1");
     }
 
     @Override
@@ -228,8 +232,8 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
         spQuery.setParameter("C_DES_CORREO", correo);
         spQuery.execute();
 
-        if(spQuery.getOutputParameterValue("RESPUESTA") == "1")
-            return new ProcedureOutputDTO();
+        if(spQuery.getOutputParameterValue("RESPUESTA").equals("1"))
+            return new ProcedureOutputDTO("1","El correo se ha actualizado satisfactoriamente");
         else
             return new ProcedureOutputDTO(
                 spQuery.getOutputParameterValue("RESPUESTA").toString(),
