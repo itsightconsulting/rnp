@@ -31,5 +31,4 @@ export class ResetPasswordService {
         const headers = new HttpHeaders().set('Authorization', 'Bearer '+ this.cookie.get('rnp_api_token'));
         return this.http.get('/api/captcha/refresh', {headers});
     }
-
 }

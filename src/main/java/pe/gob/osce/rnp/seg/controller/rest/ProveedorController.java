@@ -9,7 +9,6 @@ import pe.gob.osce.rnp.seg.utils.Enums;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController

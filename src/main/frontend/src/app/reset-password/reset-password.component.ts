@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ResetPasswordService} from "./reset-password.service";
 import {CookieService} from "ngx-cookie-service";
 
@@ -13,6 +13,7 @@ export class ResetPasswordComponent implements OnInit {
   ruc: any;
   failCaptcha: boolean = false;
   errorMessage: string;
+  activeOpsCambio: boolean = false;
 
   constructor(private resetPasswordService: ResetPasswordService, private cookie: CookieService) { }
 
@@ -20,40 +21,10 @@ export class ResetPasswordComponent implements OnInit {
     this.resetPasswordService.getCaptcha().subscribe((res: any)=>{
         if(res.flag){
             const d = res.d;
-            this.cookie.set('captcha_code', d.answer);
+            this.cookie.set('cap_code', d.answer);
             document.querySelector('#ImgCaptcha').setAttribute('src', "data:image/png;base64," + d.b64image.substr(0, d.b64image.length - 2))
         }
-
     });
-  }
-
-  obtenerCorreo(evt){
-      this.verify = {};
-      this.verify.ruc = document.querySelector('#Ruc');
-      this.verify.codCaptcha = document.querySelector('#captchaCode');
-      if(this.verify.codCaptcha.value.length > 0){
-          const answerCaptcha = this.cookie.get('captcha_code');
-          if(this.verify.codCaptcha.value.trim() == answerCaptcha){
-              this.resetPasswordService.getCorreo(this.verify.ruc).subscribe((res: any)=>{
-                  if(res.flag){
-                      document.querySelector('#RucSolicitante').textContent = this.verify.ruc.value;
-                      document.querySelector('#MsgValidacion').classList.remove('d-none');
-                      document.querySelector('#frm_1').classList.add('d-none');
-                      document.querySelector('#frm_2').classList.remove('d-none');
-                      const correo = res.d.mensaje;
-                      document.querySelector('#CorreoSemiOculto').textContent = correo.slice(0,5) + "*******"+ correo.slice(12);
-                  }else{
-                      document.querySelector('#MsgValidacion').classList.remove('d-none');
-                  }
-              });
-          }else {
-              alert('El código captcha ingresado no coincide con el de la imagen');
-              this.refreshCaptcha();
-          }
-      }else
-          alert('Debe ingresar el código captcha');
-
-
   }
 
   enviarCorreoRecuperacion(evt){
@@ -78,36 +49,12 @@ export class ResetPasswordComponent implements OnInit {
             if(res.flag){
                 const d = res.d;
                 this.refCaptcha = {};
-                this.cookie.set('captcha_code', d.answer);
+                this.cookie.set('cap_code', d.answer);
                 this.refCaptcha.c = document.getElementById('CodeCaptcha');
                 this.refCaptcha.c.value = "";
                 document.querySelector('#ImgCaptcha').setAttribute('src', "data:image/png;base64," + d.b64image.substr(0, d.b64image.length - 2))
             }
         })
-    }
-
-    obtenerOpciones(r, evt){
-        if(r.valid) {
-            if (r.controls.CodeCaptcha.value == this.cookie.get('captcha_code'))
-                this.resetPasswordService.getOpciones(r.controls.Ruc.value).subscribe((d: any) => {
-                        if(d.flag)
-                            console.log('success')
-                        else{
-                            this.refreshCaptcha();
-                            this.errorMessage = d.d;
-                            this.failCaptcha = this.failCaptcha ? false : !true;
-                        }
-                    },
-                    error => {
-                        console.log(error)
-                    })
-            else
-                this.refreshCaptcha(true);
-        }else{
-            for(let i in r.controls){
-                r.controls[i].markAsTouched();
-            }
-        }
     }
 
     numberOnly(event): boolean {
@@ -116,6 +63,41 @@ export class ResetPasswordComponent implements OnInit {
             return false;
         }
         return true;
+    }
+
+    preventMultipleSubmit(btn, r){
+        if(r.valid) {
+            if (r.controls.CodeCaptcha.value == this.cookie.get('cap_code') && !btn.hasAttribute('disabled')) {
+                btn.setAttribute('disabled','disabled');
+                this.resetPasswordService.getOpciones(r.controls.Ruc.value).subscribe((d: any) => {
+                        if (d.flag) {
+                            this.activeOpsCambio = true;
+                            this.cookie.set('ruc_prov', r.controls.Ruc.value);
+                        } else {
+                            this.refreshCaptcha();
+                            this.errorMessage = d.d;
+                            this.failCaptcha = false;
+                            r.controls.CodeCaptcha.setErrors({'incorrect': true});
+                        }
+                    },
+                    err => {
+                        this.errorMessage = err.status + ": "+err.statusText;
+                        btn.removeAttribute('disabled');
+                    },
+                    ()=>{
+                        setTimeout(()=>this.errorMessage = "", 4500);
+                    }
+                )
+            }else {
+                this.refreshCaptcha(true);
+                setTimeout(()=>this.failCaptcha = false, 3000);
+                r.controls.CodeCaptcha.setErrors({'incorrect': true});
+            }
+        } else{
+            for(let i in r.controls){
+                r.controls[i].markAsTouched();
+            }
+        }
     }
 
 }

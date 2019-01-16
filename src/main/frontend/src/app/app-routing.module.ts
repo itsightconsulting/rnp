@@ -4,6 +4,7 @@ import {AuthenticationComponent} from "./authentication/authentication.component
 import {TasksComponent} from "./tasks/tasks.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
 import {NuevaPasswordComponent} from "./nueva-password/nueva-password.component";
+import {UpdPasswordComponent} from "./upd-password/upd-password.component";
 
 const routes: Routes = [
     {
@@ -24,6 +25,10 @@ const routes: Routes = [
     {
         path: 'cambio/password',
         component: NuevaPasswordComponent
+    },
+    {
+        path: 'recuperar/password/validacion',
+        component: UpdPasswordComponent
     }
 ];
 

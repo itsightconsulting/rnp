@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
     providedIn: 'root'

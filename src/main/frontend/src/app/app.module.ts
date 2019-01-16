@@ -14,6 +14,8 @@ import {OnStartUpComponent} from './on-start-up/on-start-up.component';
 import {OnStartUpService} from "./on-start-up/on-start-up.service";
 import {HttpRequestInterceptor} from "./http-request-interceptor.component";
 import {FormsModule} from "@angular/forms";
+import { ListadoOpcionComponent } from './listado-opcion/listado-opcion.component';
+import { UpdPasswordComponent } from './upd-password/upd-password.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import {FormsModule} from "@angular/forms";
     AuthenticationComponent,
     ResetPasswordComponent,
     NuevaPasswordComponent,
-    OnStartUpComponent],
+    OnStartUpComponent,
+    ListadoOpcionComponent,
+    UpdPasswordComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
