@@ -12,6 +12,7 @@ export class ResetPasswordComponent implements OnInit {
   verify : any;
   ruc: any;
   failCaptcha: boolean = false;
+  errorMessage: string;
 
   constructor(private resetPasswordService: ResetPasswordService, private cookie: CookieService) { }
 
@@ -89,13 +90,23 @@ export class ResetPasswordComponent implements OnInit {
         if(r.valid) {
             if (r.controls.CodeCaptcha.value == this.cookie.get('captcha_code'))
                 this.resetPasswordService.getOpciones(r.controls.Ruc.value).subscribe((d: any) => {
-                        console.log(d);
+                        if(d.flag)
+                            console.log('success')
+                        else{
+                            this.refreshCaptcha();
+                            this.errorMessage = d.d;
+                            this.failCaptcha = this.failCaptcha ? false : !true;
+                        }
                     },
                     error => {
                         console.log(error)
                     })
             else
                 this.refreshCaptcha(true);
+        }else{
+            for(let i in r.controls){
+                r.controls[i].markAsTouched();
+            }
         }
     }
 
