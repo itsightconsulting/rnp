@@ -7,38 +7,68 @@ import {AuthenticationService} from "./authentication.service";
   styleUrls: ['./authentication.component.css']
 })
 export class AuthenticationComponent implements OnInit {
-
+  btnSubmit: any;
   constructor(private authenticationService: AuthenticationService) { }
-
+  credentials: any;
+  objJson: any;
+  verificacion: boolean;
+  msgLogin: string = "";
+  opcRecuperacion: number = 1;
+  private activeSegForm: boolean = false;
   ngOnInit() {
+    this.verificacion = true;
   }
 
-    autenticacion(){
-        const ruc = document.getElementById('RUC');
-        const pass = document.getElementById('Clave');
-        let val = false;
-        if(ruc.value.length == 11) {
-            val = true;
-        }else{
-            alert('ruc debe tener 11 dígitos');
-            val = false;
-        }
-        if(pass.value.length>0) {
-            val = true;
-        }else{
-            alert('Ingrese una password');
-            val = false;
-        }
+    submit(frm, $event){
+        this.btnSubmit = Array.from($event.target)[--Array.from($event.target).length];
+        this.objJson = new Object();
+        frm._directives.forEach((x,i) => {
+            this.objJson[Object.keys(frm.value)[i].substr(0,1).toLocaleLowerCase() + Object.keys(frm.value)[i].substr(1)] = Object.values(frm.value)[i];
+        });
+        if(frm.valid) {
+            if (!this.btnSubmit.classList.contains('disabled')) {
+                this.btnSubmit.classList.add('disabled');
+                this.authenticationService.authProcess(this.objJson).subscribe(
+                    (d: any) => {
+                        if (d.flag) {
+                            //window.location.href = "/recuperar/password"
+                            alert('Autenticación correcta: ' + JSON.stringify(d));
+                            window.location.reload();
+                        } else {
+                            this.verificacion = d.flag;
+                            this.msgLogin = d.d;
+                            this.btnSubmit.classList.remove('disabled');
+                            alert('Las credenciales ingresadas son incorrectas');
+                        }
+                    },
+                    (error)=>{
+                    this.btnSubmit.classList.remove('disabled');
+                        console.log(error);
+                });
+            }
+        }else
+            for(let i in frm.controls){
+                frm.controls[i].markAsTouched();
+            }
+    }
 
-        if(val){
-            this.authenticationService.authProcess(ruc.value, pass.value).subscribe((d) => {
-                if(d.flag){
-                    window.location.href = "/recuperar/password"
-                }else{
-                    alert('Las credenciales ingresadas son incorrectas');
-                }
-            });
+    log(x){
+        //console.log(x);
+    }
 
+    numberOnly(event): boolean {
+        const charCode = (event.which) ? event.which : event.keyIdentifier;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+
+    irOpcionRecuperacion(){
+        if(this.opcRecuperacion == 1){
+            window.location.href = "/recuperar/password";
+        }else{
+            window.location.href = "/recuperar/usuario";
         }
     }
 }

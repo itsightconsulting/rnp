@@ -9,9 +9,12 @@ export class ResetPasswordService {
 
     constructor(private http: HttpClient, private cookie: CookieService) {}
 
+
+    getOpciones(ruc){
+        return this.http.get('/api/proveedor/recuperar-pass/sc/obt/opciones/'+ruc);
+    }
     getCorreo(ruc) {
-        const headers = new HttpHeaders().set('Authorization', 'Bearer '+ this.cookie.get('rnp_api_token'));
-        return this.http.get('/api/contacto/obtenerCorreoUsuario/'+ruc, {headers});
+        return this.http.get('/api/proveedor/recuperar-pass/sc/obt/opciones/'+ruc.value);
     }
 
     enviarCorreoRecuperacion(ruc) {

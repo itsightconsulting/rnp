@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.container{
+    width: 100% !important;
+    padding: 0px !important;
+    height: 100% !important;
+}
+
+.form-control.ng-touched.ng-invalid{
+    border: 1px solid #b75d4f;
+}
+
+.form-control.ng-touched.ng-valid{
+    border: 1px solid #34c592;
+}
+
+.text-danger{
+    font-size: 11px;
+    padding-left: 2px;
+    padding-top: 2px;
+}

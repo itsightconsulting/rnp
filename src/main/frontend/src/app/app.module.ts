@@ -1,18 +1,19 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {TasksComponent} from './tasks/tasks.component';
 import {TasksAddComponent} from './tasks/tasks-add/tasks-add.component';
 import {TasksListComponent} from './tasks/tasks-list/tasks-list.component';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthenticationComponent} from './authentication/authentication.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
 import {CookieService} from "ngx-cookie-service";
 import {NuevaPasswordComponent} from './nueva-password/nueva-password.component';
 import {OnStartUpComponent} from './on-start-up/on-start-up.component';
 import {OnStartUpService} from "./on-start-up/on-start-up.service";
+import {HttpRequestInterceptor} from "./http-request-interceptor.component";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {OnStartUpService} from "./on-start-up/on-start-up.service";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [OnStartUpService, HttpClient, {
       provide: APP_INITIALIZER,
@@ -36,7 +38,12 @@ import {OnStartUpService} from "./on-start-up/on-start-up.service";
       },
       deps: [OnStartUpService],
       multi: true
-  }, CookieService],
+  }, CookieService,
+      {
+          provide: HTTP_INTERCEPTORS,
+          useClass: HttpRequestInterceptor,
+          multi: true
+      }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

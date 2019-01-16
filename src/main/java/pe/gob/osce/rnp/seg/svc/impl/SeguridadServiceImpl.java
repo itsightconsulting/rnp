@@ -63,11 +63,11 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
             String correo = updClave.getCorreo();
             if (!Validador.validarUsuario(updClave.getRuc())) {
                 LOGGER.info("Ruc inválido");
-                return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Ruc inválido");
+                return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El usuario debe empezar por 10, 20 o 9");
             }
             if (updClave.getClave().length() < 8) {
                 LOGGER.info("Clave tiene un formato inválido o vacio");
-                return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Clave tiene un formato inválido o vacio");
+                return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "La clave tiene un formato inválido o vacio");
             }
 
             if (!Validador.validarCorreo(updClave.getCorreo())) {
@@ -75,10 +75,10 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
                 return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El correo presenta un formato inválido: " + correo);
             }
 
-            /*if(!repository.validarCodVer(ruc, updClave.getCodVerificacion())){
+            if(!repository.validarCodVer(ruc, updClave.getCodVerificacion())){
                 LOGGER.info("El código de verificación proporcionado o a cadudado o no es válido: COD-"+updClave.getCodVerificacion());
                 return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El código de verificación proporcionado o a cadudado o no es válido: COD-"+updClave.getCodVerificacion());
-            }*/
+            }
 
             boolean exito = repository.validarClave(ruc);
             if (exito) {
@@ -119,7 +119,7 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
                 return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Usuario o clave no válida");
             }
             LOGGER.info("Ruc inválido");
-            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Ruc inválido");
+            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El usuario debe empezar por 9, 10 o 20");
         } catch (Exception ex){
             return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
         }

@@ -13,22 +13,56 @@
         <div class="header-content">
             <p><img class="svg" src="../assets/img/iconos_Rpn-01.svg"><strong>RNP</strong>Trámites en Línea</p>
         </div>
-        <form class="body-content" action="">
+        <form class="body-content" [class.hidden]="activeSegForm" action="" #f="ngForm" (ngSubmit)="submit(f, $event)">
             <div class="form-group">
-                <label>USUARIO</label>
-                <input class="form-control" id="RUC" type="text" maxlength="11" minlength="11" required="required" placeholder="RUC o Código de Extranjero no domiciliado">
+                <label for="Ruc">USUARIO</label>
+                <input ngModel name="Ruc" #Ruc="ngModel" (change)="log(Ruc)" id="Ruc" class="form-control" type="text"
+                    placeholder="Ruc o Código de Extranjero no domiciliado"
+                    required
+                    minlength="11"
+                    maxlength="11"
+                    (keypress)="numberOnly($event)">
+                <div class="text-danger" *ngIf="Ruc.touched && !Ruc.valid">
+                    <div *ngIf="Ruc.errors.required">El usuario es requerido</div>
+                    <div *ngIf="Ruc.errors.minlength || Ruc.errors.maxlength"> El usuario debe tener {{Ruc.errors.minlength.requiredLength}} caracteres</div>
+                </div>
             </div>
             <div class="form-group">
-                <label>CONTRASEÑA</label>
-                <input class="form-control" id="Clave" type="password" placeholder="Clave RNP" required="required">
+                <label for="Clave">CONTRASEÑA</label>
+                <input ngModel name="Clave" #Clave="ngModel" (change)="log(Clave)" id="Clave" class="form-control" type="password" placeholder="Clave RNP"
+                    minlength="8"
+                    maxlength="20"
+                    required>
+                <div class="text-danger" *ngIf="Clave.touched && !Clave.valid">
+                    <div *ngIf="Clave.errors.required">La clave es requerida</div>
+                    <div *ngIf="Clave.errors.minlength">La clave debe tener mínimo {{Clave.errors.minlength.requiredLength}} caracteres</div>
+                </div>
             </div>
             <div class="form-group">
-                <button id="btnLogin" class="btn btn-success full" type="button" (click)="autenticacion($event)">INICIAR SESIÓN</button>
+                <button id="btnLogin" class="btn btn-success full" type="submit">INICIAR SESIÓN</button>
+                <div class="label label-danger text-center" [class.hidden]="verificacion">{{msgLogin}}</div>
             </div>
             <ul class="option-login">
-                <li><a href="/recuperar/password">¿No puedes iniciar sesión?</a></li>
+                <li><a href="javascript:void(0)" (click)="activeSegForm=true">¿No puedes iniciar sesión?</a></li>
                 <li><a href="http://www.rnp.gob.pe/informativo.asp">¿Eres un nuevo usuario?</a></li>
             </ul>
+        </form>
+        <form class="body-content" action="" [class.hidden]="!activeSegForm">
+            <p class="subtitle-form">¿Por qué no puedes iniciar sesión?</p>
+            <div class="form-group form-group-rbt">
+                <label class="group-rbt">
+                    <input class="rbt" type="radio" name="option" data-opc="1" (change)="opcRecuperacion=1" checked><span class="checkmark"></span>He olvidado mi contraseña
+                </label>
+            </div>
+            <div class="form-group form-group-rbt">
+                <label class="group-rbt">
+                    <input class="rbt" type="radio" name="option" data-opc="2" (change)="opcRecuperacion=2"><span class="checkmark"></span>No se cúal es mi usuario
+                </label>
+            </div>
+            <div class="form-group two-buttons mrg-top">
+                <a href="javascript:void(0)" (click)="activeSegForm=false"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                <a href="javascript:void(0)" (click)="irOpcionRecuperacion()"><button class="btn btn-success" type="button">SIGUIENTE</button></a>
+            </div>
         </form>
     </div>
 </div>
