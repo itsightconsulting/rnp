@@ -7,6 +7,7 @@ import pe.gob.osce.rnp.seg.model.jpa.dto.*;
 import pe.gob.osce.rnp.seg.svc.ProveedorService;
 import pe.gob.osce.rnp.seg.utils.Enums;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +40,11 @@ public class ProveedorController {
     }
 
     @PostMapping("/recuperar-pass/sc/enviar/correo")
-    public Respuesta<String> enviarCorreo(@ModelAttribute @Valid PreCorreoDTO preCorreoDTO, BindingResult bindingResult){
-        if(!bindingResult.hasErrors())
+    public Respuesta<String> enviarCorreo(@ModelAttribute @Valid PreCorreoDTO preCorreoDTO, BindingResult bindingResult, HttpServletRequest request){
+        if(!bindingResult.hasErrors()){
+            preCorreoDTO.setIpCliente(request.getRemoteAddr());
             return proveedorService.enviarCorreo(preCorreoDTO);
+        }
         bindingResult.getFieldErrors().stream().forEach(err-> System.out.println(err.toString()));
         return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Los datos ingresados son inválidos");
     }

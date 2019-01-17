@@ -77,10 +77,10 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
     public void addingToContextSession() {
         context.setAttribute("version", currentVersion);
         //MAIL PROPERTIES
-        context.setAttribute("MAIL_HOST", parametroService.findByParametro("MAIL_HOST"));
-        context.setAttribute("MAIL_PORT", parametroService.findByParametro("MAIL_PORT"));
-        context.setAttribute("MAIL_USERNAME", parametroService.findByParametro("MAIL_USERNAME"));
-        context.setAttribute("MAIL_PASSWORD", parametroService.findByParametro("MAIL_PASSWORD"));
+        context.setAttribute("MAIL_HOST", parametroService.findByParametro("MAIL_HOST").getValor());
+        context.setAttribute("MAIL_PORT", parametroService.findByParametro("MAIL_PORT").getValor());
+        context.setAttribute("MAIL_USERNAME", parametroService.findByParametro("MAIL_USERNAME").getValor());
+        context.setAttribute("MAIL_PASSWORD", parametroService.findByParametro("MAIL_PASSWORD").getValor());
     }
 
     public void addingInitUsers() {

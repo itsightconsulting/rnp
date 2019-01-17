@@ -197,7 +197,7 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
         List<Object[]> lstProveedor = spQuery.getResultList();
         if(lstProveedor.size()>0){
             List<ProExtNoDom> lstCoincidencia = new ArrayList<>(lstProveedor.size());
-            lstProveedor.forEach(x->lstCoincidencia.add(new ProExtNoDom(x[0].toString(), x[1].toString())));
+            lstProveedor.forEach(x->lstCoincidencia.add(new ProExtNoDom(x[0].toString(), x[1].toString())));//Indice 0: CodExtNoDom, 1: razonSocial
             return lstCoincidencia;
         }
         return null;
@@ -212,7 +212,7 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
         List<Object[]> lstProveedor = spQuery.getResultList();
         if(lstProveedor.size()>0){
             List<ProExtNoDom> lstCoincidencia = new ArrayList<>(lstProveedor.size());
-            lstProveedor.forEach(x->lstCoincidencia.add(new ProExtNoDom(x[0].toString(), x[1].toString())));
+            lstProveedor.forEach(x->lstCoincidencia.add(new ProExtNoDom(x[0].toString(), x[1].toString())));//Indice 0: CodExtNoDom, 1: razonSocial
             return lstCoincidencia;
         }
         return null;

@@ -14,7 +14,14 @@ export class UpdPasswordComponent implements OnInit {
     correoFormatter: string = this.correo.slice(0,4)+ '*'.repeat(this.correo.indexOf('@')-4)+ this.correo.slice(this.correo.indexOf('@'));
     initFormActive: boolean = true;
     err: string = "";
+    codVerCorrecto: boolean = false;
+    err2: string = "";
+    claveDto: any;
+    scssMsg: any;
+    err3: string = "";
+    finalScssMsg: boolean = false;
   constructor(private updPasswordService: UpdPasswordService, private cookie: CookieService) {
+
   }
 
   ngOnInit() {}
@@ -26,8 +33,7 @@ export class UpdPasswordComponent implements OnInit {
       this.preCorreo = {};
       this.preCorreo.correo = this.cookie.get('email_prov');
       this.preCorreo.ruc = this.cookie.get('ruc_prov');
-      this.preCorreo.ipCliente = "127.0.0.1";
-    this.updPasswordService.checkCodigoVerificacion(this.preCorreo).subscribe((res: any) =>{
+    this.updPasswordService.enviarCorreoCodVer(this.preCorreo).subscribe((res: any) =>{
             console.log(res);
             if(res.flag){
                 this.initFormActive = false;
@@ -38,8 +44,61 @@ export class UpdPasswordComponent implements OnInit {
             console.log(err);
     },
         ()=>{
-            btn.removeAttr('disabled');
+            btn.removeAttribute('disabled');
+            btn.textContent = 'ENVIAR';
+            setTimeout(()=>this.err = "",4000);
         });
   }
 
+    comprobarCodVerificacion(r, evt){
+        if(r.valid){
+            const btn = evt.target;
+            btn.setAttribute('disabled', 'disabled');
+            let ruc = this.preCorreo.ruc = this.cookie.get('ruc_prov');
+            this.updPasswordService.checkCodigoVerificacion(ruc, r.controls.CodVerificacion.value).subscribe((res: any)=>{
+                    console.log(res);
+                    if(res.flag){
+                        this.cookie.set('cod_ver_prov', r.controls.CodVerificacion.value);
+                        this.codVerCorrecto = true;
+                    }else{
+                        this.err2 = res.d;
+                    }
+                },err=>{
+                    console.log(err);
+                    this.err2 = err.status + ": "+err.statusText;
+                },
+                ()=>{
+                    btn.removeAttribute('disabled');
+            });
+        }
+    }
+
+    actualizarClave(r, evt){
+        if(r.valid) {
+            const btn = evt.target;
+            btn.setAttribute('disabled', 'disabled');
+            this.claveDto = {};
+            this.claveDto.ruc = this.ruc;
+            this.claveDto.correo = this.correo;
+            this.claveDto.clave = r.controls.Clave.value;
+            this.claveDto.codVerificacion = this.cookie.get('cod_ver_prov');
+            this.updPasswordService.actualizarClave(this.claveDto).subscribe((res: any)=>{
+                    console.log(res);
+                    if(res.flag){
+                        this.scssMsg = res.d;
+                        this.finalScssMsg = true;
+                    }else{
+                        this.err3 = res.d;
+                    }
+                },
+                err=>{
+                    console.log(err);
+                    this.err3 = err.status + ": "+err.statusText;
+                },
+                ()=>{
+                    btn.removeAttribute('disabled');
+                    setTimeout(()=>this.err3 = "", 4000);
+                })
+        }
+    }
 }

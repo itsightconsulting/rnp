@@ -9,7 +9,11 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import pe.gob.osce.rnp.seg.generic.EmailGeneric;
 import pe.gob.osce.rnp.seg.svc.EmailService;
+import pe.gob.osce.rnp.seg.utils.Enums;
 
+import javax.mail.internet.InternetAddress;
+import javax.servlet.ServletContext;
+import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
 @Service
@@ -18,11 +22,14 @@ public class EmailServiceImpl extends EmailGeneric implements EmailService {
     public static final Logger LOGGER = LogManager.getLogger(EmailServiceImpl.class);
 
     private JavaMailSender emailSender;
+
+    private ServletContext context;
     
     @Autowired
-    public EmailServiceImpl(JavaMailSender emailSender) {
+    public EmailServiceImpl(JavaMailSender emailSender, ServletContext context) {
 		// TODO Auto-generated constructor stub
     	this.emailSender = emailSender;
+    	this.context = context;
 	}
 
     @Override
@@ -46,12 +53,18 @@ public class EmailServiceImpl extends EmailGeneric implements EmailService {
     }
 
     @Override
-    public void enviarCorreoInformativo(String asunto, String receptor, String contenido) {
-        MimeMessagePreparator preparator = mimeMessagePreparator(asunto, receptor, contenido);
+    public Boolean enviarCorreoInformativo(String asunto, String receptor, String contenido) {
+        MimeMessagePreparator preparator = null;
         try {
+            preparator = mimeMessagePreparator(asunto, receptor, contenido, new InternetAddress(context.getAttribute("MAIL_USERNAME").toString(),"RNP Plataforma Electrónica"));
             emailSender.send(preparator);
+        } catch (UnsupportedEncodingException ex) {
+            LOGGER.info(ex.getMessage());
+            return false;
         } catch (MailException ex) {
             LOGGER.info(ex.getMessage());
+            return false;
         }
+        return true;
     }
 }

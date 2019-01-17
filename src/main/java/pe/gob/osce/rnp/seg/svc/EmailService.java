@@ -6,5 +6,5 @@ public interface EmailService {
 
 	void enviarCorreoRecuperarContrasena(String asunto, String receptor, String contenido);
 
-	void enviarCorreoInformativo(String asunto, String receptor, String contenido);
+	Boolean enviarCorreoInformativo(String asunto, String receptor, String contenido);
 }

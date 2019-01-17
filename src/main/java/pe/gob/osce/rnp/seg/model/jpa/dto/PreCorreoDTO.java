@@ -1,10 +1,10 @@
 package pe.gob.osce.rnp.seg.model.jpa.dto;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -17,8 +17,7 @@ public class PreCorreoDTO implements Serializable {
     @NotNull
     @Size(min = 1)
     private String correo;
-    @NotNull
-    @Size(min = 1)
+    @Null
     private String ipCliente;
 
 }

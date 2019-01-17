@@ -34,7 +34,7 @@ public class SeguridadController {
         @PathVariable(value = "cod") Long cod){
         if(ruc != null && cod != null)
             return seguridadService.validarCodVerificacion(ruc, cod);
-        return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0);
+        return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Validación fallida");
     }
 
     @PostMapping("/actualizar/clave")

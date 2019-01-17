@@ -100,12 +100,16 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
                 Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(repository.obtenerContenidoCorreoByTipo(1, ruc.toString(), optCodVer.get()));
                 if(optCorreo.isPresent()){
                     ContenidoCorreoPOJO contenidoCorreo = optCorreo.get();
-                    emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correoDestino,contenidoCorreo.getCuerpo());
-                    boolean exitoRegistro = repository.registrarCorreoEnviado(ruc.toString(), contenidoCorreo.getAsuntoId(), contenidoCorreo.getCuerpo()).equals("1");
-                    if(exitoRegistro)
-                        return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "El correo ha sido enviado satisfactoriamente");
-                    LOGGER.info("El correo ha sido enviado pero no ha sido registrado en BD");
-                    return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 0, "El correo ha sido enviado pero no ha sido registrado en BD");
+                    Boolean mailEnviado = emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correoDestino,contenidoCorreo.getCuerpo());
+                    if(mailEnviado){
+                        boolean exitoRegistro = repository.registrarCorreoEnviado(ruc.toString(), contenidoCorreo.getAsuntoId(), contenidoCorreo.getCuerpo()).equals("1");
+                        if(exitoRegistro)
+                            return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Un código de verificación ha sido enviado satisfactoriamente a su correo. Revise su bandeja");
+                        LOGGER.info("El correo ha sido enviado pero no ha sido registrado en BD | Metodo: ProveedorServiceImpl.enviarCorreo(PreCorreoDTO preCorreoDTO)");
+                        return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED_BUT_MAIN_REQ_SUCCESS.get(), 1, "Un código de verificación ha sido enviado satisfactoriamente a su correo. Revise su bandeja");
+                    }
+                    LOGGER.info("El servicio de envio de correo no se encuentra disponible en este momento | Metodo: ProveedorServiceImpl.enviarCorreo(PreCorreoDTO preCorreoDTO)");
+                    return new Respuesta<>(ResponseCode.EX_MAIL_EXCEPTION.get(), 0, "El servicio de envio de correo no se encuentra disponible en este momento. Intentarlo nuevamente más tarde");
                 }
             }
             LOGGER.info("El código de verificación no ha podido ser generado");

@@ -16,6 +16,7 @@ import {HttpRequestInterceptor} from "./http-request-interceptor.component";
 import {FormsModule} from "@angular/forms";
 import { ListadoOpcionComponent } from './listado-opcion/listado-opcion.component';
 import { UpdPasswordComponent } from './upd-password/upd-password.component';
+import {EqualValidator} from "./upd-password/equal-validator.directive";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { UpdPasswordComponent } from './upd-password/upd-password.component';
     NuevaPasswordComponent,
     OnStartUpComponent,
     ListadoOpcionComponent,
-    UpdPasswordComponent],
+    UpdPasswordComponent,
+    EqualValidator],
   imports: [
     BrowserModule,
     AppRoutingModule,

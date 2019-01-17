@@ -6,6 +6,7 @@ import pe.gob.osce.rnp.seg.utils.Utilitarios;
 
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
+import javax.servlet.ServletContext;
 import java.io.File;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -13,7 +14,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public abstract class EmailGeneric {
 
     //@Value("${spring.mail.username}")
-    private final String hostMail = "contoso.peru@gmail.com";
+    private static String hostMail = "";
 
     public MimeMessagePreparator mimeMessagePreparatorHelper(String asunto, String receptor, String copiado, File archivoAdjunto, String contenido) {
 
@@ -85,6 +86,18 @@ public abstract class EmailGeneric {
 
         MimeMessagePreparator preparator = mimeMessage -> {
             mimeMessage.setFrom(hostMail);
+            mimeMessage.setSubject(asunto);
+            mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
+            mimeMessage.setContent(contenido
+                    , "text/html; charset=utf-8");
+        };
+        return preparator;
+    }
+
+    public MimeMessagePreparator mimeMessagePreparator(String asunto, String receptor, String contenido, InternetAddress fromAddress) {
+
+        MimeMessagePreparator preparator = mimeMessage -> {
+            mimeMessage.setFrom(fromAddress);
             mimeMessage.setSubject(asunto);
             mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
             mimeMessage.setContent(contenido

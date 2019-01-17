@@ -10,12 +10,10 @@ import pe.gob.osce.rnp.seg.model.jpa.dto.Respuesta;
 import pe.gob.osce.rnp.seg.model.jpa.dto.UpdClaveDto;
 import pe.gob.osce.rnp.seg.model.jpa.pojo.ContenidoCorreoPOJO;
 import pe.gob.osce.rnp.seg.svc.EmailService;
-import pe.gob.osce.rnp.seg.svc.ProveedorService;
 import pe.gob.osce.rnp.seg.svc.SeguridadService;
 import pe.gob.osce.rnp.seg.utils.Enums.ResponseCode;
 import pe.gob.osce.rnp.seg.utils.Validador;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 @Service
@@ -44,13 +42,13 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
                     if(exito)
                         return new Respuesta(ResponseCode.EXITO_GENERICA.get(), 1, "Validación exitosa");
                     LOGGER.info("El código de verificación no se ha encontrado en base de datos");
-                    return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0);
+                    return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El código de verificación no se ha encontrado en base de datos");
                 }
-                LOGGER.info("Código de verificación con tamaño inválido o vacio");
-                return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0);
+                LOGGER.info("El código de verificación tiene tamaño inválido o vacio");
+                return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El código de verificación tiene tamaño inválido o vacio");
             }
             LOGGER.info("Ruc inválido");
-            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0);
+            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Ruc inválido");
         } catch (Exception ex){
             return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
         }
@@ -76,8 +74,8 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
             }
 
             if(!repository.validarCodVer(ruc, updClave.getCodVerificacion())){
-                LOGGER.info("El código de verificación proporcionado o a cadudado o no es válido: COD-"+updClave.getCodVerificacion());
-                return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El código de verificación proporcionado o a cadudado o no es válido: COD-"+updClave.getCodVerificacion());
+                LOGGER.info("El código de verificación proporcionado ha cadudado o no es válido: COD-"+updClave.getCodVerificacion());
+                return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El código de verificación proporcionado ha cadudado o no es válido: COD-"+updClave.getCodVerificacion());
             }
 
             boolean exito = repository.validarClave(ruc);
@@ -87,12 +85,17 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
                     Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(proveedorRepository.obtenerContenidoCorreoByTipo(2, ruc, ""));
                     if (optCorreo.isPresent()) {
                         ContenidoCorreoPOJO contenidoCorreo = optCorreo.get();
-                        emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correo, contenidoCorreo.getCuerpo());
-                        boolean exitoRegistro = proveedorRepository.registrarCorreoEnviado(ruc, contenidoCorreo.getAsuntoId(), correo).equals("1");
-                        if (exitoRegistro)
-                            return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "La clave ha sido actualizada satisfactoriamente");
-                        LOGGER.info("El correo ha sido enviado pero no ha sido registrado en envió en BD");
-                        return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 0, "El correo ha sido enviado pero no ha sido registrado en BD");
+                        boolean mailEnviado = emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correo, contenidoCorreo.getCuerpo());
+                        if(mailEnviado){
+                            boolean exitoRegistro = proveedorRepository.registrarCorreoEnviado(ruc, contenidoCorreo.getAsuntoId(), correo).equals("1");
+                            if (exitoRegistro)
+                                return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Su clave ha sido actualizada satisfactoriamente y un correo electrónico de confirmación le ha sido enviado");
+                            LOGGER.info("La clave ha sido actualizada y el correo enviado pero el registro del correo en bandeja ha fallado");
+                            return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 1, "Su clave ha sido actualizada y un correo de confirmación le ha sido enviado");
+                        }
+                        LOGGER.info("La clave ha sido actualizada pero el correo de confirmación no ha podido ser enviado por un problema interno");
+                        return new Respuesta<>(ResponseCode.EX_MAIL_EXCEPTION.get(), 1, "La clave ha sido actualizada pero el correo de confirmación no ha podido ser enviado por un problema interno");
+
                     }
                     LOGGER.info("La clave ha sido actualizada pero el correo no ha sido enviado");
                     return new Respuesta(ResponseCode.EXITO_GENERICA.get(), 1, "La clave ha sido actualizada pero el correo no ha sido enviado");
