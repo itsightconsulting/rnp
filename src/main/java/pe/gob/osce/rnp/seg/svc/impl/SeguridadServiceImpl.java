@@ -73,10 +73,10 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
                 return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El correo presenta un formato inválido: " + correo);
             }
 
-            if(!repository.validarCodVer(ruc, updClave.getCodVerificacion())){
+            /*if(!repository.validarCodVer(ruc, updClave.getCodVerificacion())){
                 LOGGER.info("El código de verificación proporcionado ha cadudado o no es válido: COD-"+updClave.getCodVerificacion());
                 return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El código de verificación proporcionado ha cadudado o no es válido: COD-"+updClave.getCodVerificacion());
-            }
+            }*/
 
             boolean exito = repository.validarClave(ruc);
             if (exito) {

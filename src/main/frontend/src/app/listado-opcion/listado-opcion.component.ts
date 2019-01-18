@@ -43,12 +43,38 @@ export class ListadoOpcionComponent implements OnInit {
       });
   }
 
+  obtenerCorreoRepresentantes(btn){
+      let ruc = this.cookie.get('ruc_prov');
+      this.listadoOpcService.getCorreoRepresentantesByRuc(ruc).subscribe(
+          (x: any)=> {
+              console.log(x);
+              if(x.flag){
+                if(x.d.length==1){
+                    this.cookie.set('email_prov', x.d[0].correoRepresentante);
+                    //window.location.href = '/recuperar/password/validacion';
+                }else{
+                }
+              }else{
+                  this.err = x.d;
+              }
+          },err=>{
+              this.err = err.status + ": "+err.statusText;
+              btn.classList.remove('disabled');
+          }, ()=>{
+              setTimeout(()=>this.err = "", 4000);
+          });
+  }
+
   enviarOpcion(evt){
     let btn = evt.target;
     if(!btn.classList.contains('disabled')){
         btn.classList.add('disabled');
         if(this.opcElegida == 1){
             this.obtenerCorreo(btn);
+        }
+
+        if(this.opcElegida == 2){
+            this.obtenerCorreoRepresentantes(btn);
         }
     }
   }
