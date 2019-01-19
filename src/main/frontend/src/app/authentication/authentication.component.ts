@@ -8,7 +8,8 @@ import {AuthenticationService} from "./authentication.service";
 })
 export class AuthenticationComponent implements OnInit {
   btnSubmit: any;
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(private authenticationService: AuthenticationService) {
+  }
   credentials: any;
   objJson: any;
   verificacion: boolean;

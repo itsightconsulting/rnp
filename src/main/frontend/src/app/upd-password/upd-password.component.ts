@@ -87,7 +87,7 @@ export class UpdPasswordComponent implements OnInit {
                     if(res.flag){
                         this.scssMsg = res.d;
                         this.finalScssMsg = true;
-                    }else{
+                    } else {
                         this.err3 = res.d;
                     }
                 },

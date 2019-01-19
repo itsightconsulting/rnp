@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import {ListadoOpcionService} from "./listado-opcion.service";
+import {Representante} from "./representante";
 
 @Component({
   selector: 'app-listado-opcion',
@@ -8,9 +9,14 @@ import {ListadoOpcionService} from "./listado-opcion.service";
   styleUrls: ['./listado-opcion.component.css']
 })
 export class ListadoOpcionComponent implements OnInit {
+  private existsLstRepre: boolean;
   private opcs: string[];
   private opcElegida: number = 1;
+  private mailRepElegido: string = "1";
   private err: string;
+  private ruc: string = this.cookie.get('ruc_prov');
+  private lstRepresentante: any[];
+  private repSelected: any;
   constructor(private cookie: CookieService, private listadoOpcService: ListadoOpcionService) {
       this.opcs = [
           "Correo electrónico de contacto",
@@ -18,6 +24,7 @@ export class ListadoOpcionComponent implements OnInit {
           "Clave SOL-SUNAT",
           "Datos de identificación"
         ];
+      this.existsLstRepre = false;
   }
 
   ngOnInit() {
@@ -51,16 +58,25 @@ export class ListadoOpcionComponent implements OnInit {
               if(x.flag){
                 if(x.d.length==1){
                     this.cookie.set('email_prov', x.d[0].correoRepresentante);
-                    //window.location.href = '/recuperar/password/validacion';
+                    window.location.href = '/recuperar/password/validacion';
                 }else{
+                    this.existsLstRepre = true;
+                    this.lstRepresentante = x.d.map(v=>
+                        new Representante(
+                            null,
+                            null,
+                            null,
+                            v.correoRepresentante,
+                            v.correoFormateado));
+                    console.log(this.lstRepresentante);
                 }
               }else{
                   this.err = x.d;
               }
           },err=>{
               this.err = err.status + ": "+err.statusText;
-              btn.classList.remove('disabled');
           }, ()=>{
+              btn.classList.remove('disabled');
               setTimeout(()=>this.err = "", 4000);
           });
   }
@@ -76,8 +92,26 @@ export class ListadoOpcionComponent implements OnInit {
         if(this.opcElegida == 2){
             this.obtenerCorreoRepresentantes(btn);
         }
+
+        if(this.opcElegida == 3){
+            this.err = "Este servicio no se encuentra disponible en este momento. Intentar nuevamente más tarde";
+            btn.classList.remove('disabled');
+            setTimeout(()=>this.err = "", 5500);
+        }
+
+        if(this.opcElegida == 4){
+            window.location.href = '/recuperar/password/validar/datos-identificacion';
+        }
     }
   }
 
-
+  elegirCorreoRep(){
+      if(this.mailRepElegido == "1"){
+        this.repSelected = document.querySelector('input.rbt-reps');
+        this.cookie.set('email_prov', this.repSelected.getAttribute('data-correo-rep'));
+      }else{
+          this.cookie.set('email_prov', this.mailRepElegido);
+      }
+      window.location.href = '/recuperar/password/validacion';
+  }
 }

@@ -51,6 +51,7 @@ public class ProveedorController {
 
     @PostMapping("/recuperar-pass/sc/validar/datos-identificacion")
     public Respuesta<String> validarDatosIdentificacion(@ModelAttribute @Valid DatosIdentificacionDTO dtsIdentificacion, BindingResult bindingResult){
+        System.out.println(dtsIdentificacion.toString());
         if(!bindingResult.hasErrors())
             return proveedorService.validarDatosIdentificacion(dtsIdentificacion);
         bindingResult.getFieldErrors().stream().forEach(err-> System.out.println(err.toString()));

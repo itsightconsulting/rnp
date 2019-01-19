@@ -1,0 +1,98 @@
+import { Component, OnInit } from '@angular/core';
+import {FormDatosIdenService} from "./form-datos-iden.service";
+import {CookieService} from "ngx-cookie-service";
+
+@Component({
+  selector: 'app-form-datos-iden',
+  templateUrl: './form-datos-iden.component.html',
+  styleUrls: ['./form-datos-iden.component.css']
+})
+export class FormDatosIdenComponent implements OnInit {
+
+  private ruc: string = this.cookie.get('ruc_prov');
+  private lstPais: any[];
+  private lstTipoDoc: any[];
+  private lstZonaReg: any[];
+  private lstTipoCon: any[];
+  private datosIdenDto: any;
+  private hoy: Date;
+  private dtMin: Date;
+
+  constructor(private datosIdenService: FormDatosIdenService, private cookie: CookieService) { }
+
+  ngOnInit() {
+      this.obtenerPais();
+      this.obtenerTipoDocumeneto();
+      this.obtenerZonaRegistral();
+      this.obtenerTipoCondicion();
+      this.hoy =new Date();
+      this.dtMin = new Date(1979,12,1);
+  }
+
+  obtenerPais(){
+      this.datosIdenService.obtenerForaneas('P').subscribe((res: any)=>{
+          this.lstPais = res.d;
+      })
+  }
+
+  obtenerTipoDocumeneto(){
+      this.datosIdenService.obtenerForaneas('D').subscribe((res: any)=>{
+          this.lstTipoDoc = res.d;
+      })
+  }
+
+  obtenerZonaRegistral(){
+      this.datosIdenService.obtenerForaneas('Z').subscribe((res: any)=>{
+          this.lstZonaReg = res.d;
+      })
+  }
+
+  obtenerTipoCondicion(){
+      this.datosIdenService.obtenerForaneas('C').subscribe((res: any)=>{
+          this.lstTipoCon = res.d;
+      })
+  }
+
+  numberOnly(event): boolean {
+      const charCode = (event.which) ? event.which : event.keyIdentifier;
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+          return false;
+      }
+      return true;
+  }
+
+  validarDatos(r, evt){
+      if(r.valid) {
+          const btn = evt.target;
+          btn.setAttribute('disabled', 'disabled');
+          this.datosIdenDto = {};
+          this.datosIdenDto.ruc = this.ruc;
+          this.datosIdenDto.paisId = r.controls.Pais.value;
+          this.datosIdenDto.tipoDocuId = r.controls.TipoDoc.value;
+          this.datosIdenDto.desDocu = r.controls.NumeroDocumento.value;
+          this.datosIdenDto.zonaRegistralId = r.controls.ZonaReg.value;
+          this.datosIdenDto.nroPartida = r.controls.NroPartidaEle.value;
+          let dt = new Date(r.controls.FechaIngreso.value);
+          this.datosIdenDto.fecIngreso = new Date(new Date(dt.getTime()+1000*60*60*24));//+1 día para normalizar la fecha a la de hoy
+          this.datosIdenDto.fecIngreso = new Date(this.datosIdenDto.fecIngreso.toDateString());
+          this.datosIdenDto.tipoCondicionId = r.controls.TipoCon.value;
+          this.datosIdenService.checkDatosIdentificacion(this.datosIdenDto).subscribe((res: any)=>{
+                  console.log(res);
+                  if(res.flag){
+                      /*this.scssMsg = res.d;
+                      this.finalScssMsg = true;*/
+                  }else{
+                      /*this.err3 = res.d;*/
+                  }
+              },
+              err=>{
+                  console.log(err);
+                  /*this.err3 = err.status + ": "+err.statusText;*/
+              },
+              ()=>{
+                  btn.removeAttribute('disabled');
+                  //setTimeout(()=>this.err3 = "", 4000);
+              })
+      }
+  }
+}

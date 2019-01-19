@@ -20,6 +20,7 @@ public class JsonDateSimpleSerializer extends JsonSerializer<Date> {
     @Override
     public void serialize(Date value, JsonGenerator gen, SerializerProvider serializers)
             throws IOException, JsonProcessingException {
+        System.out.println(">>>"+value);
         // TODO Auto-generated method stub
         if (value.toString().length() > 10) {
             gen.writeString(formatterFull.format(value));

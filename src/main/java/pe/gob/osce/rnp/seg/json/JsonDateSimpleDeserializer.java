@@ -21,7 +21,7 @@ public class JsonDateSimpleDeserializer extends JsonDeserializer<Date> {
 
     @Override
     public Date deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-
+        System.out.println(">>>2"+p.getText());
         String dateAsString = p.getText();
         try {
             if (!StringUtils.hasText(dateAsString)) {

@@ -17,6 +17,8 @@ import {FormsModule} from "@angular/forms";
 import { ListadoOpcionComponent } from './listado-opcion/listado-opcion.component';
 import { UpdPasswordComponent } from './upd-password/upd-password.component';
 import {EqualValidator} from "./upd-password/equal-validator.directive";
+import { FormDatosIdenComponent } from './form-datos-iden/form-datos-iden.component';
+import {DateValidator} from "./form-datos-iden/date-validator.directive";
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import {EqualValidator} from "./upd-password/equal-validator.directive";
     OnStartUpComponent,
     ListadoOpcionComponent,
     UpdPasswordComponent,
-    EqualValidator],
+    EqualValidator,
+    DateValidator,
+    FormDatosIdenComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -5,6 +5,7 @@ import {TasksComponent} from "./tasks/tasks.component";
 import {ResetPasswordComponent} from "./reset-password/reset-password.component";
 import {NuevaPasswordComponent} from "./nueva-password/nueva-password.component";
 import {UpdPasswordComponent} from "./upd-password/upd-password.component";
+import {FormDatosIdenComponent} from "./form-datos-iden/form-datos-iden.component";
 
 const routes: Routes = [
     {
@@ -29,6 +30,10 @@ const routes: Routes = [
     {
         path: 'recuperar/password/validacion',
         component: UpdPasswordComponent
+    },
+    {
+        path: 'recuperar/password/validar/datos-identificacion',
+        component: FormDatosIdenComponent
     }
 ];
 

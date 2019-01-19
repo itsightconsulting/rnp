@@ -45,8 +45,8 @@ public class DatosIdentificacionDTO implements Serializable {
     public String nroPartida;
 
     @NotNull
-    //@JsonSerialize(using = JsonDateSimpleSerializer.class)
-    //@JsonDeserialize(using = JsonDateSimpleDeserializer.class)
+    @JsonSerialize(using = JsonDateSimpleSerializer.class)
+    @JsonDeserialize(using = JsonDateSimpleDeserializer.class)
     public Date fecIngreso;
 
     @NotNull

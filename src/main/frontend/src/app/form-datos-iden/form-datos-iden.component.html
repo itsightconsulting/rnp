@@ -1,0 +1,105 @@
+<header>
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <div class="container-mod">
+                <h1 class="logo"><img class="svg" src="../assets/img/iconos_Rpn_buscador.svg">SCE</h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container-mod pad-container">
+    <div class="content-form">
+        <div class="header-content">
+            <p><img class="svg" src="../assets/img/iconos_Rpn-01.svg"><strong>RPN</strong>Trámites en Línea</p>
+        </div>
+        <form class="body-content" #f="ngForm" action="">
+            <p class="ruc_description"><span class="bg"><strong>RUC:</strong>{{ruc}}</span><span class="line"></span></p>
+            <p class="subtitle-form icon"><img class="svg" src="../assets/img/iconos_Rpn-02.svg">DATOS DE IDENTIFICACION</p>
+            <p class="description-form">A continuación usted deberá brindar la información de su representante legal o apoderado en el Perú, completando los siguientes campos:</p>
+            <div class="form-group select-control"><span><img src="../assets/img/select-arrow.png"></span>
+                <select ngModel #Pais="ngModel" id="Pais" name="Pais" class="form-control" required>
+                    <option selected="selected" value="">País de Origen</option>
+                    <option *ngFor="let p of lstPais" [value]="p.iden">
+                        {{p.valor}}
+                    </option>
+                </select>
+                <div class="text-danger" *ngIf="Pais.touched && !Pais.valid">
+                    <div *ngIf="Pais.errors.required">El país es requerido</div>
+                </div>
+            </div>
+            <div class="form-group select-control"><span><img src="../assets/img/select-arrow.png"></span>
+                <select ngModel #TipoDoc="ngModel" id="TipoDoc" name="TipoDoc" class="form-control" required>
+                    <option selected="selected" value="">Tipo de documento de identidad</option>
+                    <option *ngFor="let d of lstTipoDoc" [value]="d.iden">
+                        {{d.valor}}
+                    </option>
+                </select>
+                <div class="text-danger" *ngIf="TipoDoc.touched && !TipoDoc.valid">
+                    <div *ngIf="TipoDoc.errors.required">El tipo de documento es requerido</div>
+                </div>
+            </div>
+            <div class="form-group bullet-form"><span></span>
+                <input ngModel #NumeroDocumento="ngModel" name="NumeroDocumento" id="NumeroDocumento" class="form-control" type="text" placeholder="Número de documento"
+                    required="required"
+                    minlength="8"
+                    maxlength="11"
+                    (keypress)="numberOnly($event)">
+                <div class="text-danger" *ngIf="NumeroDocumento.touched && !NumeroDocumento.valid">
+                    <div *ngIf="NumeroDocumento.errors.required">El número de documento es requerido</div>
+                    <div *ngIf="NumeroDocumento.errors.minlength || NumeroDocumento.errors.maxlength">El nro documento debe tener {{NumeroDocumento.errors.minlength.requiredLength}} caracteres como mínimo</div>
+                </div>
+            </div>
+            <div class="form-group select-control"><span><img src="../assets/img/select-arrow.png"></span>
+                <select ngModel #ZonaReg="ngModel" id="ZonaReg" name="ZonaReg" class="form-control" required>
+                    <option selected="selected" value="">Oficina registral</option>
+                    <option *ngFor="let z of lstZonaReg" [value]="z.iden">
+                        {{z.valor}}
+                    </option>
+                </select>
+                <div class="text-danger" *ngIf="ZonaReg.touched && !ZonaReg.valid">
+                    <div *ngIf="ZonaReg.errors.required">La oficina registral es requerida</div>
+                </div>
+            </div>
+            <div class="form-group bullet-form"><span></span>
+                <input ngModel #NroPartidaEle="ngModel" name="NroPartidaEle" id="NroPartidaEle" class="form-control" type="text" placeholder="Número de partida electrónica"
+                    required="required"
+                    minlength="6"
+                    maxlength="15"
+                    (keypress)="numberOnly($event)">
+                <div class="text-danger" *ngIf="NroPartidaEle.touched && !NroPartidaEle.valid">
+                    <div *ngIf="NroPartidaEle.errors.required">El número de partida electrónica es requerido</div>
+                    <div *ngIf="NroPartidaEle.errors.minlength || NroPartidaEle.errors.maxlength">El nro de e-partida debe tener mínimo {{NroPartidaEle.errors.minlength.requiredLength}} caracteres</div>
+                </div>
+            </div>
+            <div class="form-group select-control">
+                <label class="label">Fecha de Ingreso: </label>
+                <input ngModel #FechaIngreso="ngModel" id="FechaIngreso" name="FechaIngreso" type="date" class="form-control"
+                    required="" [ngModel] ="hoy | date:'yyyy-MM-dd'" (ngModelChange)="$event" min="{{dtMin | date:'yyyy-MM-dd'}}" [max]="hoy | date:'yyyy-MM-dd'"
+                       validateBetweenRange>
+                <div class="text-danger" *ngIf="FechaIngreso.touched && !FechaIngreso.valid">
+                    <div *ngIf="FechaIngreso.errors.required">La fecha de ingreso es requerida</div>
+                    <div *ngIf="FechaIngreso.errors.min">La fecha de ingreso debe ser mayor a {{FechaIngreso.errors.min.requiredMin}}</div>
+                    <div *ngIf="!FechaIngreso.errors.validateBetweenRange">Fecha inválida (Válido mayor a {{dtMin | date:'yyyy-MM-dd'}})</div>
+                </div>
+            </div>
+            <div class="form-group select-control"><span><img src="../assets/img/select-arrow.png"></span>
+                <select ngModel #TipoCon="ngModel" id="TipoCon" name="TipoCon" class="form-control" required>
+                    <option selected="selected" value="">Condición</option>
+                    <option *ngFor="let c of lstTipoCon" [value]="c.iden">
+                        {{c.valor}}
+                    </option>
+                </select>
+                <div class="text-danger" *ngIf="TipoCon.touched && !TipoCon.valid">
+                    <div *ngIf="TipoCon.errors.required">La condición es requerida</div>
+                </div>
+            </div>
+            <div class="no-remember">
+                <p>¿No reconoces la información mostrada?<a href="#">PRUEBA DE OTRA MANERA</a></p>
+            </div>
+            <div class="form-group two-buttons">
+                <a href="/login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                <button class="btn btn-success" type="submit" [disabled]="!f.valid" (click)="validarDatos(f, $event)">SIGUIENTE</button>
+            </div>
+        </form>
+    </div>
+</div>

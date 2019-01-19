@@ -176,11 +176,11 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
         spQuery.registerStoredProcedureParameter("C_ID_TIPOCONDICION", Integer.class, ParameterMode.IN);
         spQuery.registerStoredProcedureParameter("RESPUESTA", String.class, ParameterMode.OUT);
         spQuery.registerStoredProcedureParameter("MENSAJE", String.class, ParameterMode.OUT);
-        spQuery.setParameter("C_DES_RUC", dtsIdentificacion.getDesDocu());
+        spQuery.setParameter("C_DES_RUC", dtsIdentificacion.getRuc().toString());
         spQuery.setParameter("C_ID_PAIS", dtsIdentificacion.getPaisId().toString());
         spQuery.setParameter("C_ID_TIPODOCU", dtsIdentificacion.getTipoDocuId());
         spQuery.setParameter("C_DES_DOCU", dtsIdentificacion.getDesDocu());
-        spQuery.setParameter("N_ID_ZONAREGISTRAL", dtsIdentificacion.getZonaRegistralId());
+        spQuery.setParameter("N_ID_ZONAREGISTRAL", 0);
         spQuery.setParameter("C_NRO_PARTIDA", dtsIdentificacion.getNroPartida());
         spQuery.setParameter("D_FEC_INGRESO", dtsIdentificacion.getFecIngreso());
         spQuery.setParameter("C_ID_TIPOCONDICION", dtsIdentificacion.getTipoCondicionId());
