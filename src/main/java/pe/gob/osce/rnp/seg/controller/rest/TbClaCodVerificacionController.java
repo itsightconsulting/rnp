@@ -16,7 +16,7 @@ public class TbClaCodVerificacionController {
 	@Autowired
 	private TbClaCodVerificacionProcedureInvokerRepository tbClaCodVerificacionProcedureInvokerRepository; 
 	
-	@GetMapping("/validar/{ruc}/{desCodVerificacion}")
+	@GetMapping("/validacionCodigoCambioPassword/{ruc}/{desCodVerificacion}")
 	public ResponseDTO validacionCodigoCambioPassword(@PathVariable(value = "ruc") String ruc, @PathVariable(value = "desCodVerificacion") String desCodVerificacion) {
 		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, tbClaCodVerificacionProcedureInvokerRepository.validarCodVerificacion(ruc, desCodVerificacion));
 	}

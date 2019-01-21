@@ -31,6 +31,7 @@ public class ContactoController {
 			return new ResponseDTO(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), false, null);
 	}
 
+<<<<<<< HEAD
 	@GetMapping("/correoRecuperacion/{ruc}")
 	public ResponseDTO enviarCorreoRecuperacionPassword(@PathVariable(value = "ruc") String ruc) {
 		Optional<ProcedureOutputDTO> optRes = Optional.ofNullable(contactoProcedureInvokerRepository.enviarCorreoRecuperacionPassword(ruc));
@@ -47,5 +48,10 @@ public class ContactoController {
 			return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, null);
 		else
 			return new ResponseDTO(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), false, null);
+=======
+	@GetMapping("/obtenerCorreoRepresentante/{ruc}")
+	public ResponseDTO obtenerCorreoRepresentante(@PathVariable(value = "ruc") String ruc) {
+		return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, contactoProcedureInvokerRepository.obtenerCorreoRepresentante(ruc));
+>>>>>>> e7a74bebe9504292fbea8fd39fcc7b562f6e0bdc
 	}
 }
