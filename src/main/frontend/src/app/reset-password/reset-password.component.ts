@@ -9,7 +9,6 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class ResetPasswordComponent implements OnInit {
   refCaptcha: any;
-  verify : any;
   ruc: any;
   failCaptcha: boolean = false;
   errorMessage: string;
@@ -73,6 +72,9 @@ export class ResetPasswordComponent implements OnInit {
                         if (d.flag) {
                             this.activeOpsCambio = true;
                             this.cookie.set('ruc_prov', r.controls.Ruc.value, 0, '/');
+                            for(let i=0; i<Object.values(d.d).length; i++){
+                                Object.values(d.d)[i] == "NO" ? document.querySelectorAll('label.group-rbt')[i].classList.add('hidden') : "";
+                            }
                         } else {
                             this.refreshCaptcha();
                             this.errorMessage = d.d;

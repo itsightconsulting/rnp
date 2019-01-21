@@ -18,16 +18,17 @@ export class ListadoOpcionComponent implements OnInit {
   private lstRepresentante: any[];
   private repSelected: any;
   constructor(private cookie: CookieService, private listadoOpcService: ListadoOpcionService) {
+
+  }
+
+  ngOnInit() {
       this.opcs = [
           "Correo electrónico de contacto",
           "Correo electrónico de representante",
           "Clave SOL-SUNAT",
           "Datos de identificación"
-        ];
+      ];
       this.existsLstRepre = false;
-  }
-
-  ngOnInit() {
   }
 
   obtenerCorreo(btn){

@@ -97,7 +97,7 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
 
             Optional<String> optCodVer = Optional.ofNullable(repository.obtenerCodigoVerificacion(ruc.toString(), correoDestino, preCorreoDTO.getIpCliente()));
             if(optCodVer.isPresent()){
-                Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(repository.obtenerContenidoCorreoByTipo(1, ruc.toString(), optCodVer.get()));
+                Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(repository.obtenerContenidoCorreoByTipo(1, ruc.toString(), optCodVer.get(), null));
                 if(optCorreo.isPresent()){
                     ContenidoCorreoPOJO contenidoCorreo = optCorreo.get();
                     Boolean mailEnviado = emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correoDestino,contenidoCorreo.getCuerpo());
@@ -114,7 +114,7 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
             }
             LOGGER.info("El código de verificación no ha podido ser generado");
             return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El código de verificación no ha podido ser generado");
-        }catch (Exception ex){
+        } catch (Exception ex){
             return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
         }
     }
@@ -175,15 +175,31 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
                 return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El correo presenta un formato inválido: "+correo);
             Optional<List<ProExtNoDom>> optLst = Optional.ofNullable(repository.validarExistenciaCorreoExtNoDom(correo));
             if(optLst.isPresent()){
-                /*repository.obtenerContenidoCorreoByTipo(2, null, null);
-                repository.obtenerContenidoCorreoByTipo(3, null, null);*/
-
-                emailService.enviarCorreoInformativo("Recuperación de Usuario RNP", correo, contenidoCorreoRecuperacionUsuario(optLst.get()));
-                boolean exito = repository.registrarCorreoEnviado(optLst.get().get(0).getCodExtNoDom(), 1, correo).equals("1");//TEMP: optLst.get().get(0).getCodExtNoDom()
-                if(exito)
-                    return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Un correo acaba de ser enviado a la dirección proporcionada dentro del cúal podrá ver el nombre de su usuario");
-                LOGGER.info("El correo ha sido enviado pero no ha sido registrado en BD");
-                return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 0, "El correo ha sido enviado pero no ha sido registrado en BD");
+                String obsEmpresas = "", suffix="";
+                String ruc = optLst.get().get(0).getCodExtNoDom();
+                for(int i=0; i<optLst.get().size();i++){
+                    obsEmpresas+=suffix;
+                    obsEmpresas+= optLst.get().get(i).getCodExtNoDom() + "|";
+                    obsEmpresas+= optLst.get().get(i).getRazSocial() + "|";
+                    obsEmpresas+= optLst.get().get(i).getNomPais() + "";
+                    suffix = "¬";
+                }
+                Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(repository.obtenerContenidoCorreoByTipo(4, null, null, obsEmpresas));
+                if(optCorreo.isPresent()){
+                    ContenidoCorreoPOJO contenidoCorreo = optCorreo.get();
+                    Boolean mailEnviado = emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correo, contenidoCorreo.getCuerpo());
+                    if(mailEnviado){
+                        boolean exitoRegistro = repository.registrarCorreoEnviado(ruc, contenidoCorreo.getAsuntoId(), contenidoCorreo.getCuerpo()).equals("1");
+                        if(exitoRegistro)
+                            return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Un correo le ha sido enviado con todos los nombres de usuario a los que el correo brindado esta asociado. Por favor revisar su bandeja de correo");
+                        LOGGER.info("El correo ha sido enviado pero no ha sido registrado en BD | Metodo: ProveedorServiceImpl.enviarCorreoProvExtNoDom(String correo)");
+                        return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED_BUT_MAIN_REQ_SUCCESS.get(), 1, "Un correo le ha sido enviado con todos los nombres de usuario a los que el correo brindado esta asociado. Por favor revisar su bandeja de correo");
+                    }
+                    LOGGER.info("El servicio de envio de correo no se encuentra disponible en este momento | Metodo: ProveedorServiceImpl.enviarCorreoProvExtNoDom(String correo)");
+                    return new Respuesta<>(ResponseCode.EX_MAIL_EXCEPTION.get(), 0, "El servicio de envio de correo no se encuentra disponible en este momento. Intentarlo nuevamente más tarde");
+                }
+                LOGGER.info("El servicio de envio de correo no se encuentra disponible en este momento | Metodo: ProveedorServiceImpl.enviarCorreoProvExtNoDom(String correo)");
+                return new Respuesta<>(ResponseCode.EMPTY_RESPONSE.get(), 0, "El servicio de envio de correo no se encuentra disponible en este momento. Intentarlo nuevamente más tarde");
             }
             LOGGER.info("No se ha encontrado ninguna coincidencia con el correo ingresado");
             return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "No se ha encontrado ninguna coincidencia con el correo ingresado");
@@ -219,12 +235,31 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
                 return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El correo presenta un formato inválido: "+correo);
             Optional<List<ProExtNoDom>> optLst = Optional.ofNullable(repository.validarExistenciaCorreoRepExtNoDom(correo));
             if(optLst.isPresent()){
-                emailService.enviarCorreoInformativo("Recuperación de Usuario RNP", correo, contenidoCorreoRecuperacionUsuario(optLst.get()));
-                boolean exito = repository.registrarCorreoEnviado(optLst.get().get(0).getCodExtNoDom(), 1,correo).equals("1");//TEMP: optLst.get().get(0).getCodExtNoDom()
-                if(exito)
-                    return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Un correo acaba de ser enviado a la dirección proporcionada dentro del cúal podrá ver el nombre de su usuario");
-                LOGGER.info("El correo ha sido enviado pero no ha sido registrado en BD");
-                return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 0, "El correo ha sido enviado pero no ha sido registrado en BD");
+                String obsEmpresas = "", suffix="";
+                String ruc = optLst.get().get(0).getCodExtNoDom();
+                for(int i=0; i<optLst.get().size();i++){
+                    obsEmpresas+=suffix;
+                    obsEmpresas+= optLst.get().get(i).getCodExtNoDom() + "|";
+                    obsEmpresas+= optLst.get().get(i).getRazSocial() + "|";
+                    obsEmpresas+= optLst.get().get(i).getNomPais() + "";
+                    suffix = "¬";
+                }
+                Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(repository.obtenerContenidoCorreoByTipo(4, null, null, obsEmpresas));
+                if(optCorreo.isPresent()){
+                    ContenidoCorreoPOJO contenidoCorreo = optCorreo.get();
+                    Boolean mailEnviado = emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correo, contenidoCorreo.getCuerpo());
+                    if(mailEnviado){
+                        boolean exitoRegistro = repository.registrarCorreoEnviado(ruc, contenidoCorreo.getAsuntoId(), contenidoCorreo.getCuerpo()).equals("1");
+                        if(exitoRegistro)
+                            return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Un correo le ha sido enviado con todos los nombres de usuario a los que el correo brindado esta asociado. Por favor revisar su bandeja de correo");
+                        LOGGER.info("El correo ha sido enviado pero no ha sido registrado en BD | Metodo: ProveedorServiceImpl.enviarCorreoProvExtNoDom(String correo)");
+                        return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED_BUT_MAIN_REQ_SUCCESS.get(), 1, "Un correo le ha sido enviado con todos los nombres de usuario a los que el correo brindado esta asociado. Por favor revisar su bandeja de correo");
+                    }
+                    LOGGER.info("El servicio de envio de correo no se encuentra disponible en este momento | Metodo: ProveedorServiceImpl.enviarCorreoProvExtNoDom(String correo)");
+                    return new Respuesta<>(ResponseCode.EX_MAIL_EXCEPTION.get(), 0, "El servicio de envio de correo no se encuentra disponible en este momento. Intentarlo nuevamente más tarde");
+                }
+                LOGGER.info("El servicio de envio de correo no se encuentra disponible en este momento | Metodo: ProveedorServiceImpl.enviarCorreoProvExtNoDom(String correo)");
+                return new Respuesta<>(ResponseCode.EMPTY_RESPONSE.get(), 0, "El servicio de envio de correo no se encuentra disponible en este momento. Intentarlo nuevamente más tarde");
             }
             LOGGER.info("No se ha encontrado ninguna coincidencia con el correo ingresado");
             return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "No se ha encontrado ninguna coincidencia con el correo ingresado");

@@ -103,7 +103,7 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
     }
 
     @Override
-    public ContenidoCorreoPOJO obtenerContenidoCorreoByTipo(int tipo, String ruc, String codVerificacion) {
+    public ContenidoCorreoPOJO obtenerContenidoCorreoByTipo(int tipo, String ruc, String codVerificacion, String obs1) {
         StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_OBTENER_BODY_CORREO);
 
         // Registrar los parámetros de entrada y salida
@@ -120,6 +120,7 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker 
         spQuery.setParameter("C_DES_RUC", ruc);
         spQuery.setParameter("D_FEC_CAMBIO", new Date());
         spQuery.setParameter("C_COD_VERIFIC", codVerificacion);
+        spQuery.setParameter("C_DES_OBSERV1", obs1);
         List<Object[]> result = spQuery.getResultList();
         return result.size() > 0 ?
                 new ContenidoCorreoPOJO(

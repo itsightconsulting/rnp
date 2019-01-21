@@ -82,7 +82,7 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
             if (exito) {
                 exito = repository.actualizarClave(ruc, updClave.getClave());
                 if (exito) {
-                    Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(proveedorRepository.obtenerContenidoCorreoByTipo(2, ruc, ""));
+                    Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(proveedorRepository.obtenerContenidoCorreoByTipo(2, ruc, "", null));
                     if (optCorreo.isPresent()) {
                         ContenidoCorreoPOJO contenidoCorreo = optCorreo.get();
                         boolean mailEnviado = emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correo, contenidoCorreo.getCuerpo());

@@ -29,7 +29,7 @@ export class FormDatosIdenComponent implements OnInit {
       this.obtenerZonaRegistral();
       this.obtenerTipoCondicion();
       this.hoy =new Date();
-      this.dtMin = new Date(1979,12,1);
+      this.dtMin = new Date(1908,12,1);
       this.scssValidacion = false;
   }
 
