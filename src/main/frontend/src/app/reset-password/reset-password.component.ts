@@ -21,7 +21,7 @@ export class ResetPasswordComponent implements OnInit {
     this.resetPasswordService.getCaptcha().subscribe((res: any)=>{
         if(res.flag){
             const d = res.d;
-            this.cookie.set('cap_code', d.answer);
+            this.cookie.set('cap_code', d.answer, 0, '/');
             document.querySelector('#ImgCaptcha').setAttribute('src', "data:image/png;base64," + d.b64image.substr(0, d.b64image.length - 2))
         }
     });
@@ -49,7 +49,7 @@ export class ResetPasswordComponent implements OnInit {
             if(res.flag){
                 const d = res.d;
                 this.refCaptcha = {};
-                this.cookie.set('cap_code', d.answer);
+                this.cookie.set('cap_code', d.answer, 0, '/');
                 this.refCaptcha.c = document.getElementById('CodeCaptcha');
                 this.refCaptcha.c.value = "";
                 document.querySelector('#ImgCaptcha').setAttribute('src', "data:image/png;base64," + d.b64image.substr(0, d.b64image.length - 2))
@@ -72,7 +72,7 @@ export class ResetPasswordComponent implements OnInit {
                 this.resetPasswordService.getOpciones(r.controls.Ruc.value).subscribe((d: any) => {
                         if (d.flag) {
                             this.activeOpsCambio = true;
-                            this.cookie.set('ruc_prov', r.controls.Ruc.value);
+                            this.cookie.set('ruc_prov', r.controls.Ruc.value, 0, '/');
                         } else {
                             this.refreshCaptcha();
                             this.errorMessage = d.d;

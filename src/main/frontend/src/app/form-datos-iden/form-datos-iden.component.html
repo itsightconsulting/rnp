@@ -12,7 +12,7 @@
         <div class="header-content">
             <p><img class="svg" src="../assets/img/iconos_Rpn-01.svg"><strong>RPN</strong>Trámites en Línea</p>
         </div>
-        <form class="body-content" #f="ngForm" action="">
+        <form class="body-content" #f="ngForm" action="" [ngClass]="{hidden: scssValidacion}">
             <p class="ruc_description"><span class="bg"><strong>RUC:</strong>{{ruc}}</span><span class="line"></span></p>
             <p class="subtitle-form icon"><img class="svg" src="../assets/img/iconos_Rpn-02.svg">DATOS DE IDENTIFICACION</p>
             <p class="description-form">A continuación usted deberá brindar la información de su representante legal o apoderado en el Perú, completando los siguientes campos:</p>
@@ -50,14 +50,15 @@
                 </div>
             </div>
             <div class="form-group select-control"><span><img src="../assets/img/select-arrow.png"></span>
-                <select ngModel #ZonaReg="ngModel" id="ZonaReg" name="ZonaReg" class="form-control" required>
+                <select ngModel #ZonaReg="ngModel" id="ZonaReg" name="ZonaReg" class="form-control"
+                    >
                     <option selected="selected" value="">Oficina registral</option>
                     <option *ngFor="let z of lstZonaReg" [value]="z.iden">
                         {{z.valor}}
                     </option>
                 </select>
                 <div class="text-danger" *ngIf="ZonaReg.touched && !ZonaReg.valid">
-                    <div *ngIf="ZonaReg.errors.required">La oficina registral es requerida</div>
+                    <!--<div *ngIf="ZonaReg.errors.required">La oficina registral es requerida</div>-->
                 </div>
             </div>
             <div class="form-group bullet-form"><span></span>
@@ -100,6 +101,48 @@
                 <a href="/login"><button class="btn btn-default" type="button">CANCELAR</button></a>
                 <button class="btn btn-success" type="submit" [disabled]="!f.valid" (click)="validarDatos(f, $event)">SIGUIENTE</button>
             </div>
+            <div class="text-danger text-center" style="padding: 5px 15px 0px;">{{err}}</div>
+        </form>
+        <form class="body-content" #f2="ngForm" [ngClass]="{hidden: !scssValidacion}" action="frm_2">
+            <p class="ruc_description"><span class="bg"><strong>RUC:</strong>{{ruc}}</span><span class="line"></span></p>
+            <p class="subtitle-form icon"><img class="svg" src="../assets/img/iconos_Rpn-02.svg">Actualización de clave RNP</p>
+            <p class="description-form">Ingrese un nuevo correo electrónico que será utilizado como correo electrónico de contacto.</p>
+            <div class="form-group">
+                <input ngModel #CorreoEle="ngModel" name="CorreoEle" id="CorreoEle" class="form-control" type="text" placeholder="Correo electrónico"
+                       required
+                       minlength="8"
+                       maxlength="40"
+                       validateEqual="ReCorreoEle" reverse="true"
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                <div class="text-danger" *ngIf="CorreoEle.touched && !CorreoEle.valid">
+                    <div *ngIf="CorreoEle.errors.required">El correo es requerido</div>
+                    <div *ngIf="CorreoEle.errors.minlength">El correo debe tener mínimo {{CorreoEle.errors.minlength.requiredLength}} caracteres</div>
+                    <div *ngIf="CorreoEle.errors.maxlength">El correo debe tener máximo {{CorreoEle.errors.maxlength.requiredLength}} caracteres</div>
+                    <div *ngIf="CorreoEle.errors.pattern">El correo tiene un formato inválido</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input ngModel #ReCorreoEle="ngModel" name="ReCorreoEle" id="ReCorreoEle" class="form-control" type="text" placeholder="Confirmar correo electrónico"
+                       required
+                       minlength="8"
+                       maxlength="40"
+                       validateEqual="CorreoEle"
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                <div class="text-danger" *ngIf="ReCorreoEle.touched && !ReCorreoEle.valid">
+                    <div *ngIf="ReCorreoEle.errors.required">La confirmación es requerida</div>
+                    <div *ngIf="ReCorreoEle.errors.minlength">El correo debe tener mínimo {{ReCorreoEle.errors.minlength.requiredLength}} caracteres</div>
+                    <div *ngIf="ReCorreoEle.errors.maxlength">El correo debe tener máximo {{ReCorreoEle.errors.maxlength.requiredLength}} caracteres</div>
+                    <div *ngIf="!ReCorreoEle.errors.validateEqual">Los correos no coinciden</div>
+                    <div *ngIf="ReCorreoEle.errors.pattern">El correo tiene un formato inválido</div>
+
+                </div>
+            </div>
+            <div class="form-group two-buttons">
+                <a href="/login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                <button class="btn btn-success" type="button" [disabled]="!f2.valid" (click)="actualizarCorreo(f2, $event)">CONFIRMAR</button>
+            </div>
+            <div class="text-danger text-center">{{err2}}</div>
         </form>
     </div>
 </div>

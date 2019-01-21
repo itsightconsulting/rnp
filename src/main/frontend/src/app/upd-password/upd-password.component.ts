@@ -8,9 +8,9 @@ import {CookieService} from "ngx-cookie-service";
   styleUrls: ['./upd-password.component.css']
 })
 export class UpdPasswordComponent implements OnInit {
-  preCorreo: any;
-    ruc: string = this.cookie.get('ruc_prov');
-    correo: string = this.cookie.get('email_prov');
+    preCorreo: any;
+    ruc: string = this.cookie.check('ruc_prov') ? this.cookie.get('ruc_prov'): "";
+    correo: string = this.cookie.check('email_prov')? this.cookie.get('email_prov'): "";
     correoFormatter: string = this.correo.slice(0,4)+ '*'.repeat(this.correo.indexOf('@')-4)+ this.correo.slice(this.correo.indexOf('@'));
     initFormActive: boolean = true;
     err: string = "";
@@ -27,27 +27,26 @@ export class UpdPasswordComponent implements OnInit {
   ngOnInit() {}
 
   enviarCorreoCodVerificacion(evt){
-      const btn = evt.target;
-      btn.setAttribute('disabled', 'disabled');
-      btn.textContent = 'Cargando...';
-      this.preCorreo = {};
-      this.preCorreo.correo = this.cookie.get('email_prov');
-      this.preCorreo.ruc = this.cookie.get('ruc_prov');
+    const btn = evt.target;
+    btn.setAttribute('disabled', 'disabled');
+    btn.textContent = 'Cargando...';
+    this.preCorreo = {};
+    this.preCorreo.correo = this.cookie.get('email_prov');
+    this.preCorreo.ruc = this.cookie.get('ruc_prov');
     this.updPasswordService.enviarCorreoCodVer(this.preCorreo).subscribe((res: any) =>{
-            console.log(res);
-            if(res.flag){
-                this.initFormActive = false;
-            }else{
-                this.err = res.d;
-            }
+        if(res.flag){
+            this.initFormActive = false;
+        } else {
+            this.err = res.d;
+        }
     },err=>{
-            console.log(err);
+        console.log(err);
     },
-        ()=>{
-            btn.removeAttribute('disabled');
-            btn.textContent = 'ENVIAR';
-            setTimeout(()=>this.err = "",4000);
-        });
+     ()=>{
+        btn.removeAttribute('disabled');
+        btn.textContent = 'ENVIAR';
+        setTimeout(()=>this.err = "",4000);
+    });
   }
 
     comprobarCodVerificacion(r, evt){
@@ -58,7 +57,7 @@ export class UpdPasswordComponent implements OnInit {
             this.updPasswordService.checkCodigoVerificacion(ruc, r.controls.CodVerificacion.value).subscribe((res: any)=>{
                     console.log(res);
                     if(res.flag){
-                        this.cookie.set('cod_ver_prov', r.controls.CodVerificacion.value);
+                        this.cookie.set('cod_ver_prov', r.controls.CodVerificacion.value, 0, '/');
                         this.codVerCorrecto = true;
                     }else{
                         this.err2 = res.d;

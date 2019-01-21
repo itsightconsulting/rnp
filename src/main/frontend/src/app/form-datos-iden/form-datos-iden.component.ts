@@ -9,7 +9,7 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class FormDatosIdenComponent implements OnInit {
 
-  private ruc: string = this.cookie.get('ruc_prov');
+  private ruc: string = this.cookie.check('ruc_prov') ? this.cookie.get('ruc_prov') : "";
   private lstPais: any[];
   private lstTipoDoc: any[];
   private lstZonaReg: any[];
@@ -17,6 +17,9 @@ export class FormDatosIdenComponent implements OnInit {
   private datosIdenDto: any;
   private hoy: Date;
   private dtMin: Date;
+  private err: String = "";
+  private err2: String = "";
+  private scssValidacion: boolean;
 
   constructor(private datosIdenService: FormDatosIdenService, private cookie: CookieService) { }
 
@@ -27,6 +30,7 @@ export class FormDatosIdenComponent implements OnInit {
       this.obtenerTipoCondicion();
       this.hoy =new Date();
       this.dtMin = new Date(1979,12,1);
+      this.scssValidacion = false;
   }
 
   obtenerPais(){
@@ -79,20 +83,44 @@ export class FormDatosIdenComponent implements OnInit {
           this.datosIdenService.checkDatosIdentificacion(this.datosIdenDto).subscribe((res: any)=>{
                   console.log(res);
                   if(res.flag){
-                      /*this.scssMsg = res.d;
-                      this.finalScssMsg = true;*/
+                      this.scssValidacion = true;
                   }else{
-                      /*this.err3 = res.d;*/
+                      this.err = res.d;
                   }
               },
               err=>{
                   console.log(err);
-                  /*this.err3 = err.status + ": "+err.statusText;*/
+                  this.err = err.status + ": "+err.statusText;
               },
               ()=>{
                   btn.removeAttribute('disabled');
-                  //setTimeout(()=>this.err3 = "", 4000);
+                  setTimeout(()=>this.err = "", 4000);
               })
       }
   }
+
+    actualizarCorreo(r, evt){
+        const btn = evt.target;
+        if(r.valid){
+            btn.setAttribute('disabled', 'disabled');
+            const obj: any = new Object();
+            obj.ruc = this.ruc;
+            obj.correo = r.controls.CorreoEle.value;
+            this.datosIdenService.actualizarCorreoProveedor(obj).subscribe((res: any)=>{
+                if(res.flag){
+                    this.cookie.deleteAll("/recuperar/password/validacion");
+                    this.cookie.set('email_prov',  r.controls.CorreoEle.value, 0, '/');
+                    window.location.href = '/recuperar/password/validacion';
+                }else{
+                    this.err2 = res.d;
+                }
+            }, err=>{
+                console.log(err);
+                this.err2 = err.status + ": "+err.statusText;
+            },()=>{
+                btn.removeAttribute('disabled');
+                setTimeout(()=>this.err2 = "", 10000);
+            })
+        }
+    }
 }

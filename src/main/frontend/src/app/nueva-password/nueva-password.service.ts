@@ -10,9 +10,7 @@ export class NuevaPasswordService {
     constructor(private http: HttpClient, private cookie: CookieService) {}
 
     validacionCambioPassword() {
-        const headers = new HttpHeaders().set('Authorization', 'Bearer '+ this.cookie.get('rnp_api_token'));
         const rucHash = new URLSearchParams(window.location.search).get("cd");
-        return this.http.get('/api/contacto/validacion/cambio-password/'+rucHash, {headers});
-
+        return this.http.get('/api/contacto/validacion/cambio-password/'+rucHash, {});
     }
 }

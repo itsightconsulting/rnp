@@ -35,4 +35,14 @@ export class FormDatosIdenService{
         return this.http.post('/api/proveedor/recuperar-pass/sc/validar/datos-identificacion', params, {headers});
     }
 
+    actualizarCorreoProveedor(obj: any){
+        const headers = new HttpHeaders().set('Content-Type','application/x-www-form-urlencoded; charset=UTF-8');
+        const params =
+            new HttpParams({
+                fromObject: obj
+            });
+        return this.http.put(`/api/proveedor/recuperar-pass/sc/actualizar/correo/ext-nodom`, params, {headers});
+
+    }
+
 }

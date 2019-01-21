@@ -10,11 +10,12 @@ export class AuthenticationComponent implements OnInit {
   btnSubmit: any;
   constructor(private authenticationService: AuthenticationService) {
   }
-  credentials: any;
   objJson: any;
   verificacion: boolean;
   msgLogin: string = "";
   opcRecuperacion: number = 1;
+  msgInformacionUsuario: string = "";
+  private flagSinUsuario: boolean = false;
   private activeSegForm: boolean = false;
   ngOnInit() {
     this.verificacion = true;
@@ -53,10 +54,6 @@ export class AuthenticationComponent implements OnInit {
             }
     }
 
-    log(x){
-        //console.log(x);
-    }
-
     numberOnly(event): boolean {
         const charCode = (event.which) ? event.which : event.keyIdentifier;
         if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -69,7 +66,14 @@ export class AuthenticationComponent implements OnInit {
         if(this.opcRecuperacion == 1){
             window.location.href = "/recuperar/password";
         }else{
-            window.location.href = "/recuperar/usuario";
+            this.activeSegForm=false;
+            this.flagSinUsuario = true;
         }
+    }
+
+    showMsgUsuario(){
+        this.msgInformacionUsuario = "Estimado proveedor, para personas naturales o jurídicas que son nacionales o extranjeros domiciliados en el Perú," +
+         " su usuario RNP es el número de RUC proporcionado por la Superintendencia Nacional de Aduanas y de Administración Tributaria (SUNAT)";
+         setTimeout(()=>{this.msgInformacionUsuario = ""}, 12000);
     }
 }

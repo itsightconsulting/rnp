@@ -140,11 +140,11 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
                 boolean exito = repository.validarDatosIdentificacion(dtsIdentificacion);
                 if(exito)
                     return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Validación satisfactoria");
-                LOGGER.info("Validación fallida");
-                return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 0, "Validación fallida");
+                LOGGER.info("Los datos de identificación brindados no han encontrado ninguna coincidencia");
+                return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 0, "Los datos de identificación brindados no han encontrado ninguna coincidencia");
             }
-            LOGGER.info("Ruc inválido");
-            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0);
+            LOGGER.info("El ruc proporcionado no es válido");
+            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El ruc proporcionado no es válido");
         }catch (Exception ex){
             return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
         }

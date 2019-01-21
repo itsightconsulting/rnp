@@ -19,6 +19,7 @@ import { UpdPasswordComponent } from './upd-password/upd-password.component';
 import {EqualValidator} from "./upd-password/equal-validator.directive";
 import { FormDatosIdenComponent } from './form-datos-iden/form-datos-iden.component';
 import {DateValidator} from "./form-datos-iden/date-validator.directive";
+import { ResetUserComponent } from './reset-user/reset-user.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {DateValidator} from "./form-datos-iden/date-validator.directive";
     UpdPasswordComponent,
     EqualValidator,
     DateValidator,
-    FormDatosIdenComponent],
+    FormDatosIdenComponent,
+    ResetUserComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

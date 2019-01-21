@@ -1,0 +1,103 @@
+<body>
+<header>
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <div class="container-mod">
+                <h1 class="logo"><img class="svg" src="../assets/img/iconos_Rpn_buscador.svg">SCE</h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container-mod pad-container">
+    <div class="content-form">
+        <div class="header-content">
+            <p><img class="svg" src="../assets/img/iconos_Rpn-01.svg"><strong>RNP</strong>Trámites en Línea</p>
+        </div>
+        <form class="body-content" action="" [class.hidden]="!activeInitForm">
+            <p class="subtitle-form">¿Como quieres obtener tu usuario RNP?</p>
+            <div class="form-group form-group-rbt">
+                <label class="group-rbt">
+                    <input class="rbt" type="radio" name="option" data-opc="1" (change)="opcRecuperacion=1" checked><span class="checkmark"></span>Correo electrónico de contacto
+                </label>
+            </div>
+            <div class="form-group form-group-rbt">
+                <label class="group-rbt">
+                    <input class="rbt" type="radio" name="option" data-opc="2" (change)="opcRecuperacion=2"><span class="checkmark"></span>Correo electrónico de representante
+                </label>
+            </div>
+            <div class="form-group form-group-rbt">
+                <label class="group-rbt">
+                    <input class="rbt" type="radio" name="option" data-opc="3" (change)="opcRecuperacion=3"><span class="checkmark"></span>Buscar mi empresa
+                </label>
+            </div>
+
+            <div class="form-group two-buttons mrg-top">
+                <div class="no-remember text-center">
+                    <p><a href="javascript:void(0)" (click)="mostrarMensaje()">¿No ha podido recuperar su usuario con ninguna de las opciones anteriores?</a></p>
+                    <div class="alert alert-info" style="font-size: 0.8em" [class.hidden]="!lastMsgActive">
+                        Estimado proveedor, si no ha podido recuperar su usuario RNP con ninguna de las opciones anteriores, le recomendamos que se comunique con nosotros: RNP-Atiende. Teléfono: 6135555 Anexo 5000
+                    </div>
+                </div>
+
+                <a href="/login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                <a href="javascript:void(0)" (click)="irOpcionRecuperacion()"><button class="btn btn-success" type="button">SIGUIENTE</button></a>
+            </div>
+        </form>
+        <form class="body-content" #f="ngForm" (ngSubmit)="submit()" action="" [class.hidden]="!activeOpcion1">
+            <p class="text-center"><i class="fa fa-fw fa-envelope fa-3x" style="color: #c5c251;"></i></p>
+            <p class="text-center">Correo electrónico de contacto</p>
+            <div class="form-group">
+                <input ngModel #CorreoEle="ngModel" name="CorreoEle" id="CorreoEle" class="form-control" type="text" placeholder="Correo electrónico"
+                       required
+                       minlength="8"
+                       maxlength="40"
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                <div class="text-danger" *ngIf="CorreoEle.touched && !CorreoEle.valid">
+                    <div *ngIf="CorreoEle.errors.required">El correo es requerido</div>
+                    <div *ngIf="CorreoEle.errors.minlength">El correo debe tener mínimo {{CorreoEle.errors.minlength.requiredLength}} caracteres</div>
+                    <div *ngIf="CorreoEle.errors.maxlength">El correo debe tener máximo {{CorreoEle.errors.maxlength.requiredLength}} caracteres</div>
+                    <div *ngIf="CorreoEle.errors.pattern">El correo tiene un formato inválido</div>
+                </div>
+            </div>
+
+            <div class="row" style="padding: 0px 10px 10px;">
+                <div class="col-md-6 col-sm-6 col-xs-12 pad-left-0" style="padding-left: 10px !important;">
+                    <img id="ImgCaptcha" style="position: center;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border: 0.5px solid #e6e6e6;" class="img-c">
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 pad-0" style="padding-top: 10px;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2 col-sm-2 col-xs-3">
+                                <a (click)="refreshCaptcha()"  href="javascript:void(0);" class="icon icon-prepend" title="Actualizar captcha" rel="tooltip" data-placement="top" data-original-title="Actualizar captcha">
+                                    <i class="fa fa-refresh" style="padding-top: 3px;color: skyblue !important; font-size: 1.5em !important;" id="RefreshCaptcha"></i>
+                                </a>
+                            </div>
+                            <div class="form-group col-md-9 col-sm-9 col-xs-8" style="padding-right: 5px !important;">
+                                <input ngModel #CodeCaptcha="ngModel" class="form-control" type="text" name="CodeCaptcha" id="CodeCaptcha" placeholder="Captcha"
+                                       maxlength="5"
+                                       minlength="5"
+                                       required/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger text-center" *ngIf="CodeCaptcha.touched && !CodeCaptcha.valid" style="padding: 5px">
+                    <div *ngIf="CodeCaptcha.errors.required">El captcha es requerido</div>
+                    <div *ngIf="CodeCaptcha.errors.minlength || CodeCaptcha.errors.maxlength">El captcha debe tener {{CodeCaptcha.errors.minlength.requiredLength}} caracteres</div>
+                </div>
+                <div class="text-danger text-center" [class.hidden]="!failCaptcha">El código captcha fue errado</div>
+                <div class="text-danger text-center">{{errorMessage}}</div>
+            </div>
+            <div>
+                <span style="color: red;" id="MsgValidacion" class="hidden">El ruc ingresado no existe o es inválido</span>
+            </div>
+            <div class="form-group two-buttons">
+                <a href="/login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                <button class="btn btn-success" type="submit" [disabled]="!f.valid" (click)="preventMultipleSubmit($event.target, f)">INICIAR </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="js/vendor/vendor_all.js" type="text/javascript"></script><!--[if lte IE 8]><script src="static/js/ie/respond.min.js"></script><![endif]-->
+<script src="js/init.js"></script>
+</body>

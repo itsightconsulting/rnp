@@ -19,7 +19,7 @@ export class OnStartUpService{
                         'grant_type': 'client_credentials',
                     }
                 });
-            this.http.post('/api/oauth/token', params, {headers}).subscribe((d: any) => this.cookie.set('rnp_api_token', d.access_token));
+            this.http.post('/api/oauth/token', params, {headers}).subscribe((d: any) => this.cookie.set('rnp_api_token', d.access_token, 0, '/'));
         }
     }
 }

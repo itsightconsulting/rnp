@@ -14,7 +14,7 @@ export class ListadoOpcionComponent implements OnInit {
   private opcElegida: number = 1;
   private mailRepElegido: string = "1";
   private err: string;
-  private ruc: string = this.cookie.get('ruc_prov');
+  private ruc: string = this.cookie.check('ruc_prov') ? this.cookie.get('ruc_prov') : "";
   private lstRepresentante: any[];
   private repSelected: any;
   constructor(private cookie: CookieService, private listadoOpcService: ListadoOpcionService) {
@@ -36,7 +36,7 @@ export class ListadoOpcionComponent implements OnInit {
           (x: any)=> {
           if(x.flag){
               console.log('success:',x.d);
-              this.cookie.set('email_prov', x.d);
+              this.cookie.set('email_prov', x.d, 0, '/');
               window.location.href = '/recuperar/password/validacion';
           }else{
               btn.classList.remove('disabled');
@@ -57,7 +57,7 @@ export class ListadoOpcionComponent implements OnInit {
               console.log(x);
               if(x.flag){
                 if(x.d.length==1){
-                    this.cookie.set('email_prov', x.d[0].correoRepresentante);
+                    this.cookie.set('email_prov', x.d[0].correoRepresentante, 0, '/');
                     window.location.href = '/recuperar/password/validacion';
                 }else{
                     this.existsLstRepre = true;
@@ -108,9 +108,9 @@ export class ListadoOpcionComponent implements OnInit {
   elegirCorreoRep(){
       if(this.mailRepElegido == "1"){
         this.repSelected = document.querySelector('input.rbt-reps');
-        this.cookie.set('email_prov', this.repSelected.getAttribute('data-correo-rep'));
+        this.cookie.set('email_prov', this.repSelected.getAttribute('data-correo-rep'), 0, '/');
       }else{
-          this.cookie.set('email_prov', this.mailRepElegido);
+          this.cookie.set('email_prov', this.mailRepElegido, 0, '/');
       }
       window.location.href = '/recuperar/password/validacion';
   }
