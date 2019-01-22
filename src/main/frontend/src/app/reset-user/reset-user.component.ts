@@ -44,10 +44,14 @@ export class ResetUserComponent implements OnInit {
         this.activeInitForm = false;
     }
 
-      if(this.opcRecuperacion == 2){
-          this.activeOpcion2 = true;
-          this.activeInitForm = false;
-      }
+    if(this.opcRecuperacion == 2){
+        this.activeOpcion2 = true;
+        this.activeInitForm = false;
+    }
+
+    if(this.opcRecuperacion == 3){
+        window.location.href = "/recuperar/usuario/busqueda";
+    }
   }
 
   refreshCaptcha(fail?){

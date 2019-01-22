@@ -5,7 +5,7 @@ import pe.gob.osce.rnp.seg.model.jpa.pojo.ContenidoCorreoPOJO;
 
 import java.util.List;
 
-public interface ProveedorProcedureInvoker {
+public interface ProveedorProcedureInvokerRepository {
 
     Boolean validarExistencia(String ruc);
 

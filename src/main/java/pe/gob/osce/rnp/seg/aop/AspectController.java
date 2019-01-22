@@ -12,11 +12,9 @@ import org.springframework.stereotype.Component;
 public class AspectController {
 
     private static final Logger logger = LogManager.getLogger(AspectController.class);
-    //within(pe.gob.osce.rnp.seg.controller.rest..*) ||
     @Before("( within(pe.gob.osce.rnp.seg.controller..*)) && !@annotation(pe.gob.osce.rnp.seg.annotation.NoLogging)")
     private void before(JoinPoint joinPoint) {
         String caller = joinPoint.getSignature().toShortString();
         logger.info(caller + " method called.");
     }
-
 }

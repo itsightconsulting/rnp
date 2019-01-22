@@ -3,7 +3,7 @@ package pe.gob.osce.rnp.seg.svc.impl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
-import pe.gob.osce.rnp.seg.dao.ProveedorProcedureInvoker;
+import pe.gob.osce.rnp.seg.dao.ProveedorProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.generic.BaseServiceImpl;
 import pe.gob.osce.rnp.seg.model.jpa.dto.*;
 import pe.gob.osce.rnp.seg.model.jpa.pojo.ContenidoCorreoPOJO;
@@ -17,13 +17,13 @@ import java.util.Optional;
 
 
 @Service
-public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvoker> implements ProveedorService {
+public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvokerRepository> implements ProveedorService {
 
     public static final Logger LOGGER = LogManager.getLogger(ProveedorServiceImpl.class);
 
     private EmailService emailService;
 
-    public ProveedorServiceImpl(ProveedorProcedureInvoker repository, EmailService emailService) {
+    public ProveedorServiceImpl(ProveedorProcedureInvokerRepository repository, EmailService emailService) {
         super(repository);
         this.emailService = emailService;
     }

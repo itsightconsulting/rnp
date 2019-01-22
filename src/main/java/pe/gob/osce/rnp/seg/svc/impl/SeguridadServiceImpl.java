@@ -3,7 +3,7 @@ package pe.gob.osce.rnp.seg.svc.impl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
-import pe.gob.osce.rnp.seg.dao.ProveedorProcedureInvoker;
+import pe.gob.osce.rnp.seg.dao.ProveedorProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.dao.SeguridadProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.generic.BaseServiceImpl;
 import pe.gob.osce.rnp.seg.model.jpa.dto.Respuesta;
@@ -23,11 +23,11 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
 
     private EmailService emailService;
 
-    private ProveedorProcedureInvoker proveedorRepository;
+    private ProveedorProcedureInvokerRepository proveedorRepository;
 
     public SeguridadServiceImpl(SeguridadProcedureInvokerRepository repository,
                                 EmailService emailService,
-                                ProveedorProcedureInvoker proveedorRepository){
+                                ProveedorProcedureInvokerRepository proveedorRepository){
         super(repository);
         this.emailService = emailService;
         this.proveedorRepository = proveedorRepository;

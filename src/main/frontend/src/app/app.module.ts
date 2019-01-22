@@ -2,9 +2,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {TasksComponent} from './tasks/tasks.component';
-import {TasksAddComponent} from './tasks/tasks-add/tasks-add.component';
-import {TasksListComponent} from './tasks/tasks-list/tasks-list.component';
 import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {AuthenticationComponent} from './authentication/authentication.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
@@ -20,13 +17,11 @@ import {EqualValidator} from "./upd-password/equal-validator.directive";
 import { FormDatosIdenComponent } from './form-datos-iden/form-datos-iden.component';
 import {DateValidator} from "./form-datos-iden/date-validator.directive";
 import { ResetUserComponent } from './reset-user/reset-user.component';
+import { BuscarEmpresaComponent } from './buscar-empresa/buscar-empresa.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TasksComponent,
-    TasksAddComponent,
-    TasksListComponent,
     AuthenticationComponent,
     ResetPasswordComponent,
     NuevaPasswordComponent,
@@ -36,7 +31,8 @@ import { ResetUserComponent } from './reset-user/reset-user.component';
     EqualValidator,
     DateValidator,
     FormDatosIdenComponent,
-    ResetUserComponent],
+    ResetUserComponent,
+    BuscarEmpresaComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

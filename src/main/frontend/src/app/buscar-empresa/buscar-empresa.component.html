@@ -1,0 +1,97 @@
+<header>
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <div class="container-mod">
+                <h1 class="logo"><img class="svg" src="../assets/img/iconos_Rpn_buscador.svg">SCE</h1>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container-mod pad-container">
+    <div class="content-form">
+        <div class="header-content">
+            <p><img class="svg" src="../assets/img/iconos_Rpn-01.svg"><strong>RNP</strong>Trámites en Línea</p>
+        </div>
+        <form class="body-content" action="" #f="ngForm">
+            <p class="subtitle-form icon"><img class="svg" src="../assets/img/iconos_Rpn_buscador.svg">Búsqueda de proveedores</p>
+            <p class="subtitle-section"><strong>Nacionalidad:</strong>Extranjero no domiciliado</p>
+            <div class="form-group label-left">
+                <div class="col-md-5 pad-0">
+                    <label>Tipo de persona</label>
+                </div>
+                <div class="col-md-7 pad-0 select-control"><span><img src="../assets/img/select-arrow.png"></span>
+                    <select class="form-control" ngModel #TipoPersona="ngModel" id="TipoPersona" name="TipoPersona" required>
+                        <option selected="selected" value="">Seleccione</option>
+                        <option value="1">Natural</option>
+                        <option value="2">Jurídica</option>
+                    </select>
+                    <div class="text-danger" *ngIf="TipoPersona.touched && !TipoPersona.valid">
+                        <div *ngIf="TipoPersona.errors.required">El tipo de persona es requerido</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group label-left">
+                <div class="col-md-5 pad-0">
+                    <label>País de Origen</label>
+                </div>
+                <div class="col-md-7 pad-0 select-control"><span><img src="../assets/img/select-arrow.png"></span>
+                    <select class="form-control" ngModel #Pais="ngModel" id="Pais" name="Pais" required>
+                        <option selected="selected" value="">Seleccione</option>
+                        <option *ngFor="let p of lstPais" [value]="p.iden">
+                            {{p.valor}}
+                        </option>
+                    </select>
+                    <div class="text-danger" *ngIf="Pais.touched && !Pais.valid">
+                        <div *ngIf="Pais.errors.required">El país es requerido</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group search-content">
+                <label>Nombre o Razón social</label>
+                <input class="form-control" type="text" placeholder="" ngModel #RazonSocial="ngModel" name="RazonSocial" id="RazonSocial"
+                       required="required"
+                       minlength="5"
+                       maxlength="40">
+                <div class="text-danger" *ngIf="RazonSocial.touched && !RazonSocial.valid">
+                    <div *ngIf="RazonSocial.errors.required">La razón social es requerida</div>
+                    <div *ngIf="RazonSocial.errors.minlength || RazonSocial.errors.maxlength">La razón social debe tener {{RazonSocial.errors.minlength.requiredLength}} caracteres como mínimo</div>
+                </div>
+                <button class="search" [disabled]="!f.valid" (click)="buscar(f, $event)"><img class="svg" src="../assets/img/iconos_Rpn_buscador.svg"></button>
+                <div class="text-danger">{{err}}</div>
+            </div>
+            <p class="description-form">
+                Estimado proveedor, su usuario RNP es el código de extranjero no domociliadoque se muestra al costado de su nombre o razón social en la siguiente lista:</p>
+            <div class="col-md-12 pad-0">
+                <table>
+                    <thead>
+                    <tr>
+                        <th width="60">NRO.</th>
+                        <th width="115">Razón social</th>
+                        <th width="115">Código extranjería no domiciliado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let c of lstCoincidencias; let i=index">
+                        <td width="60">{{i+1}}</td>
+                        <td width="115">{{c.razSocial}}</td>
+                        <td width="115">{{c.codExtNoDom}}</td>
+                    </tr>
+
+                    <tr *ngIf="lstCoincidencias.length == 0 && !buscado">
+                        <td colspan="3"><label style="color: #5463b7">Aún no ha realizado ninguna consulta</label></td>
+                    </tr>
+                    <tr *ngIf="lstCoincidencias.length == 0 && buscado">
+                        <td colspan="3"><label style="color: #b75d4f">No se encontraron coincidencias</label></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="no-remember">
+                <p>¿No reconoces la información mostrada?<a href="#">PRUEBA DE OTRA MANERA</a></p>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success full" type="button">CANCELAR</button>
+            </div>
+        </form>
+    </div>
+</div>

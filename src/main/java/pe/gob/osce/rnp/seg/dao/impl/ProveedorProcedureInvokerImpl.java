@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pe.gob.osce.rnp.seg.constants.StoredProcedureName;
-import pe.gob.osce.rnp.seg.dao.ProveedorProcedureInvoker;
+import pe.gob.osce.rnp.seg.dao.ProveedorProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.model.jpa.dto.*;
 import pe.gob.osce.rnp.seg.model.jpa.pojo.ContenidoCorreoPOJO;
 
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvoker {
+public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvokerRepository {
 
     @Autowired
     private EntityManager em;

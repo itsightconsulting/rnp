@@ -3,6 +3,7 @@ package pe.gob.osce.rnp.seg.svc.impl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -24,6 +25,9 @@ public class EmailServiceImpl extends EmailGeneric implements EmailService {
     private JavaMailSender emailSender;
 
     private ServletContext context;
+
+    @Value("${spring.profiles.active}")
+    private String profile;
     
     @Autowired
     public EmailServiceImpl(JavaMailSender emailSender, ServletContext context) {
@@ -56,6 +60,7 @@ public class EmailServiceImpl extends EmailGeneric implements EmailService {
     public Boolean enviarCorreoInformativo(String asunto, String receptor, String contenido) {
         MimeMessagePreparator preparator = null;
         try {
+            receptor = profile.equals("development") ? "peter.carranza@itsight.pe":receptor;
             preparator = mimeMessagePreparator(asunto, receptor, contenido, new InternetAddress(context.getAttribute("MAIL_USERNAME").toString(),"RNP Plataforma Electrónica"));
             emailSender.send(preparator);
         } catch (UnsupportedEncodingException ex) {
