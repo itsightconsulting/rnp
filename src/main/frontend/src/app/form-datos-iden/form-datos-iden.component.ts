@@ -81,7 +81,6 @@ export class FormDatosIdenComponent implements OnInit {
           this.datosIdenDto.fecIngreso = new Date(this.datosIdenDto.fecIngreso.toDateString());
           this.datosIdenDto.tipoCondicionId = r.controls.TipoCon.value;
           this.datosIdenService.checkDatosIdentificacion(this.datosIdenDto).subscribe((res: any)=>{
-                  console.log(res);
                   if(res.flag){
                       this.scssValidacion = true;
                   }else{

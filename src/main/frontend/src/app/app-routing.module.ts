@@ -5,6 +5,7 @@ import {ResetPasswordComponent} from "./reset-password/reset-password.component"
 import {UpdPasswordComponent} from "./upd-password/upd-password.component";
 import {FormDatosIdenComponent} from "./form-datos-iden/form-datos-iden.component";
 import {BuscarEmpresaComponent} from "./buscar-empresa/buscar-empresa.component";
+import {ResetUserComponent} from "./reset-user/reset-user.component";
 
 const routes: Routes = [
     {
@@ -17,6 +18,10 @@ const routes: Routes = [
     {
         path: 'recuperar/password',
         component: ResetPasswordComponent
+    },
+    {
+        path: 'recuperar/usuario',
+        component: ResetUserComponent
     },
     {
         path: 'recuperar/usuario/busqueda',

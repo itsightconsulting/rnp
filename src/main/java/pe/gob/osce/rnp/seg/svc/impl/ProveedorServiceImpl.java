@@ -39,14 +39,13 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
                         return new Respuesta(ResponseCode.EXITO_GENERICA.get(), 1, optOpc.get());
                 }
                 LOGGER.info("Resul set length: 0");
-                return new Respuesta(ResponseCode.EMPTY_RESPONSE.get(), 0, "Resul set length: 0");
+                return new Respuesta(ResponseCode.EMPTY_RESPONSE.get(), 0, "Ruc inválido: "+ruc);
             }
             LOGGER.info("Ruc inválido");
             return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Ruc inválido: "+ruc);
         }catch (Exception ex){
             return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0);
         }
-
     }
 
     @Override

@@ -17,6 +17,7 @@ export class ListadoOpcionComponent implements OnInit {
   private ruc: string = this.cookie.check('ruc_prov') ? this.cookie.get('ruc_prov') : "";
   private lstRepresentante: any[];
   private repSelected: any;
+  private valMsgNoRecuperado: boolean = false;
   constructor(private cookie: CookieService, private listadoOpcService: ListadoOpcionService) {
 
   }
@@ -114,5 +115,9 @@ export class ListadoOpcionComponent implements OnInit {
           this.cookie.set('email_prov', this.mailRepElegido, 0, '/');
       }
       window.location.href = '/recuperar/password/validacion';
+  }
+
+  msgNoRecuperado() {
+    this.valMsgNoRecuperado = true;
   }
 }

@@ -85,7 +85,7 @@
                     <div *ngIf="CodeCaptcha.errors.required">El captcha es requerido</div>
                     <div *ngIf="CodeCaptcha.errors.minlength || CodeCaptcha.errors.maxlength">El captcha debe tener {{CodeCaptcha.errors.minlength.requiredLength}} caracteres</div>
                 </div>
-                <div class="text-danger text-center" [class.hidden]="!failCaptcha">El código captcha fue errado</div>
+                <div class="text-danger text-center" [class.hidden]="!failCaptcha">Código captcha no es igual al de la imagen</div>
                 <div class="text-danger text-center">{{errorMessage}}</div>
             </div>
             <div class="form-group two-buttons">
@@ -135,7 +135,7 @@
                     <div *ngIf="CodeCaptcha2.errors.required">El captcha es requerido</div>
                     <div *ngIf="CodeCaptcha2.errors.minlength || CodeCaptcha2.errors.maxlength">El captcha debe tener {{CodeCaptcha2.errors.minlength.requiredLength}} caracteres</div>
                 </div>
-                <div class="text-danger text-center" [class.hidden]="!failCaptcha">El código captcha fue errado</div>
+                <div class="text-danger text-center" [class.hidden]="!failCaptcha">Código captcha no es igual al de la imagen</div>
                 <div class="text-danger text-center">{{errorMessage}}</div>
             </div>
             <div class="form-group two-buttons">

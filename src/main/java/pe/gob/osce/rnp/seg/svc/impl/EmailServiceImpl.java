@@ -60,7 +60,7 @@ public class EmailServiceImpl extends EmailGeneric implements EmailService {
     public Boolean enviarCorreoInformativo(String asunto, String receptor, String contenido) {
         MimeMessagePreparator preparator = null;
         try {
-            receptor = profile.equals("development") ? "peter.carranza@itsight.pe":receptor;
+            receptor = profile.equals("development") ? "PETER.CARRANZA@ITSIGHT.PE" : receptor;
             preparator = mimeMessagePreparator(asunto, receptor, contenido, new InternetAddress(context.getAttribute("MAIL_USERNAME").toString(),"RNP Plataforma Electrónica"));
             emailSender.send(preparator);
         } catch (UnsupportedEncodingException ex) {

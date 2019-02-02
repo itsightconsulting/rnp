@@ -1,3 +1,16 @@
 <div class="container">
   <router-outlet></router-outlet>
+    <div class="text-center" id="overlay">
+        <div>
+            <p class="mensaje-de-espera"></p>
+        </div>
+        <br/>
+        <img src="./assets/img/LOGO-RNP-OSCE.png" style="opacity: 0.6;"><div class="text-right">
+            <div class="col col-md-2"></div>
+            <div class="col col-md-8" style="padding: 15px;">
+                <a class="" onclick="javascript:document.querySelector('#overlay').style.display = 'none';" title="Cancelar operación y cerrar esta ventana">Cancelar <i class="fa fa-close fa-fw"></i></a>
+            </div>
+            <div class="col col-md-2"></div>
+        </div></div>
 </div>
+

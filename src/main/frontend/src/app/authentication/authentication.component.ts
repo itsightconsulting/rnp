@@ -33,14 +33,12 @@ export class AuthenticationComponent implements OnInit {
                 this.authenticationService.authProcess(this.objJson).subscribe(
                     (d: any) => {
                         if (d.flag) {
-                            //window.location.href = "/recuperar/password"
-                            alert('Autenticación correcta: ' + JSON.stringify(d));
-                            window.location.reload();
+                            window.location.href = "http://www.rnp.gob.pe/login.asp";
+                            window.localStorage.setItem('rnp_login_obj', JSON.stringify({"status": 'ok', "usuario": frm.controls.Ruc.value, "password": frm.controls.Clave.value}));
                         } else {
                             this.verificacion = d.flag;
                             this.msgLogin = d.d;
                             this.btnSubmit.classList.remove('disabled');
-                            alert('Las credenciales ingresadas son incorrectas');
                         }
                     },
                     (error)=>{
