@@ -8,18 +8,18 @@
             <form class="body-content" action="">
                 <div class="text-center" style="padding: 10px; color: #a97434"><i class="fa fa-lock fa-4x"></i></div>
                 <p class="subtitle-form">¿Como quieres obtener tu clave RNP?</p>
-                <div class="form-group form-group-rbt" *ngFor="let opc of opcs; index as i">
-                    <label class="group-rbt">
-                        <input class="rbt" type="radio" name="option" [attr.data-opc]="i+1" [checked]="i==0" (change)="opcElegida=i+1"><span class="checkmark"></span>{{opc}}
-                    </label>
+                <div id="OpcsPass" class="hidden">
+                    <div class="form-group form-group-rbt" *ngFor="let opc of opcs; index as i">
+                        <label class="group-rbt">
+                            <input class="rbt" type="radio" name="option" [attr.data-opc]="i+1" [checked]="i==0" (change)="opcElegida=i+1"><span class="checkmark"></span>{{opc}}
+                        </label>
+                    </div>
                 </div>
-
                 <div class="form-group two-buttons mrg-top">
-                    <div class="text-center" style="font-size: 0.8em;padding-bottom: 15px;font-size: 12px;">
-                        <a href="javascript:void(0)" (click)="msgNoRecuperado()">“¿No ha podido recuperar su clave con ninguna de las opciones anteriores?</a>
-                        <div style="border: 3px solid #ccc;padding: 5px;border-radius: 10px;margin: 12px;" [class.hidden]="!valMsgNoRecuperado">
-                            <span>Estimado proveedor, si no ha podido recuperar su clave RNP con ninguna de las opciones anteriores, le recomendamos que se comunique con nosotros: <br><b>RNP-Atiende. Teléfono: 6135555 Anexo 5000</b>
-                            </span>
+                    <div class="no-remember text-center">
+                        <p><a href="javascript:void(0)" (click)="msgNoRecuperado()">“¿No ha podido recuperar su clave con ninguna de las opciones anteriores?</a></p>
+                        <div class="alert alert-info" style="font-size: 0.9em" [class.hidden]="!valMsgNoRecuperado">
+                            Estimado proveedor, si no ha podido recuperar su usuario RNP con ninguna de las opciones anteriores, le recomendamos que se comunique con nosotros: <br/><b>RNP-Atiende. Teléfono: 6135555 Anexo 5000</b>
                         </div>
                     </div>
                     <a href="/login"><button class="btn btn-default" type="button">CANCELAR</button></a>
@@ -51,10 +51,10 @@
                     </div>
                 </div>
                 <div class="no-remember" style="'margin-top: 10px !important'">
-                    <p>¿No reconoces la información mostrada?<a href="#">PRUEBA DE OTRA MANERA</a></p>
+                    <p>¿No reconoces la información mostrada?<a href="/recuperar/password/opcs">PRUEBA DE OTRA MANERA</a></p>
                 </div>
                 <div class="form-group two-buttons">
-                    <a href="/login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                    <a class="btn btn-default" href="javascript:void(0);" onclick="javascript:document.getElementById('overlayConfirm').style.display = 'block';">CANCELAR</a>
                     <button class="btn btn-success" type="button" (click)="elegirCorreoRep()">SIGUIENTE</button>
                 </div>
             </form>

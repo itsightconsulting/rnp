@@ -6,6 +6,7 @@ import {UpdPasswordComponent} from "./upd-password/upd-password.component";
 import {FormDatosIdenComponent} from "./form-datos-iden/form-datos-iden.component";
 import {BuscarEmpresaComponent} from "./buscar-empresa/buscar-empresa.component";
 import {ResetUserComponent} from "./reset-user/reset-user.component";
+import {ListadoOpcionComponent} from "./listado-opcion/listado-opcion.component";
 
 const routes: Routes = [
     {
@@ -38,6 +39,10 @@ const routes: Routes = [
     {
         path: 'recuperar/password/validar/datos-identificacion',
         component: FormDatosIdenComponent
+    },
+    {
+        path: 'recuperar/password/opcs',
+        component: ListadoOpcionComponent
     }
 ];
 

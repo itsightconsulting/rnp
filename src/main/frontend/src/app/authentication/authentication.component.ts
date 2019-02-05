@@ -15,8 +15,10 @@ export class AuthenticationComponent implements OnInit {
   msgLogin: string = "";
   opcRecuperacion: number = 1;
   msgInformacionUsuario: string = "";
+  timesRequestIframe: number = 0;
   private flagSinUsuario: boolean = false;
   private activeSegForm: boolean = false;
+  private iframeReceiver: any;
   ngOnInit() {
     this.verificacion = true;
   }
@@ -33,8 +35,12 @@ export class AuthenticationComponent implements OnInit {
                 this.authenticationService.authProcess(this.objJson).subscribe(
                     (d: any) => {
                         if (d.flag) {
-                            window.location.href = "http://www.rnp.gob.pe/login.asp";
-                            window.localStorage.setItem('rnp_login_obj', JSON.stringify({"status": 'ok', "usuario": frm.controls.Ruc.value, "password": frm.controls.Clave.value}));
+                            this.overlayActive();
+                            //window.location.href = "http://www.rnp.gob.pe/login.asp";
+                            //window.localStorage.setItem('rnp_login_obj', JSON.stringify({"status": 'ok', "usuario": frm.controls.Ruc.value, "password": frm.controls.Clave.value}));
+                            this.iframeReceiver = document.getElementById('IframeReceiver');
+                            this.iframeReceiver.contentWindow.postMessage(`${frm.controls.Ruc.value +'|'+frm.controls.Clave.value}`, 'http://www.rnp.gob.pe/login.asp');
+                            //this.iframeCheckLogged() is fired after login on rnp's irame
                         } else {
                             this.verificacion = d.flag;
                             this.msgLogin = d.d;
@@ -73,5 +79,20 @@ export class AuthenticationComponent implements OnInit {
         this.msgInformacionUsuario = "Estimado proveedor, para personas naturales o jurídicas que son nacionales o extranjeros domiciliados en el Perú," +
          " su usuario RNP es el número de RUC proporcionado por la Superintendencia Nacional de Aduanas y de Administración Tributaria (SUNAT)";
          setTimeout(()=>{this.msgInformacionUsuario = ""}, 12000);
+    }
+
+    iframeCheckLogged(){
+        if(this.timesRequestIframe>0){
+            window.location.href = "http://www.rnp.gob.pe/tramites/tramites.asp";
+        }
+        this.timesRequestIframe++;
+    }
+
+    overlayActive(){
+        try {
+            document.getElementById("overlay").style.display = "block";
+        }catch (ex) {
+            console.log(ex);
+        }
     }
 }

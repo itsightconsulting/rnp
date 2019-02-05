@@ -1,16 +1,37 @@
 <div class="container">
   <router-outlet></router-outlet>
-    <div class="text-center" id="overlay">
-        <div>
-            <p class="mensaje-de-espera"></p>
-        </div>
-        <br/>
-        <img src="./assets/img/LOGO-RNP-OSCE.png" style="opacity: 0.6;"><div class="text-right">
-            <div class="col col-md-2"></div>
-            <div class="col col-md-8" style="padding: 15px;">
-                <a class="" onclick="javascript:document.querySelector('#overlay').style.display = 'none';" title="Cancelar operación y cerrar esta ventana">Cancelar <i class="fa fa-close fa-fw"></i></a>
-            </div>
-            <div class="col col-md-2"></div>
-        </div></div>
+  <div class="text-center" id="overlay">
+      <div>
+          <p class="mensaje-de-espera"></p>
+      </div>
+      <br/>
+      <img src="./assets/img/LOGO-RNP-OSCE.png" style="opacity: 0.6;"><div class="text-right">
+          <div class="col col-md-2"></div>
+          <div class="col col-md-8" style="padding: 15px;">
+              <a class="" onclick="javascript:document.querySelector('#overlay').style.display = 'none';" title="Cancelar operación y cerrar esta ventana">Cancelar <i class="fa fa-close fa-fw"></i></a>
+          </div>
+          <div class="col col-md-2"></div>
+      </div>
+  </div>
+  <div class="text-center" id="overlayConfirm">
+    <div>
+        <p class=""></p>
+    </div>
+    <br/>
+    <h2 style="color: white;" class="mensaje-personalizado">¿Estas seguro que quieres salir?</h2>
+    <div class="col col-md-2">&nbsp</div>
+    <div class="col col-md-8" style="padding: 15px; text-align: right">
+        <a class="btn btn-default" style="margin-right: 5px" onclick="javascript:document.querySelector('#overlayConfirm').style.display = 'none';" title="Cerrar esta ventana emergente y continuar con el proceso">Cancelar </a>
+        <a class="btn btn-default" onclick="javascript:window.location.href = '/login';" title="Cancelar la operación y regresar al login">Confirmar </a>
+    </div>
+    <div class="col col-md-2">&nbsp</div>
+  </div>
 </div>
-
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-133773537-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('create', 'UA-133773537-1', 'none');
+</script>

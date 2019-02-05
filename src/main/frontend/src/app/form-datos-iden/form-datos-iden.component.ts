@@ -88,12 +88,11 @@ export class FormDatosIdenComponent implements OnInit {
                   }
               },
               err=>{
-                  console.log(err);
                   this.err = err.status + ": "+err.statusText;
               },
               ()=>{
                   btn.removeAttribute('disabled');
-                  setTimeout(()=>this.err = "", 4000);
+                  setTimeout(()=>this.err = "", 6000);
               })
       }
   }

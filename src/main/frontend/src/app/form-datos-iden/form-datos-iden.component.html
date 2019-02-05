@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="col-md-12">
             <div class="container-mod">
-                <h1 class="logo"><img class="svg" src="../assets/img/iconos_Rpn_buscador.svg">SCE</h1>
+                <h1 class="logo"><a href="/login"><img class="svg" src="../assets/img/iconos_Rpn_buscador.svg"></a>SCE</h1>
             </div>
         </div>
     </div>
@@ -95,7 +95,7 @@
                 </div>
             </div>
             <div class="no-remember">
-                <p>¿No reconoces la información mostrada?<a href="#">PRUEBA DE OTRA MANERA</a></p>
+                <p>¿No reconoces la información mostrada?<a href="/recuperar/password/opcs">PRUEBA DE OTRA MANERA</a></p>
             </div>
             <div class="form-group two-buttons">
                 <a href="/login"><button class="btn btn-default" type="button">CANCELAR</button></a>
@@ -139,7 +139,7 @@
                 </div>
             </div>
             <div class="form-group two-buttons">
-                <a href="/login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                <a class="btn btn-default" href="javascript:void(0);" onclick="javascript:document.getElementById('overlayConfirm').style.display = 'block';javascript:document.querySelector('#overlayConfirm .mensaje-personalizado').textContent = '¿Está seguro cancelar la actualización de correo electrónico de contacto? Recuerde que sólo mediante el correo electrónico podrá obtener su código de verificación para cambio de clave'">CANCELAR</a>
                 <button class="btn btn-success" type="button" [disabled]="!f2.valid" (click)="actualizarCorreo(f2, $event)">CONFIRMAR</button>
             </div>
             <div class="text-danger text-center">{{err2}}</div>

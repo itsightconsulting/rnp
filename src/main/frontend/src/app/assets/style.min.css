@@ -48,11 +48,11 @@ body {
 
 .container-mod .logo svg,
 .container-mod .logo img {
-    width: 30px;
+    width: 36px;
     fill: #fff;
-    margin-right: 6px;
-    transform: rotateY(-180deg);
-    -webkit-transform: rotateY(-180deg);
+    margin-right: 0px !important;
+    transform: rotateY(180deg);
+    margin-bottom: 2px !important;
 }
 
 .pad-container {

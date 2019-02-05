@@ -11,6 +11,7 @@ export class OnStartUpService{
     }
 
     instanceApiToken(){
+
         if(!this.cookie.check('rnp_api_token')) {
             const headers = new HttpHeaders().set('Authorization', "Basic " + btoa('rnp_osce' + ":" + 'itsight19@13')).set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
             const params =

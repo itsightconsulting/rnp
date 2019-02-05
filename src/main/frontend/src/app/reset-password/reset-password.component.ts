@@ -72,9 +72,11 @@ export class ResetPasswordComponent implements OnInit {
                         if (d.flag) {
                             this.activeOpsCambio = true;
                             this.cookie.set('ruc_prov', r.controls.Ruc.value, 0, '/');
+                            document.querySelectorAll('label.group-rbt').forEach(v => v.classList.remove('hidden'));
                             for(let i=0; i<Object.values(d.d).length; i++){
                                 Object.values(d.d)[i] == "NO" ? document.querySelectorAll('label.group-rbt')[i].classList.add('hidden') : "";
                             }
+                            this.cookie.set('my_opcs_recover_password', JSON.stringify(d.d), 0, '/');
                         } else {
                             this.refreshCaptcha();
                             this.errorMessage = d.d;
