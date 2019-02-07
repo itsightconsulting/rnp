@@ -23,8 +23,12 @@ body{
     padding-left: 2px;
     padding-top: 2px;
 }
+#overlayAlert .mensaje-personalizado{
+    margin-left: 10%;
+    width: 80%;
+}
 
-#overlay, #overlayConfirm {
+#overlay, #overlayConfirm, #overlayAlert {
     position: fixed; /* Sit on top of the page content */
     display: none; /* Hidden by default */
     width: 100%; /* Full width (cover the whole page) */

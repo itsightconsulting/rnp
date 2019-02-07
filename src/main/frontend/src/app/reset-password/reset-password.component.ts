@@ -72,6 +72,7 @@ export class ResetPasswordComponent implements OnInit {
                         if (d.flag) {
                             this.activeOpsCambio = true;
                             this.cookie.set('ruc_prov', r.controls.Ruc.value, 0, '/');
+                            this.ruc = r.controls.Ruc.value;
                             document.querySelectorAll('label.group-rbt').forEach(v => v.classList.remove('hidden'));
                             for(let i=0; i<Object.values(d.d).length; i++){
                                 Object.values(d.d)[i] == "NO" ? document.querySelectorAll('label.group-rbt')[i].classList.add('hidden') : "";
@@ -103,5 +104,4 @@ export class ResetPasswordComponent implements OnInit {
             }
         }
     }
-
 }

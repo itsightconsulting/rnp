@@ -20,6 +20,7 @@ export class UpdPasswordComponent implements OnInit {
     scssMsg: any;
     err3: string = "";
     finalScssMsg: boolean = false;
+    overlayAlert: any;
   constructor(private updPasswordService: UpdPasswordService, private cookie: CookieService) {
 
   }
@@ -36,6 +37,8 @@ export class UpdPasswordComponent implements OnInit {
     this.updPasswordService.enviarCorreoCodVer(this.preCorreo).subscribe((res: any) =>{
         if(res.flag){
             this.initFormActive = false;
+            this.overlayAlert = document.querySelector('#overlayAlert');
+            this.overlayAlert.style.display = 'block'
         } else {
             this.err = res.d;
         }

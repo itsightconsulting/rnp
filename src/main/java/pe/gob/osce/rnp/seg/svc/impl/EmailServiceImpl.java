@@ -59,7 +59,7 @@ public class EmailServiceImpl extends EmailGeneric implements EmailService {
     @Override
     public Boolean enviarCorreoInformativo(String asunto, String receptor, String contenido) {
         MimeMessagePreparator preparator = null;
-        try {
+        try {//YOSELIN.RODRIGUEZ@ITSIGHT.PE
             receptor = profile.equals("development") ? "PETER.CARRANZA@ITSIGHT.PE" : receptor;
             preparator = mimeMessagePreparator(asunto, receptor, contenido, new InternetAddress(context.getAttribute("MAIL_USERNAME").toString(),"RNP Plataforma Electrónica"));
             emailSender.send(preparator);

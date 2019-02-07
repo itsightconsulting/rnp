@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { ListadoOpcionService} from "./listado-opcion.service";
 import { Representante} from "./representante";
@@ -9,15 +9,17 @@ import { Representante} from "./representante";
   styleUrls: ['./listado-opcion.component.css']
 })
 export class ListadoOpcionComponent implements OnInit {
-      private existsLstRepre: boolean;
-      private opcs: string[];
-      private opcElegida: number = 1;
-      private mailRepElegido: string = "1";
-      private err: string;
-      private ruc: string = this.cookie.check('ruc_prov') ? this.cookie.get('ruc_prov') : "";
-      private lstRepresentante: any[];
-      private repSelected: any;
-      private valMsgNoRecuperado: boolean = false;
+
+  private existsLstRepre: boolean;
+  private opcs: string[];
+  private opcElegida: number = 1;
+  private mailRepElegido: string = "1";
+  private err: string;
+  @Input()
+  private ruc: string = this.cookie.check('ruc_prov') ? this.cookie.get('ruc_prov') : "";
+  private lstRepresentante: any[];
+  private repSelected: any;
+  private valMsgNoRecuperado: boolean = false;
 
   constructor(private cookie: CookieService, private listadoOpcService: ListadoOpcionService) {
       this.opcs = [

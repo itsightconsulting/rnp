@@ -69,7 +69,7 @@ export class AuthenticationComponent implements OnInit {
     irOpcionRecuperacion(){
         if(this.opcRecuperacion == 1){
             window.location.href = "/recuperar/password";
-        }else{
+        } else{
             this.activeSegForm=false;
             this.flagSinUsuario = true;
         }

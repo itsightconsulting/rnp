@@ -1,14 +1,9 @@
 package pe.gob.osce.rnp.seg.model.jpa;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import org.apache.axis2.databinding.types.soapencoding.DateTime;
-
 import lombok.Data;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -38,16 +33,16 @@ public class ClaCodVerificacion {
 	private Integer indUsado;
 	
 	@Column(name = "D_FEC_INIVALIDEZ")
-	private DateTime fecIniValidez;
+	private Date fecIniValidez;
 	
 	@Column(name = "D_FEC_FINVALIDEZ")
-	private DateTime fecFinValidez;
+	private Date fecFinValidez;
 	
 	@Column(name = "D_FEC_REGISTRO")
-	private DateTime fecRegistro;
+	private Date fecRegistro;
 	
 	@Column(name = "D_FEC_USADO")
-	private DateTime fecUsado;
+	private Date fecUsado;
 	
 	@Column(name = "C_COD_USUREGISTRO")
 	private String codUsuRegistro;
