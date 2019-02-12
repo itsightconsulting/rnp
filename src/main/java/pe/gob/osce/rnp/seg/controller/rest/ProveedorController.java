@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/proveedor")
+@RequestMapping(path = "${api.bs.route}/proveedor")
 public class ProveedorController {
 
     private ProveedorService proveedorService;

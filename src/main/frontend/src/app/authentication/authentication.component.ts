@@ -16,9 +16,9 @@ export class AuthenticationComponent implements OnInit {
   opcRecuperacion: number = 1;
   msgInformacionUsuario: string = "";
   timesRequestIframe: number = 0;
-  private flagSinUsuario: boolean = false;
-  private activeSegForm: boolean = false;
-  private iframeReceiver: any;
+  flagSinUsuario: boolean = false;
+  activeSegForm: boolean = false;
+  iframeReceiver: any;
   ngOnInit() {
     this.verificacion = true;
   }
@@ -36,20 +36,19 @@ export class AuthenticationComponent implements OnInit {
                     (d: any) => {
                         if (d.flag) {
                             this.overlayActive();
-                            //window.location.href = "http://www.rnp.gob.pe/login.asp";
-                            //window.localStorage.setItem('rnp_login_obj', JSON.stringify({"status": 'ok', "usuario": frm.controls.Ruc.value, "password": frm.controls.Clave.value}));
                             this.iframeReceiver = document.getElementById('IframeReceiver');
                             this.iframeReceiver.contentWindow.postMessage(`${frm.controls.Ruc.value +'|'+frm.controls.Clave.value}`, 'http://www.rnp.gob.pe/login.asp');
                             //this.iframeCheckLogged() is fired after login on rnp's irame
+                            this.validacionIframeFallo(d);
                         } else {
                             this.verificacion = d.flag;
                             this.msgLogin = d.d;
-                            this.btnSubmit.classList.remove('disabled');
                         }
                     },
                     (error)=>{
-                    this.btnSubmit.classList.remove('disabled');
                         console.log(error);
+                }, ()=>{
+                        this.btnSubmit.classList.remove('disabled');
                 });
             }
         }else
@@ -94,5 +93,13 @@ export class AuthenticationComponent implements OnInit {
         }catch (ex) {
             console.log(ex);
         }
+    }
+
+    validacionIframeFallo(d){
+        setTimeout(()=>{
+            this.verificacion = !d.flag;
+            this.msgLogin = "El servicio de login no se encuentra disponible. Intentelo nuevamente más tarde o comuníquese al teléfono: 6135555 Anexo 5000";
+            document.getElementById("overlay").style.display = "none";
+        }, 5000)
     }
 }

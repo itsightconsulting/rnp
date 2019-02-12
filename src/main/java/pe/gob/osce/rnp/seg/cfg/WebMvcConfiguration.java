@@ -111,15 +111,15 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 context.setAttribute("MAIL_PASSWORD", parametroService.findByParametro("MAIL_PASSWORD").getValor());
 
                 props.put("mail.smtp.ssl.trust", context.getAttribute("MAIL_HOST").toString());
-
-                if(profileActive.equals("production")) props.put("mail.smtp.EnableSSL.enable","true");//Just for production environment
-
+                props.put("mail.smtp.EnableSSL.enable","true");
+                /*if(!profileActive.equals("production")) props.put("mail.smtp.EnableSSL.enable","true");//Just(or not) for production environment*/
                 mailSender.setHost(context.getAttribute("MAIL_HOST").toString());
                 mailSender.setPort(Integer.parseInt(context.getAttribute("MAIL_PORT").toString()));
                 mailSender.setUsername(context.getAttribute("MAIL_USERNAME").toString());
                 mailSender.setPassword(context.getAttribute("MAIL_PASSWORD").toString());
-                props.put("mail.debug", "false");
+                props.put("mail.debug", profileActive.equals("production") ? "false" : "true");
             }  else {
+                context.setAttribute("MAIL_USERNAME", "contoso.peru@gmail.com");
                 props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
                 mailSender.setHost("smtp.gmail.com");
                 mailSender.setPort(587);

@@ -9,17 +9,17 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class FormDatosIdenComponent implements OnInit {
 
-  private ruc: string = this.cookie.check('ruc_prov') ? this.cookie.get('ruc_prov') : "";
-  private lstPais: any[];
-  private lstTipoDoc: any[];
-  private lstZonaReg: any[];
-  private lstTipoCon: any[];
-  private datosIdenDto: any;
-  private hoy: Date;
-  private dtMin: Date;
-  private err: String = "";
-  private err2: String = "";
-  private scssValidacion: boolean;
+  ruc: string = this.cookie.check('ruc_prov') ? this.cookie.get('ruc_prov') : "";
+  lstPais: any[];
+  lstTipoDoc: any[];
+  lstZonaReg: any[];
+  lstTipoCon: any[];
+  datosIdenDto: any;
+  hoy: Date;
+  dtMin: Date;
+  err: String = "";
+  err2: String = "";
+  scssValidacion: boolean;
 
   constructor(private datosIdenService: FormDatosIdenService, private cookie: CookieService) { }
 

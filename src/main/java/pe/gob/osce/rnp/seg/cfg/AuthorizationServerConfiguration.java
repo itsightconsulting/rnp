@@ -1,6 +1,7 @@
 package pe.gob.osce.rnp.seg.cfg;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,9 @@ import javax.sql.DataSource;
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+
+    @Value("${api.bs.route}")
+    private String apiBaseRoute;
 
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
@@ -68,7 +72,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .approvalStore(approvalStore())
                 .authorizationCodeServices(authorizationCodeServices())
                 .tokenStore(tokenStore())//Registra el token
-                .pathMapping("/oauth/token", "/api/oauth/token");
+                .pathMapping("/oauth/token", apiBaseRoute+"/oauth/token");
         super.configure(endpoints);
     }
 }

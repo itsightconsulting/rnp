@@ -8,16 +8,16 @@ import {CookieService} from "ngx-cookie-service";
   styleUrls: ['./reset-user.component.css']
 })
 export class ResetUserComponent implements OnInit {
-  private opcRecuperacion: number = 1;
-  private activeInitForm: boolean = true;
-  private activeOpcion1: boolean = false;
-  private activeOpcion2: boolean = false;
-  private lastMsgActive: boolean = false;
-  private refCaptcha: any;
-  private failCaptcha: boolean = false;
-  private errorMessage: string = "";
-  private scssMsg: any;
-  private finalScssMsg: boolean = false;
+  opcRecuperacion: number = 1;
+  activeInitForm: boolean = true;
+  activeOpcion1: boolean = false;
+  activeOpcion2: boolean = false;
+  lastMsgActive: boolean = false;
+  refCaptcha: any;
+  failCaptcha: boolean = false;
+  errorMessage: string = "";
+  scssMsg: any;
+  finalScssMsg: boolean = false;
   constructor(private resetUserService: ResetUserService, private cookie: CookieService) { }
 
   ngOnInit() {

@@ -8,10 +8,10 @@ import {BuscarEmpresaService} from "./buscar-empresa.service";
 })
 export class BuscarEmpresaComponent implements OnInit {
 
-  private lstPais: any[];
-  private lstCoincidencias: any[] = new Array();
-  private buscado: boolean = false;
-  private err: string = "";
+  lstPais: any[];
+  lstCoincidencias: any[] = new Array();
+  buscado: boolean = false;
+  err: string = "";
 
   constructor(private buscarEmpresaService: BuscarEmpresaService) { }
 

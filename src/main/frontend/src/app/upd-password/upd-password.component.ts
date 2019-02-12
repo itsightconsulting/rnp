@@ -58,7 +58,6 @@ export class UpdPasswordComponent implements OnInit {
             btn.setAttribute('disabled', 'disabled');
             let ruc = this.preCorreo.ruc = this.cookie.get('ruc_prov');
             this.updPasswordService.checkCodigoVerificacion(ruc, r.controls.CodVerificacion.value).subscribe((res: any)=>{
-                    console.log(res);
                     if(res.flag){
                         this.cookie.set('cod_ver_prov', r.controls.CodVerificacion.value, 0, '/');
                         this.codVerCorrecto = true;
@@ -85,7 +84,6 @@ export class UpdPasswordComponent implements OnInit {
             this.claveDto.clave = r.controls.Clave.value;
             this.claveDto.codVerificacion = this.cookie.get('cod_ver_prov');
             this.updPasswordService.actualizarClave(this.claveDto).subscribe((res: any)=>{
-                    console.log(res);
                     if(res.flag){
                         this.scssMsg = res.d;
                         this.finalScssMsg = true;
@@ -102,5 +100,12 @@ export class UpdPasswordComponent implements OnInit {
                     setTimeout(()=>this.err3 = "", 4000);
                 })
         }
+    }
+    numberOnly(event): boolean {
+        const charCode = (event.which) ? event.which : event.keyIdentifier;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
     }
 }

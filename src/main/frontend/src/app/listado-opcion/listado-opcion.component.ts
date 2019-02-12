@@ -10,16 +10,16 @@ import { Representante} from "./representante";
 })
 export class ListadoOpcionComponent implements OnInit {
 
-  private existsLstRepre: boolean;
-  private opcs: string[];
-  private opcElegida: number = 1;
-  private mailRepElegido: string = "1";
-  private err: string;
+  existsLstRepre: boolean;
+  opcs: string[];
+  opcElegida: number = 1;
+  mailRepElegido: string = "1";
+  err: string;
   @Input()
-  private ruc: string = this.cookie.check('ruc_prov') ? this.cookie.get('ruc_prov') : "";
-  private lstRepresentante: any[];
-  private repSelected: any;
-  private valMsgNoRecuperado: boolean = false;
+  ruc: string = this.cookie.check('ruc_prov') ? this.cookie.get('ruc_prov') : "";
+  lstRepresentante: any[];
+  repSelected: any;
+  valMsgNoRecuperado: boolean = false;
 
   constructor(private cookie: CookieService, private listadoOpcService: ListadoOpcionService) {
       this.opcs = [
@@ -48,7 +48,6 @@ export class ListadoOpcionComponent implements OnInit {
       this.listadoOpcService.getCorreoByRuc(ruc).subscribe(
           (x: any)=> {
           if(x.flag){
-              console.log('success:',x.d);
               this.cookie.set('email_prov', x.d, 0, '/');
               window.location.href = '/recuperar/password/validacion';
           }else{
@@ -67,7 +66,6 @@ export class ListadoOpcionComponent implements OnInit {
       let ruc = this.cookie.get('ruc_prov');
       this.listadoOpcService.getCorreoRepresentantesByRuc(ruc).subscribe(
           (x: any)=> {
-              console.log(x);
               if(x.flag){
                 if(x.d.length==1){
                     this.cookie.set('email_prov', x.d[0].correoRepresentante, 0, '/');

@@ -11,7 +11,7 @@ import pe.gob.osce.rnp.seg.utils.Enums;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/seg")
+@RequestMapping(path = "${api.bs.route}/seg")
 public class SeguridadController {
 
     private SeguridadService seguridadService;

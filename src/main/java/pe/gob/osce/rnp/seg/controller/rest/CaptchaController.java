@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/captcha")
+@RequestMapping(path = "${api.bs.route}/captcha")
 public class CaptchaController {
 
     @GetMapping(value = "/init")

@@ -1,8 +1,15 @@
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
+import {
+    HttpErrorResponse,
+    HttpEvent,
+    HttpHandler,
+    HttpInterceptor,
+    HttpRequest,
+    HttpResponse
+} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
+import {Observable, throwError} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
-import {map} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {OnStartUpService} from "./on-start-up/on-start-up.service";
 
 @Injectable({
@@ -10,9 +17,9 @@ import {OnStartUpService} from "./on-start-up/on-start-up.service";
 })
 export class HttpRequestInterceptor implements HttpInterceptor{
 
-    private overlaySpans: any;
-    private intervalOverlay: any;
-    private msgOverlay: string = "Por favor espere";
+    overlaySpans: any;
+    intervalOverlay: any;
+    msgOverlay: string = "Por favor espere";
 
     constructor(private cookie: CookieService, private onWakeUp: OnStartUpService){
     }
@@ -46,17 +53,6 @@ export class HttpRequestInterceptor implements HttpInterceptor{
         if(!req.url.startsWith('/api/oauth')){
             const clonedRequest = req.clone({ headers: req.headers.set('Authorization', 'Bearer '+ this.cookie.get('rnp_api_token')) });
             return next.handle(clonedRequest).pipe(map((event: HttpEvent<any>) => {
-                console.log(event.type);
-                if(event.type == 0){
-                    this.onWakeUp.instanceApiTokenByOldCookie()
-                        .subscribe((d: any) => {
-                                console.log(d);
-                                this.cookie.set('rnp_api_token', d.access_token, 0, '/');
-                                window.location.reload();
-                            }, err=>{
-                            window.location.href = "/informativo";
-                    })
-                }
                 if (event instanceof HttpResponse) {
                     // do stuff with response and headers you want
                     /*if(req.method == "POST") {*/
@@ -65,6 +61,26 @@ export class HttpRequestInterceptor implements HttpInterceptor{
                     /*}*/
                 }
                 return event;
+            }), catchError((error: HttpErrorResponse)=>{
+                if(error.status != undefined && error.status === 401){
+                    console.log(error);
+                    this.onWakeUp.instanceApiTokenByOldCookie()
+                        .subscribe((d: any) => {
+                            this.cookie.set('rnp_api_token', d.access_token, 0, '/');
+                            window.location.reload();
+                        }, err=>{
+                            console.log(err);
+                            //window.location.href = "/informativo";
+                        })
+                }
+
+                if(error.status != undefined && error.status === 504){
+                    console.log(error);
+                    alert(1);
+                    //window.location.href = "/informativo";
+                }
+
+                return throwError(error);
             }))
         }
         return next.handle(req);

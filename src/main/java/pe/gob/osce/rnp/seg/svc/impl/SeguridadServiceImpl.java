@@ -63,6 +63,7 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
                 LOGGER.info("Ruc inválido");
                 return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El usuario debe empezar por 10, 20 o 9");
             }
+
             if (updClave.getClave().length() < 8) {
                 LOGGER.info("Clave tiene un formato inválido o vacio");
                 return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "La clave tiene un formato inválido o vacio");

@@ -24,7 +24,7 @@ export class OnStartUpService{
     }
 
     instanceApiTokenByOldCookie(){
-        const headers = new HttpHeaders().set('Authorization', "Basic " + btoa('rnp_osce' + ":" + 'itsight19@1')).set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        const headers = new HttpHeaders().set('Authorization', "Basic " + btoa('rnp_osce' + ":" + 'itsight19@13')).set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         const params =
             new HttpParams({
                 fromObject: {

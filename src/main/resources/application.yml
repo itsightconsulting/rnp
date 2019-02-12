@@ -17,8 +17,6 @@ spring:
           batch_versioned_data: true
         proc:
           param_null_passing: true
-        id:
-          new_generator_mappings: false
   thymeleaf:
     cache: false
     encoding: UTF-8

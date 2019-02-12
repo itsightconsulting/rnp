@@ -69,6 +69,9 @@ public class EmailServiceImpl extends EmailGeneric implements EmailService {
         } catch (MailException ex) {
             LOGGER.info(ex.getMessage());
             return false;
+        } catch (Exception ex){
+            LOGGER.info(ex.getMessage());
+            return false;
         }
         return true;
     }
