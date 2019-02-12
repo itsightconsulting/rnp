@@ -12,21 +12,21 @@ import pe.gob.osce.rnp.seg.model.jpa.base.AuditingEntity;
 
 
 @Entity
-@Table(name = "Parametro")
+@Table(name = "PARAMETRO")
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Parametro extends AuditingEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ParametroId")
+    @Column(name = "PARAMETRO_ID")
     private int id;
 
-    @Column(nullable = false, updatable = false)
+    @Column(name = "PARAMETRO", nullable = false, updatable = false)
     private String parametro;
 
     @Size(min = 1)
-    @Column(nullable = false)
+    @Column(name = "VALOR", nullable = false)
     private String valor;
 
     public Parametro(){}

@@ -29,16 +29,16 @@ public class EntityInterceptorImpl extends EmptyInterceptor implements EntityInt
             for (int i = 0; i < propertyNames.length; i++) {
                 String propertyName = propertyNames[i];
 
-                if (propertyName.equals("createdBy")) {
+                if (propertyName.equals("creadoPor")) {
                     Optional<Authentication> optSc =  Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication());
                     if(optSc.isPresent()){
                         state[i] = SecurityContextHolder.getContext().getAuthentication().getName();
                     }else{
                         state[i] = "InitialSeeder";
                     }
-                } else if (propertyName.equals("creationDate")) {
+                } else if (propertyName.equals("fechaCreacion")) {
                     state[i] = currentTime();
-                } else if (propertyName.equals("flagActive")) {
+                } else if (propertyName.equals("flagActivo")) {
                     state[i] = true;
                 }
             }
@@ -59,9 +59,9 @@ public class EntityInterceptorImpl extends EmptyInterceptor implements EntityInt
             for (int i = 0; i < propertyNames.length; i++) {
                 String propertyName = propertyNames[i];
 
-                if (propertyName.equals("modifiedBy")) {
+                if (propertyName.equals("modificadoPor")) {
                     currentState[i] = SecurityContextHolder.getContext().getAuthentication().getName();
-                } else if (propertyName.equals("modificationDate")) {
+                } else if (propertyName.equals("fechaModificacion")) {
                     currentState[i] = currentTime();
                 }
             }

@@ -52,7 +52,7 @@
             <div class="form-group select-control"><span><img src="../assets/img/select-arrow.png"></span>
                 <select ngModel #ZonaReg="ngModel" id="ZonaReg" name="ZonaReg" class="form-control"
                     >
-                    <option selected="selected" value="">Oficina registral</option>
+                    <option selected="selected" value="">Oficina registral - Opcional</option>
                     <option *ngFor="let z of lstZonaReg" [value]="z.iden">
                         {{z.valor}}
                     </option>

@@ -8,18 +8,18 @@ import java.util.Set;
 
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"Role", "SecurityUserId"}))
+@Table(name = "SECURITY_ROLE", uniqueConstraints = @UniqueConstraint(columnNames = {"ROLE", "SECURITY_USER_ID"}))
 public class SecurityRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SecurityRoleId")
+    @Column(name = "SECURITY_ROLE_ID")
     private int id;
-    @Column(name = "Role", nullable = false)
+    @Column(name = "ROLE", nullable = false)
     private String role;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SecurityUserId", referencedColumnName = "SecurityUserId")
+    @JoinColumn(name = "SECURITY_USER_ID", referencedColumnName = "SECURITY_USER_ID")
     private SecurityUser securityUser;
     @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "securityRole", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
@@ -72,6 +72,5 @@ public class SecurityRole {
     public void setPrivileges(Set<SecurityPrivilege> privileges) {
         this.privileges = privileges;
     }
-
 
 }

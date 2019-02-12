@@ -3,26 +3,23 @@ package pe.gob.osce.rnp.seg.model.jpa.oauth;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 
 @Entity
 @Data
+@Table(name = "OAUTH_CLIENT_TOKEN")
 public class OauthClientToken {
 
     @Id
+    @Column(name = "TOKEN_ID")
     private String tokenId;
-    @Lob
-    @Type(type="org.hibernate.type.BinaryType")
-    @Column(nullable = false)
-    private byte[] token;
-    @Column(nullable = false)
+    @Column(name = "TOKEN", nullable = false, length = Integer.MAX_VALUE)
+    private String token;
+    @Column(name = "AUTHENTICATION_ID", nullable = false)
     private String authenticationId;
-    @Column()
+    @Column(name = "USER_NAME")
     private String userName;
-    @Column(nullable = false)
+    @Column(name = "CLIENT_ID", nullable = false)
     private String clientId;
 
 }

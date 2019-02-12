@@ -74,14 +74,13 @@ export class ListadoOpcionComponent implements OnInit {
                     window.location.href = '/recuperar/password/validacion';
                 }else{
                     this.existsLstRepre = true;
-                    this.lstRepresentante = x.d.map(v=>
+                    this.lstRepresentante = Array.from(new Set(x.d.map(v=>JSON.stringify(v)))).map((v: any)=>JSON.parse(v)).map(v=>
                         new Representante(
                             null,
                             null,
                             null,
                             v.correoRepresentante,
                             v.correoFormateado));
-                    console.log(this.lstRepresentante);
                 }
               }else{
                   this.err = x.d;

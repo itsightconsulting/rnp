@@ -26,22 +26,6 @@ export class ResetPasswordComponent implements OnInit {
     });
   }
 
-  enviarCorreoRecuperacion(evt){
-      const btn = evt.target;
-      btn.textContent = "Cargando... Por favor espere...";
-      if(!btn.classList.contains('disabled')) {
-          btn.classList.add('disabled');
-          this.ruc = document.querySelector('#Ruc');
-          this.resetPasswordService.enviarCorreoRecuperacion(this.ruc.value).subscribe((res : any) => {
-              if (res.flag) {
-                  alert("El correo ha sido enviado satisfactoriamente, revise su bandeja");
-              } else {
-                  alert("Ha ocurrido un error en la validación. Intentelo nuevamente más tarde");
-              }
-          });
-      }
-  }
-
     refreshCaptcha(fail?){
         if(fail != undefined) this.failCaptcha = true;
         this.resetPasswordService.refreshCaptcha().subscribe((res: any)=>{

@@ -2,26 +2,26 @@ package pe.gob.osce.rnp.seg.model.jpa.oauth;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "OAUTH_ACCESS_TOKEN")
 @Data
 public class OauthAccessToken {
 
     @Id
+    @Column(name = "TOKEN_ID")
     private String tokenId;
-    @Column(nullable = false)
+    @Column(name = "TOKEN", nullable = false, length = Integer.MAX_VALUE)
     private String token;
-    @Column(nullable = false)
+    @Column(name = "AUTHENTICATION_ID", nullable = false)
     private String authenticationId;
-    @Column()
+    @Column(name = "USER_NAME")
     private String userName;
-    @Column(nullable = false)
+    @Column(name = "CLIENT_ID", nullable = false)
     private String clientId;
-    @Column(nullable = false)
+    @Column(name = "AUTHENTICATION", nullable = false, length = Integer.MAX_VALUE)
     private String authentication;
-    @Column
+    @Column(name = "REFRESH_TOKEN")
     private String refreshToken;
 }

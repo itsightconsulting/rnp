@@ -1,5 +1,7 @@
 package pe.gob.osce.rnp.seg.cfg;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -15,6 +17,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.VersionResourceResolver;
+import pe.gob.osce.rnp.seg.model.jpa.Parametro;
+import pe.gob.osce.rnp.seg.svc.ParametroService;
 
 import javax.servlet.ServletContext;
 import javax.sql.DataSource;
@@ -26,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
+    private static final Logger LOGGER = LogManager.getLogger(WebMvcConfiguration.class);
 
     @Value("${caching}")
     private boolean caching;
@@ -35,6 +40,9 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Autowired
     private ServletContext context;
+
+    @Autowired
+    private ParametroService parametroService;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -84,32 +92,68 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Bean
     public JavaMailSender getJavaMailSender() {
+
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
         try{
-            if(profileActive.equals("production")){
-                props.put("mail.smtp.EnableSSL.enable","true");
+            if(profileActive.equals("production") || profileActive.equals("devclient")){
+
+                //MAIL PROPERTIES INTO THE CONTEXT
+                addingInitialParameters();
+                context.setAttribute("MAIL_HOST", parametroService.findByParametro("MAIL_HOST").getValor());
+                context.setAttribute("MAIL_PORT", parametroService.findByParametro("MAIL_PORT").getValor());
+                context.setAttribute("MAIL_USERNAME", parametroService.findByParametro("MAIL_USERNAME").getValor());
+                context.setAttribute("MAIL_PASSWORD", parametroService.findByParametro("MAIL_PASSWORD").getValor());
+
+                props.put("mail.smtp.ssl.trust", context.getAttribute("MAIL_HOST").toString());
+
+                if(profileActive.equals("production")) props.put("mail.smtp.EnableSSL.enable","true");//Just for production environment
+
                 mailSender.setHost(context.getAttribute("MAIL_HOST").toString());
                 mailSender.setPort(Integer.parseInt(context.getAttribute("MAIL_PORT").toString()));
                 mailSender.setUsername(context.getAttribute("MAIL_USERNAME").toString());
                 mailSender.setPassword(context.getAttribute("MAIL_PASSWORD").toString());
                 props.put("mail.debug", "false");
-            }else{
+            }  else {
+                props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
                 mailSender.setHost("smtp.gmail.com");
                 mailSender.setPort(587);
                 mailSender.setUsername("contoso.peru@gmail.com");
                 mailSender.setPassword("p1ls3n@147");
                 props.put("mail.debug", "true");
             }
-        }catch (Exception ex){
+        } catch (Exception ex){
+            LOGGER.info("CONFIGURATION MAIL EXCEPTION: "+ex.getMessage());
             ex.printStackTrace();
         }
         return mailSender;
+    }
+
+    public void addingInitialParameters(){
+        if(parametroService.findByParametro("MAIL_HOST") == null){
+            parametroService.save(new Parametro("MAIL_HOST","smtp.gmail.com"));
+        }
+        if(parametroService.findByParametro("MAIL_PORT") == null){
+            parametroService.save(new Parametro("MAIL_PORT","587"));
+        }
+        if(parametroService.findByParametro("MAIL_USERNAME") == null){
+            parametroService.save(new Parametro("MAIL_USERNAME","egmp.rnp.clave@gmail.com"));
+        }
+        if(parametroService.findByParametro("MAIL_PASSWORD") == null){
+            parametroService.save(new Parametro("MAIL_PASSWORD","Ernp2019"));
+        }
+        if(parametroService.findByParametro("WS_SUNAT_USERNAME") == null){
+            parametroService.save(new Parametro("WS_SUNAT_USERNAME","sunat_ws_username"));
+        }
+
+        if(parametroService.findByParametro("WS_SUNAT_PASSWORD") == null){
+            parametroService.save(new Parametro("WS_SUNAT_PASSWORD","sunat_ws_password"));
+        }
     }
 
 }

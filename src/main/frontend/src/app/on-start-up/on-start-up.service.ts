@@ -11,7 +11,6 @@ export class OnStartUpService{
     }
 
     instanceApiToken(){
-
         if(!this.cookie.check('rnp_api_token')) {
             const headers = new HttpHeaders().set('Authorization', "Basic " + btoa('rnp_osce' + ":" + 'itsight19@13')).set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
             const params =
@@ -22,5 +21,16 @@ export class OnStartUpService{
                 });
             this.http.post('/api/oauth/token', params, {headers}).subscribe((d: any) => this.cookie.set('rnp_api_token', d.access_token, 0, '/'));
         }
+    }
+
+    instanceApiTokenByOldCookie(){
+        const headers = new HttpHeaders().set('Authorization', "Basic " + btoa('rnp_osce' + ":" + 'itsight19@1')).set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        const params =
+            new HttpParams({
+                fromObject: {
+                    'grant_type': 'client_credentials',
+                }
+            });
+        return this.http.post('/api/oauth/token', params, {headers});
     }
 }

@@ -39,48 +39,15 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
     @Autowired
     private OauthClientDetailsRepository oauthClientDetailsRepository;
 
-    @Autowired
-    private ParametroService parametroService;
-
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        addingInitialParameters();
         addingToContextSession();
         addingInitUsers();
         creatingFileDirectories();
     }
-
-    public void addingInitialParameters(){
-        if(parametroService.findByParametro("MAIL_HOST") == null){
-            parametroService.save(new Parametro("MAIL_HOST","smpt.custom.host.com"));
-        }
-        if(parametroService.findByParametro("MAIL_PORT") == null){
-            parametroService.save(new Parametro("MAIL_PORT","25"));
-        }
-        if(parametroService.findByParametro("MAIL_USERNAME") == null){
-            parametroService.save(new Parametro("MAIL_USERNAME","production_email@gmail.com"));
-        }
-        if(parametroService.findByParametro("MAIL_PASSWORD") == null){
-            parametroService.save(new Parametro("MAIL_PASSWORD","password"));
-        }
-        if(parametroService.findByParametro("WS_SUNAT_USERNAME") == null){
-            parametroService.save(new Parametro("WS_SUNAT_USERNAME","sunat_ws_username"));
-        }
-        if(parametroService.findByParametro("WS_SUNAT_PASSWORD") == null){
-            parametroService.save(new Parametro("WS_SUNAT_PASSWORD","sunat_ws_password"));
-        }
-        if(parametroService.findByParametro("GOOGLE_API_KEY") == null){
-            parametroService.save(new Parametro("GOOGLE_API_KEY","6Le0RDQUAAAAAF7HWOT2J2eIE7R1Xc3-YQYGbxy0"));
-        }
-    }
     
     public void addingToContextSession() {
         context.setAttribute("version", currentVersion);
-        //MAIL PROPERTIES
-        context.setAttribute("MAIL_HOST", parametroService.findByParametro("MAIL_HOST").getValor());
-        context.setAttribute("MAIL_PORT", parametroService.findByParametro("MAIL_PORT").getValor());
-        context.setAttribute("MAIL_USERNAME", parametroService.findByParametro("MAIL_USERNAME").getValor());
-        context.setAttribute("MAIL_PASSWORD", parametroService.findByParametro("MAIL_PASSWORD").getValor());
     }
 
     public void addingInitUsers() {

@@ -16,81 +16,81 @@ import pe.gob.osce.rnp.seg.json.JsonDateSimpleSerializer;
 @MappedSuperclass
 public class AuditingEntity {
 
-    @Column(nullable = false, updatable = false)
-    private String createdBy;
+    @Column(name = "CREADO_POR", nullable = false, updatable = false)
+    private String creadoPor;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false, updatable = false)
+    @Column(name = "FECHA_CREACION", nullable = false, updatable = false)
     @JsonSerialize(using = JsonDateSimpleSerializer.class)
     @JsonDeserialize(using = JsonDateSimpleDeserializer.class)
-    private Date creationDate;
+    private Date fechaCreacion;
 
-    @Column
-    private String modifiedBy;
+    @Column(name = "MODIFICADO_POR")
+    private String modificadoPor;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column
+    @Column(name = "FECHA_MODIFICACION")
     @JsonSerialize(using = JsonDateSimpleSerializer.class)
     @JsonDeserialize(using = JsonDateSimpleDeserializer.class)
-    private Date modificationDate;
+    private Date fechaModificacion;
 
-    @Column(nullable = false)
-    private boolean flagActive;
+    @Column(name = "FLAG_ACTIVO", nullable = false)
+    private boolean flagActivo;
 
-    @Column(nullable = false)
-    private boolean flagElimination;
+    @Column(name = "FLAG_ELIMINADO", nullable = false)
+    private boolean flagEliminado;
 
-    @Column(nullable = true)
+    @Column(name = "ROW_VERSION")
     private Long rowVersion;
 
     public AuditingEntity(){}
 
-    public String getCreatedBy() {
-        return createdBy;
+    public String getCreadoPor() {
+        return creadoPor;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setCreadoPor(String creadoPor) {
+        this.creadoPor = creadoPor;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public Date getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
-    public String getModifiedBy() {
-        return modifiedBy;
+    public String getModificadoPor() {
+        return modificadoPor;
     }
 
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
+    public void setModificadoPor(String modificadoPor) {
+        this.modificadoPor = modificadoPor;
     }
 
-    public Date getModificationDate() {
-        return modificationDate;
+    public Date getFechaModificacion() {
+        return fechaModificacion;
     }
 
-    public void setModificationDate(Date modificationDate) {
-        this.modificationDate = modificationDate;
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
     }
 
-    public boolean isFlagActive() {
-        return flagActive;
+    public boolean isFlagActivo() {
+        return flagActivo;
     }
 
-    public void setFlagActive(boolean flagActive) {
-        this.flagActive = flagActive;
+    public void setFlagActivo(boolean flagActivo) {
+        this.flagActivo = flagActivo;
     }
 
-    public boolean isFlagElimination() {
-        return flagElimination;
+    public boolean isFlagEliminado() {
+        return flagEliminado;
     }
 
-    public void setFlagElimination(boolean flagElimination) {
-        this.flagElimination = flagElimination;
+    public void setFlagEliminado(boolean flagEliminado) {
+        this.flagEliminado = flagEliminado;
     }
 
     public Long getRowVersion() {

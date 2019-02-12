@@ -7,21 +7,23 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "OAUTH_APPROVALS")
 @Data
 public class OauthApprovals {
 
     @Id
+    @Column(name = "USER_ID")
     private String userId;
-    @Column(nullable = false)
+    @Column(name = "CLIENT_ID", nullable = false)
     private String clientId;
-    @Column(nullable = false)
+    @Column(name = "SCOPE", nullable = false)
     private String scope;
-    @Column(nullable = false)
+    @Column(name = "STATUS", nullable = false)
     private String status;
-    @Column(name = "expiresAt")
+    @Column(name = "EXPIRES_AT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date expiresAt;
-    @Column
+    @Column(name = "LAST_MODIFIED_AT")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedAt;
 }

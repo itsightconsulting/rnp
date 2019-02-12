@@ -2,17 +2,7 @@ package pe.gob.osce.rnp.seg.model.jpa;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
-import javax.persistence.NamedEntityGraphs;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -22,17 +12,18 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
         })
 })
 @Entity
+@Table(name = "SECURITY_USER")
 public class SecurityUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SecurityUserId")
+    @Column(name = "SECURITY_USER_ID")
     private int id;
-    @Column(name = "Username", unique = true, updatable = false)
+    @Column(name = "USERNAME", unique = true, updatable = false)
     private String username;
-    @Column(name = "Password", nullable = false)
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
-    @Column(name = "Enabled", nullable = false)
+    @Column(name = "ENABLED", nullable = false)
     private boolean enabled;
     @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "securityUser", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})

@@ -42,7 +42,7 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
                     if(exito)
                         return new Respuesta(ResponseCode.EXITO_GENERICA.get(), 1, "Validación exitosa");
                     LOGGER.info("El código de verificación no se ha encontrado en base de datos");
-                    return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El código de verificación no se ha encontrado en base de datos");
+                    return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Código no es válido");
                 }
                 LOGGER.info("El código de verificación tiene tamaño inválido o vacio");
                 return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El código de verificación tiene tamaño inválido o vacio");

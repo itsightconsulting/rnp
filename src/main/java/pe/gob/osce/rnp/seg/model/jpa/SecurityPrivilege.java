@@ -6,20 +6,20 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"Privilege", "SecurityRoleId"}))
+@Table(name = "SECURITY_PRIVILEGE", uniqueConstraints = @UniqueConstraint(columnNames = {"PRIVILEGE", "SECURITY_ROLE_ID"}))
 public class SecurityPrivilege {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SecurityPrivilegeId")
+    @Column(name = "SECURITY_PRIVILEGE_ID")
     private int id;
 
-    @Column(name = "Privilege", nullable = false)
+    @Column(name = "PRIVILEGE", nullable = false)
     private String privilege;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "SecurityRoleId")
+    @JoinColumn(name = "SECURITY_ROLE_ID")
     private SecurityRole securityRole;
 
     public SecurityPrivilege() {

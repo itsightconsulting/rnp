@@ -3,23 +3,18 @@ package pe.gob.osce.rnp.seg.model.jpa.oauth;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 
 @Entity
 @Data
+@Table(name = "OAUTH_REFRESH_TOKEN")
 public class OauthRefreshToken {
 
     @Id
+    @Column(name = "TOKEN_ID")
     private String tokenId;
-    @Lob
-    @Type(type="org.hibernate.type.BinaryType")
-    @Column(nullable = false)
+    @Column(name = "TOKEN", nullable = false, length = Integer.MAX_VALUE)
     private byte[] token;
-    @Lob
-    @Type(type="org.hibernate.type.BinaryType")
-    @Column(nullable = false)
+    @Column(name = "AUTHENTICATION", nullable = false, length = Integer.MAX_VALUE)
     private byte[] authentication;
 }

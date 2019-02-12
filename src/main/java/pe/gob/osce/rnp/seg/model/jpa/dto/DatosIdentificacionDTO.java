@@ -37,7 +37,7 @@ public class DatosIdentificacionDTO implements Serializable {
     public String desDocu;
 
     @NotNull
-    @Min(1)
+    @Min(0)
     public Integer zonaRegistralId;
 
     @NotNull

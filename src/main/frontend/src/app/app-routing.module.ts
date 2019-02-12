@@ -7,6 +7,7 @@ import {FormDatosIdenComponent} from "./form-datos-iden/form-datos-iden.componen
 import {BuscarEmpresaComponent} from "./buscar-empresa/buscar-empresa.component";
 import {ResetUserComponent} from "./reset-user/reset-user.component";
 import {ListadoOpcionComponent} from "./listado-opcion/listado-opcion.component";
+import {ErrorApiComponent} from "./error-api/error-api.component";
 
 const routes: Routes = [
     {
@@ -43,6 +44,10 @@ const routes: Routes = [
     {
         path: 'recuperar/password/opcs',
         component: ListadoOpcionComponent
+    },
+    {
+        path: 'informativo',
+        component: ErrorApiComponent
     }
 ];
 
