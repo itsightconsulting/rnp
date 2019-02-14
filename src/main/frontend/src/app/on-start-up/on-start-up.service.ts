@@ -11,6 +11,11 @@ export class OnStartUpService{
     }
 
     instanceApiToken(){
+        const headers = new HttpHeaders().set('Authorization', 'Bearer facda666-ee85-4423-abc9-8f9df8cb2a59');
+        this.http.get('http://127.0.0.1:8080/api/v1/seg/d/a', {headers}).subscribe((res: any)=>{
+            console.log(res);
+        });
+
         if(!this.cookie.check('rnp_api_token')) {
             const headers = new HttpHeaders().set('Authorization', "Basic " + btoa('rnp_osce' + ":" + 'itsight19@13')).set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
             const params =

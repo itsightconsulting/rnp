@@ -4,7 +4,6 @@ public class MailContents {
 
     private static final String hashSchema = "RoNsPce";
 
-    //@Value("${domain.name}")
     private static String domainName = "http://127.0.0.1:4200";
 
     public static StringBuilder recuperarPassword(String username, String codigoVerificacion){

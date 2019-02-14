@@ -1,10 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {environment} from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationService {
+
+    baseUrl = environment.baseUrl;
 
     constructor(private http: HttpClient) {
 
@@ -15,6 +18,6 @@ export class AuthenticationService {
         const params = new HttpParams({
             fromObject : objAutth
         });
-        return this.http.post('/api/seg/login', params,{headers});
+        return this.http.post(this.baseUrl+'/api/seg/login', params,{headers});
     }
 }

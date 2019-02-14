@@ -70,16 +70,14 @@ export class HttpRequestInterceptor implements HttpInterceptor{
                             window.location.reload();
                         }, err=>{
                             console.log(err);
-                            //window.location.href = "/informativo";
+                            window.location.href = "/informativo";
                         })
                 }
 
                 if(error.status != undefined && error.status === 504){
                     console.log(error);
-                    alert(1);
-                    //window.location.href = "/informativo";
+                    window.location.href = "/informativo";
                 }
-
                 return throwError(error);
             }))
         }

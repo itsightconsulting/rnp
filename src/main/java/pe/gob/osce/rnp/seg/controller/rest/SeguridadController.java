@@ -10,6 +10,7 @@ import pe.gob.osce.rnp.seg.utils.Enums;
 
 import javax.validation.Valid;
 
+@CrossOrigin
 @RestController
 @RequestMapping(path = "${api.bs.route}/seg")
 public class SeguridadController {
@@ -21,6 +22,12 @@ public class SeguridadController {
         this.seguridadService = seguridadService;
     }
 
+    @GetMapping("/d/a")
+    public String demo(){
+        return "{\"test\": \"successfully\"}";
+    }
+
+    @CrossOrigin(origins = {"http://127.0.0.1:4200"})
     @PostMapping("/login")
     public Respuesta<String> login(@RequestParam(value = "ruc") Long ruc, @RequestParam(value = "clave") String clave){
         if(ruc != null && clave != null && clave.length()>7)
