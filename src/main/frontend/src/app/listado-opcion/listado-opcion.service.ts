@@ -11,11 +11,11 @@ export class ListadoOpcionService{
     }
 
     getCorreoByRuc(ruc){
-        return this.http.get(`/api/proveedor/recuperar-pass/sc/obtener/correo/${ruc}`,{});
+        return this.http.get(`/api/fi/proveedor/recuperar-pass/sc/obtener/correo/${ruc}`,{});
     }
 
     getCorreoRepresentantesByRuc(ruc){
-        return this.http.get(`/api/proveedor/recuperar-pass/sc/obtener/listado/correo/rep/${ruc}`,{});
+        return this.http.get(`/api/fi/proveedor/recuperar-pass/sc/obtener/listado/correo/rep/${ruc}`,{});
     }
 
 }

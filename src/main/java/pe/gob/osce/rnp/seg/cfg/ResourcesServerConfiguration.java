@@ -28,9 +28,15 @@ public class ResourcesServerConfiguration extends ResourceServerConfigurerAdapte
         /*resources.authenticationEntryPoint(customAuthEntryPoint());*/ //Al colocar el entryPoint en este nivel la intercepcion aplica cuando se hace peticiones tipo rest asi como también peticiones simples sin el Authorization header
     }
 
+    /*@Autowired
+    CorsFilter corsFilterCustom;*/
+
     @Order(2)
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        /*http
+                .addFilterBefore(corsFilterCustom, SessionManagementFilter.class);*/
+
         http
                 .requestMatchers()
                 .antMatchers("/api/**").and()

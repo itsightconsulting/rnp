@@ -9,11 +9,11 @@ export class ResetUserService {
     constructor(private http: HttpClient) {}
 
     getCaptcha(){
-        return this.http.get('/api/captcha/init', {});
+        return this.http.get('/api/fi/captcha/init', {});
     }
 
     refreshCaptcha(){
-        return this.http.get('/api/captcha/refresh', {});
+        return this.http.get('/api/fi/captcha/refresh', {});
     }
     
     enviarCorreoProvExtNoDom(obj){
@@ -21,7 +21,7 @@ export class ResetUserService {
         const params = new HttpParams({
             fromObject: obj
         });
-        return this.http.post('/api/proveedor/recuperar-pass/su/enviar/correo/ext-nodom', params, {headers});
+        return this.http.post('/api/fi/proveedor/recuperar-pass/su/enviar/correo/ext-nodom', params, {headers});
     }
 
     enviarCorreoRepProvExtNoDom(obj){
@@ -29,6 +29,6 @@ export class ResetUserService {
         const params = new HttpParams({
             fromObject: obj
         });
-        return this.http.post('/api/proveedor/recuperar-pass/su/enviar/correo/rep-ext-nodom', params, {headers});
+        return this.http.post('/api/fi/proveedor/recuperar-pass/su/enviar/correo/rep-ext-nodom', params, {headers});
     }
 }

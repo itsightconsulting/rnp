@@ -16,11 +16,11 @@ export class UpdPasswordService{
             new HttpParams({
                 fromObject: preCorreoObj
             });
-        return this.http.post('/api/proveedor/recuperar-pass/sc/enviar/correo', params, {headers});
+        return this.http.post('/api/fi/proveedor/recuperar-pass/sc/enviar/correo', params, {headers});
     }
 
     checkCodigoVerificacion(ruc, codVer){
-        return this.http.get(`/api/seg/validar/cod-verificacion/${ruc}/${codVer}`, {});
+        return this.http.get(`/api/fi/seg/validar/cod-verificacion/${ruc}/${codVer}`, {});
     }
 
     actualizarClave(updClaveDto){
@@ -29,6 +29,6 @@ export class UpdPasswordService{
             new HttpParams({
                 fromObject: updClaveDto
             });
-        return this.http.post('/api/seg/actualizar/clave', params, {headers});
+        return this.http.post('/api/fi/seg/actualizar/clave', params, {headers});
     }
 }

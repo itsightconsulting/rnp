@@ -23,7 +23,7 @@ public class SeguridadController {
     }
 
     @GetMapping("/d/a")
-    public String demo(){
+    public String demoEndPoint(){
         return "{\"test\": \"successfully\"}";
     }
 

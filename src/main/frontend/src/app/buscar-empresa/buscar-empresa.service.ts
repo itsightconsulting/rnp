@@ -10,10 +10,10 @@ export class BuscarEmpresaService{
     }
 
     obtenerListadoPais(){
-       return this.http.get(`/api/proveedor/recuperar-pass/sc/obtener/foranea/pais`,{});
+       return this.http.get(`/api/fi/proveedor/recuperar-pass/sc/obtener/foranea/pais`,{});
     }
 
     obtenerEmpresas(objQ: any){
-        return this.http.get(`/api/proveedor/recuperar-pass/su/obtener/listado/empresa-ext-no-dom?paisId=${objQ.paisId}&tipoPersonaId=${objQ.tipoPersonaId}&razonSocial=${objQ.razonSocial}`);
+        return this.http.get(`/api/fi/proveedor/recuperar-pass/su/obtener/listado/empresa-ext-no-dom?paisId=${objQ.paisId}&tipoPersonaId=${objQ.tipoPersonaId}&razonSocial=${objQ.razonSocial}`);
     }
 }

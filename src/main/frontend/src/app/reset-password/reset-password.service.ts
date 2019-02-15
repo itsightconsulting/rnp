@@ -10,18 +10,18 @@ export class ResetPasswordService {
 
 
     getOpciones(ruc){
-        return this.http.get('/api/proveedor/recuperar-pass/sc/obt/opciones/'+ruc);
+        return this.http.get('/api/fi/proveedor/recuperar-pass/sc/obt/opciones/'+ruc);
     }
 
     enviarCorreoRecuperacion(ruc) {
-        return this.http.get('/api/contacto/correoRecuperacion/'+ruc, {});
+        return this.http.get('/api/fi/contacto/correoRecuperacion/'+ruc, {});
     }
 
     getCaptcha(){
-        return this.http.get('/api/captcha/init', {});
+        return this.http.get('/api/fi/captcha/init', {});
     }
 
     refreshCaptcha(){
-        return this.http.get('/api/captcha/refresh', {});
+        return this.http.get('/api/fi/captcha/refresh', {});
     }
 }

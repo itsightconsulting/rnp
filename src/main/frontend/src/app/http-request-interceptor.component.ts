@@ -11,6 +11,7 @@ import {Observable, throwError} from "rxjs";
 import {CookieService} from "ngx-cookie-service";
 import {catchError, map} from 'rxjs/operators';
 import {OnStartUpService} from "./on-start-up/on-start-up.service";
+import {environment} from "../environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +21,7 @@ export class HttpRequestInterceptor implements HttpInterceptor{
     overlaySpans: any;
     intervalOverlay: any;
     msgOverlay: string = "Por favor espere";
+    rnpApiBsRoute: string = environment.baseUrl;
 
     constructor(private cookie: CookieService, private onWakeUp: OnStartUpService){
     }
@@ -47,40 +49,52 @@ export class HttpRequestInterceptor implements HttpInterceptor{
                 correCaminos++;
             }, 100)
         } catch (ex) {
-            console.log(ex);
+            //console.log(ex);
         }
         /*}*/
-        if(!req.url.startsWith('/api/oauth')){
-            const clonedRequest = req.clone({ headers: req.headers.set('Authorization', 'Bearer '+ this.cookie.get('rnp_api_token')) });
-            return next.handle(clonedRequest).pipe(map((event: HttpEvent<any>) => {
-                if (event instanceof HttpResponse) {
-                    // do stuff with response and headers you want
-                    /*if(req.method == "POST") {*/
+        if(!req.url.startsWith('/api/fi/oauth')){
+            if(req.url.startsWith('/api/fi')) {
+                const clonedRequest = req.clone({url: req.url.replace('/api/fi', this.rnpApiBsRoute), headers: req.headers.set('Authorization', 'Bearer ' + this.cookie.get('rnp_api_token'))});
+                return next.handle(clonedRequest).pipe(map((event: HttpEvent<any>) => {
+                    if (event instanceof HttpResponse) {
                         window.clearInterval(this.intervalOverlay);
                         document.getElementById("overlay").style.display = "none";
-                    /*}*/
-                }
-                return event;
-            }), catchError((error: HttpErrorResponse)=>{
-                if(error.status != undefined && error.status === 401){
-                    console.log(error);
-                    this.onWakeUp.instanceApiTokenByOldCookie()
-                        .subscribe((d: any) => {
-                            this.cookie.set('rnp_api_token', d.access_token, 0, '/');
-                            window.location.reload();
-                        }, err=>{
-                            console.log(err);
-                            window.location.href = "/informativo";
-                        })
-                }
+                    }
+                    return event;
+                }), catchError((error: HttpErrorResponse) => {
+                    if (error.status != undefined && error.status === 401) {
+                        console.log(error);
+                        this.onWakeUp.instanceApiTokenByOldCookie()
+                            .subscribe((d: any) => {
+                                console.log(d);
+                                this.cookie.set('rnp_api_token', d.access_token, 0, '/');
+                                window.location.reload();
+                            }, err => {
+                                console.log(err);
+                                this.cookie.set('rnp_api_token', '0', 0, '/');
+                                window.location.href = "/informativo";
+                            })
+                    }
 
-                if(error.status != undefined && error.status === 504){
+                    if (error.status != undefined && error.status === 504) {
+                        console.log(error);
+                        this.cookie.set('rnp_api_token', '0', 0, '/');
+                        window.location.href = "/informativo";
+                    }
+                    return throwError(error);
+                }))
+            }
+        }else{
+            const clonedRequest = req.clone({ url: req.url.replace('/api/fi', this.rnpApiBsRoute)});
+            return next.handle(clonedRequest).pipe(map((event: HttpEvent<any>) => {
+                return event;
+            }), catchError((error: HttpErrorResponse) => {
                     console.log(error);
+                    this.cookie.set('rnp_api_token', '0', 0, '/');
                     window.location.href = "/informativo";
-                }
                 return throwError(error);
-            }))
+            }));
         }
-        return next.handle(req);
+        return next.handle(req)
     }
 }

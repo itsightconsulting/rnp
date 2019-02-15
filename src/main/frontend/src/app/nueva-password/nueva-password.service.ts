@@ -11,6 +11,6 @@ export class NuevaPasswordService {
 
     validacionCambioPassword() {
         const rucHash = new URLSearchParams(window.location.search).get("cd");
-        return this.http.get('/api/contacto/validacion/cambio-password/'+rucHash, {});
+        return this.http.get('/api/fi/contacto/validacion/cambio-password/'+rucHash, {});
     }
 }

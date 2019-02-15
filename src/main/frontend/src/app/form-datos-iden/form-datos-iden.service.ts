@@ -11,16 +11,16 @@ export class FormDatosIdenService{
     obtenerForaneas(fk){
         switch (fk) {
             case 'P':
-                return this.http.get(`/api/proveedor/recuperar-pass/sc/obtener/foranea/pais`,{});
+                return this.http.get(`/api/fi/proveedor/recuperar-pass/sc/obtener/foranea/pais`,{});
                 break;
             case 'D':
-                return this.http.get(`/api/proveedor/recuperar-pass/sc/obtener/foranea/tipo-documento`,{});
+                return this.http.get(`/api/fi/proveedor/recuperar-pass/sc/obtener/foranea/tipo-documento`,{});
                 break;
             case 'Z':
-                return this.http.get(`/api/proveedor/recuperar-pass/sc/obtener/foranea/zona-registral`,{});
+                return this.http.get(`/api/fi/proveedor/recuperar-pass/sc/obtener/foranea/zona-registral`,{});
                 break;
             case 'C':
-                return this.http.get(`/api/proveedor/recuperar-pass/sc/obtener/foranea/tipo-condicion`,{});
+                return this.http.get(`/api/fi/proveedor/recuperar-pass/sc/obtener/foranea/tipo-condicion`,{});
                 break;
             default: break;
         }
@@ -32,7 +32,7 @@ export class FormDatosIdenService{
             new HttpParams({
                 fromObject: dtsIdenDto
             });
-        return this.http.post('/api/proveedor/recuperar-pass/sc/validar/datos-identificacion', params, {headers});
+        return this.http.post('/api/fi/proveedor/recuperar-pass/sc/validar/datos-identificacion', params, {headers});
     }
 
     actualizarCorreoProveedor(obj: any){
@@ -41,7 +41,7 @@ export class FormDatosIdenService{
             new HttpParams({
                 fromObject: obj
             });
-        return this.http.put(`/api/proveedor/recuperar-pass/sc/actualizar/correo/ext-nodom`, params, {headers});
+        return this.http.put(`/api/fi/proveedor/recuperar-pass/sc/actualizar/correo/ext-nodom`, params, {headers});
 
     }
 

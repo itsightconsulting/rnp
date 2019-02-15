@@ -25,12 +25,12 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvokerR
     @Override
     public Boolean validarExistencia(String ruc) {
         StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_EXISTE_PROVEEDOR);
-        spQuery.registerStoredProcedureParameter("ruc", String.class, ParameterMode.IN);
-        spQuery.registerStoredProcedureParameter("mensaje", String.class, ParameterMode.OUT);
-        spQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
-        spQuery.setParameter("ruc", ruc);
+        spQuery.registerStoredProcedureParameter("RUC", String.class, ParameterMode.IN);
+        spQuery.registerStoredProcedureParameter("MENSAJE", String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter("RESPUESTA", String.class, ParameterMode.OUT);
+        spQuery.setParameter("RUC", ruc);
         spQuery.execute();
-        return spQuery.getOutputParameterValue("respuesta").equals("1");
+        return spQuery.getOutputParameterValue("RESPUESTA").equals("1");
     }
 
     @Override

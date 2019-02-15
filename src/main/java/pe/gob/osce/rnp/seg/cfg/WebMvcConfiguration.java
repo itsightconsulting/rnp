@@ -124,6 +124,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                 mailSender.setPassword(context.getAttribute("MAIL_PASSWORD").toString());
                 props.put("mail.debug", profileActive.equals("production") ? "false" : "true");
             }  else {
+                addingInitialParameters();
                 context.setAttribute("MAIL_USERNAME", "contoso.peru@gmail.com");
                 props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
                 mailSender.setHost("smtp.gmail.com");
