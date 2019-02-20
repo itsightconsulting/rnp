@@ -2,9 +2,11 @@ package pe.gob.osce.rnp.seg.cfg;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -55,6 +57,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return filter;
     }
 
+    @Value("${api.bs.route}")
+    private String apiBaseRoute;
+
 
     @Override
     public void configure(WebSecurity web) {
@@ -64,9 +69,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Order(1)
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         /*http
                 .addFilterBefore(corsFilterCustom(), SessionManagementFilter.class);*/
-        http.csrf().disable();
+        http.csrf().disable();//.authorizeRequests().antMatchers(HttpMethod.OPTIONS, apiBaseRoute+"/oauth/token").permitAll();
 
         http.authorizeRequests()
                 .antMatchers("/session-expirada").permitAll()

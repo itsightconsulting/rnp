@@ -6,6 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -18,6 +20,7 @@ import org.springframework.security.oauth2.provider.code.AuthorizationCodeServic
 import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import pe.gob.osce.rnp.seg.RnpApplication;
 
 import javax.sql.DataSource;
 
@@ -28,31 +31,45 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Value("${api.bs.route}")
     private String apiBaseRoute;
 
+    @Value("${datasource.jndi.primary}")
+    private String jndiNameProduction;
+
+    @Value("${spring.profiles.active}")
+    private String profile;
+
+    @Profile(value = "production")
+    @Bean
+    public DataSource oauthDataSource() {
+        JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
+        DataSource dataSource = dataSourceLookup.getDataSource(jndiNameProduction);
+        return dataSource;
+    }
+
+    @Profile(value = "!production")
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSource oauthDataSource() {
+    public DataSource oauthDataSourceDev() {
         return DataSourceBuilder.create().build();
     }
 
     @Autowired
-    //@Qualifier("clientDetailsService")
     public JdbcClientDetailsService clientDetailsService() {
-        return new JdbcClientDetailsService(oauthDataSource());
+        return new JdbcClientDetailsService(profile.equals("production") ? oauthDataSource() : oauthDataSourceDev());
     }
 
     @Bean
     public TokenStore tokenStore() {
-        return new JdbcTokenStore(oauthDataSource());
+        return new JdbcTokenStore(profile.equals("production") ? oauthDataSource() : oauthDataSourceDev());
     }
 
     @Bean
     public ApprovalStore approvalStore() {
-        return new JdbcApprovalStore(oauthDataSource());
+        return new JdbcApprovalStore(profile.equals("production") ? oauthDataSource() : oauthDataSourceDev());
     }
 
     @Bean
     public AuthorizationCodeServices authorizationCodeServices() {
-        return new JdbcAuthorizationCodeServices(oauthDataSource());
+        return new JdbcAuthorizationCodeServices(profile.equals("production") ? oauthDataSource() : oauthDataSourceDev());
     }
 
     @Override

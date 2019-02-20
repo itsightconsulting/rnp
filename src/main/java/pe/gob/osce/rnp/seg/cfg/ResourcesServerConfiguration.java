@@ -1,9 +1,11 @@
 package pe.gob.osce.rnp.seg.cfg;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -31,11 +33,15 @@ public class ResourcesServerConfiguration extends ResourceServerConfigurerAdapte
     /*@Autowired
     CorsFilter corsFilterCustom;*/
 
+    @Value("${api.bs.route}")
+    private String apiBaseRoute;
+
     @Order(2)
     @Override
     public void configure(HttpSecurity http) throws Exception {
         /*http
                 .addFilterBefore(corsFilterCustom, SessionManagementFilter.class);*/
+        //http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS, apiBaseRoute + "/oauth/token").permitAll();
 
         http
                 .requestMatchers()

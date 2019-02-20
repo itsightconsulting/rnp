@@ -68,18 +68,18 @@ export class HttpRequestInterceptor implements HttpInterceptor{
                             .subscribe((d: any) => {
                                 console.log(d);
                                 this.cookie.set('rnp_api_token', d.access_token, 0, '/');
-                                window.location.reload();
+                                //window.location.reload();
                             }, err => {
                                 console.log(err);
                                 this.cookie.set('rnp_api_token', '0', 0, '/');
-                                window.location.href = "/informativo";
+                                //window.location.href = "/informativo";
                             })
                     }
 
                     if (error.status != undefined && error.status === 504) {
                         console.log(error);
                         this.cookie.set('rnp_api_token', '0', 0, '/');
-                        window.location.href = "/informativo";
+                        //window.location.href = "/informativo";
                     }
                     return throwError(error);
                 }))
@@ -91,7 +91,7 @@ export class HttpRequestInterceptor implements HttpInterceptor{
             }), catchError((error: HttpErrorResponse) => {
                     console.log(error);
                     this.cookie.set('rnp_api_token', '0', 0, '/');
-                    window.location.href = "/informativo";
+                    //window.location.href = "/informativo";
                 return throwError(error);
             }));
         }
