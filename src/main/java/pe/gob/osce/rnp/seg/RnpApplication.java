@@ -36,7 +36,7 @@ public class RnpApplication extends SpringBootServletInitializer /*implements Co
         }
     }*/
 
-    @Value("${datasource.jndi.primary}")
+    @Value("${datasource.jndi.primary:#{null}}")
     private String jndiNameProduction;
 
     @Override

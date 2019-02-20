@@ -4,12 +4,12 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head lang="en">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>OAuth Server Index</title>
-    <link rel="stylesheet" href="webjars/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <title>RNP OAuth Server</title>
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/3.3.2/css/bootstrap.min.css}"/>
 </head>
 <body>
 <div class="container">
-    <h1 class="page-header">OAuth Server Administration Dashboard </h1>
+    <h1 class="page-header">RNP OAuth Server Administration Dashboard </h1>
     <div class="row">
         <div class="col-md-12">
             <span sec:authorize="isAuthenticated()" style="display: inline-block;">

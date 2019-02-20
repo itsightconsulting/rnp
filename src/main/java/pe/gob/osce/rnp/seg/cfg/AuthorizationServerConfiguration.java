@@ -31,7 +31,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Value("${api.bs.route}")
     private String apiBaseRoute;
 
-    @Value("${datasource.jndi.primary}")
+    @Value("${datasource.jndi.primary:#{null}}")
     private String jndiNameProduction;
 
     @Value("${spring.profiles.active}")
