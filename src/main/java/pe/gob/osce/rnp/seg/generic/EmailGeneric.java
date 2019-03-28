@@ -6,7 +6,6 @@ import pe.gob.osce.rnp.seg.utils.Utilitarios;
 
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
-import javax.servlet.ServletContext;
 import java.io.File;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -15,28 +14,12 @@ public abstract class EmailGeneric {
 
     //@Value("${spring.mail.username}")
     private static String hostMail = "";
-
-    public MimeMessagePreparator mimeMessagePreparatorHelper(String asunto, String receptor, String copiado, File archivoAdjunto, String contenido) {
-
-        MimeMessagePreparator preparator = mimeMessage -> {
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,
-                    MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-                    UTF_8.name());
-            helper.setFrom(hostMail);
-            helper.setSubject(asunto);
-            helper.setTo(new InternetAddress(receptor));
-            if(copiado!= null)helper.setCc(copiado);
-            if(archivoAdjunto!= null)
-                if(archivoAdjunto.length()>0)
-                    helper.addAttachment(archivoAdjunto.getName(), archivoAdjunto);
-            helper.setText(contenido, true);
-        };
-        return preparator;
-    }
+    
+    private static final String MAIL_CONTENT_TYPE = "text/html; charset=utf-8";
 
     public MimeMessagePreparator mimeMessagePreparatorHelper(String asunto, String receptor, String[] copiados, File archivoAdjunto, String contenido) {
 
-        MimeMessagePreparator preparator = mimeMessage -> {
+        return mimeMessage -> {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,
                     MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                     UTF_8.name());
@@ -52,63 +35,33 @@ public abstract class EmailGeneric {
             if(archivoAdjunto != null && archivoAdjunto.length()>0)helper.addAttachment(archivoAdjunto.getName(), archivoAdjunto);
             helper.setText(contenido, true);
         };
-        return preparator;
-    }
-
-
-
-    public MimeMessagePreparator mimeMessagePreparatorHelper(String asunto, String receptor, String[] copiados, File[] archivosAdjuntos, String contenido) {
-
-        MimeMessagePreparator preparator = mimeMessage -> {
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,
-                    MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
-                    UTF_8.name());
-            helper.setFrom(hostMail);
-            helper.setSubject(asunto);
-            helper.setTo(new InternetAddress(receptor));
-            if(copiados!=null && copiados.length>0) {
-                String[] copiadosFilter = Utilitarios.filterStringArray(copiados);
-                if(copiadosFilter.length>0) {
-                    helper.setCc(copiados);
-                }
-            }
-            if(archivosAdjuntos!= null && archivosAdjuntos.length>0)
-                for (int i=0;i<archivosAdjuntos.length;i++){
-                    if(archivosAdjuntos[i].length()>0)
-                        helper.addAttachment(archivosAdjuntos[i].getName(), archivosAdjuntos[i]);
-                }
-            helper.setText(contenido, true);
-        };
-        return preparator;
     }
 
     public MimeMessagePreparator mimeMessagePreparator(String asunto, String receptor, String contenido) {
 
-        MimeMessagePreparator preparator = mimeMessage -> {
+        return mimeMessage -> {
             mimeMessage.setFrom(hostMail);
             mimeMessage.setSubject(asunto);
             mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
             mimeMessage.setContent(contenido
-                    , "text/html; charset=utf-8");
+                    , MAIL_CONTENT_TYPE);
         };
-        return preparator;
     }
 
     public MimeMessagePreparator mimeMessagePreparator(String asunto, String receptor, String contenido, InternetAddress fromAddress) {
 
-        MimeMessagePreparator preparator = mimeMessage -> {
+        return mimeMessage -> {
             mimeMessage.setFrom(fromAddress);
             mimeMessage.setSubject(asunto);
             mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
             mimeMessage.setContent(contenido
-                    , "text/html; charset=utf-8");
+                    , MAIL_CONTENT_TYPE);
         };
-        return preparator;
     }
 
     public MimeMessagePreparator mimeMessagePreparator(String asunto, String receptor, String contenido, String copiado) {
 
-        MimeMessagePreparator preparator = mimeMessage -> {
+        return mimeMessage -> {
             mimeMessage.setFrom(hostMail);
             mimeMessage.setSubject(asunto);
             mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
@@ -116,14 +69,13 @@ public abstract class EmailGeneric {
                 mimeMessage.setRecipient(Message.RecipientType.CC, new InternetAddress(copiado));
             }
             mimeMessage.setContent(contenido
-                    , "text/html; charset=utf-8");
+                    , MAIL_CONTENT_TYPE);
         };
-        return preparator;
     }
 
     public MimeMessagePreparator mimeMessagePreparator(String asunto, String receptor, String contenido, String[] copiados) {
 
-        MimeMessagePreparator preparator = mimeMessage -> {
+        return mimeMessage -> {
             mimeMessage.setFrom(hostMail);
             mimeMessage.setSubject(asunto);
             mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
@@ -138,8 +90,7 @@ public abstract class EmailGeneric {
                 }
             }
             mimeMessage.setContent(contenido
-                    , "text/html; charset=utf-8");
+                    , MAIL_CONTENT_TYPE);
         };
-        return preparator;
     }
 }

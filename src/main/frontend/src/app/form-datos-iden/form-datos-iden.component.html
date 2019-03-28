@@ -1,22 +1,13 @@
-<header>
-    <div class="container-fluid">
-        <div class="col-md-12">
-            <div class="container-mod">
-                <h1 class="logo"><a href="/login"><img class="svg" src="../assets/img/iconos_Rpn_buscador.svg"></a>SCE</h1>
-            </div>
-        </div>
-    </div>
-</header>
 <div class="container-mod pad-container">
     <div class="content-form">
         <div class="header-content">
-            <p><img class="svg" src="../assets/img/iconos_Rpn-01.svg"><strong>RNP</strong>Trámites en Línea</p>
+            <p><img class="svg" alt="Icono RNP Acceso" src="assets/img/iconos_Rpn-01.svg"><strong>RNP</strong>Trámites en Línea</p>
         </div>
         <form class="body-content" #f="ngForm" action="" [ngClass]="{hidden: scssValidacion}">
             <p class="ruc_description"><span class="bg"><strong>RUC:</strong>{{ruc}}</span><span class="line"></span></p>
-            <p class="subtitle-form icon"><img class="svg" src="../assets/img/iconos_Rpn-02.svg">DATOS DE IDENTIFICACION</p>
+            <p class="subtitle-form icon"><img class="svg" alt="Icono Rnp Seguridad" src="assets/img/iconos_Rpn-02.svg">DATOS DE IDENTIFICACION</p>
             <p class="description-form">A continuación usted deberá brindar la información de su representante legal o apoderado en el Perú, completando los siguientes campos:</p>
-            <div class="form-group select-control"><span><img src="../assets/img/select-arrow.png"></span>
+            <div class="form-group select-control"><span><img alt="Icono Select Arrow" src="assets/img/select-arrow.png"></span>
                 <select ngModel #Pais="ngModel" id="Pais" name="Pais" class="form-control" required>
                     <option selected="selected" value="">País de Origen</option>
                     <option *ngFor="let p of lstPais" [value]="p.iden">
@@ -27,7 +18,7 @@
                     <div *ngIf="Pais.errors.required">El país es requerido</div>
                 </div>
             </div>
-            <div class="form-group select-control"><span><img src="../assets/img/select-arrow.png"></span>
+            <div class="form-group select-control"><span><img alt="Icono Select Arrow" src="assets/img/select-arrow.png"></span>
                 <select ngModel #TipoDoc="ngModel" id="TipoDoc" name="TipoDoc" class="form-control" required>
                     <option selected="selected" value="">Tipo de documento de identidad</option>
                     <option *ngFor="let d of lstTipoDoc" [value]="d.iden">
@@ -49,7 +40,7 @@
                     <div *ngIf="NumeroDocumento.errors.minlength || NumeroDocumento.errors.maxlength">El nro documento debe tener {{NumeroDocumento.errors.minlength.requiredLength}} caracteres como mínimo</div>
                 </div>
             </div>
-            <div class="form-group select-control"><span><img src="../assets/img/select-arrow.png"></span>
+            <div class="form-group select-control"><span><img alt="Icono Select Arrow" src="assets/img/select-arrow.png"></span>
                 <select ngModel #ZonaReg="ngModel" id="ZonaReg" name="ZonaReg" class="form-control"
                     >
                     <option selected="selected" value="">Oficina registral - Opcional</option>
@@ -58,7 +49,6 @@
                     </option>
                 </select>
                 <div class="text-danger" *ngIf="ZonaReg.touched && !ZonaReg.valid">
-                    <!--<div *ngIf="ZonaReg.errors.required">La oficina registral es requerida</div>-->
                 </div>
             </div>
             <div class="form-group bullet-form"><span></span>
@@ -83,7 +73,7 @@
                     <div *ngIf="!FechaIngreso.errors.validateBetweenRange">Fecha inválida (Válido mayor a {{dtMin | date:'yyyy-MM-dd'}})</div>
                 </div>
             </div>
-            <div class="form-group select-control"><span><img src="../assets/img/select-arrow.png"></span>
+            <div class="form-group select-control"><span><img alt="Icono Select Arrow" src="assets/img/select-arrow.png"></span>
                 <select ngModel #TipoCon="ngModel" id="TipoCon" name="TipoCon" class="form-control" required>
                     <option selected="selected" value="">Condición</option>
                     <option *ngFor="let c of lstTipoCon" [value]="c.iden">
@@ -95,17 +85,17 @@
                 </div>
             </div>
             <div class="no-remember">
-                <p>¿No reconoces la información mostrada?<a href="/recuperar/password/opcs">PRUEBA DE OTRA MANERA</a></p>
+                <p>¿No reconoces la información mostrada?<a href="recuperar/password/opcs">PRUEBA DE OTRA MANERA</a></p>
             </div>
             <div class="form-group two-buttons">
-                <a href="/login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                <a href="login"><button class="btn btn-default" type="button">CANCELAR</button></a>
                 <button class="btn btn-success" type="submit" [disabled]="!f.valid" (click)="validarDatos(f, $event)">SIGUIENTE</button>
             </div>
             <div class="text-danger text-center" style="padding: 5px 15px 0px;">{{err}}</div>
         </form>
         <form class="body-content" #f2="ngForm" [ngClass]="{hidden: !scssValidacion}" action="frm_2">
             <p class="ruc_description"><span class="bg"><strong>RUC:</strong>{{ruc}}</span><span class="line"></span></p>
-            <p class="subtitle-form icon"><img class="svg" src="../assets/img/iconos_Rpn-02.svg">Actualización de clave RNP</p>
+            <p class="subtitle-form icon"><img class="svg" alt="Icono Rnp Seguridad" src="assets/img/iconos_Rpn-02.svg">Actualización de correo electrónico</p>
             <p class="description-form">Ingrese un nuevo correo electrónico que será utilizado como correo electrónico de contacto.</p>
             <div class="form-group">
                 <input ngModel #CorreoEle="ngModel" name="CorreoEle" id="CorreoEle" class="form-control" type="text" placeholder="Correo electrónico"

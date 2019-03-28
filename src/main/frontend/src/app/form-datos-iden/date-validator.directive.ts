@@ -12,11 +12,13 @@ export class DateValidator implements Validator {
 
     validate(c: AbstractControl): {} {
         // self value (e.g. retype password)
-        let v = c.value;
+        const v = c.value;
 
         // value not equal
-        if (new Date(v).getTime() < new Date(1979,12,1).getTime() || new Date(v).getTime() > new Date().getTime()) return {
-            validateBetweenRange: false
+        if (new Date(v).getTime() < new Date(1979,12,1).getTime() || new Date(v).getTime() > new Date().getTime()){
+            return {
+                validateBetweenRange: false
+            }
         }
         return null;
     }

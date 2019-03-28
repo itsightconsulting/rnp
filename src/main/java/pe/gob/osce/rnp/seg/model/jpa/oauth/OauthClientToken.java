@@ -1,25 +1,15 @@
 package pe.gob.osce.rnp.seg.model.jpa.oauth;
 
-import lombok.Data;
-import org.hibernate.annotations.Type;
+import lombok.EqualsAndHashCode;
+import pe.gob.osce.rnp.seg.model.jpa.base.OauthBaseEntity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
-@Data
 @Table(name = "OAUTH_CLIENT_TOKEN")
-public class OauthClientToken {
+@EqualsAndHashCode(callSuper = false)
+public class OauthClientToken extends OauthBaseEntity {
 
-    @Id
-    @Column(name = "TOKEN_ID")
-    private String tokenId;
-    @Column(name = "TOKEN", nullable = false, length = Integer.MAX_VALUE)
-    private String token;
-    @Column(name = "AUTHENTICATION_ID", nullable = false)
-    private String authenticationId;
-    @Column(name = "USER_NAME")
-    private String userName;
-    @Column(name = "CLIENT_ID", nullable = false)
-    private String clientId;
 
 }

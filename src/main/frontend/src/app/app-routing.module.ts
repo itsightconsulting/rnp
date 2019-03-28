@@ -8,6 +8,9 @@ import {BuscarEmpresaComponent} from "./buscar-empresa/buscar-empresa.component"
 import {ResetUserComponent} from "./reset-user/reset-user.component";
 import {ListadoOpcionComponent} from "./listado-opcion/listado-opcion.component";
 import {ErrorApiComponent} from "./error-api/error-api.component";
+import {NotFoundComponent} from "./not-found/not-found.component";
+import {ValidacionSsoComponent} from "./validacion-sso/validacion-sso.component";
+import {UpdCorreoComponent} from "./upd-correo/upd-correo.component";
 
 const routes: Routes = [
     {
@@ -38,16 +41,24 @@ const routes: Routes = [
         component: UpdPasswordComponent
     },
     {
-        path: 'recuperar/password/validar/datos-identificacion',
-        component: FormDatosIdenComponent
-    },
-    {
         path: 'recuperar/password/opcs',
         component: ListadoOpcionComponent
     },
     {
         path: 'informativo',
         component: ErrorApiComponent
+    },
+    {
+        path: 'validacion/via/sunat/:itscur/:itsnekot',
+        component: ValidacionSsoComponent,
+    },
+    {
+        path: 'actualizacion/correo',
+        component: UpdCorreoComponent,
+    },
+    {
+        path: '**',
+        component: NotFoundComponent
     }
 ];
 

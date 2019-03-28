@@ -17,7 +17,7 @@
 			<br/>
 			<form action="#" th:action="@{/gestion/parametro/add}" th:object="${paramModel}" th:method="POST">
 				<input type="text" class="hidden" th:field="*{id}"/>
-				Nombre del parámetro: <input type="text" class="form-control" th:field="*{parametro}" disabled/>
+				Nombre del parámetro: <input type="text" class="form-control" th:field="*{clave}" disabled/>
 				<br/>
 				Valor del parámetro: <input type="text" class="form-control" th:field="*{valor}"/>
 				<div th:if="${error != null}">

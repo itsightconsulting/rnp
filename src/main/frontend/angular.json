@@ -25,10 +25,11 @@
             "styles": [
               "src/styles.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/app/assets/style.min.css",
-              "src/app/assets/css/font-awesome.min.css"
+              "src/assets/style.min.css",
+              "src/assets/css/font-awesome.min.css"
             ],
             "scripts": [
+              "node_modules/hashids/dist/hashids.min.js"
             ]
           },
           "configurations": {

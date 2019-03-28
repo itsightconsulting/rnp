@@ -12,7 +12,6 @@ public class JsonMoneySimpleSerializer extends JsonSerializer<BigDecimal> {
     @Override
     public void serialize(BigDecimal value, JsonGenerator gen, SerializerProvider serializers)
             throws IOException {
-        // TODO Auto-generated method stub
         gen.writeString(value.toString());
     }
 

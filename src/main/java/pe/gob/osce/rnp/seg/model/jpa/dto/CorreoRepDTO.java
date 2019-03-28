@@ -7,9 +7,9 @@ import java.io.Serializable;
 @Data
 public class CorreoRepDTO implements Serializable {
 
-    public String correoRepresentante;
+    private String correoRepresentante;
 
-    public String correoFormateado;
+    private String correoFormateado;
 
     public CorreoRepDTO(String correoRepresentante, String correoFormateado) {
         this.correoRepresentante = correoRepresentante;

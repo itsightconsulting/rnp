@@ -1,5 +1,7 @@
 package pe.gob.osce.rnp.seg.controller.rest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,8 @@ import javax.validation.Valid;
 @RequestMapping(path = "${api.bs.route}/seg")
 public class SeguridadController {
 
+    public static final Logger LOGGER = LogManager.getLogger(SeguridadController.class);
+
     private SeguridadService seguridadService;
 
     @Autowired
@@ -27,7 +31,6 @@ public class SeguridadController {
         return "{\"test\": \"successfully\"}";
     }
 
-    @CrossOrigin(origins = {"http://127.0.0.1:4200"})
     @PostMapping("/login")
     public Respuesta<String> login(@RequestParam(value = "ruc") Long ruc, @RequestParam(value = "clave") String clave){
         if(ruc != null && clave != null && clave.length()>7)
@@ -48,8 +51,7 @@ public class SeguridadController {
     public Respuesta<String> actualizarClaveProveedor(@ModelAttribute @Valid UpdClaveDto updClaveDto, BindingResult bindingResult){
         if(!bindingResult.hasErrors())
             return seguridadService.actualizarClave(updClaveDto);
-        bindingResult.getFieldErrors().stream().forEach(err-> System.out.println(err.toString()));
+        bindingResult.getFieldErrors().stream().forEach(err-> LOGGER.info(err.toString()));
         return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Los datos ingresados son inválidos");
-
     }
 }

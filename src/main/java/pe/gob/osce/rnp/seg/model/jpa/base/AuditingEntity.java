@@ -43,7 +43,11 @@ public class AuditingEntity {
     @Column(name = "ROW_VERSION")
     private Long rowVersion;
 
-    public AuditingEntity(){}
+    public AuditingEntity(){
+        /*
+         *
+         */
+    }
 
     public String getCreadoPor() {
         return creadoPor;

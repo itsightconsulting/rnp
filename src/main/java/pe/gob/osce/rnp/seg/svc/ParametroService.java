@@ -5,5 +5,5 @@ import pe.gob.osce.rnp.seg.model.jpa.Parametro;
 
 public interface ParametroService extends BaseService<Parametro> {
 
-    Parametro findByParametro(String parametro);
+    Parametro findByClave(String parametro);
 }

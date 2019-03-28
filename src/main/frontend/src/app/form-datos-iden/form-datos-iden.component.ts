@@ -17,8 +17,8 @@ export class FormDatosIdenComponent implements OnInit {
   datosIdenDto: any;
   hoy: Date;
   dtMin: Date;
-  err: String = "";
-  err2: String = "";
+  err = "";
+  err2 = "";
   scssValidacion: boolean;
 
   constructor(private datosIdenService: FormDatosIdenService, private cookie: CookieService) { }
@@ -76,7 +76,7 @@ export class FormDatosIdenComponent implements OnInit {
           this.datosIdenDto.desDocu = r.controls.NumeroDocumento.value;
           this.datosIdenDto.zonaRegistralId = r.controls.ZonaReg.value == "" ? 0 : r.controls.ZonaReg.value;
           this.datosIdenDto.nroPartida = r.controls.NroPartidaEle.value;
-          let dt = new Date(r.controls.FechaIngreso.value);
+          const dt = new Date(r.controls.FechaIngreso.value);
           this.datosIdenDto.fecIngreso = new Date(new Date(dt.getTime()+1000*60*60*24));//+1 día para normalizar la fecha a la de hoy
           this.datosIdenDto.fecIngreso = new Date(this.datosIdenDto.fecIngreso.toDateString());
           this.datosIdenDto.tipoCondicionId = r.controls.TipoCon.value;
@@ -88,7 +88,7 @@ export class FormDatosIdenComponent implements OnInit {
                   }
               },
               err=>{
-                  this.err = err.status + ": "+err.statusText;
+                  this.err = `${err.status}: ${err.statusText}`;
               },
               ()=>{
                   btn.removeAttribute('disabled');
@@ -106,15 +106,16 @@ export class FormDatosIdenComponent implements OnInit {
             obj.correo = r.controls.CorreoEle.value;
             this.datosIdenService.actualizarCorreoProveedor(obj).subscribe((res: any)=>{
                 if(res.flag){
-                    this.cookie.deleteAll("/recuperar/password/validacion");
+                    this.cookie.deleteAll("recuperar/password/validacion");
                     this.cookie.set('email_prov',  r.controls.CorreoEle.value, 0, '/');
-                    window.location.href = '/recuperar/password/validacion';
+                    this.cookie.set('checkCaptcha', "ok",  0.00083, '/');
+                    window.location.href = document.querySelector('base').href+'recuperar/password/validacion';
                 }else{
                     this.err2 = res.d;
                 }
             }, err=>{
                 console.log(err);
-                this.err2 = err.status + ": "+err.statusText;
+                this.err2 = `${err.status}: ${err.statusText}`;
             },()=>{
                 btn.removeAttribute('disabled');
                 setTimeout(()=>this.err2 = "", 10000);

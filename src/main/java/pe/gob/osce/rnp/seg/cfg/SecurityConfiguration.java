@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -24,6 +23,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+
+    public static final String LOGIN_PATH = "login";
 
     @Autowired
     @Qualifier("securityUserServiceImpl")
@@ -53,8 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     pe.gob.osce.rnp.seg.cfg.CorsFilter corsFilterCustom() {
-        pe.gob.osce.rnp.seg.cfg.CorsFilter filter = new pe.gob.osce.rnp.seg.cfg.CorsFilter();
-        return filter;
+        return new pe.gob.osce.rnp.seg.cfg.CorsFilter();
     }
 
     @Value("${api.bs.route}")
@@ -70,22 +70,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        /*http
-                .addFilterBefore(corsFilterCustom(), SessionManagementFilter.class);*/
-        http.csrf().disable();//.authorizeRequests().antMatchers(HttpMethod.OPTIONS, apiBaseRoute+"/oauth/token").permitAll();
-
         http.authorizeRequests()
                 .antMatchers("/session-expirada").permitAll()
                 .antMatchers("/session-multiple").permitAll()
                 .antMatchers("/api/**").permitAll();//Include: /api/oauth/token
 
         http.authorizeRequests()
+                .antMatchers(
+                        "/css/**",
+                        "/js/**",
+                        "/img/**",
+                        "/fonts/**",
+                        "/sound/**"
+                ).permitAll()
                 .anyRequest().authenticated();
         http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                .loginPage("/"+LOGIN_PATH)
                 .loginProcessingUrl("/loginCheck")
                 .usernameParameter("username")
                 .passwordParameter("password")
@@ -94,11 +97,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                 .deleteCookies("SESSION")
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login").permitAll()
+                .logoutSuccessUrl("/"+LOGIN_PATH).permitAll()
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/accesoDenegado")
-                .authenticationEntryPoint(new AjaxAuthenticationFilter("/login"))
+                .authenticationEntryPoint(new AjaxAuthenticationFilter("/"+LOGIN_PATH))
                 .and()
                 .sessionManagement()
                 .maximumSessions(5)
@@ -110,24 +113,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     // Work around https://jira.spring.io/browse/SEC-2855
     @Bean
     public SessionRegistry sessionRegistry() {
-        SessionRegistry sessionRegistry = new SessionRegistryImpl();
-        return sessionRegistry;
+        return new SessionRegistryImpl();
     }
-
-    /*@Order(0)
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.0:4200"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true);
-        configuration.setMaxAge(Long.valueOf(3600));
-        configuration.setExposedHeaders(Arrays.asList("x-requested-with","x-requested-with, authorization","x-auth-token", "Authorization"));
-        configuration.applyPermitDefaultValues();
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }*/
 }
 

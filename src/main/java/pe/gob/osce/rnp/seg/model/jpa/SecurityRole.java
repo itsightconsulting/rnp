@@ -29,13 +29,11 @@ public class SecurityRole {
     }
 
     public SecurityRole(String role, SecurityUser secUser) {
-        // TODO Auto-generated constructor stub
         this.role = role;
         this.securityUser = secUser;
     }
 
     public SecurityRole(String role, int securityUserId) {
-        // TODO Auto-generated constructor stub
         this.role = role;
         this.securityUser = new SecurityUser(securityUserId);
     }

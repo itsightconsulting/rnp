@@ -16,13 +16,11 @@ public interface ProveedorService {
 
     Respuesta<List<ForaneaProveedorDTO>> obtenerListadoForaneaProveedor(String foranea);
 
-    Respuesta<String> validarDatosIdentificacion(DatosIdentificacionDTO dtsIdentificacion);
+    Respuesta<String> validarDatosIdentificacion(DatosIdentificacionDTO dtsIdentificacion, String ipCliente);
 
     Respuesta<String> actualizarCorreoExtNoDom(Long ruc, String correo);
 
-    Respuesta<String> enviarCorreoProvExtNoDom(String correo);
-
-    Respuesta<String> enviarCorreoRepProvExtNoDom(String correo);
+    Respuesta<String> enviarCorreoProvExtNoDomOrRepProvExtNoDom(String correo, int tipoPersona);
 
     Respuesta<List<ProExtNoDom>> obtenerListadoEmpresasExtNoDom(String paisId, Integer tipoPersonaId, String razonSocial);
 }

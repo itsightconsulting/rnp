@@ -7,9 +7,9 @@ import java.io.Serializable;
 @Data
 public class ProcedureOutputDTO implements Serializable {
 
-    public String respuesta;
+    private String respuesta;
 
-    public String mensaje;
+    private String mensaje;
 
     public ProcedureOutputDTO(){}
 

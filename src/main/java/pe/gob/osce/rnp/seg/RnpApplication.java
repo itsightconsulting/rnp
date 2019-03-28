@@ -22,26 +22,11 @@ import javax.sql.DataSource;
 @EnableMBeanExport(registration= RegistrationPolicy.IGNORE_EXISTING)
 public class RnpApplication extends SpringBootServletInitializer /*implements CommandLineRunner */{
 
-    /*@Autowired
-    private ApplicationContext ctx;*/
-
-    /*@Override
-    public void run(String... args) throws Exception {
-        System.out.println("Let's inspect the beans provided by Spring Boot:");
-
-        String[] beanNames = ctx.getBeanDefinitionNames();
-        Arrays.sort(beanNames);
-        for (String beanName : beanNames) {
-            System.out.println(beanName);
-        }
-    }*/
-
     @Value("${datasource.jndi.primary:#{null}}")
     private String jndiNameProduction;
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        // TODO Auto-generated method stub
         return builder.sources(RnpApplication.class);
     }
 
@@ -51,12 +36,11 @@ public class RnpApplication extends SpringBootServletInitializer /*implements Co
 
 
     @Profile(value = "production")
-    @Bean
+    @Bean(destroyMethod = "")
     @Primary
     public DataSource mainDataSource() {
         JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
-        DataSource dataSource = dataSourceLookup.getDataSource(jndiNameProduction);
-        return dataSource;
+        return dataSourceLookup.getDataSource(jndiNameProduction);
     }
 
 

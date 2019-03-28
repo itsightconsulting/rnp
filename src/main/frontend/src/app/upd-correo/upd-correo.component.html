@@ -1,0 +1,48 @@
+<div class="container-mod pad-container">
+    <div class="content-form">
+        <div class="header-content">
+            <p><img class="svg" alt="Icono RNP Acceso" src="assets/img/iconos_Rpn-01.svg"><strong>RNP</strong>Trámites en Línea</p>
+        </div>
+        <form class="body-content" #f2="ngForm" action="frm_2">
+            <p class="ruc_description"><span class="bg"><strong>RUC:</strong>{{ruc}}</span><span class="line"></span></p>
+            <p class="subtitle-form icon"><img class="svg" alt="Icono Rnp Seguridad" src="assets/img/iconos_Rpn-02.svg">Actualización de correo electrónico</p>
+            <p class="description-form">Ingrese un nuevo correo electrónico que será utilizado como correo electrónico de contacto.</p>
+            <div class="form-group">
+                <input ngModel #CorreoEle="ngModel" name="CorreoEle" id="CorreoEle" class="form-control" type="text" placeholder="Correo electrónico"
+                       required
+                       minlength="8"
+                       maxlength="40"
+                       validateEqual="ReCorreoEle" reverse="true"
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                <div class="text-danger" *ngIf="CorreoEle.touched && !CorreoEle.valid">
+                    <div *ngIf="CorreoEle.errors.required">El correo es requerido</div>
+                    <div *ngIf="CorreoEle.errors.minlength">El correo debe tener mínimo {{CorreoEle.errors.minlength.requiredLength}} caracteres</div>
+                    <div *ngIf="CorreoEle.errors.maxlength">El correo debe tener máximo {{CorreoEle.errors.maxlength.requiredLength}} caracteres</div>
+                    <div *ngIf="CorreoEle.errors.pattern">El correo tiene un formato inválido</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input ngModel #ReCorreoEle="ngModel" name="ReCorreoEle" id="ReCorreoEle" class="form-control" type="text" placeholder="Confirmar correo electrónico"
+                       required
+                       minlength="8"
+                       maxlength="40"
+                       validateEqual="CorreoEle"
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                <div class="text-danger" *ngIf="ReCorreoEle.touched && !ReCorreoEle.valid">
+                    <div *ngIf="ReCorreoEle.errors.required">La confirmación es requerida</div>
+                    <div *ngIf="ReCorreoEle.errors.minlength">El correo debe tener mínimo {{ReCorreoEle.errors.minlength.requiredLength}} caracteres</div>
+                    <div *ngIf="ReCorreoEle.errors.maxlength">El correo debe tener máximo {{ReCorreoEle.errors.maxlength.requiredLength}} caracteres</div>
+                    <div *ngIf="!ReCorreoEle.errors.validateEqual">Los correos no coinciden</div>
+                    <div *ngIf="ReCorreoEle.errors.pattern">El correo tiene un formato inválido</div>
+
+                </div>
+            </div>
+            <div class="form-group two-buttons">
+                <a class="btn btn-default" href="javascript:void(0);" onclick="javascript:document.getElementById('overlayConfirm').style.display = 'block';javascript:document.querySelector('#overlayConfirm .mensaje-personalizado').textContent = '¿Está seguro cancelar la actualización de correo electrónico de contacto? Recuerde que sólo mediante el correo electrónico podrá obtener su código de verificación para cambio de clave'">CANCELAR</a>
+                <button class="btn btn-success" type="button" [disabled]="!f2.valid" (click)="actualizarCorreo(f2, $event)">CONFIRMAR</button>
+            </div>
+            <div class="text-danger text-center">{{err2}}</div>
+        </form>
+    </div>
+</div>

@@ -29,7 +29,7 @@ public class AuthController {
     @Autowired
     private OauthApprovalsRepository oauthApprovalsRepository;
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public ModelAndView root(Map<String,Object> model){
         model.put("approvals", oauthApprovalsRepository.findAll());
         model.put("clientDetails",oauthClientDetailsRepository.findAll());
@@ -39,7 +39,7 @@ public class AuthController {
     @Autowired
     private TokenStore tokenStore;
 
-    @RequestMapping(value="/approval/revoke",method= RequestMethod.POST)
+    @PostMapping(value="/approval/revoke")
     public String revokApproval(@ModelAttribute Approval approval){
 
         approvalStore.revokeApprovals(asList(approval));

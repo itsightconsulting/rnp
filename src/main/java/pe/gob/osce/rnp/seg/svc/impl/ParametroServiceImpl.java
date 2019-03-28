@@ -40,14 +40,14 @@ public class ParametroServiceImpl extends BaseServiceImpl<ParametroRepository> i
     }
 
     @Override
-    public Parametro findByParametro(String parametro) {
-        Optional<Parametro> opt = repository.findByParametro(parametro);
+    public Parametro findByClave(String parametro) {
+        Optional<Parametro> opt = repository.findByClave(parametro);
         return opt.isPresent() ? opt.get() : null;
     }
 
     @Override
     public void delete(int id) {
-        repository.deleteById(new Integer(id));
+        repository.deleteById(id);
     }
 
     @Override

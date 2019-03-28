@@ -18,9 +18,9 @@ import pe.gob.osce.rnp.seg.svc.DateTimeRetriever;
 @Component
 public class EntityInterceptorImpl extends EmptyInterceptor implements EntityInterceptor {
     private static final long serialVersionUID = 8160823652337870429L;
-    @Autowired
-    DateTimeRetriever dateTimeRetriever;
 
+    @Autowired
+    private DateTimeRetriever dateTimeRetriever;
 
     @Override
     public boolean onSave(Object entity, Serializable id, Object[] state, String[] propertyNames, Type[] types) {
@@ -43,13 +43,12 @@ public class EntityInterceptorImpl extends EmptyInterceptor implements EntityInt
                 }
             }
         }
-        return true; //super.onSave(entity, id, state, propertyNames, types);
+        return true;
     }
 
     private Date currentTime() {
         if (dateTimeRetriever == null) return new Timestamp(System.currentTimeMillis());
-        Date date = dateTimeRetriever.currentTime();
-        return date;
+        return dateTimeRetriever.currentTime();
     }
 
 

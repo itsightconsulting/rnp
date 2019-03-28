@@ -10,19 +10,19 @@ export class BuscarEmpresaComponent implements OnInit {
 
   lstPais: any[];
   lstCoincidencias: any[] = new Array();
-  buscado: boolean = false;
-  err: string = "";
+  buscado = false;
+  err = "";
 
   constructor(private buscarEmpresaService: BuscarEmpresaService) { }
 
   ngOnInit() {
-      this.obtenerPais();
+    this.obtenerPais();
   }
 
   obtenerPais(){
-      this.buscarEmpresaService.obtenerListadoPais().subscribe((res: any)=>{
-          this.lstPais = res.d;
-      })
+    this.buscarEmpresaService.obtenerListadoPais().subscribe((res: any)=>{
+        this.lstPais = res.d;
+    })
   }
 
   buscar(r, evt){
@@ -39,7 +39,7 @@ export class BuscarEmpresaComponent implements OnInit {
             }
         },err=>{
                     console.log(err);
-                    this.err = err.status + ": "+err.statusText;
+                    this.err = `${err.status}: ${err.statusText}`;
         },()=>{
                     btn.removeAttribute('disabled');
                     setTimeout(()=>this.err = "", 8000);

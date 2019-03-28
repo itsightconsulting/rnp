@@ -17,14 +17,6 @@ public class OauthAuthenticationFilter implements AuthenticationEntryPoint
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException arg2) throws IOException, ServletException
     {
-        /*System.out.println(arg2.getLocalizedMessage());
-        System.out.println(arg2.getCause());
-        System.out.println("***********************************************");
-        for (Enumeration<?> e = request.getHeaderNames(); e.hasMoreElements();) {
-            String nextHeaderName = (String) e.nextElement();
-            String headerValue = request.getHeader(nextHeaderName);
-            System.out.println(">>: "+headerValue);
-        }*/
 
         final Map<String, Object> mapBodyException = new HashMap<>();
 
@@ -37,6 +29,5 @@ public class OauthAuthenticationFilter implements AuthenticationEntryPoint
 
         final ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(response.getOutputStream(), mapBodyException);
-        /*response.sendRedirect(request.getContextPath()+"/sunatsso.html");*/
     }
 }

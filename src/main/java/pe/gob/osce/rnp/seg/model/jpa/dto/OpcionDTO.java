@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class OpcionDTO {
 
-	public String opcion1;
-	public String opcion2;
-	public String opcion3;
-	public String opcion4;
+	private String opcion1;
+	private String opcion2;
+	private String opcion3;
+	private String opcion4;
 	
 	public OpcionDTO() {
 		

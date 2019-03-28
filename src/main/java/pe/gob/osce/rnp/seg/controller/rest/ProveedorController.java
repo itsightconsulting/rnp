@@ -1,5 +1,7 @@
 package pe.gob.osce.rnp.seg.controller.rest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,10 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "${api.bs.route}/proveedor")
 public class ProveedorController {
+
+    private static final String MSG_LOG_VALID_FAIL = "Los datos ingresados son inválidos";
+
+    public static final Logger LOGGER = LogManager.getLogger(ProveedorController.class);
 
     private ProveedorService proveedorService;
 
@@ -45,16 +51,16 @@ public class ProveedorController {
             preCorreoDTO.setIpCliente(request.getRemoteAddr());
             return proveedorService.enviarCorreo(preCorreoDTO);
         }
-        bindingResult.getFieldErrors().stream().forEach(err-> System.out.println(err.toString()));
-        return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Los datos ingresados son inválidos");
+        bindingResult.getFieldErrors().stream().forEach(err-> LOGGER.info(err.toString()));
+        return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0, MSG_LOG_VALID_FAIL);
     }
 
     @PostMapping("/recuperar-pass/sc/validar/datos-identificacion")
-    public Respuesta<String> validarDatosIdentificacion(@ModelAttribute @Valid DatosIdentificacionDTO dtsIdentificacion, BindingResult bindingResult){
+    public Respuesta<String> validarDatosIdentificacion(@ModelAttribute @Valid DatosIdentificacionDTO dtsIdentificacion, BindingResult bindingResult, HttpServletRequest request){
         if(!bindingResult.hasErrors())
-            return proveedorService.validarDatosIdentificacion(dtsIdentificacion);
-        bindingResult.getFieldErrors().stream().forEach(err-> System.out.println(err.toString()));
-        return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Los datos ingresados son inválidos");
+            return proveedorService.validarDatosIdentificacion(dtsIdentificacion, request.getRemoteAddr());
+        bindingResult.getFieldErrors().stream().forEach(err-> LOGGER.info(err.toString()));
+        return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0, MSG_LOG_VALID_FAIL);
     }
 
     @GetMapping("/recuperar-pass/sc/obtener/foranea/pais")
@@ -88,23 +94,23 @@ public class ProveedorController {
 
     @PostMapping("/recuperar-pass/su/enviar/correo/ext-nodom")
     public Respuesta<String> enviarCorreoProvExtNoDom(@RequestParam(value = "correo") String correo){
-        return proveedorService.enviarCorreoProvExtNoDom(correo);
+        return proveedorService.enviarCorreoProvExtNoDomOrRepProvExtNoDom(correo, 1);
     }
 
     @PostMapping("/recuperar-pass/su/enviar/correo/rep-ext-nodom")
     public Respuesta<String> enviarCorreoRepProExtNoDom(@RequestParam(value = "correo") String correo){
-        return proveedorService.enviarCorreoRepProvExtNoDom(correo);
+        return proveedorService.enviarCorreoProvExtNoDomOrRepProvExtNoDom(correo, 2);
     }
 
-    @GetMapping("/recuperar-pass/su/obtener/listado/empresa-ext-no-dom")
+    @GetMapping("/recuperar-pass/su/obtener/listado/empresa-ext-no-dom/{razonSocial}")
     public Respuesta<List<ProExtNoDom>> obtenerListadoEmpresaExtNoDom(
             @RequestParam(value = "paisId") String paisId,
             @RequestParam(value = "tipoPersonaId") Integer tipoPersonaId,
-            @RequestParam(value = "razonSocial") String razonSocial){
+            @PathVariable(value = "razonSocial") String razonSocial){
         if(paisId != null && paisId.length()>0 && paisId.length()<4 && tipoPersonaId != null && tipoPersonaId>0 && razonSocial != null && razonSocial.length()>4)
             return proveedorService.obtenerListadoEmpresasExtNoDom(paisId, tipoPersonaId, razonSocial);
         List<ProExtNoDom> lst = new ArrayList<>();
-        lst.add(new ProExtNoDom(null,"Los datos ingresados son inválidos"));
+        lst.add(new ProExtNoDom(null, MSG_LOG_VALID_FAIL));
         return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0, lst);
     }
 }

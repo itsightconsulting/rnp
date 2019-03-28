@@ -1,7 +1,6 @@
 package pe.gob.osce.rnp.seg.json;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
@@ -19,9 +18,7 @@ public class JsonDateSimpleSerializer extends JsonSerializer<Date> {
 
     @Override
     public void serialize(Date value, JsonGenerator gen, SerializerProvider serializers)
-            throws IOException, JsonProcessingException {
-        System.out.println(">>>"+value);
-        // TODO Auto-generated method stub
+            throws IOException {
         if (value.toString().length() > 10) {
             gen.writeString(formatterFull.format(value));
         } else {

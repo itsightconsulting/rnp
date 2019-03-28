@@ -20,38 +20,17 @@ export class HttpRequestInterceptor implements HttpInterceptor{
 
     overlaySpans: any;
     intervalOverlay: any;
-    msgOverlay: string = "Por favor espere";
+    msgOverlay = "Por favor espere";
     rnpApiBsRoute: string = environment.baseUrl;
+    hrefInformativo = "informativo";
 
     constructor(private cookie: CookieService, private onWakeUp: OnStartUpService){
     }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // Clone the request to add the new header
-        /*if(req.method == "POST") {*/
-        try {
-            document.getElementById("overlay").style.display = "block";
-            document.querySelector('#overlay p').innerHTML = this.msgOverlay.split('').map(v => `<span>${v == ' ' ? '&nbsp' : v}</span>`).join('') + '<span>&nbsp</span><span><i class="fa fa-spinner fa-spin"></i></span>'
+    
+        this.overlayExecute();
 
-            let correCaminos = 0;
-            let vueltasCompletas = 0;
-            const lenLetters = this.msgOverlay.length + 1;
-            this.overlaySpans = document.querySelectorAll('#overlay p span');
-            this.intervalOverlay = setInterval(() => {
-                if (correCaminos > 0)
-                    this.overlaySpans[correCaminos - 1].style.color = 'white';
-                if (vueltasCompletas > 0)
-                    this.overlaySpans[this.overlaySpans.length - 1].style.color = 'white';
-                this.overlaySpans[correCaminos].style.color = '#2be8b4';
-                if (lenLetters == correCaminos) {
-                    correCaminos = 0;
-                    ++vueltasCompletas;
-                }
-                correCaminos++;
-            }, 100)
-        } catch (ex) {
-            //console.log(ex);
-        }
-        /*}*/
+        // Clone the request to add the new header
         if(!req.url.startsWith('/api/fi/oauth')){
             if(req.url.startsWith('/api/fi')) {
                 const clonedRequest = req.clone({url: req.url.replace('/api/fi', this.rnpApiBsRoute), headers: req.headers.set('Authorization', 'Bearer ' + this.cookie.get('rnp_api_token'))});
@@ -72,14 +51,14 @@ export class HttpRequestInterceptor implements HttpInterceptor{
                             }, err => {
                                 console.log(err);
                                 this.cookie.set('rnp_api_token', '0', 0, '/');
-                                window.location.href = "/informativo";
+                                window.location.href = document.querySelector('base').href+this.hrefInformativo;
                             })
                     }
 
-                    if (error.status != undefined && error.status === 504) {
+                    if (error.status != undefined && (error.status === 504 || error.status === 0)) {
                         console.log(error);
                         this.cookie.set('rnp_api_token', '0', 0, '/');
-                        window.location.href = "/informativo";
+                        window.location.href = document.querySelector('base').href+this.hrefInformativo;
                     }
                     return throwError(error);
                 }))
@@ -91,10 +70,45 @@ export class HttpRequestInterceptor implements HttpInterceptor{
             }), catchError((error: HttpErrorResponse) => {
                     console.log(error);
                     this.cookie.set('rnp_api_token', '0', 0, '/');
-                    window.location.href = "/informativo";
+                    window.location.href = document.querySelector('base').href+this.hrefInformativo;
                 return throwError(error);
             }));
         }
         return next.handle(req)
+    }
+
+    overlayExecute(){
+        /*if(req.method == "POST") {*/
+        try {
+            document.getElementById("overlay").style.display = "block";
+            const charArray = this.msgOverlay.split('');
+            const charArrayWithSpaces = charArray.map(v => {
+                return `<span>${v == ' ' ? '&nbsp' : v}</span>`
+            }).join('');
+            const finalOverlayMessage = charArrayWithSpaces + '<span>&nbsp</span><span><e class="fa fa-spinner fa-spin"></e></span>';
+            document.querySelector('#overlay p').innerHTML = finalOverlayMessage;
+
+            let correCaminos = 0;
+            let vueltasCompletas = 0;
+            const lenLetters = this.msgOverlay.length + 1;
+            this.overlaySpans = document.querySelectorAll('#overlay p span');
+            this.intervalOverlay = setInterval(() => {
+                if (correCaminos > 0) {
+                    this.overlaySpans[correCaminos - 1].style.color = 'white';
+                }
+                if (vueltasCompletas > 0) {
+                    this.overlaySpans[this.overlaySpans.length - 1].style.color = 'white';
+                }
+                this.overlaySpans[correCaminos].style.color = '#2be8b4';
+                if (lenLetters == correCaminos) {
+                    correCaminos = 0;
+                    ++vueltasCompletas;
+                }
+                correCaminos++;
+            }, 100)
+        } catch (ex) {
+            //console.log(ex);
+        }
+        /*}*/
     }
 }

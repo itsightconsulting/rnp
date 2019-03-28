@@ -22,7 +22,7 @@ public class SecurityPrivilege {
     @JoinColumn(name = "SECURITY_ROLE_ID")
     private SecurityRole securityRole;
 
-    public SecurityPrivilege() {
+    public SecurityPrivilege() {/**/
     }
 
     public int getId() {

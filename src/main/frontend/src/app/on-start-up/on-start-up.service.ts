@@ -7,6 +7,9 @@ import {Injectable} from "@angular/core";
 })
 export class OnStartUpService{
 
+    oauthCliUsername = "rnp_osce";
+    oauthCliPassword = "itsight19@13";
+
     constructor(private http: HttpClient, private cookie: CookieService){
     }
 
@@ -14,7 +17,7 @@ export class OnStartUpService{
         if(!this.cookie.check('rnp_api_token')) {
             const headers =
                             new HttpHeaders()
-                                .set('Authorization', "Basic " + btoa('rnp_osce' + ":" + 'itsight19@13'))
+                                .set('Authorization', "Basic " + btoa(`${this.oauthCliUsername}:${this.oauthCliPassword}`))
                                 .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 
             const params =
@@ -28,7 +31,7 @@ export class OnStartUpService{
     }
 
     instanceApiTokenByOldCookie(){
-        const headers = new HttpHeaders().set('Authorization', "Basic " + btoa('rnp_osce' + ":" + 'itsight19@13')).set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        const headers = new HttpHeaders().set('Authorization', "Basic " + btoa(`${this.oauthCliUsername}:${this.oauthCliPassword}`)).set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         const params =
             new HttpParams({
                 fromObject: {

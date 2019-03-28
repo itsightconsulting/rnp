@@ -2,6 +2,8 @@ package pe.gob.osce.rnp.seg.constants;
 
 public class ViewConstant {
 
+    private ViewConstant(){}
+
     //MAIN Views
     public static final String LOGIN = "login";
     public static final String ERROR403 = "error/403";

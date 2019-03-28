@@ -19,6 +19,9 @@ import {DateValidator} from "./form-datos-iden/date-validator.directive";
 import { ResetUserComponent } from './reset-user/reset-user.component';
 import { BuscarEmpresaComponent } from './buscar-empresa/buscar-empresa.component';
 import { ErrorApiComponent } from './error-api/error-api.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { ValidacionSsoComponent } from './validacion-sso/validacion-sso.component';
+import { UpdCorreoComponent } from './upd-correo/upd-correo.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { ErrorApiComponent } from './error-api/error-api.component';
     FormDatosIdenComponent,
     ResetUserComponent,
     BuscarEmpresaComponent,
-    ErrorApiComponent],
+    ErrorApiComponent,
+    NotFoundComponent,
+    ValidacionSsoComponent,
+    UpdCorreoComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

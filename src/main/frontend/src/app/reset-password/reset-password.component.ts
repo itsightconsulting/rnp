@@ -10,9 +10,9 @@ import {CookieService} from "ngx-cookie-service";
 export class ResetPasswordComponent implements OnInit {
   refCaptcha: any;
   ruc: any;
-  failCaptcha: boolean = false;
+  failCaptcha = false;
   errorMessage: string;
-  activeOpsCambio: boolean = false;
+  activeOpsCambio = false;
 
   constructor(private resetPasswordService: ResetPasswordService, private cookie: CookieService) { }
 
@@ -49,43 +49,54 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     preventMultipleSubmit(btn, r){
-        if(r.valid) {
-            if (r.controls.CodeCaptcha.value == this.cookie.get('cap_code') && !btn.hasAttribute('disabled')) {
-                btn.setAttribute('disabled','disabled');
-                this.resetPasswordService.getOpciones(r.controls.Ruc.value).subscribe((d: any) => {
-                        if (d.flag) {
-                            this.activeOpsCambio = true;
-                            this.cookie.set('ruc_prov', r.controls.Ruc.value, 0, '/');
-                            this.ruc = r.controls.Ruc.value;
-                            document.querySelectorAll('label.group-rbt').forEach(v => v.classList.remove('hidden'));
-                            for(let i=0; i<Object.values(d.d).length; i++){
-                                Object.values(d.d)[i] == "NO" ? document.querySelectorAll('label.group-rbt')[i].classList.add('hidden') : "";
-                            }
-                            this.cookie.set('my_opcs_recover_password', JSON.stringify(d.d), 0, '/');
-                        } else {
-                            this.refreshCaptcha();
-                            this.errorMessage = d.d;
-                            this.failCaptcha = false;
-                            r.controls.CodeCaptcha.setErrors({'incorrect': true});
-                        }
-                    },
-                    err => {
-                        this.errorMessage = err.status + ": "+err.statusText;
-                        btn.removeAttribute('disabled');
-                    },
-                    ()=>{
-                        setTimeout(()=>this.errorMessage = "", 4500);
-                    }
-                )
-            }else {
-                this.refreshCaptcha(true);
-                setTimeout(()=>this.failCaptcha = false, 3000);
-                r.controls.CodeCaptcha.setErrors({'incorrect': true});
+        if(!r.valid){
+            r.controls.forEach(v=>v.markAsTouched());
+            return;
+        }
+        const captchaVal = r.controls.CodeCaptcha.value === this.cookie.get('cap_code');
+
+        if (!captchaVal) {
+            this.refreshCaptcha(true);
+            setTimeout(()=>this.failCaptcha = false, 3000);
+            r.controls.CodeCaptcha.setErrors({'incorrect': true});
+            return;
+        }
+
+        if(captchaVal){
+            btn.setAttribute('disabled','disabled');
+            this.resetPasswordService.getOpciones(r.controls.Ruc.value).subscribe((d: any) => {
+                    this.reducingComplexity(d, r);
+            },
+            err => {
+                this.errorMessage = `${err.status}: ${err.statusText}`;
+                btn.removeAttribute('disabled');
+            },
+            ()=>{
+                setTimeout(()=>this.errorMessage = "", 4500);
+            })
+        }
+    }
+
+    reducingComplexity(d: any, r: any){
+        if (d.flag) {
+            this.activeOpsCambio = true;
+            this.cookie.set('ruc_prov', r.controls.Ruc.value, 0, '/');
+            this.ruc = r.controls.Ruc.value;
+            Array.from(document.querySelectorAll('label.group-rbt')).forEach(v => v.classList.remove('hidden'));
+            const objValues = Object.keys(d.d).map(key=>d.d[key]);
+            for(let i=0; i<objValues.length; i++){
+                if(objValues[i] == "NO") {
+                    document.querySelectorAll('label.group-rbt')[i].classList.add('hidden');
+                }
             }
-        } else{
-            for(let i in r.controls){
-                r.controls[i].markAsTouched();
-            }
+            this.cookie.set('my_opcs_recover_password', JSON.stringify(d.d), 0, '/');
+            return;
+        } else {
+            this.refreshCaptcha();
+            this.errorMessage = d.d;
+            this.failCaptcha = false;
+            r.controls.CodeCaptcha.setErrors({'incorrect': true});
+            return;
         }
     }
 }

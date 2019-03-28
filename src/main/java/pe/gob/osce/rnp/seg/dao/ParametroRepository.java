@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface ParametroRepository extends JpaRepository<Parametro, Integer> {
 
-    Optional<Parametro> findByParametro(String parametro);
+    Optional<Parametro> findByClave(String valor);
 }

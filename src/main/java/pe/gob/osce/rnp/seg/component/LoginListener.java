@@ -9,6 +9,8 @@ public class LoginListener implements ApplicationListener<InteractiveAuthenticat
 
     @Override
     public void onApplicationEvent(InteractiveAuthenticationSuccessEvent login) {
-        // TODO Auto-generated method stub
+        /*
+         *
+         */
     }
 }

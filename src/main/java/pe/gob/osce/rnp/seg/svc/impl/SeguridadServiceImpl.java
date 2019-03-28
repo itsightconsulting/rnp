@@ -21,6 +21,9 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
 
     public static final Logger LOGGER = LogManager.getLogger(SeguridadServiceImpl.class);
 
+    private static final String MSG_RUC_INV = "Ruc inválido";
+    private static final String MSG_EXCEP_PREFIX = "Excepción: ";
+
     private EmailService emailService;
 
     private ProveedorProcedureInvokerRepository proveedorRepository;
@@ -47,10 +50,11 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
                 LOGGER.info("El código de verificación tiene tamaño inválido o vacio");
                 return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El código de verificación tiene tamaño inválido o vacio");
             }
-            LOGGER.info("Ruc inválido");
-            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Ruc inválido");
+            LOGGER.info(MSG_RUC_INV);
+            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, MSG_RUC_INV);
         } catch (Exception ex){
-            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
+            LOGGER.warn("Method: validarCodVerificacion() | Excepcion: "+ex.getMessage());
+            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, MSG_EXCEP_PREFIX+ex.getMessage());
         }
     }
 
@@ -60,7 +64,7 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
             String ruc = updClave.getRuc().toString();
             String correo = updClave.getCorreo();
             if (!Validador.validarUsuario(updClave.getRuc())) {
-                LOGGER.info("Ruc inválido");
+                LOGGER.info(MSG_RUC_INV);
                 return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El usuario debe empezar por 10, 20 o 9");
             }
 
@@ -74,41 +78,37 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
                 return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El correo presenta un formato inválido: " + correo);
             }
 
-            /*if(!repository.validarCodVer(ruc, updClave.getCodVerificacion())){
-                LOGGER.info("El código de verificación proporcionado ha cadudado o no es válido: COD-"+updClave.getCodVerificacion());
-                return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El código de verificación proporcionado ha cadudado o no es válido: COD-"+updClave.getCodVerificacion());
-            }*/
-
             boolean exito = repository.validarClave(ruc);
-            if (exito) {
-                exito = repository.actualizarClave(ruc, updClave.getClave());
-                if (exito) {
-                    Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(proveedorRepository.obtenerContenidoCorreoByTipo(2, ruc, "", null));
-                    if (optCorreo.isPresent()) {
-                        ContenidoCorreoPOJO contenidoCorreo = optCorreo.get();
-                        boolean mailEnviado = emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correo, contenidoCorreo.getCuerpo());
-                        if(mailEnviado){
-                            boolean exitoRegistro = proveedorRepository.registrarCorreoEnviado(ruc, contenidoCorreo.getAsuntoId(), correo).equals("1");
-                            if (exitoRegistro)
-                                return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Su clave ha sido actualizada satisfactoriamente y un correo electrónico de confirmación le ha sido enviado");
-                            LOGGER.info("La clave ha sido actualizada y el correo enviado pero el registro del correo en bandeja ha fallado");
-                            return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 1, "Su clave ha sido actualizada y un correo de confirmación le ha sido enviado");
-                        }
-                        LOGGER.info("La clave ha sido actualizada pero el correo de confirmación no ha podido ser enviado por un problema interno");
-                        return new Respuesta<>(ResponseCode.EX_MAIL_EXCEPTION.get(), 1, "La clave ha sido actualizada pero el correo de confirmación no ha podido ser enviado por un problema interno");
-
-                    }
-                    LOGGER.info("La clave ha sido actualizada pero el correo no ha sido enviado");
-                    return new Respuesta(ResponseCode.EXITO_GENERICA.get(), 1, "La clave ha sido actualizada pero el correo no ha sido enviado");
-                }
-                LOGGER.info("Lamentablemente la clave no ha podido ser actualizada. Intentarlo más tarde");
-                return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Lamentablemente la clave no ha podido ser actualizada. Intentarlo más tarde");
+            if (!exito) {
+                LOGGER.info("La clave tiene un formato inválido");
+                return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "La clave tiene un formato inválido");
             }
-            LOGGER.info("La clave tiene un formato inválido");
-            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "La clave tiene un formato");
+
+            exito = repository.actualizarClave(ruc, updClave.getClave(), updClave.getCodVerificacion());
+            if (exito) {
+                Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(proveedorRepository.obtenerContenidoCorreoByTipo(2, ruc, "", null, null));
+                if (optCorreo.isPresent()) {
+                    ContenidoCorreoPOJO contenidoCorreo = optCorreo.get();
+                    boolean mailEnviado = emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correo, contenidoCorreo.getCuerpo());
+                    if(mailEnviado){
+                        boolean exitoRegistro = proveedorRepository.registrarCorreoEnviado(ruc, contenidoCorreo.getAsuntoId(), correo).equals("1");
+                        if (exitoRegistro)
+                            return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Su clave ha sido actualizada satisfactoriamente y un correo electrónico de confirmación le ha sido enviado");
+                        LOGGER.info("La clave ha sido actualizada y el correo enviado pero el registro del correo en bandeja ha fallado");
+                        return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 1, "Su clave ha sido actualizada y un correo de confirmación le ha sido enviado");
+                    }
+                    LOGGER.info("La clave ha sido actualizada pero el correo de confirmación no ha podido ser enviado por un problema interno");
+                    return new Respuesta<>(ResponseCode.EX_MAIL_EXCEPTION.get(), 1, "La clave ha sido actualizada pero el correo de confirmación no ha podido ser enviado por un problema interno");
+
+                }
+                LOGGER.info("La clave ha sido actualizada pero el correo no ha sido enviado");
+                return new Respuesta(ResponseCode.EXITO_GENERICA.get(), 1, "La clave ha sido actualizada pero el correo no ha sido enviado");
+            }
+            LOGGER.info("Lamentablemente la clave no ha podido ser actualizada. Intentarlo más tarde");
+            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Lamentablemente la clave no ha podido ser actualizada. Intentarlo más tarde");
         }catch (Exception ex){
-            LOGGER.info("Excepción: "+ex.getMessage());
-            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
+            LOGGER.warn("Method: actualizarClave() | Excepcion: "+ex.getMessage());
+            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, MSG_EXCEP_PREFIX+ex.getMessage());
         }
     }
 
@@ -122,10 +122,11 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
                 LOGGER.info("Usuario o clave no válida");
                 return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Usuario o clave no válida");
             }
-            LOGGER.info("Ruc inválido");
+            LOGGER.info(MSG_RUC_INV);
             return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El usuario debe empezar por 9, 10 o 20");
         } catch (Exception ex){
-            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
+            LOGGER.warn("Method: validarIngreso() | Excepcion: "+ex.getMessage());
+            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, MSG_EXCEP_PREFIX+ex.getMessage());
         }
     }
 }

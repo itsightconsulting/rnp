@@ -1,8 +1,5 @@
 package pe.gob.osce.rnp.seg.svc.impl;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +10,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import pe.gob.osce.rnp.seg.dao.SecurityUserRepository;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityPrivilege;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityRole;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityUser;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class SecurityUserServiceImpl implements UserDetailsService {
@@ -28,8 +27,7 @@ public class SecurityUserServiceImpl implements UserDetailsService {
     private SecurityUserRepository securityUserRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
+    public UserDetails loadUserByUsername(String username) {
 
         try {
             SecurityUser user = securityUserRepository.findByUsername(username);
@@ -40,7 +38,6 @@ public class SecurityUserServiceImpl implements UserDetailsService {
             }
 
         } catch (Exception e) {
-            // TODO: handle exception
             LOGGER.info("> Excepción | (?): " + username.toUpperCase());
             throw new UsernameNotFoundException("UsernameNotFoundException | (?): " + username.toUpperCase());
         }

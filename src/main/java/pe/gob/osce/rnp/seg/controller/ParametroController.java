@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pe.gob.osce.rnp.seg.constants.ViewConstant;
 import pe.gob.osce.rnp.seg.model.jpa.Parametro;
+import pe.gob.osce.rnp.seg.model.jpa.pojo.ParametroPOJO;
 import pe.gob.osce.rnp.seg.svc.ParametroService;
 
 import javax.validation.Valid;
@@ -44,12 +45,15 @@ public class ParametroController {
     }
 
     @PostMapping(value = "/add")
-    public ModelAndView actualizar(@Valid @ModelAttribute(value = "paramModel") Parametro parametro,
+    public ModelAndView actualizar(@Valid @ModelAttribute(value = "paramModel") ParametroPOJO parametro,
                                    BindingResult bindingResult,
                                    RedirectAttributes redirectAttributes) {
         if(!bindingResult.hasErrors()){
-            if(parametro.getId()>0)
-                parametroService.save(parametro);
+            if(parametro.getId()>0) {
+                Parametro parametro1 = parametroService.findOne(parametro.getId());
+                parametro1.setValor(parametro.getValor());
+                parametroService.save(parametro1);
+            }
         }else{
             redirectAttributes.addFlashAttribute("error", "No puede guardar como vacío el valor del parámetro");
             return new ModelAndView(ViewConstant.REDIRECT_MAIN_PARAMETRO_FORM + parametro.getId());
@@ -57,6 +61,7 @@ public class ParametroController {
 
         return new ModelAndView(ViewConstant.REDIRECT_MAIN_PARAMETRO);
     }
+
     @GetMapping(value = "/cancelar")
     public ModelAndView cancelar() {
         return new ModelAndView(ViewConstant.MAIN_PARAMETRO);

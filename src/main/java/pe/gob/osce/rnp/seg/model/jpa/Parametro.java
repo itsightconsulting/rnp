@@ -1,14 +1,12 @@
 package pe.gob.osce.rnp.seg.model.jpa;
 
-import java.io.Serializable;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import pe.gob.osce.rnp.seg.model.jpa.base.AuditingEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import pe.gob.osce.rnp.seg.model.jpa.base.AuditingEntity;
+import java.io.Serializable;
 
 
 @Entity
@@ -23,7 +21,7 @@ public class Parametro extends AuditingEntity implements Serializable {
     private int id;
 
     @Column(name = "PARAMETRO", nullable = false, updatable = false)
-    private String parametro;
+    private String clave;
 
     @Size(min = 1)
     @Column(name = "VALOR", nullable = false)
@@ -31,8 +29,8 @@ public class Parametro extends AuditingEntity implements Serializable {
 
     public Parametro(){}
 
-    public Parametro(String parametro, String valor) {
-        this.parametro = parametro;
+    public Parametro(String clave, String valor) {
+        this.clave = clave;
         this.valor = valor;
     }
 }

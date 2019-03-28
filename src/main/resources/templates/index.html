@@ -5,15 +5,18 @@
 <head lang="en">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>RNP OAuth Server</title>
-    <link rel="stylesheet" th:href="@{webjars/bootstrap/3.3.2/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.2/css/bootstrap.min.css}"/>
 </head>
 <body>
 <div class="container">
     <h1 class="page-header">RNP OAuth Server Administration Dashboard </h1>
     <div class="row">
         <div class="col-md-12">
-            <span sec:authorize="isAuthenticated()" style="display: inline-block;">
-                    <a class="btn btn-danger" th:href="@{/logout}">Salir</a>
+                <span sec:authorize="isAuthenticated()" style="display: inline-block;">
+                    <form th:action="@{/logout}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <input type="submit" value="Salir" id="btnLogout" class="btn btn-danger"/>
+                    </form>
                 </span>
             <span sec:authorize="isAuthenticated()" class="pull-right">
                     <a class="btn btn-primary" th:href="@{/gestion/parametro}">Gestión de Parámetros</a>
@@ -77,18 +80,22 @@
                     <td th:text="${client.authorizedGrantTypes}"></td>
                     <td th:text="${client.authorities}"></td>
                     <td>
-                        <a class="btn btn-default btn-xs" th:href="@{/clients/form?client=__${client.clientId}__}">
+                        <a class="btn btn-default btn-xs" th:href="@{/clients/form?client=__${client.clientId}__}" title="Update">
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
-                        <a class="btn btn-default btn-xs" th:href="@{/clients/__${client.clientId}__/delete}">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </a>
+                        <form id="frm_act_del" th:action="@{/clients/__${client.clientId}__/delete}" th:method="DELETE" style="display: inline;">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            <a class="btn btn-default btn-xs" href="#" th:onclick="document.querySelector('#frm_act_del').submit()" title="Delete">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                        </form>
+
                     </td>
                 </tr>
                 <tr>
                     <td colspan="6">
-                        <a class="btn btn-default btn-xs pull-right" href="/clients/form">
-                            <span class="glyphicon glyphicon-plus"></span>
+                        <a class="btn btn-default btn-xs pull-right" th:href="@{/clients/form}" title="Add" style="background: #3a4cff;">
+                            <span class="glyphicon glyphicon-plus" style="font-size: 2em; color: #fff;"></span>
                         </a>
                     </td>
                 </tr>

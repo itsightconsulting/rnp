@@ -20,4 +20,6 @@ public class PreCorreoDTO implements Serializable {
     @Null
     private String ipCliente;
 
+    private String expiration;
+
 }

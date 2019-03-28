@@ -12,14 +12,16 @@ export class ListadoOpcionComponent implements OnInit {
 
   existsLstRepre: boolean;
   opcs: string[];
-  opcElegida: number = 1;
-  mailRepElegido: string = "1";
+  opcElegida = 1;
+  mailRepElegido = "1";
   err: string;
   @Input()
   ruc: string = this.cookie.check('ruc_prov') ? this.cookie.get('ruc_prov') : "";
   lstRepresentante: any[];
   repSelected: any;
-  valMsgNoRecuperado: boolean = false;
+  valMsgNoRecuperado = false;
+  hrefRouteValidacion = "recuperar/password/validacion";
+  passCaptcha = "ok";
 
   constructor(private cookie: CookieService, private listadoOpcService: ListadoOpcionService) {
       this.opcs = [
@@ -35,8 +37,12 @@ export class ListadoOpcionComponent implements OnInit {
       setTimeout(()=>{
           const opcs = this.cookie.get('my_opcs_recover_password');
           if(opcs != undefined && this.isJsonString(opcs)){
-              for(let i=0; i<Object.values(JSON.parse(opcs)).length; i++){
-                  Object.values(JSON.parse(opcs))[i] == "NO" ? document.querySelectorAll('label.group-rbt')[i].classList.add('hidden') : "";
+              const obj = JSON.parse(opcs);
+              const opcsValues =  Object.keys(obj).map(key=>obj[key]);
+              for(var i=0; i<opcsValues.length; i++){
+                  if(opcsValues[i] == "NO") {
+                      document.querySelectorAll('label.group-rbt')[i].classList.add('hidden');
+                  }
               }
           }
           document.querySelector('#OpcsPass').classList.toggle('hidden');
@@ -44,32 +50,34 @@ export class ListadoOpcionComponent implements OnInit {
   }
 
   obtenerCorreo(btn){
-      let ruc = this.cookie.get('ruc_prov');
+      const ruc = this.cookie.get('ruc_prov');
       this.listadoOpcService.getCorreoByRuc(ruc).subscribe(
           (x: any)=> {
           if(x.flag){
               this.cookie.set('email_prov', x.d, 0, '/');
-              window.location.href = '/recuperar/password/validacion';
+              this.cookie.set('checkCaptcha', this.passCaptcha,  0.00083, '/');
+              window.location.href = document.querySelector('base').href+this.hrefRouteValidacion;
           }else{
               btn.classList.remove('disabled');
               this.err = x.d;
           }
       },err=>{
-          this.err = err.status + ": "+err.statusText;
+          this.err = `${err.status}: ${err.statusText}`;
           btn.classList.remove('disabled');
       }, ()=>{
-              setTimeout(()=>this.err = "", 4000);
+              setTimeout(()=>this.err = "", 6000);
       });
   }
 
   obtenerCorreoRepresentantes(btn){
-      let ruc = this.cookie.get('ruc_prov');
+      const ruc = this.cookie.get('ruc_prov');
       this.listadoOpcService.getCorreoRepresentantesByRuc(ruc).subscribe(
           (x: any)=> {
               if(x.flag){
                 if(x.d.length==1){
                     this.cookie.set('email_prov', x.d[0].correoRepresentante, 0, '/');
-                    window.location.href = '/recuperar/password/validacion';
+                    this.cookie.set('checkCaptcha', this.passCaptcha,  0.083, '/');
+                    window.location.href = document.querySelector('base').href+this.hrefRouteValidacion;
                 }else{
                     this.existsLstRepre = true;
                     this.lstRepresentante = Array.from(new Set(x.d.map(v=>JSON.stringify(v)))).map((v: any)=>JSON.parse(v)).map(v=>
@@ -84,18 +92,19 @@ export class ListadoOpcionComponent implements OnInit {
                   this.err = x.d;
               }
           },err=>{
-              this.err = err.status + ": "+err.statusText;
+              this.err = `${err.status}: ${err.statusText}`;
           }, ()=>{
               btn.classList.remove('disabled');
-              setTimeout(()=>this.err = "", 4000);
+              setTimeout(()=>this.err = "", 6000);
           });
   }
 
   enviarOpcion(evt){
-    let btn = evt.target;
+    const btn = evt.target;
     if(!btn.classList.contains('disabled')){
         btn.classList.add('disabled');
         if(this.opcElegida == 1){
+            console.log(1);
             this.obtenerCorreo(btn);
         }
 
@@ -104,13 +113,11 @@ export class ListadoOpcionComponent implements OnInit {
         }
 
         if(this.opcElegida == 3){
-            this.err = "Este servicio no se encuentra disponible en este momento. Intentar nuevamente más tarde";
-            btn.classList.remove('disabled');
-            setTimeout(()=>this.err = "", 5500);
+            window.location.href = 'https://200.123.25.107/auth-sunatsol/externaluserauth?opt=loginExt';
         }
 
         if(this.opcElegida == 4){
-            window.location.href = '/recuperar/password/validar/datos-identificacion';
+            window.location.href = document.querySelector('base').href+'recuperar/password/validar/datos-identificacion';
         }
     }
   }
@@ -122,7 +129,8 @@ export class ListadoOpcionComponent implements OnInit {
       }else{
           this.cookie.set('email_prov', this.mailRepElegido, 0, '/');
       }
-      window.location.href = '/recuperar/password/validacion';
+      this.cookie.set('checkCaptcha', this.passCaptcha,  0.083, '/');
+      window.location.href = document.querySelector('base').href+this.hrefRouteValidacion;
   }
 
   msgNoRecuperado() {

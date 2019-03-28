@@ -6,7 +6,7 @@ public interface SeguridadProcedureInvokerRepository {
 
     Boolean validarClave(String ruc);
 
-    Boolean actualizarClave(String ruc, String nuevaClave);
+    Boolean actualizarClave(String ruc, String nuevaClave, String codVer);
 
     Boolean validarIngreso(String toString, String clave);
 }

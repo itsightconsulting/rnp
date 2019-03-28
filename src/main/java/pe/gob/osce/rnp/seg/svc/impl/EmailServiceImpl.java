@@ -10,12 +10,10 @@ import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import pe.gob.osce.rnp.seg.generic.EmailGeneric;
 import pe.gob.osce.rnp.seg.svc.EmailService;
-import pe.gob.osce.rnp.seg.utils.Enums;
 
 import javax.mail.internet.InternetAddress;
 import javax.servlet.ServletContext;
 import java.io.UnsupportedEncodingException;
-import java.util.Optional;
 
 @Service
 public class EmailServiceImpl extends EmailGeneric implements EmailService {
@@ -31,30 +29,9 @@ public class EmailServiceImpl extends EmailGeneric implements EmailService {
     
     @Autowired
     public EmailServiceImpl(JavaMailSender emailSender, ServletContext context) {
-		// TODO Auto-generated constructor stub
     	this.emailSender = emailSender;
     	this.context = context;
 	}
-
-    @Override
-    public void enviarCorreoActivarUsuario(String asunto, String receptor, String contenido) {
-        MimeMessagePreparator preparator = mimeMessagePreparator(asunto, receptor, contenido);
-        try {
-            emailSender.send(preparator);
-        } catch (MailException ex) {
-            LOGGER.info(ex.getMessage());
-        }
-    }
-
-    @Override
-    public void enviarCorreoRecuperarContrasena(String asunto, String receptor, String contenido) {
-        MimeMessagePreparator preparator = mimeMessagePreparator(asunto, receptor, contenido);
-        try {
-            emailSender.send(preparator);
-        } catch (MailException ex) {
-            LOGGER.info(ex.getMessage());
-        }
-    }
 
     @Override
     public Boolean enviarCorreoInformativo(String asunto, String receptor, String contenido) {
@@ -63,13 +40,7 @@ public class EmailServiceImpl extends EmailGeneric implements EmailService {
             receptor = profile.equals("production") ? receptor : "EGMP.RNP.CLAVE@GMAIL.COM";
             preparator = mimeMessagePreparator(asunto, receptor, contenido, new InternetAddress(context.getAttribute("MAIL_USERNAME").toString(),"RNP Plataforma Electrónica"));
             emailSender.send(preparator);
-        } catch (UnsupportedEncodingException ex) {
-            LOGGER.info(ex.getMessage());
-            return false;
-        } catch (MailException ex) {
-            LOGGER.info(ex.getMessage());
-            return false;
-        } catch (Exception ex){
+        } catch (UnsupportedEncodingException|MailException | NullPointerException ex) {
             LOGGER.info(ex.getMessage());
             return false;
         }

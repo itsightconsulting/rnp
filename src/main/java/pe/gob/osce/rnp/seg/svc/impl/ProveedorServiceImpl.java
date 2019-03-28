@@ -2,6 +2,7 @@ package pe.gob.osce.rnp.seg.svc.impl;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hashids.Hashids;
 import org.springframework.stereotype.Service;
 import pe.gob.osce.rnp.seg.dao.ProveedorProcedureInvokerRepository;
 import pe.gob.osce.rnp.seg.generic.BaseServiceImpl;
@@ -10,6 +11,7 @@ import pe.gob.osce.rnp.seg.model.jpa.pojo.ContenidoCorreoPOJO;
 import pe.gob.osce.rnp.seg.svc.EmailService;
 import pe.gob.osce.rnp.seg.svc.ProveedorService;
 import pe.gob.osce.rnp.seg.utils.Enums.ResponseCode;
+import pe.gob.osce.rnp.seg.utils.Parseador;
 import pe.gob.osce.rnp.seg.utils.Validador;
 
 import java.util.List;
@@ -20,6 +22,18 @@ import java.util.Optional;
 public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvokerRepository> implements ProveedorService {
 
     public static final Logger LOGGER = LogManager.getLogger(ProveedorServiceImpl.class);
+
+    private static final String MSG_RS_LEN = "Result set length: 0";
+    private static final String MSG_RUC_INV = "Ruc inválido: ";
+    private static final String MSG_RUC_NO_REG = "Usuario no se encuentra registrado en el RNP";
+    private static final String MSG_MAIL_REP_NO_REG = "No se encontró correo electrónico de representante o apoderado registrado en el RNP";
+    private static final String MSG_J_RUC_INV = "Ruc inválido";
+    private static final String MSG_EXCEP_PREFIX = "Excepción: ";
+    private static final String MSG_CORREO_INV = "El correo presenta un formato inválido: ";
+    private static final String MSG_CORREO_S_FAIL = "El servicio de envio de correo no se encuentra disponible en este momento. Intentarlo nuevamente más tarde";
+    private static final String MSG_CORREO_S_FAIL_LOG = "El servicio de envio de correo no se encuentra disponible en este momento | Metodo: ProveedorServiceImpl.enviarCorreoProvExtNoDom(String correo)";
+    private static final String MSG_CONF_CORREO = "Un correo le ha sido enviado con todos los nombres de usuario a los que el correo brindado esta asociado. Por favor revisar su bandeja de correo";
+    private static final String MSG_MATCHES_NF = "No tenemos registrado la cuenta de correo proporcionada";
 
     private EmailService emailService;
 
@@ -38,12 +52,13 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
                     if(optOpc.isPresent())
                         return new Respuesta(ResponseCode.EXITO_GENERICA.get(), 1, optOpc.get());
                 }
-                LOGGER.info("Resul set length: 0");
-                return new Respuesta(ResponseCode.EMPTY_RESPONSE.get(), 0, "Ruc inválido: "+ruc);
+                LOGGER.info(MSG_RUC_NO_REG + ": "+ruc);
+                return new Respuesta(ResponseCode.EMPTY_RESPONSE.get(), 0, MSG_RUC_NO_REG);
             }
-            LOGGER.info("Ruc inválido");
-            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Ruc inválido: "+ruc);
+            LOGGER.info(MSG_J_RUC_INV);
+            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, MSG_RUC_INV+ruc);
         }catch (Exception ex){
+            LOGGER.warn("Method: obtenerOpciones() | Excepcion: "+ex.getMessage());
             return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0);
         }
     }
@@ -56,13 +71,14 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
                 if(optCorreo.isPresent()){
                     return new Respuesta(ResponseCode.EXITO_GENERICA.get(), 1, optCorreo.get());
                 }
-                LOGGER.info("Resul set length: 0");
-                return new Respuesta(ResponseCode.EMPTY_RESPONSE.get(), 0, "El ruc no ha coincidido con ninguno de nuestros registros");
+                LOGGER.info(MSG_RS_LEN);
+                return new Respuesta(ResponseCode.EMPTY_RESPONSE.get(), 0, "No cuenta con correo electrónico registrado en el RNP");
             }
-            LOGGER.info("Ruc inválido");
-            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "Ruc inválido: "+ ruc);
+            LOGGER.info(MSG_J_RUC_INV);
+            return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, MSG_RUC_INV+ ruc);
         } catch (Exception ex){
-            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
+            LOGGER.warn("Method: obtenerCorreo() | Excepcion: "+ex.getMessage());
+            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, MSG_EXCEP_PREFIX+ex.getMessage());
         }
     }
 
@@ -70,16 +86,17 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
     public Respuesta<List<CorreoRepDTO>> obtenerListadoCorreoRepresentante(Long ruc) {
         try {
             if(Validador.validarUsuario(ruc)){
-                Optional<List<CorreoRepDTO>> lstCorreos = Optional.ofNullable(repository.obtenerListadoCorreoRepresentante(ruc.toString()));
-                if(lstCorreos.isPresent()){
-                    return new Respuesta(ResponseCode.EXITO_GENERICA.get(), 1, lstCorreos.get());
+                List<CorreoRepDTO> lstCorreos = repository.obtenerListadoCorreoRepresentante(ruc.toString());
+                if(!lstCorreos.isEmpty()){
+                    return new Respuesta(ResponseCode.EXITO_GENERICA.get(), 1, lstCorreos);
                 }
-                LOGGER.info("Resul set length: 0");
-                return new Respuesta(ResponseCode.EMPTY_RESPONSE.get(), 0, "La búsqueda del ruc no ha encontrado coincidencias: "+ruc);
+                LOGGER.info(MSG_MAIL_REP_NO_REG+": "+ruc);
+                return new Respuesta(ResponseCode.EMPTY_RESPONSE.get(), 0, MSG_MAIL_REP_NO_REG);
             }
-            LOGGER.info("Ruc inválido");
+            LOGGER.info(MSG_J_RUC_INV);
             return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El ruc ingresado es inválido: "+ruc);
         } catch (Exception ex){
+            LOGGER.warn("Method: obtenerListadoCorreoRepresentante() | Excepcion: "+ex.getMessage());
             return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0);
         }
     }
@@ -92,11 +109,12 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
             if(!Validador.validarUsuario(ruc))
                 return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El ruc ingresado no es inválido: "+ruc);
             if(!Validador.validarCorreo(correoDestino))
-                return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El correo presenta un formato inválido: "+correoDestino);
+                return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, MSG_CORREO_INV+correoDestino);
 
             Optional<String> optCodVer = Optional.ofNullable(repository.obtenerCodigoVerificacion(ruc.toString(), correoDestino, preCorreoDTO.getIpCliente()));
             if(optCodVer.isPresent()){
-                Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(repository.obtenerContenidoCorreoByTipo(1, ruc.toString(), optCodVer.get(), null));
+                String fechaExpiration = preCorreoDTO.getExpiration();
+                Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(repository.obtenerContenidoCorreoByTipo(1, ruc.toString(), optCodVer.get(), null, fechaExpiration));
                 if(optCorreo.isPresent()){
                     ContenidoCorreoPOJO contenidoCorreo = optCorreo.get();
                     Boolean mailEnviado = emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correoDestino,contenidoCorreo.getCuerpo());
@@ -108,24 +126,25 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
                         return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED_BUT_MAIN_REQ_SUCCESS.get(), 1, "Un código de verificación ha sido enviado satisfactoriamente a su correo. Revise su bandeja");
                     }
                     LOGGER.info("El servicio de envio de correo no se encuentra disponible en este momento | Metodo: ProveedorServiceImpl.enviarCorreo(PreCorreoDTO preCorreoDTO)");
-                    return new Respuesta<>(ResponseCode.EX_MAIL_EXCEPTION.get(), 0, "El servicio de envio de correo no se encuentra disponible en este momento. Intentarlo nuevamente más tarde");
+                    return new Respuesta<>(ResponseCode.EX_MAIL_EXCEPTION.get(), 0, MSG_CORREO_S_FAIL);
                 }
             }
             LOGGER.info("El código de verificación no ha podido ser generado");
             return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El código de verificación no ha podido ser generado");
         } catch (Exception ex){
-            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
+            LOGGER.warn("Method: enviarCorreo() | Excepcion: "+ex.getMessage());
+            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, MSG_EXCEP_PREFIX+ex.getMessage());
         }
     }
 
     @Override
     public Respuesta<List<ForaneaProveedorDTO>> obtenerListadoForaneaProveedor(String foranea) {
         try {
-            Optional<List<ForaneaProveedorDTO>> optLstForanea = Optional.ofNullable(repository.obtenerListadoForanea(foranea));
-            if(optLstForanea.isPresent())
-                return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, optLstForanea.get());
+            List<ForaneaProveedorDTO> optLstForanea = repository.obtenerListadoForanea(foranea);
+            if(!optLstForanea.isEmpty())
+                return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, optLstForanea);
         }catch (Exception ex){
-            LOGGER.info("Excepcion: "+ex.getMessage());
+            LOGGER.warn("Method: obtenerListadoForaneaProveedor() | Excepcion: "+ex.getMessage());
             return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0);
         }
         LOGGER.info("Se ha devuelto un listado vacio");
@@ -133,19 +152,27 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
     }
 
     @Override
-    public Respuesta<String> validarDatosIdentificacion(DatosIdentificacionDTO dtsIdentificacion) {
+    public Respuesta<String> validarDatosIdentificacion(DatosIdentificacionDTO dtsIdentificacion, String ipCliente) {
         try{
             if(Validador.validarUsuario(dtsIdentificacion.getRuc())){
                 boolean exito = repository.validarDatosIdentificacion(dtsIdentificacion);
-                if(exito)
-                    return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Validación satisfactoria");
-                LOGGER.info("Los datos de identificación brindados no han encontrado ninguna coincidencia");
-                return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 0, "Los datos de identificación brindados no han encontrado ninguna coincidencia");
+                if(!exito){
+                    LOGGER.info("Los datos de identificación brindados no han encontrado ninguna coincidencia");
+                    return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 0, "Los datos de identificación brindados no han encontrado ninguna coincidencia");
+                }
+                exito = repository.registrarValPreviaActulizacionCorreo(dtsIdentificacion.getRuc().toString(), ipCliente);
+                if(!exito){
+                    LOGGER.info("El sp creador del registro de auditoria previo a actualizar el correo ha fallado");
+                    return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 0, "El servicio de recuperación de contraseña vía validación de datos no se encuentra disponible");
+                }
+
+                return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Validación satisfactoria");
             }
             LOGGER.info("El ruc proporcionado no es válido");
             return new Respuesta(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El ruc proporcionado no es válido");
         }catch (Exception ex){
-            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
+            LOGGER.warn("Method: validarDatosIdentificacion() | Excepcion: "+ex.getMessage());
+            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, MSG_EXCEP_PREFIX+ex.getMessage());
         }
     }
 
@@ -155,7 +182,7 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
             if(!Validador.validarUsuario(ruc))
                 return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El ruc ingresado no es inválido: "+ruc);
             if(!Validador.validarCorreo(correo))
-                return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El correo presenta un formato inválido: "+correo);
+                return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, MSG_CORREO_INV+correo);
 
             ProcedureOutputDTO  spOut = repository.actualizarCorreoExtNoDom(ruc.toString(), correo);
             if(spOut.getRespuesta().equals("1"))
@@ -163,119 +190,63 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
             LOGGER.info(spOut.getMensaje());
             return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, spOut.getMensaje());
         } catch (Exception ex){
-            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
+            LOGGER.warn("Method: actualizarCorreoExtNoDom() | Excepcion: "+ex.getMessage());
+            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, MSG_EXCEP_PREFIX+ex.getMessage());
         }
     }
 
     @Override
-    public Respuesta<String> enviarCorreoProvExtNoDom(String correo) {
+    public Respuesta<String> enviarCorreoProvExtNoDomOrRepProvExtNoDom(String correo, int tipoPersona) {
         try {
             if(!Validador.validarCorreo(correo))
-                return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El correo presenta un formato inválido: "+correo);
-            Optional<List<ProExtNoDom>> optLst = Optional.ofNullable(repository.validarExistenciaCorreoExtNoDom(correo));
-            if(optLst.isPresent()){
-                String obsEmpresas = "", suffix="";
-                String ruc = optLst.get().get(0).getCodExtNoDom();
-                for(int i=0; i<optLst.get().size();i++){
-                    obsEmpresas+=suffix;
-                    obsEmpresas+= optLst.get().get(i).getCodExtNoDom() + "|";
-                    obsEmpresas+= optLst.get().get(i).getRazSocial() + "|";
-                    obsEmpresas+= optLst.get().get(i).getNomPais() + "";
+                return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, MSG_CORREO_INV+correo);
+            List<ProExtNoDom> optLst = tipoPersona == 1 ? repository.validarExistenciaCorreoExtNoDom(correo) : repository.validarExistenciaCorreoRepExtNoDom(correo);
+            if(!optLst.isEmpty()){
+                StringBuilder obsEmpresas = new StringBuilder();
+                String suffix="";
+                String ruc = optLst.get(0).getCodExtNoDom();
+                for(int i=0; i<optLst.size();i++){
+                    obsEmpresas.append(suffix);
+                    obsEmpresas.append(optLst.get(i).getCodExtNoDom() + "|");
+                    obsEmpresas.append(optLst.get(i).getRazSocial() + "|");
+                    obsEmpresas.append(optLst.get(i).getNomPais() + "");
                     suffix = "¬";
                 }
-                Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(repository.obtenerContenidoCorreoByTipo(4, null, null, obsEmpresas));
+                Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(repository.obtenerContenidoCorreoByTipo(4, null, null, obsEmpresas.toString(), null));
                 if(optCorreo.isPresent()){
                     ContenidoCorreoPOJO contenidoCorreo = optCorreo.get();
                     Boolean mailEnviado = emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correo, contenidoCorreo.getCuerpo());
                     if(mailEnviado){
                         boolean exitoRegistro = repository.registrarCorreoEnviado(ruc, contenidoCorreo.getAsuntoId(), contenidoCorreo.getCuerpo()).equals("1");
                         if(exitoRegistro)
-                            return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Un correo le ha sido enviado con todos los nombres de usuario a los que el correo brindado esta asociado. Por favor revisar su bandeja de correo");
+                            return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, MSG_CONF_CORREO);
                         LOGGER.info("El correo ha sido enviado pero no ha sido registrado en BD | Metodo: ProveedorServiceImpl.enviarCorreoProvExtNoDom(String correo)");
-                        return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED_BUT_MAIN_REQ_SUCCESS.get(), 1, "Un correo le ha sido enviado con todos los nombres de usuario a los que el correo brindado esta asociado. Por favor revisar su bandeja de correo");
+                        return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED_BUT_MAIN_REQ_SUCCESS.get(), 1, MSG_CONF_CORREO);
                     }
-                    LOGGER.info("El servicio de envio de correo no se encuentra disponible en este momento | Metodo: ProveedorServiceImpl.enviarCorreoProvExtNoDom(String correo)");
-                    return new Respuesta<>(ResponseCode.EX_MAIL_EXCEPTION.get(), 0, "El servicio de envio de correo no se encuentra disponible en este momento. Intentarlo nuevamente más tarde");
+                    LOGGER.info(MSG_CORREO_S_FAIL_LOG);
+                    return new Respuesta<>(ResponseCode.EX_MAIL_EXCEPTION.get(), 0, MSG_CORREO_S_FAIL);
                 }
-                LOGGER.info("El servicio de envio de correo no se encuentra disponible en este momento | Metodo: ProveedorServiceImpl.enviarCorreoProvExtNoDom(String correo)");
-                return new Respuesta<>(ResponseCode.EMPTY_RESPONSE.get(), 0, "El servicio de envio de correo no se encuentra disponible en este momento. Intentarlo nuevamente más tarde");
+                LOGGER.info(MSG_CORREO_S_FAIL_LOG);
+                return new Respuesta<>(ResponseCode.EMPTY_RESPONSE.get(), 0, MSG_CORREO_S_FAIL);
             }
-            LOGGER.info("No se ha encontrado ninguna coincidencia con el correo ingresado");
-            return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "No se ha encontrado ninguna coincidencia con el correo ingresado");
+            LOGGER.info(MSG_MATCHES_NF+": "+correo);
+            return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, MSG_MATCHES_NF);
         }catch (Exception ex){
-            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
+            LOGGER.warn("Method: enviarCorreoProvExtNoDomOrRepProvExtNoDom() | Excepcion: "+ex.getMessage());
+            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, MSG_CORREO_S_FAIL);
         }
     }
 
-    private String contenidoCorreoRecuperacionUsuario(List<ProExtNoDom> lst){
-        StringBuilder sb = new StringBuilder(1000);
-        if(lst.size() == 1){
-            sb.append("<p> Su nombre de usuario RNP es: <br/>");
-            sb.append("<b>"+lst.get(0).getCodExtNoDom()+"</b></p>");
-        }else{
-            sb.append("<p> El correo brindado tiene asociado varias empresas por lo cual le brindamos ");
-            sb.append("la siguiente lista con sus respectivos nombres de usuario: </p>");
-            sb.append("<table>");
-            sb.append("<thead>");
-            sb.append("<tr><th>Usuario</th><th>Razón Social</th></tr>");
-            sb.append("</thead>");
-            sb.append("<tbody>");
-            lst.forEach(x->sb.append("<tr><td>"+x.getCodExtNoDom()+"</td><td>"+x.getRazSocial()+"</td>"));
-            sb.append("</tbody>");
-            sb.append("</table>");
-        }
-        return sb.toString();
-    }
-
-    @Override
-    public Respuesta<String> enviarCorreoRepProvExtNoDom(String correo) {
-        try {
-            if(!Validador.validarCorreo(correo))
-                return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El correo presenta un formato inválido: "+correo);
-            Optional<List<ProExtNoDom>> optLst = Optional.ofNullable(repository.validarExistenciaCorreoRepExtNoDom(correo));
-            if(optLst.isPresent()){
-                String obsEmpresas = "", suffix="";
-                String ruc = optLst.get().get(0).getCodExtNoDom();
-                for(int i=0; i<optLst.get().size();i++){
-                    obsEmpresas+=suffix;
-                    obsEmpresas+= optLst.get().get(i).getCodExtNoDom() + "|";
-                    obsEmpresas+= optLst.get().get(i).getRazSocial() + "|";
-                    obsEmpresas+= optLst.get().get(i).getNomPais() + "";
-                    suffix = "¬";
-                }
-                Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(repository.obtenerContenidoCorreoByTipo(4, null, null, obsEmpresas));
-                if(optCorreo.isPresent()){
-                    ContenidoCorreoPOJO contenidoCorreo = optCorreo.get();
-                    Boolean mailEnviado = emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correo, contenidoCorreo.getCuerpo());
-                    if(mailEnviado){
-                        boolean exitoRegistro = repository.registrarCorreoEnviado(ruc, contenidoCorreo.getAsuntoId(), contenidoCorreo.getCuerpo()).equals("1");
-                        if(exitoRegistro)
-                            return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Un correo le ha sido enviado con todos los nombres de usuario a los que el correo brindado esta asociado. Por favor revisar su bandeja de correo");
-                        LOGGER.info("El correo ha sido enviado pero no ha sido registrado en BD | Metodo: ProveedorServiceImpl.enviarCorreoProvExtNoDom(String correo)");
-                        return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED_BUT_MAIN_REQ_SUCCESS.get(), 1, "Un correo le ha sido enviado con todos los nombres de usuario a los que el correo brindado esta asociado. Por favor revisar su bandeja de correo");
-                    }
-                    LOGGER.info("El servicio de envio de correo no se encuentra disponible en este momento | Metodo: ProveedorServiceImpl.enviarCorreoProvExtNoDom(String correo)");
-                    return new Respuesta<>(ResponseCode.EX_MAIL_EXCEPTION.get(), 0, "El servicio de envio de correo no se encuentra disponible en este momento. Intentarlo nuevamente más tarde");
-                }
-                LOGGER.info("El servicio de envio de correo no se encuentra disponible en este momento | Metodo: ProveedorServiceImpl.enviarCorreoProvExtNoDom(String correo)");
-                return new Respuesta<>(ResponseCode.EMPTY_RESPONSE.get(), 0, "El servicio de envio de correo no se encuentra disponible en este momento. Intentarlo nuevamente más tarde");
-            }
-            LOGGER.info("No se ha encontrado ninguna coincidencia con el correo ingresado");
-            return new Respuesta<>(ResponseCode.EX_VALIDATION_FAILED.get(), 0, "No se ha encontrado ninguna coincidencia con el correo ingresado");
-        }catch (Exception ex){
-            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, "Excepción: "+ex.getMessage());
-        }
-    }
 
     @Override
     public Respuesta<List<ProExtNoDom>> obtenerListadoEmpresasExtNoDom(String paisId, Integer tipoPersonaId, String razonSocial) {
         try {
-            Optional<List<ProExtNoDom>> optLst = Optional.ofNullable(repository.obtenerListadoEmpresasExtNoDom(paisId, tipoPersonaId, razonSocial));
-            if(optLst.isPresent())
-                return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, optLst.get());
+            List<ProExtNoDom> optLst = repository.obtenerListadoEmpresasExtNoDom(paisId, tipoPersonaId, razonSocial);
+            if(!optLst.isEmpty())
+                return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, optLst);
             return new Respuesta<>(ResponseCode.EMPTY_RESPONSE.get(), 0);
         }catch (Exception ex){
-            LOGGER.info("Excepción: "+ex.getMessage());
+            LOGGER.warn("Method: obtenerListadoEmpresasExtNoDom() | Excepcion: "+ex.getMessage());
             return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0);
         }
     }

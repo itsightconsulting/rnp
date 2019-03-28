@@ -29,7 +29,10 @@
             <div sec:authentication="name" style="text-transform: uppercase"></div>
             Authenticated user roles:
             <div sec:authentication="principal.authorities[0]" style="text-transform: uppercase"></div>
-            <a th:href="@{/logout}">Salir</a>
+            <form th:action="@{/logout}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <input type="submit" value="Salir" id="btnLogout"/>
+            </form>
         </div>
     </div>
 

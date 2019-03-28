@@ -4,6 +4,8 @@ import cn.apiclub.captcha.Captcha;
 import cn.apiclub.captcha.noise.CurvedLineNoiseProducer;
 import cn.apiclub.captcha.text.producer.DefaultTextProducer;
 import cn.apiclub.captcha.text.renderer.DefaultWordRenderer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +24,8 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "${api.bs.route}/captcha")
 public class CaptchaController {
+
+    public static final Logger LOGGER = LogManager.getLogger(CaptchaController.class);
 
     @GetMapping(value = "/init")
     public ResponseDTO initCaptchaImagen()
@@ -44,7 +48,7 @@ public class CaptchaController {
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ImageIO.write(captcha.getImage(), "png", bos);
             return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, new CaptchaDTO(captcha.getAnswer(), DatatypeConverter.printBase64Binary(bos.toByteArray())));        } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.info(e.getMessage());
             return new ResponseDTO(Enums.ResponseCode.EX_IO.get(), false, null);
         }
     }
@@ -70,7 +74,7 @@ public class CaptchaController {
             ImageIO.write(captcha.getImage(), "png", bos);
             return new ResponseDTO(Enums.ResponseCode.EXITO_GENERICA.get(), true, new CaptchaDTO(captcha.getAnswer(), DatatypeConverter.printBase64Binary(bos.toByteArray())));
         } catch (Exception e){
-            e.printStackTrace();
+            LOGGER.info(e.getMessage());
             return new ResponseDTO(Enums.ResponseCode.EX_IO.get(), false, null);
         }
     }

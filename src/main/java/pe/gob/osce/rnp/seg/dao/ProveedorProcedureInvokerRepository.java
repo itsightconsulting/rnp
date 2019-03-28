@@ -13,9 +13,11 @@ public interface ProveedorProcedureInvokerRepository {
 
     String obtenerCorreo(String ruc);
 
+    Boolean registrarValPreviaActulizacionCorreo(String ruc, String ipCliente);
+
     String obtenerCodigoVerificacion(String ruc, String correo, String ipCliente);
 
-    ContenidoCorreoPOJO obtenerContenidoCorreoByTipo(int tipo, String ruc, String codVerificacion, String obs1);
+    ContenidoCorreoPOJO obtenerContenidoCorreoByTipo(int tipo, String ruc, String codVerificacion, String obs1, String expiration);
 
     String registrarCorreoEnviado(String ruc, Integer idAsunto, String cuerpoCorreo);
 

@@ -1,16 +1,7 @@
-<header>
-    <div class="container-fluid">
-        <div class="col-md-12">
-            <div class="container-mod">
-                <h1 class="logo"><a href="/login"><img class="svg" src="../assets/img/iconos_Rpn_buscador.svg"></a>SCE</h1>
-            </div>
-        </div>
-    </div>
-</header>
 <div class="container-mod pad-container">
     <div class="content-form">
         <div class="header-content">
-            <p><img class="svg" src="../assets/img/iconos_Rpn-01.svg"><strong>RNP</strong>Trámites en Línea</p>
+            <p><img class="svg" alt="Icono RNP Acceso" src="assets/img/iconos_Rpn-01.svg"><strong>RNP</strong>Trámites en Línea</p>
         </div>
         <form class="body-content" action="" [class.hidden]="!activeInitForm">
             <p class="subtitle-form">¿Como quieres obtener tu usuario RNP?</p>
@@ -34,16 +25,16 @@
                 <div class="no-remember text-center">
                     <p><a href="javascript:void(0)" (click)="mostrarMensaje()">¿No ha podido recuperar su usuario con ninguna de las opciones anteriores?</a></p>
                     <div class="alert alert-info" style="font-size: 0.9em" [class.hidden]="!lastMsgActive">
-                        Estimado proveedor, si no ha podido recuperar su usuario RNP con ninguna de las opciones anteriores, le recomendamos que se comunique con nosotros: <br/><b>RNP-Atiende. Teléfono: 6135555 Anexo 5000</b>
+                        Estimado proveedor, si no ha podido recuperar su usuario RNP con ninguna de las opciones anteriores, le recomendamos que se comunique con nosotros: <br/><strong>RNP-Atiende. Teléfono: 6135555 Anexo 5000</strong>
                     </div>
                 </div>
 
-                <a href="/login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                <a href="login"><button class="btn btn-default" type="button">CANCELAR</button></a>
                 <a href="javascript:void(0)" (click)="irOpcionRecuperacion()"><button class="btn btn-success" type="button">SIGUIENTE</button></a>
             </div>
         </form>
         <form class="body-content" #f="ngForm" action="" [class.hidden]="!activeOpcion1">
-            <p class="text-center"><i class="fa fa-fw fa-envelope fa-3x" style="color: #c5c251;"></i></p>
+            <p class="text-center"><em class="fa fa-fw fa-envelope fa-3x" style="color: #c5c251;"></em></p>
             <p class="text-center">Correo electrónico de contacto</p>
             <div class="form-group">
                 <input ngModel #CorreoEle="ngModel" name="CorreoEle" id="CorreoEle" class="form-control" type="text" placeholder="Correo electrónico"
@@ -61,14 +52,14 @@
 
             <div class="row" style="padding: 0px 10px 10px;">
                 <div class="col-md-6 col-sm-6 col-xs-12 pad-left-0" style="padding-left: 10px !important;">
-                    <img id="ImgCaptcha" style="position: center;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border: 0.5px solid #e6e6e6;" class="img-c">
+                    <img alt="Captcha RNP" id="ImgCaptcha" style="position: center;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border: 0.5px solid #e6e6e6;" class="img-c">
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 pad-0" style="padding-top: 10px;">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-2 col-sm-2 col-xs-3">
                                 <a (click)="refreshCaptcha()"  href="javascript:void(0);" class="icon icon-prepend" title="Actualizar captcha" rel="tooltip" data-placement="top" data-original-title="Actualizar captcha">
-                                    <i class="fa fa-refresh" style="padding-top: 3px;color: skyblue !important; font-size: 1.5em !important;" id="RefreshCaptcha"></i>
+                                    <em class="fa fa-refresh" style="padding-top: 3px;color: skyblue !important; font-size: 1.5em !important;" id="RefreshCaptcha"></em>
                                 </a>
                             </div>
                             <div class="form-group col-md-9 col-sm-9 col-xs-8" style="padding-right: 5px !important;">
@@ -88,15 +79,15 @@
                 <div class="text-danger text-center">{{errorMessage}}</div>
             </div>
             <div class="no-remember" style="margin: 4px 6px 15px;">
-                <p>¿No reconoces la información mostrada?<a href="/recuperar/usuario">PRUEBA DE OTRA MANERA</a></p>
+                <p>¿No reconoces la información mostrada?<a href="recuperar/usuario">PRUEBA DE OTRA MANERA</a></p>
             </div>
             <div class="form-group two-buttons">
-                <a href="/login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                <a href="login"><button class="btn btn-default" type="button">CANCELAR</button></a>
                 <button class="btn btn-success" type="submit" [disabled]="!f.valid" (click)="submit($event.target, f)">INICIAR </button>
             </div>
         </form>
         <form class="body-content" #f1="ngForm" action="" [class.hidden]="!activeOpcion2">
-            <p class="text-center"><i class="fa fa-fw fa-envelope fa-3x" style="color: #c5c251;"></i></p>
+            <p class="text-center"><em class="fa fa-fw fa-envelope fa-3x" style="color: #c5c251;"></em></p>
             <p class="text-center">Correo electrónico de representante legal o apoderado</p>
             <div class="form-group">
                 <input ngModel #CorreoEleRepre="ngModel" name="CorreoEleRepre" id="CorreoEleRepre" class="form-control" type="text" placeholder="Correo electrónico"
@@ -114,14 +105,14 @@
 
             <div class="row" style="padding: 0px 10px 10px;">
                 <div class="col-md-6 col-sm-6 col-xs-12 pad-left-0" style="padding-left: 10px !important;">
-                    <img id="ImgCaptcha2" style="position: center;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border: 0.5px solid #e6e6e6;" class="img-c">
+                    <img alt="Captcha RNP" id="ImgCaptcha2" style="position: center;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border: 0.5px solid #e6e6e6;" class="img-c">
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 pad-0" style="padding-top: 10px;">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-2 col-sm-2 col-xs-3">
                                 <a (click)="refreshCaptcha()"  href="javascript:void(0);" class="icon icon-prepend" title="Actualizar captcha" rel="tooltip" data-placement="top" data-original-title="Actualizar captcha">
-                                    <i class="fa fa-refresh" style="padding-top: 3px;color: skyblue !important; font-size: 1.5em !important;" id="RefreshCaptcha2"></i>
+                                    <em class="fa fa-refresh" style="padding-top: 3px;color: skyblue !important; font-size: 1.5em !important;" id="RefreshCaptcha2"></em>
                                 </a>
                             </div>
                             <div class="form-group col-md-9 col-sm-9 col-xs-8" style="padding-right: 5px !important;">
@@ -141,17 +132,17 @@
                 <div class="text-danger text-center">{{errorMessage}}</div>
             </div>
             <div class="no-remember" style="margin: 4px 6px 15px;">
-                <p>¿No reconoces la información mostrada?<a href="/recuperar/usuario">PRUEBA DE OTRA MANERA</a></p>
+                <p>¿No reconoces la información mostrada?<a href="recuperar/usuario">PRUEBA DE OTRA MANERA</a></p>
             </div>
             <div class="form-group two-buttons">
-                <a href="/login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                <a href="login"><button class="btn btn-default" type="button">CANCELAR</button></a>
                 <button class="btn btn-success" type="submit" [disabled]="!f1.valid" (click)="submit2($event.target, f1)">INICIAR </button>
             </div>
         </form>
         <div [class.hidden]="!finalScssMsg">
             <div class="text-primary text-center" style="padding: 5px 15px 0px;">{{scssMsg}}</div>
             <div class="text-center" style="padding: 15px">
-                <a href="/login"><button style="width: 70% !important;" class="btn btn-success" type="button">REGRESAR AL LOGIN</button></a>
+                <a href="login"><button style="width: 70% !important;" class="btn btn-success" type="button">REGRESAR AL LOGIN</button></a>
             </div>
         </div>
     </div>

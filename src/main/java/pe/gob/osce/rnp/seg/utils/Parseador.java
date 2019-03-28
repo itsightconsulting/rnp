@@ -14,6 +14,8 @@ import java.util.Locale;
 
 public class Parseador {
 
+	private Parseador(){}
+
 	public static final Logger LOGGER = LogManager.getLogger(Parseador.class);
 	
 	public static Date fromStringToDateSimple(String date) {
@@ -24,7 +26,6 @@ public class Parseador {
 		try {
 			parseDate = sdf.parse(date);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			LOGGER.info("method fromStringToDateSimple() have failed");
 			return null;
 		}
@@ -39,7 +40,6 @@ public class Parseador {
 		try {
 			parseDate = sdf.parse(date);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			return null;
 		} 
 		return parseDate;
@@ -53,7 +53,6 @@ public class Parseador {
 		try {
 			return Integer.parseInt(cadena);
 		} catch (Exception e) {
-			// TODO: handle exception
 			return 0;
 		}
 	}
@@ -62,7 +61,6 @@ public class Parseador {
 		try {
 			return Double.parseDouble(cadena);
 		} catch (Exception e) {
-			// TODO: handle exception
 			return 0;
 		}
 	}

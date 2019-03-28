@@ -1,5 +1,7 @@
 package pe.gob.osce.rnp.seg.component;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
@@ -8,12 +10,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import pe.gob.osce.rnp.seg.dao.OauthClientDetailsRepository;
 import pe.gob.osce.rnp.seg.dao.SecurityUserRepository;
-import pe.gob.osce.rnp.seg.model.jpa.Parametro;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityPrivilege;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityRole;
 import pe.gob.osce.rnp.seg.model.jpa.SecurityUser;
 import pe.gob.osce.rnp.seg.model.jpa.oauth.OauthClientDetails;
-import pe.gob.osce.rnp.seg.svc.ParametroService;
 import pe.gob.osce.rnp.seg.utils.Utilitarios;
 
 import javax.servlet.ServletContext;
@@ -26,6 +26,9 @@ import java.util.Set;
 public class StartUpListener implements ApplicationListener<ContextRefreshedEvent> {
 
     private final Long currentVersion = new Date().getTime();
+    private static final String OAUTH_BASE_USERNAME = "rnp_osce";
+
+    public static final Logger LOGGER = LogManager.getLogger(StartUpListener.class);
 
     @Autowired
     private ServletContext context;
@@ -45,16 +48,16 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
         addingInitUsers();
         creatingFileDirectories();
     }
-    
+
     public void addingToContextSession() {
         context.setAttribute("version", currentVersion);
     }
 
     public void addingInitUsers() {
-        SecurityUser securityUser = userRepository.findByUsername("rnp_osce");
+        SecurityUser securityUser = userRepository.findByUsername(OAUTH_BASE_USERNAME);
         if (securityUser == null) {
             SecurityUser secUser = new SecurityUser();
-            secUser.setUsername("rnp_osce");
+            secUser.setUsername(OAUTH_BASE_USERNAME);
             secUser.setPassword(new BCryptPasswordEncoder().encode("itsight19@13"));
             secUser.setEnabled(true);
 
@@ -83,26 +86,26 @@ public class StartUpListener implements ApplicationListener<ContextRefreshedEven
             secUser.setRoles(listSr);
             userRepository.save(secUser);
         }else
-            System.out.println("> Record already exist <");
+            LOGGER.info("> Record already exist <");
 
         //Init application's client
-        Optional<OauthClientDetails> optionalOauthClient =  oauthClientDetailsRepository.findById("rnp_osce");
+        Optional<OauthClientDetails> optionalOauthClient =  oauthClientDetailsRepository.findById(OAUTH_BASE_USERNAME);
         if(!optionalOauthClient.isPresent()) {
             OauthClientDetails oauthCli = new OauthClientDetails();
-            oauthCli.setClientId("rnp_osce");
+            oauthCli.setClientId(OAUTH_BASE_USERNAME);
             oauthCli.setResourceIds("rnp_api");
             oauthCli.setClientSecret(new BCryptPasswordEncoder().encode("itsight19@13"));
             oauthCli.setScope("read,write");
             oauthCli.setAuthorizedGrantTypes("client_credentials");
             oauthCli.setWebServerRedirectUri("http://127.0.0.1");
             oauthCli.setAuthorities("RNP_ADMIN");
-            oauthCli.setAccessTokenValidity(-1);//Token sin vencimiento
-            oauthCli.setRefreshTokenValidity(0);
+            oauthCli.setAccessTokenValidity(15);//Token sin vencimiento
+            oauthCli.setRefreshTokenValidity(30);
             oauthCli.setAdditionalInformation("{\"Info\":\"Rnp Api\"}");
             oauthCli.setAutoapprove("true");
             oauthClientDetailsRepository.save(oauthCli);
         } else
-            System.out.println("INIT APPLICATION'S CLIENT ALREADY EXISTS");
+            LOGGER.info("INIT APPLICATION'S CLIENT ALREADY EXISTS");
     }
 
     public void creatingFileDirectories() {

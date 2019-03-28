@@ -3,11 +3,11 @@
     <div class="container-mod pad-container">
         <div class="content-form">
             <div class="header-content">
-                <p><img class="svg" src="../assets/img/iconos_Rpn-01.svg"><strong>RNP</strong>Trámites en Línea</p>
+                <p><img class="svg" alt="Icono RNP Acceso" src="assets/img/iconos_Rpn-01.svg"><strong>RNP</strong>Trámites en Línea</p>
             </div>
             <form class="body-content" action="">
                 <p class="ruc_description"><span class="bg"><strong>RUC:</strong>{{ruc}}</span><span class="line"></span></p>
-                <div class="text-center" style="padding: 10px; color: #a97434"><i class="fa fa-lock fa-4x"></i></div>
+                <div class="text-center" style="padding: 10px; color: #a97434"><em class="fa fa-lock fa-4x"></em></div>
                 <p class="subtitle-form">¿Como quieres obtener tu clave RNP?</p>
                 <div id="OpcsPass" class="hidden">
                     <div class="form-group form-group-rbt" *ngFor="let opc of opcs; index as i">
@@ -18,17 +18,17 @@
                 </div>
                 <div class="form-group two-buttons mrg-top">
                     <div class="no-remember text-center">
-                        <p><a href="javascript:void(0)" (click)="msgNoRecuperado()">“¿No ha podido recuperar su clave con ninguna de las opciones anteriores?</a></p>
+                        <p><a href="javascript:void(0)" (click)="msgNoRecuperado()">¿No ha podido recuperar su clave con ninguna de las opciones anteriores?</a></p>
                         <div class="alert alert-info" style="font-size: 0.9em" [class.hidden]="!valMsgNoRecuperado">
-                            Estimado proveedor, si no ha podido recuperar su usuario RNP con ninguna de las opciones anteriores, le recomendamos que se comunique con nosotros: <br/><b>RNP-Atiende. Teléfono: 6135555 Anexo 5000</b>
+                            Estimado proveedor, si no ha podido recuperar su usuario RNP con ninguna de las opciones anteriores, le recomendamos que se comunique con nosotros: <br/><strong>RNP-Atiende. Teléfono: 6135555 Anexo 5000</strong>
                         </div>
                     </div>
-                    <a href="/login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                    <a href="login"><button class="btn btn-default" type="button">CANCELAR</button></a>
                     <!--(click)="activeSegForm=false"-->
                     <button class="btn btn-success" (click)="enviarOpcion($event)" type="button">SIGUIENTE</button>
-                    <div class="text-center"><span class="text-danger">{{err}}</span></div>
                     <!--(click)="irOpcionRecuperacion()"-->
                 </div>
+                <div class="text-center"><span class="text-danger" style="font-size: 0.9em;">{{err}}</span></div>
             </form>
         </div>
     </div>
@@ -37,11 +37,11 @@
     <div class="container-mod pad-container">
         <div class="content-form">
             <div class="header-content">
-                <p><img class="svg" src="../assets/img/iconos_Rpn-01.svg"><strong>RNP</strong>Trámites en Línea</p>
+                <p><img class="svg" alt="Icono RNP Acceso" src="assets/img/iconos_Rpn-01.svg"><strong>RNP</strong>Trámites en Línea</p>
             </div>
             <form class="body-content" action="" id="frm_0">
                 <p class="ruc_description" style="margin-bottom: 10px !important"><span class="bg"><strong>RUC:</strong>{{ruc}}</span><span class="line"></span></p>
-                <p class="text-center"><i class="fa fa-fw fa-envelope fa-3x" style="color: #c5c251;"></i></p>
+                <p class="text-center"><em class="fa fa-fw fa-envelope fa-3x" style="color: #c5c251;"></em></p>
                 <p class="text-center">Correo electrónico de representante legal o apoderado</p>
                 <p class="description-form">Le enviaremos un código de verificación a la cuenta que usted seleccione: <br><div class="text-center"><span><strong>{{correoFormatter}}</strong></span></div></p>
                 <div style="height: 122px; overflow-y:auto;padding-left: 20% !important;">
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="no-remember" style="'margin-top: 10px !important'">
-                    <p>¿No reconoces la información mostrada?<a href="/recuperar/password/opcs">PRUEBA DE OTRA MANERA</a></p>
+                    <p>¿No reconoces la información mostrada?<a href="recuperar/password/opcs">PRUEBA DE OTRA MANERA</a></p>
                 </div>
                 <div class="form-group two-buttons">
                     <a class="btn btn-default" href="javascript:void(0);" onclick="javascript:document.getElementById('overlayConfirm').style.display = 'block';">CANCELAR</a>

@@ -8,16 +8,18 @@ import {CookieService} from "ngx-cookie-service";
   styleUrls: ['./reset-user.component.css']
 })
 export class ResetUserComponent implements OnInit {
-  opcRecuperacion: number = 1;
-  activeInitForm: boolean = true;
-  activeOpcion1: boolean = false;
-  activeOpcion2: boolean = false;
-  lastMsgActive: boolean = false;
+  opcRecuperacion = 1;
+  activeInitForm = true;
+  activeOpcion1 = false;
+  activeOpcion2 = false;
+  lastMsgActive = false;
   refCaptcha: any;
-  failCaptcha: boolean = false;
-  errorMessage: string = "";
+  failCaptcha = false;
+  errorMessage = "";
   scssMsg: any;
-  finalScssMsg: boolean = false;
+  finalScssMsg = false;
+  prefixImgBs = "data:image/png;base64,";
+
   constructor(private resetUserService: ResetUserService, private cookie: CookieService) { }
 
   ngOnInit() {
@@ -25,8 +27,8 @@ export class ResetUserComponent implements OnInit {
           if(res.flag){
               const d = res.d;
               this.cookie.set('cap_code', d.answer, 0, '/');
-              document.querySelector('#ImgCaptcha').setAttribute('src', "data:image/png;base64," + d.b64image.substr(0, d.b64image.length - 2))
-              document.querySelector('#ImgCaptcha2').setAttribute('src', "data:image/png;base64," + d.b64image.substr(0, d.b64image.length - 2))
+              document.querySelector('#ImgCaptcha').setAttribute('src', this.prefixImgBs + d.b64image.substr(0, d.b64image.length - 2))
+              document.querySelector('#ImgCaptcha2').setAttribute('src', this.prefixImgBs + d.b64image.substr(0, d.b64image.length - 2))
           }
       });
   }
@@ -50,7 +52,7 @@ export class ResetUserComponent implements OnInit {
     }
 
     if(this.opcRecuperacion == 3){
-        window.location.href = "/recuperar/usuario/busqueda";
+        window.location.href = document.querySelector('base').href+"recuperar/usuario/busqueda";
     }
   }
 
@@ -64,7 +66,7 @@ export class ResetUserComponent implements OnInit {
               this.refCaptcha.c = document.getElementById('CodeCaptcha');
               this.refCaptcha.c.value = "";
               this.refCaptcha.c.focus();
-              document.querySelector('#ImgCaptcha').setAttribute('src', "data:image/png;base64," + d.b64image.substr(0, d.b64image.length - 2))
+              document.querySelector('#ImgCaptcha').setAttribute('src', this.prefixImgBs + d.b64image.substr(0, d.b64image.length - 2))
           }
       })
   }
@@ -79,7 +81,7 @@ export class ResetUserComponent implements OnInit {
                 this.refCaptcha.c = document.getElementById('CodeCaptcha2');
                 this.refCaptcha.c.value = "";
                 this.refCaptcha.c.focus();
-                document.querySelector('#ImgCaptcha2').setAttribute('src', "data:image/png;base64," + d.b64image.substr(0, d.b64image.length - 2))
+                document.querySelector('#ImgCaptcha2').setAttribute('src', this.prefixImgBs + d.b64image.substr(0, d.b64image.length - 2))
             }
         })
     }
@@ -101,7 +103,7 @@ export class ResetUserComponent implements OnInit {
                       }
                   },
                   err => {
-                      this.errorMessage = err.status + ": "+err.statusText;
+                      this.errorMessage = `${err.status}: ${err.statusText}`;
                       btn.removeAttribute('disabled');
                   },
                   ()=>{
@@ -133,7 +135,7 @@ export class ResetUserComponent implements OnInit {
                         }
                     },
                     err => {
-                        this.errorMessage = err.status + ": "+err.statusText;
+                        this.errorMessage = `${err.status}: ${err.statusText}`;
                         btn.removeAttribute('disabled');
                     },
                     ()=>{

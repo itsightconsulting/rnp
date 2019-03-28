@@ -1,16 +1,12 @@
 package pe.gob.osce.rnp.seg.model.jpa;
 
-import java.util.Set;
-
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@NamedEntityGraphs({@NamedEntityGraph(name = "securityUser"),
-        @NamedEntityGraph(name = "securityUser.roles", attributeNodes = {
-                @NamedAttributeNode(value = "roles")
-        })
-})
+import javax.persistence.*;
+import java.util.Set;
+
+@NamedEntityGraph(name = "securityUser")
+@NamedEntityGraph(name = "securityUser.roles", attributeNodes = {@NamedAttributeNode(value = "roles")})
 @Entity
 @Table(name = "SECURITY_USER")
 public class SecurityUser {
