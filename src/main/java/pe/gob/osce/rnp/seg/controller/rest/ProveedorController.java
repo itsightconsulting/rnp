@@ -92,6 +92,15 @@ public class ProveedorController {
         return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0);
     }
 
+    @PostMapping("/recuperar-pass/sc/post/sso-sunat-validacion")
+    public Respuesta<String> registrarValPreviaActualizacionCorreo(
+            @RequestParam(value = "ruc") Long ruc,
+            @RequestParam(value = "ipCliente") String ipCliente){
+        if(ruc != null && ipCliente != null)
+            return proveedorService.registrarValPreviaActualizacionCorreo(ruc, ipCliente);
+        return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0);
+    }
+
     @PostMapping("/recuperar-pass/su/enviar/correo/ext-nodom")
     public Respuesta<String> enviarCorreoProvExtNoDom(@RequestParam(value = "correo") String correo){
         return proveedorService.enviarCorreoProvExtNoDomOrRepProvExtNoDom(correo, 1);

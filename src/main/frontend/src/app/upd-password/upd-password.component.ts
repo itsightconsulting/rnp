@@ -43,10 +43,12 @@ export class UpdPasswordComponent implements OnInit {
             if(String(rucDecode).length == 11 && t < expDateDecode && String(codDecode).length == 6){
                 if(this.cookie.check('checkCodeVerif')){
                     const cod = this.cookie.get('checkCodeVerif');
-                    if(cod == codDecode){
+                    if(cod == codDecode){//Validar si ya no ha sido usado con anterioridad(cookie insertada after validación de un código específico)
                         window.location.href = document.querySelector('base').href+"login";
                     }
                 }
+                this.cookie.set('ruc_prov', rucDecode, 0, '/');
+                this.ruc = rucDecode;
                 this.initFormActive = false;
             }else{
                 window.location.href = document.querySelector('base').href+"login";

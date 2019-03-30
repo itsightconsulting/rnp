@@ -166,3 +166,112 @@
 [INFO ] 2019-03-27 16:27:03.930 [restartedMain] RnpApplication - Started RnpApplication in 46.814 seconds (JVM running for 105.307)
 [INFO ] 2019-03-27 16:28:11.761 [http-nio-8080-exec-2] AspectController - SeguridadController.login(..) method called.
 [INFO ] 2019-03-27 16:30:01.190 [http-nio-8080-exec-5] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2019-03-28 10:11:48.391 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2019-03-28 10:13:37.804 [restartedMain] WebMvcConfiguration - CONFIGURATION MAIL EXCEPTION: Could not open JPA EntityManager for transaction; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection
+[INFO ] 2019-03-28 10:51:22.888 [restartedMain] RnpApplication - The following profiles are active: devazure
+[INFO ] 2019-03-28 10:51:52.077 [restartedMain] StartUpListener - > Record already exist <
+[INFO ] 2019-03-28 10:51:53.042 [restartedMain] StartUpListener - INIT APPLICATION'S CLIENT ALREADY EXISTS
+[INFO ] 2019-03-28 10:51:53.128 [restartedMain] RnpApplication - Started RnpApplication in 36.465 seconds (JVM running for 39.682)
+[INFO ] 2019-03-29 16:26:00.168 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2019-03-29 16:27:03.638 [restartedMain] StartUpListener - > Record already exist <
+[INFO ] 2019-03-29 16:27:03.761 [restartedMain] StartUpListener - INIT APPLICATION'S CLIENT ALREADY EXISTS
+[INFO ] 2019-03-29 16:27:03.802 [restartedMain] RnpApplication - Started RnpApplication in 75.815 seconds (JVM running for 88.011)
+[INFO ] 2019-03-29 16:28:42.792 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2019-03-29 16:29:31.081 [http-nio-8080-exec-8] AspectController - AuthController.root(..) method called.
+[INFO ] 2019-03-29 16:29:37.390 [http-nio-8080-exec-2] AspectController - AuthController.root(..) method called.
+[INFO ] 2019-03-29 16:52:35.223 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2019-03-29 17:43:28.899 [restartedMain] RnpApplication - The following profiles are active: development
+[INFO ] 2019-03-29 17:43:54.464 [restartedMain] StartUpListener - > Record already exist <
+[INFO ] 2019-03-29 17:43:54.666 [restartedMain] StartUpListener - INIT APPLICATION'S CLIENT ALREADY EXISTS
+[INFO ] 2019-03-29 17:43:54.742 [restartedMain] RnpApplication - Started RnpApplication in 33.527 seconds (JVM running for 56.842)
+[INFO ] 2019-03-29 17:44:37.929 [http-nio-8080-exec-2] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2019-03-29 17:44:49.152 [http-nio-8080-exec-5] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2019-03-29 17:45:20.462 [http-nio-8080-exec-1] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2019-03-29 17:45:23.779 [http-nio-8080-exec-3] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2019-03-29 17:45:37.061 [http-nio-8080-exec-7] AspectController - AuthController.loginForm(..) method called.
+[INFO ] 2019-03-29 17:46:01.021 [http-nio-8080-exec-2] AspectController - SeguridadController.login(..) method called.
+[INFO ] 2019-03-29 17:54:59.715 [http-nio-8080-exec-3] AspectController - SeguridadController.login(..) method called.
+[INFO ] 2019-03-29 17:54:59.939 [http-nio-8080-exec-3] SeguridadServiceImpl - Usuario o clave no válida
+[INFO ] 2019-03-29 17:55:08.057 [http-nio-8080-exec-7] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 17:55:15.921 [http-nio-8080-exec-1] AspectController - ProveedorController.obtenerOpciones(..) method called.
+[INFO ] 2019-03-29 17:59:22.313 [http-nio-8080-exec-4] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 17:59:52.146 [http-nio-8080-exec-6] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:01:19.351 [http-nio-8080-exec-9] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:01:28.986 [http-nio-8080-exec-10] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:02:46.380 [http-nio-8080-exec-2] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:05:15.055 [http-nio-8080-exec-5] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:05:41.839 [http-nio-8080-exec-7] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:05:56.784 [http-nio-8080-exec-8] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:06:00.491 [http-nio-8080-exec-10] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:07:39.590 [http-nio-8080-exec-2] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:07:44.120 [http-nio-8080-exec-4] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:07:53.865 [http-nio-8080-exec-5] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:08:45.544 [http-nio-8080-exec-7] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:09:21.798 [http-nio-8080-exec-9] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:09:35.248 [http-nio-8080-exec-8] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:09:44.481 [http-nio-8080-exec-1] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:32:22.991 [http-nio-8080-exec-3] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:35:07.780 [http-nio-8080-exec-6] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:35:54.020 [http-nio-8080-exec-7] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:43:22.057 [http-nio-8080-exec-10] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:44:56.575 [http-nio-8080-exec-4] AspectController - ProveedorController.obtenerOpciones(..) method called.
+[INFO ] 2019-03-29 18:45:17.363 [http-nio-8080-exec-3] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:45:35.285 [http-nio-8080-exec-6] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:45:41.944 [http-nio-8080-exec-9] AspectController - ProveedorController.obtenerOpciones(..) method called.
+[INFO ] 2019-03-29 18:45:46.341 [http-nio-8080-exec-10] AspectController - ProveedorController.obtenerDireccionCorreo(..) method called.
+[INFO ] 2019-03-29 18:50:05.763 [http-nio-8080-exec-2] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:50:10.449 [http-nio-8080-exec-3] AspectController - ProveedorController.obtenerOpciones(..) method called.
+[INFO ] 2019-03-29 18:50:12.885 [http-nio-8080-exec-5] AspectController - ProveedorController.obtenerDireccionCorreo(..) method called.
+[INFO ] 2019-03-29 18:54:52.800 [http-nio-8080-exec-9] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:55:02.388 [http-nio-8080-exec-1] AspectController - ProveedorController.obtenerOpciones(..) method called.
+[INFO ] 2019-03-29 18:57:49.064 [http-nio-8080-exec-4] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:58:03.462 [http-nio-8080-exec-5] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:58:06.874 [http-nio-8080-exec-9] AspectController - ProveedorController.obtenerListadoPais() method called.
+[INFO ] 2019-03-29 18:58:17.928 [http-nio-8080-exec-1] AspectController - ProveedorController.obtenerListadoEmpresaExtNoDom(..) method called.
+[INFO ] 2019-03-29 18:58:30.920 [http-nio-8080-exec-4] AspectController - ProveedorController.obtenerListadoEmpresaExtNoDom(..) method called.
+[INFO ] 2019-03-29 18:58:50.606 [http-nio-8080-exec-5] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:59:06.545 [http-nio-8080-exec-9] AspectController - ProveedorController.enviarCorreoProvExtNoDom(..) method called.
+[INFO ] 2019-03-29 18:59:47.965 [http-nio-8080-exec-10] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 18:59:51.581 [http-nio-8080-exec-4] AspectController - ProveedorController.obtenerOpciones(..) method called.
+[INFO ] 2019-03-29 18:59:56.221 [http-nio-8080-exec-3] AspectController - ProveedorController.obtenerListadoPais() method called.
+[INFO ] 2019-03-29 18:59:56.332 [http-nio-8080-exec-9] AspectController - ProveedorController.obtenerListadoTipoDocumento() method called.
+[INFO ] 2019-03-29 18:59:56.352 [http-nio-8080-exec-8] AspectController - ProveedorController.obtenerListadoZonaRegistral() method called.
+[INFO ] 2019-03-29 18:59:56.386 [http-nio-8080-exec-10] AspectController - ProveedorController.obtenerListadoTipoCondicion() method called.
+[INFO ] 2019-03-29 19:01:38.041 [http-nio-8080-exec-6] AspectController - ProveedorController.obtenerListadoPais() method called.
+[INFO ] 2019-03-29 19:01:38.053 [http-nio-8080-exec-7] AspectController - ProveedorController.obtenerListadoTipoDocumento() method called.
+[INFO ] 2019-03-29 19:01:38.089 [http-nio-8080-exec-9] AspectController - ProveedorController.obtenerListadoTipoCondicion() method called.
+[INFO ] 2019-03-29 19:01:38.090 [http-nio-8080-exec-3] AspectController - ProveedorController.obtenerListadoZonaRegistral() method called.
+[INFO ] 2019-03-29 19:02:07.179 [http-nio-8080-exec-5] AspectController - ProveedorController.obtenerListadoPais() method called.
+[INFO ] 2019-03-29 19:02:07.299 [http-nio-8080-exec-1] AspectController - ProveedorController.obtenerListadoTipoDocumento() method called.
+[INFO ] 2019-03-29 19:02:07.313 [http-nio-8080-exec-6] AspectController - ProveedorController.obtenerListadoZonaRegistral() method called.
+[INFO ] 2019-03-29 19:02:07.313 [http-nio-8080-exec-7] AspectController - ProveedorController.obtenerListadoTipoCondicion() method called.
+[INFO ] 2019-03-29 19:02:27.232 [http-nio-8080-exec-4] AspectController - ProveedorController.obtenerListadoPais() method called.
+[INFO ] 2019-03-29 19:02:27.347 [http-nio-8080-exec-2] AspectController - ProveedorController.obtenerListadoTipoDocumento() method called.
+[INFO ] 2019-03-29 19:02:27.347 [http-nio-8080-exec-5] AspectController - ProveedorController.obtenerListadoZonaRegistral() method called.
+[INFO ] 2019-03-29 19:02:27.348 [http-nio-8080-exec-1] AspectController - ProveedorController.obtenerListadoTipoCondicion() method called.
+[INFO ] 2019-03-29 19:02:48.429 [http-nio-8080-exec-1] AspectController - ProveedorController.obtenerListadoTipoCondicion() method called.
+[INFO ] 2019-03-29 19:02:48.429 [http-nio-8080-exec-3] AspectController - ProveedorController.obtenerListadoTipoDocumento() method called.
+[INFO ] 2019-03-29 19:02:48.429 [http-nio-8080-exec-9] AspectController - ProveedorController.obtenerListadoPais() method called.
+[INFO ] 2019-03-29 19:02:48.430 [http-nio-8080-exec-4] AspectController - ProveedorController.obtenerListadoZonaRegistral() method called.
+[INFO ] 2019-03-29 19:02:52.986 [http-nio-8080-exec-7] AspectController - ProveedorController.obtenerListadoPais() method called.
+[INFO ] 2019-03-29 19:02:53.032 [http-nio-8080-exec-3] AspectController - ProveedorController.obtenerListadoZonaRegistral() method called.
+[INFO ] 2019-03-29 19:02:53.032 [http-nio-8080-exec-8] AspectController - ProveedorController.obtenerListadoTipoDocumento() method called.
+[INFO ] 2019-03-29 19:02:53.032 [http-nio-8080-exec-4] AspectController - ProveedorController.obtenerListadoTipoCondicion() method called.
+[INFO ] 2019-03-29 19:02:58.130 [http-nio-8080-exec-1] AspectController - ProveedorController.obtenerListadoPais() method called.
+[INFO ] 2019-03-29 19:02:58.147 [http-nio-8080-exec-10] AspectController - ProveedorController.obtenerListadoTipoCondicion() method called.
+[INFO ] 2019-03-29 19:02:58.148 [http-nio-8080-exec-5] AspectController - ProveedorController.obtenerListadoZonaRegistral() method called.
+[INFO ] 2019-03-29 19:02:58.148 [http-nio-8080-exec-9] AspectController - ProveedorController.obtenerListadoTipoDocumento() method called.
+[INFO ] 2019-03-29 19:03:43.725 [http-nio-8080-exec-8] AspectController - ProveedorController.obtenerListadoPais() method called.
+[INFO ] 2019-03-29 19:03:43.743 [http-nio-8080-exec-9] AspectController - ProveedorController.obtenerListadoZonaRegistral() method called.
+[INFO ] 2019-03-29 19:03:43.743 [http-nio-8080-exec-1] AspectController - ProveedorController.obtenerListadoTipoCondicion() method called.
+[INFO ] 2019-03-29 19:03:43.743 [http-nio-8080-exec-3] AspectController - ProveedorController.obtenerListadoTipoDocumento() method called.
+[INFO ] 2019-03-29 19:05:25.161 [http-nio-8080-exec-2] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 19:05:30.153 [http-nio-8080-exec-1] AspectController - ProveedorController.obtenerOpciones(..) method called.
+[INFO ] 2019-03-29 19:05:32.355 [http-nio-8080-exec-3] AspectController - ProveedorController.obtenerDireccionCorreo(..) method called.
+[INFO ] 2019-03-29 19:07:47.804 [http-nio-8080-exec-7] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 19:10:43.257 [http-nio-8080-exec-5] AspectController - CaptchaController.initCaptchaImagen() method called.
+[INFO ] 2019-03-29 19:10:48.142 [http-nio-8080-exec-2] AspectController - ProveedorController.obtenerOpciones(..) method called.
+[INFO ] 2019-03-29 19:10:54.637 [http-nio-8080-exec-8] AspectController - ProveedorController.obtenerDireccionCorreo(..) method called.
+[INFO ] 2019-03-29 19:11:11.735 [http-nio-8080-exec-3] AspectController - ProveedorController.enviarCorreo(..) method called.
+[INFO ] 2019-03-29 19:12:08.694 [http-nio-8080-exec-4] AspectController - SeguridadController.validarCodVerificacion(..) method called.
+[INFO ] 2019-03-29 19:12:20.524 [http-nio-8080-exec-2] AspectController - SeguridadController.actualizarClaveProveedor(..) method called.

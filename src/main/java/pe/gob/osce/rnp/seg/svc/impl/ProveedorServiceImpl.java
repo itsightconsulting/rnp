@@ -160,12 +160,11 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
                     LOGGER.info("Los datos de identificación brindados no han encontrado ninguna coincidencia");
                     return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 0, "Los datos de identificación brindados no han encontrado ninguna coincidencia");
                 }
-                exito = repository.registrarValPreviaActulizacionCorreo(dtsIdentificacion.getRuc().toString(), ipCliente);
+                exito = repository.registrarValPreviaActualizacionCorreo(dtsIdentificacion.getRuc().toString(), ipCliente);
                 if(!exito){
                     LOGGER.info("El sp creador del registro de auditoria previo a actualizar el correo ha fallado");
                     return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 0, "El servicio de recuperación de contraseña vía validación de datos no se encuentra disponible");
                 }
-
                 return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Validación satisfactoria");
             }
             LOGGER.info("El ruc proporcionado no es válido");
@@ -174,6 +173,23 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
             LOGGER.warn("Method: validarDatosIdentificacion() | Excepcion: "+ex.getMessage());
             return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, MSG_EXCEP_PREFIX+ex.getMessage());
         }
+    }
+
+    @Override
+    public Respuesta<String> registrarValPreviaActualizacionCorreo(Long ruc, String ipCliente) {
+        try{
+            boolean exito = repository.registrarValPreviaActualizacionCorreo(String.valueOf(ruc), ipCliente);
+            if(!exito){
+                LOGGER.info("El sp creador del registro de auditoria previo a actualizar el correo ha fallado");
+                return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED.get(), 0, "El servicio de recuperación de contraseña vía sso de sunat no se encuentra disponible");
+            }
+            return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Validación satisfactoria");
+        }catch (Exception ex){
+            LOGGER.warn("Method: validarDatosIdentificacion() | Excepcion: "+ex.getMessage());
+            return new Respuesta<>(ResponseCode.EX_GENERIC.get(), 0, MSG_EXCEP_PREFIX+ex.getMessage());
+        }
+
+
     }
 
     @Override

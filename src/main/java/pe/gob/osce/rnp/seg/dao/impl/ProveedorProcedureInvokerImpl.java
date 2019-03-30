@@ -92,7 +92,7 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvokerR
     }
 
     @Override
-    public Boolean registrarValPreviaActulizacionCorreo(String ruc, String ipCliente) {
+    public Boolean registrarValPreviaActualizacionCorreo(String ruc, String ipCliente) {
         StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_REGISTRAR_AUD_ACT_CORREO);
 
         // Registrar los parámetros de entrada y salida

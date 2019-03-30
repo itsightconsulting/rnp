@@ -1,16 +1,22 @@
 @font-face {
     font-family: 'GothamMedium';
-    src: url("fonts/GothamRnd-Medium.otf") format("opentype")
+    src: url("fonts/GothamRnd-Medium.otf");
+    src: url("fonts/GothamRnd-Medium.woff?#iefix") format('embedded-opentype'),
+         url("fonts/GothamRnd-Medium.otf") format("opentype");
 }
 
 @font-face {
     font-family: 'GothamLight';
-    src: url("fonts/GothamRnd-Light.otf") format("opentype")
+    src: url("fonts/GothamRnd-Light.otf");
+    src: url("fonts/GothamRnd-Light.woff?#iefix") format('embedded-opentype'),
+         url("fonts/GothamRnd-Light.otf") format("opentype");
 }
 
 @font-face {
     font-family: 'GothamBold';
-    src: url("fonts/GothamRnd-Bold.otf") format("opentype")
+    src: url("fonts/GothamRnd-Bold.otf");
+    src: url("fonts/GothamRnd-Bold.woff?#iefix") format('embedded-opentype'),
+         url("fonts/GothamRnd-Bold.otf") format("opentype");
 }
 
 * {
@@ -35,6 +41,16 @@ body {
     background-color: #f5f7f8
 }
 
+.img-l-hd{
+    padding-top: 3px;
+}
+
+.container-mod-header {
+    max-width: 860px;
+    width: 100%;
+    margin: 0 auto 60px
+}
+
 .container-mod {
     max-width: 480px;
     width: 100%;
@@ -48,11 +64,6 @@ body {
 
 .container-mod .logo svg,
 .container-mod .logo img {
-    width: 36px;
-    fill: #fff;
-    margin-right: 0px !important;
-    transform: rotateY(180deg);
-    margin-bottom: 3px !important;
 }
 
 .pad-container {
@@ -92,8 +103,8 @@ input {
 }
 
 header {
-    background-color: #cd1f04;
-    height: 45px
+    background-color: #BF0909;
+    height: 71px
 }
 
 header h1 {
@@ -159,6 +170,10 @@ header h1 {
     font-size: 16px;
     margin: 0;
     position: relative
+}
+
+.content-form .header-content p img{
+    position: static !important
 }
 
 .content-form .header-content p strong {

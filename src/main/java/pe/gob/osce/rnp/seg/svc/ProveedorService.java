@@ -23,4 +23,6 @@ public interface ProveedorService {
     Respuesta<String> enviarCorreoProvExtNoDomOrRepProvExtNoDom(String correo, int tipoPersona);
 
     Respuesta<List<ProExtNoDom>> obtenerListadoEmpresasExtNoDom(String paisId, Integer tipoPersonaId, String razonSocial);
+
+    Respuesta<String> registrarValPreviaActualizacionCorreo(Long ruc, String ipCliente);
 }

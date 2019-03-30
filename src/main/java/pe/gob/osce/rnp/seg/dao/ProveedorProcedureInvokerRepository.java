@@ -13,7 +13,7 @@ public interface ProveedorProcedureInvokerRepository {
 
     String obtenerCorreo(String ruc);
 
-    Boolean registrarValPreviaActulizacionCorreo(String ruc, String ipCliente);
+    Boolean registrarValPreviaActualizacionCorreo(String ruc, String ipCliente);
 
     String obtenerCodigoVerificacion(String ruc, String correo, String ipCliente);
 
