@@ -34,16 +34,16 @@ export class UpdPasswordComponent implements OnInit {
       const expDateParam = this.utilitarios.$urlParam("de");
       const rucParam = this.utilitarios.$urlParam("key");
       const codParam = this.utilitarios.$urlParam("cd");
-
       if(expDateParam === null || rucParam === null || codParam ===null){
           if(!this.cookie.check('checkCaptcha')){
               window.location.href = document.querySelector('base').href+"recuperar/password";
           }
+          return;
       }
       const rucDecode = hashIds.decode(rucParam)[0];
       const expDateDecode = hashIds.decode(expDateParam)[0];
       const codDecode = hashIds.decode(codParam)[0];
-      if(rucDecode == null || expDateDecode == null || codDecode == null){
+      if(rucDecode === null || expDateDecode === null || codDecode === null){
           window.location.href = document.querySelector('base').href+"login";
       }
       const t = new Date().getTime();
