@@ -20,7 +20,7 @@ export class ResetUserComponent implements OnInit {
   finalScssMsg = false;
   prefixImgBs = "data:image/png;base64,";
 
-  constructor(private resetUserService: ResetUserService, private cookie: CookieService) { }
+  constructor(private readonly resetUserService: ResetUserService, private readonly cookie: CookieService) { }
 
   ngOnInit() {
       this.resetUserService.getCaptcha().subscribe((res: any)=>{
@@ -41,54 +41,39 @@ export class ResetUserComponent implements OnInit {
   }
 
   irOpcionRecuperacion(){
-    if(this.opcRecuperacion == 1){
+    if(this.opcRecuperacion === 1){
         this.activeOpcion1 = true;
         this.activeInitForm = false;
     }
 
-    if(this.opcRecuperacion == 2){
+    if(this.opcRecuperacion === 2){
         this.activeOpcion2 = true;
         this.activeInitForm = false;
     }
 
-    if(this.opcRecuperacion == 3){
+    if(this.opcRecuperacion === 3){
         window.location.href = document.querySelector('base').href+"recuperar/usuario/busqueda";
     }
   }
 
-  refreshCaptcha(fail?){
-      if(fail != undefined) this.failCaptcha = true;
+  refreshCaptcha(fail?, sec?){
+      if(fail !== undefined) this.failCaptcha = true;
       this.resetUserService.refreshCaptcha().subscribe((res: any)=>{
           if(res.flag){
               const d = res.d;
               this.refCaptcha = {};
               this.cookie.set('cap_code', d.answer, 0, '/');
-              this.refCaptcha.c = document.getElementById('CodeCaptcha');
+              this.refCaptcha.c = document.getElementById(`CodeCaptcha${sec !== undefined ? '2':''}`);
               this.refCaptcha.c.value = "";
               this.refCaptcha.c.focus();
-              document.querySelector('#ImgCaptcha').setAttribute('src', this.prefixImgBs + d.b64image.substr(0, d.b64image.length - 2))
+              document.querySelector(`#ImgCaptcha${sec !== undefined ? '2':''}`).setAttribute('src', this.prefixImgBs + d.b64image.substr(0, d.b64image.length - 2))
           }
       })
   }
 
-    refreshCaptcha2(fail?){
-        if(fail != undefined) this.failCaptcha = true;
-        this.resetUserService.refreshCaptcha().subscribe((res: any)=>{
-            if(res.flag){
-                const d = res.d;
-                this.refCaptcha = {};
-                this.cookie.set('cap_code', d.answer, 0, '/');
-                this.refCaptcha.c = document.getElementById('CodeCaptcha2');
-                this.refCaptcha.c.value = "";
-                this.refCaptcha.c.focus();
-                document.querySelector('#ImgCaptcha2').setAttribute('src', this.prefixImgBs + d.b64image.substr(0, d.b64image.length - 2))
-            }
-        })
-    }
-
   submit(btn, r){
       if(r.valid) {
-          if (r.controls.CodeCaptcha.value == this.cookie.get('cap_code') && !btn.hasAttribute('disabled')) {
+          if (r.controls.CodeCaptcha.value === this.cookie.get('cap_code') && !btn.hasAttribute('disabled')) {
               btn.setAttribute('disabled','disabled');
               this.resetUserService.enviarCorreoProvExtNoDom({correo: r.controls.CorreoEle.value}).subscribe((d: any) => {
                       if (d.flag) {
@@ -120,7 +105,7 @@ export class ResetUserComponent implements OnInit {
 
     submit2(btn, r){
         if(r.valid) {
-            if (r.controls.CodeCaptcha2.value == this.cookie.get('cap_code') && !btn.hasAttribute('disabled')) {
+            if (r.controls.CodeCaptcha2.value === this.cookie.get('cap_code') && !btn.hasAttribute('disabled')) {
                 btn.setAttribute('disabled','disabled');
                 this.resetUserService.enviarCorreoRepProvExtNoDom({correo: r.controls.CorreoEleRepre.value}).subscribe((d: any) => {
                         if (d.flag) {
@@ -128,7 +113,7 @@ export class ResetUserComponent implements OnInit {
                             this.scssMsg = d.d;
                             this.activeOpcion2 = false;
                         } else {
-                            this.refreshCaptcha2();
+                            this.refreshCaptcha(undefined, true);
                             this.errorMessage = d.d;
                             this.failCaptcha = false;
                             r.controls.CodeCaptcha2.setErrors({'incorrect': true});
@@ -142,8 +127,8 @@ export class ResetUserComponent implements OnInit {
                         setTimeout(()=>this.errorMessage = "", 8000);
                     }
                 )
-            }else {
-                this.refreshCaptcha2(true);
+            } else {
+                this.refreshCaptcha(true, true);
                 setTimeout(()=>this.failCaptcha = false, 3000);
                 r.controls.CodeCaptcha2.setErrors({'incorrect': true});
             }

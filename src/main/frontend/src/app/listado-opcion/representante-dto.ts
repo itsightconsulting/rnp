@@ -1,10 +1,10 @@
-export class Representante {
+export class RepresentanteDto {
 
-    private codExtNoDom: string;
-    private razonSocial: string;
-    private nomPais: string;
-    private correo: string;
-    private correoFormateado: string;
+    private readonly codExtNoDom: string;
+    private readonly razonSocial: string;
+    private readonly nomPais: string;
+    private readonly correo: string;
+    private readonly correoFormateado: string;
 
     constructor(codExtNoDom, razonSocial, nomPais, correo, correoFormateado){
         this.codExtNoDom = codExtNoDom;

@@ -1,1 +1,3 @@
 @import "../../assets/style.min.css";
+#FrmLogin {max-width: 378px !important;}
+.login-ops {font-size: 0.95em !important;font-family: GothamLight, Helvetica, Arial, Verdana, Tahoma, sans-serif !important;}

@@ -21,7 +21,7 @@ export class FormDatosIdenComponent implements OnInit {
   err2 = "";
   scssValidacion: boolean;
 
-  constructor(private datosIdenService: FormDatosIdenService, private cookie: CookieService) { }
+  constructor(private readonly datosIdenService: FormDatosIdenService, private readonly cookie: CookieService) { }
 
   ngOnInit() {
       this.obtenerPais();
@@ -74,7 +74,7 @@ export class FormDatosIdenComponent implements OnInit {
           this.datosIdenDto.paisId = r.controls.Pais.value;
           this.datosIdenDto.tipoDocuId = r.controls.TipoDoc.value;
           this.datosIdenDto.desDocu = r.controls.NumeroDocumento.value;
-          this.datosIdenDto.zonaRegistralId = r.controls.ZonaReg.value == "" ? 0 : r.controls.ZonaReg.value;
+          this.datosIdenDto.zonaRegistralId = r.controls.ZonaReg.value === "" ? 0 : r.controls.ZonaReg.value;
           this.datosIdenDto.nroPartida = r.controls.NroPartidaEle.value;
           const dt = new Date(r.controls.FechaIngreso.value);
           this.datosIdenDto.fecIngreso = new Date(new Date(dt.getTime()+1000*60*60*24));//+1 día para normalizar la fecha a la de hoy

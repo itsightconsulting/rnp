@@ -20,7 +20,7 @@ export class AuthenticationComponent implements OnInit {
   activeSegForm= false;
   iframeReceiver: any;
 
-  constructor(private authenticationService: AuthenticationService, private utilitarios: Utilitarios) {
+  constructor(private readonly authenticationService: AuthenticationService, private readonly utilitarios: Utilitarios) {
   }
 
   ngOnInit() {
@@ -58,7 +58,13 @@ export class AuthenticationComponent implements OnInit {
               );
           }
       } else{
-          frm.controls.forEach(v => v.markAsTouched());
+          if(frm.controls.Clave.invalid){
+              frm.controls.Clave.markAsTouched();
+          }
+
+          if(frm.controls.Ruc.invalid){
+              frm.controls.Ruc.markAsTouched();
+          }
       }
   }
 
@@ -71,7 +77,7 @@ export class AuthenticationComponent implements OnInit {
   }
 
   irOpcionRecuperacion(){
-      if(this.opcRecuperacion == 1){
+      if(this.opcRecuperacion === 1){
           window.location.href = document.querySelector('base').href+"recuperar/password";
       } else{
           this.activeSegForm=false;

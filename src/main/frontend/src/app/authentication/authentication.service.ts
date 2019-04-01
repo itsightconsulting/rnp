@@ -6,7 +6,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 })
 export class AuthenticationService {
 
-    constructor(private http: HttpClient) {
+    constructor(private readonly http: HttpClient) {
 
     }
 

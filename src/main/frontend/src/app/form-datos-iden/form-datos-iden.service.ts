@@ -1,14 +1,15 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
 export class FormDatosIdenService{
 
-    constructor(private http: HttpClient) {}
+    constructor(private readonly http: HttpClient) {}
 
-    obtenerForaneas(fk){
+    obtenerForaneas(fk) : Observable<any> | undefined {
         switch (fk) {
             case 'P':
                 return this.http.get(`/api/fi/proveedor/recuperar-pass/sc/obtener/foranea/pais`,{});

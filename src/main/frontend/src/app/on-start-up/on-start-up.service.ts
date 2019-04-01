@@ -10,7 +10,7 @@ export class OnStartUpService{
     oauthCliUsername = "rnp_osce";
     oauthCliPassword = "itsight19@13";
 
-    constructor(private http: HttpClient, private cookie: CookieService){
+    constructor(private readonly http: HttpClient, private readonly cookie: CookieService){
     }
 
     instanceApiToken(){
@@ -31,7 +31,9 @@ export class OnStartUpService{
     }
 
     instanceApiTokenByOldCookie(){
-        const headers = new HttpHeaders().set('Authorization', "Basic " + btoa(`${this.oauthCliUsername}:${this.oauthCliPassword}`)).set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        const headers = new HttpHeaders()
+                                .set('Authorization', "Basic " + btoa(`${this.oauthCliUsername}:${this.oauthCliPassword}`))
+                                .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         const params =
             new HttpParams({
                 fromObject: {

@@ -5,7 +5,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
     providedIn: 'root'
 })
 export class BuscarEmpresaService{
-    constructor(private http: HttpClient){
+    constructor(private readonly http: HttpClient){
 
     }
 
@@ -14,6 +14,7 @@ export class BuscarEmpresaService{
     }
 
     obtenerEmpresas(objQ: any){
-        return this.http.get(`/api/fi/proveedor/recuperar-pass/su/obtener/listado/empresa-ext-no-dom/${objQ.razonSocial}?paisId=${objQ.paisId}&tipoPersonaId=${objQ.tipoPersonaId}`);
+        const queryParams = `${objQ.razonSocial}?paisId=${objQ.paisId}&tipoPersonaId=${objQ.tipoPersonaId}`;
+        return this.http.get(`/api/fi/proveedor/recuperar-pass/su/obtener/listado/empresa-ext-no-dom/${queryParams}`);
     }
 }

@@ -1,10 +1,10 @@
 <div class="container-mod pad-container" style="max-width: 600px; !important;">
     <div class="content-form">
         <div class="header-content">
-            <p><img class="svg" alt="Icono RNP Buscador" src="assets/img/iconos_Rpn-01.png"><strong>RNP</strong>Trámites en Línea</p>
+            <p><img class="svg" alt="" src="assets/img/iconos_Rpn-01.png"><strong>RNP</strong>Trámites en Línea</p>
         </div>
         <form class="body-content" action="" #f="ngForm" style="max-width: 440px;!important;">
-            <p class="subtitle-form icon"><img class="svg" alt="Icono RNP Buscador" src="assets/img/iconos_Rpn_black_buscador.svg">Búsqueda de proveedores</p>
+            <p class="subtitle-form icon"><img class="svg" alt="" src="assets/img/iconos_Rpn_black_buscador.svg">Búsqueda de proveedores</p>
             <p class="subtitle-section"><strong>Nacionalidad:</strong>Extranjero no domiciliado</p>
             <div class="form-group label-left">
                 <div class="col-md-5 pad-0">
@@ -47,7 +47,7 @@
                     <div *ngIf="RazonSocial.errors.required">La razón social es requerida</div>
                     <div *ngIf="RazonSocial.errors.minlength || RazonSocial.errors.maxlength">La razón social debe tener {{RazonSocial.errors.minlength.requiredLength}} caracteres como mínimo</div>
                 </div>
-                <button class="search" [disabled]="!f.valid" (click)="buscar(f, $event)"><img class="svg" alt="Icono RNP Buscador" src="assets/img/iconos_Rpn_black_buscador.svg"></button>
+                <button class="search" [disabled]="!f.valid" (click)="buscar(f, $event)"><img class="svg" alt="" src="assets/img/iconos_Rpn_black_buscador.svg"></button>
                 <div class="text-danger">{{err}}</div>
             </div>
             <p class="description-form">

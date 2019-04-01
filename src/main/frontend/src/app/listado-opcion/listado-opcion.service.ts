@@ -6,7 +6,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class ListadoOpcionService{
 
-    constructor(private http: HttpClient){
+    constructor(private readonly http: HttpClient){
 
     }
 

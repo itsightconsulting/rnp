@@ -41,18 +41,22 @@ body {
     background-color: #f5f7f8
 }
 
+label{
+    font-weight: normal;
+}
+
 .img-l-hd{
     padding-top: 3px;
 }
 
 .container-mod-header {
-    max-width: 860px;
+    max-width: 986px;
     width: 100%;
     margin: 0 auto 60px
 }
 
 .container-mod {
-    max-width: 480px;
+    max-width: 759px;
     width: 100%;
     margin: 0 auto 60px
 }
@@ -86,7 +90,7 @@ body {
 .select-control span {
     position: absolute;
     right: 10px;
-    top: 5px;
+    top: 11px;
     z-index: 2
 }
 
@@ -155,19 +159,21 @@ header h1 {
     background-color: #fff;
     border: 3px solid #ccc;
     padding-bottom: 15px;
-    margin-top: 80px
+    margin-top: 80px;
+    border-radius: 10px 10px 0px 0px
 }
 
 .content-form .header-content {
     text-align: center;
     padding: 15px 8px 15px;
-    border-bottom: 2px solid #cd1f04;
+    border-bottom: 2px solid #BF0909;
     margin-bottom: 25px
 }
 
 .content-form .header-content p {
     color: #989898;
-    font-size: 16px;
+    font-weight: normal !important;
+    font-size: 19px;
     margin: 0;
     position: relative
 }
@@ -193,7 +199,7 @@ header h1 {
 
 .content-form .body-content {
     width: 100%;
-    max-width: 350px;
+    max-width: 360px;
     padding: 0 15px;
     margin: 0 auto
 }
@@ -239,7 +245,7 @@ header h1 {
 .content-form .body-content .subtitle-form {
     color: #414141;
     text-transform: uppercase;
-    font-size: 12px
+    font-size: 13px
 }
 
 .content-form .body-content .subtitle-form.icon {
@@ -258,7 +264,7 @@ header h1 {
 }
 
 .content-form .body-content .description-form {
-    font-size: 12px;
+    font-size: 13px;
     color: #989898;
     font-family: 'GothamLight';
     margin-bottom: 15px
@@ -285,14 +291,14 @@ header h1 {
 
 .content-form .body-content .no-remember p {
     font-family: 'GothamLight';
-    font-size: 12px;
+    font-size: 13px;
     color: #414141
 }
 
 .content-form .body-content .no-remember p a {
     display: block;
     font-family: 'GothamLight';
-    font-size: 12px;
+    font-size: 14px;
     color: #414141;
     margin: 5px 0;
     text-decoration: underline
@@ -317,7 +323,7 @@ header h1 {
     border-radius: 50%;
     left: 0px;
     background-color: #34c592;
-    top: 10px
+    top: 14px
 }
 
 .content-form .body-content .form-group.search-content {
@@ -352,7 +358,7 @@ header h1 {
 
 .content-form .body-content .form-group label {
     color: #414141;
-    font-size: 13px;
+    font-size: 15px;
     text-transform: uppercase;
     position: relative
 }
@@ -360,15 +366,15 @@ header h1 {
 .content-form .body-content .form-group label.group-rbt {
     padding-left: 20px;
     text-transform: initial;
-    color: #ccc;
+    color: #7b7070;
     font-weight: normal
 }
 
 .content-form .body-content .form-group .form-control {
     color: #989898;
     border-radius: 10px;
-    font-size: 11px;
-    height: 30px;
+    font-size: 13px;
+    height: 45px;
     padding: 4px 8px
 }
 
@@ -450,7 +456,7 @@ header h1 {
     position: relative;
     z-index: 1;
     padding-left: 5px;
-    font-size: 12px
+    font-size: 13px
 }
 
 .content-form .body-content .ruc_description span.line {
@@ -479,8 +485,13 @@ header h1 {
     }
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 420px) {
     .content-form .body-content .two-buttons .btn {
         max-width: 120px
+    }
+
+    .img-l-hd{
+        width: 97% !important;
+        height: 74px !important;
     }
 }

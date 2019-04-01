@@ -298,7 +298,7 @@ header h1 {
 .content-form .body-content .no-remember p a {
     display: block;
     font-family: 'GothamLight';
-    font-size: 13px;
+    font-size: 14px;
     color: #414141;
     margin: 5px 0;
     text-decoration: underline
@@ -366,7 +366,7 @@ header h1 {
 .content-form .body-content .form-group label.group-rbt {
     padding-left: 20px;
     text-transform: initial;
-    color: #ccc;
+    color: #7b7070;
     font-weight: normal
 }
 

@@ -25,7 +25,7 @@ export class UpdPasswordComponent implements OnInit {
   finalScssMsg = false;
   overlayAlert: any;
 
-  constructor(private updPasswordService: UpdPasswordService, private cookie: CookieService, private utilitarios: Utilitarios) {
+  constructor(private readonly updPasswordService: UpdPasswordService, private readonly cookie: CookieService, private readonly utilitarios: Utilitarios) {
       this.mostrarContenidoByCondiciones();
   }
 
@@ -34,35 +34,33 @@ export class UpdPasswordComponent implements OnInit {
       const expDateParam = this.utilitarios.$urlParam("de");
       const rucParam = this.utilitarios.$urlParam("key");
       const codParam = this.utilitarios.$urlParam("cd");
-      if(expDateParam != null && rucParam != null && codParam != null){
-        const rucDecode = hashIds.decode(rucParam)[0];
-        const expDateDecode = hashIds.decode(expDateParam)[0];
-        const codDecode = hashIds.decode(codParam)[0];
-        if(rucDecode != null && expDateDecode != null && codDecode != null){
-            const t = new Date().getTime();
-            if(String(rucDecode).length == 11 && t < expDateDecode && String(codDecode).length == 6){
-                if(this.cookie.check('checkCodeVerif')){
-                    const cod = this.cookie.get('checkCodeVerif');
-                    if(cod == codDecode){//Validar si ya no ha sido usado con anterioridad(cookie insertada after validación de un código específico)
-                        window.location.href = document.querySelector('base').href+"login";
-                    }
-                }
-                this.cookie.set('ruc_prov', rucDecode, 0, '/');
-                this.ruc = rucDecode;
-                this.initFormActive = false;
-            }else{
-                window.location.href = document.querySelector('base').href+"login";
-            }
-        }else{
-            window.location.href = document.querySelector('base').href+"login";
-        }
-      }else{
+
+      if(expDateParam === null || rucParam === null || codParam ===null){
           if(!this.cookie.check('checkCaptcha')){
               window.location.href = document.querySelector('base').href+"recuperar/password";
           }
       }
+      const rucDecode = hashIds.decode(rucParam)[0];
+      const expDateDecode = hashIds.decode(expDateParam)[0];
+      const codDecode = hashIds.decode(codParam)[0];
+      if(rucDecode == null || expDateDecode == null || codDecode == null){
+          window.location.href = document.querySelector('base').href+"login";
+      }
+      const t = new Date().getTime();
+      if(String(rucDecode).length !== 11 || t > expDateDecode || String(codDecode).length !== 6) {
+          window.location.href = document.querySelector('base').href+"login";
+      }
 
-      //http://127.0.0.1:4200/recuperar/password/validacion?de=jYbn8W3vaOVRrg43ymkzBN2AgMJ4BwE5&key=j7blEJK4D51N09oX80MqPMyW2dpXmn6o
+      if(this.cookie.check('checkCodeVerif')){
+          const cod = this.cookie.get('checkCodeVerif');
+          if(cod === codDecode){//Valida si ya no ha sido usado con anterioridad(cookie insertada after validación de un código específico)
+              window.location.href = document.querySelector('base').href+"login";
+          }
+      }
+
+      this.cookie.set('ruc_prov', rucDecode, 0, '/');
+      this.ruc = rucDecode;
+      this.initFormActive = false;
   }
 
   ngOnInit() {}

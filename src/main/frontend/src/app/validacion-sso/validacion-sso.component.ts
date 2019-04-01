@@ -13,7 +13,7 @@ export class ValidacionSsoComponent implements OnInit {
   ruc: string;
   maxTime: string;
 
-  constructor(private cookie: CookieService) { }
+  constructor(private readonly cookie: CookieService) { }
 
   ngOnInit() {
       this.validarTknRuc();
@@ -30,7 +30,7 @@ export class ValidacionSsoComponent implements OnInit {
     if(maxTime>0){
         const maxTimeYear = new Date(maxTime).getFullYear();
         const todayYear = new Date().getFullYear();
-        if(rucHash>0 && String(rucHash).length == 11 && maxTime>0 && maxTimeYear == todayYear) {
+        if(rucHash>0 && String(rucHash).length === 11 && maxTime>0 && maxTimeYear === todayYear) {
             this.cookie.set('its_cur', String(rucHash),  0.00083, '/');
             window.location.href = document.querySelector('base').href+"actualizacion/correo";
         } else {

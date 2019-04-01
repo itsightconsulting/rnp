@@ -6,7 +6,7 @@ import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 })
 export class UpdPasswordService{
 
-    constructor(private http: HttpClient){
+    constructor(private readonly http: HttpClient){
 
     }
 

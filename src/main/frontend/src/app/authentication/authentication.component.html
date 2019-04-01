@@ -1,7 +1,7 @@
 <div class="container-mod pad-container">
     <div class="content-form">
         <div class="header-content">
-            <p><img class="svg" alt="Icono RNP Buscador" src="assets/img/iconos_Rpn-01.png"><strong>RNP</strong>Trámites en Línea</p>
+            <p><img class="svg" alt="" src="assets/img/iconos_Rpn-01.png"><strong>RNP</strong>Trámites en Línea</p>
         </div>
         <form id="FrmLogin" class="body-content hidden" [class.hidden]="activeSegForm" [class.hidden]="flagSinUsuario" action="" #f="ngForm" (ngSubmit)="submit(f, $event)">
             <div class="form-group">
@@ -33,8 +33,8 @@
                 <div class="alert alert-danger" [class.hidden]="verificacion" style="font-size: 12px; color: white !important; background: #d9534f !important;">{{msgLogin}}</div>
             </div>
             <ul class="option-login">
-                <li><a href="javascript:void(0)" (click)="activeSegForm=true" id="btnNoInitSesion">¿No puedes iniciar sesión?</a></li>
-                <li><a href="http://www.rnp.gob.pe/informativo.asp">¿Eres un nuevo usuario?</a></li>
+                <li><a href="javascript:void(0)" (click)="activeSegForm=true" id="btnNoInitSesion" class="login-ops">¿No puedes iniciar sesión?</a></li>
+                <li><a href="http://www.rnp.gob.pe/informativo.asp" class="login-ops">¿Eres un nuevo usuario?</a></li>
             </ul>
         </form>
         <form class="body-content hidden" action="" [class.hidden]="!activeSegForm">

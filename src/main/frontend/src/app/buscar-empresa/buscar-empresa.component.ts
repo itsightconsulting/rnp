@@ -13,7 +13,7 @@ export class BuscarEmpresaComponent implements OnInit {
   buscado = false;
   err = "";
 
-  constructor(private buscarEmpresaService: BuscarEmpresaService) { }
+  constructor(private readonly buscarEmpresaService: BuscarEmpresaService) { }
 
   ngOnInit() {
     this.obtenerPais();
@@ -26,7 +26,7 @@ export class BuscarEmpresaComponent implements OnInit {
   }
 
   buscar(r, evt){
-    const btn = evt.target.tagName == "IMG" ? evt.target.parentElement : evt.target;
+    const btn = evt.target.tagName === "IMG" ? evt.target.parentElement : evt.target;
     if(r.valid){
         btn.setAttribute('disabled', 'disabled');
         this.buscarEmpresaService.obtenerEmpresas({paisId: r.controls.Pais.value, tipoPersonaId: r.controls.TipoPersona.value, razonSocial: r.controls.RazonSocial.value})

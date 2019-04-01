@@ -98,14 +98,14 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvokerR
         // Registrar los parámetros de entrada y salida
         spQuery.registerStoredProcedureParameter(P_C_DES_RUC, String.class, ParameterMode.IN);
         spQuery.registerStoredProcedureParameter(P_C_DES_IP, String.class, ParameterMode.IN);
-        spQuery.registerStoredProcedureParameter("mensaje", String.class, ParameterMode.OUT);
-        spQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter(P_MENSAJE.toLowerCase(), String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter(P_RESPUESTA.toLowerCase(), String.class, ParameterMode.OUT);
 
         spQuery.setParameter(P_C_DES_RUC, ruc);
         spQuery.setParameter(P_C_DES_IP, ipCliente);
 
         spQuery.execute();
-        return spQuery.getOutputParameterValue("respuesta").equals("1");
+        return spQuery.getOutputParameterValue(P_RESPUESTA.toLowerCase()).equals("1");
     }
 
     @Override
@@ -116,16 +116,16 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvokerR
         spQuery.registerStoredProcedureParameter(P_C_DES_RUC, String.class, ParameterMode.IN);
         spQuery.registerStoredProcedureParameter(P_C_DES_CORREO, String.class, ParameterMode.IN);
         spQuery.registerStoredProcedureParameter(P_C_DES_IP, String.class, ParameterMode.IN);
-        spQuery.registerStoredProcedureParameter("mensaje", String.class, ParameterMode.OUT);
-        spQuery.registerStoredProcedureParameter("respuesta", String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter(P_MENSAJE.toLowerCase(), String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter(P_RESPUESTA.toLowerCase(), String.class, ParameterMode.OUT);
 
         spQuery.setParameter(P_C_DES_RUC, ruc);
         spQuery.setParameter(P_C_DES_CORREO, correo);
         spQuery.setParameter(P_C_DES_IP, ipCliente);
 
         spQuery.execute();
-        boolean existeRuc = spQuery.getOutputParameterValue("respuesta").equals("1");
-        return existeRuc ? spQuery.getOutputParameterValue("mensaje").toString() : null;
+        boolean existeRuc = spQuery.getOutputParameterValue(P_MENSAJE.toLowerCase()).equals("1");
+        return existeRuc ? spQuery.getOutputParameterValue(P_RESPUESTA.toLowerCase()).toString() : null;
     }
 
     @Override
@@ -204,7 +204,6 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvokerR
 
     @Override
     public Boolean validarDatosIdentificacion(DatosIdentificacionDTO dtsIdentificacion) {
-        System.out.println(dtsIdentificacion.toString());
         StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_VALIDAR_DATOS_IDEN_PROVEEDOR);
         // Registrar los parámetros de entrada y salida
         spQuery.registerStoredProcedureParameter(P_C_DES_RUC, String.class, ParameterMode.IN);

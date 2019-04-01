@@ -12,7 +12,7 @@ export class UpdCorreoComponent implements OnInit {
   ruc: string = this.cookie.get('its_cur');
   err2: string;
 
-  constructor(private cookie: CookieService, private datosIdenService: FormDatosIdenService) { }
+  constructor(private readonly cookie: CookieService, private readonly datosIdenService: FormDatosIdenService) { }
 
   ngOnInit() {
       this.validacionRucToken();
@@ -22,7 +22,7 @@ export class UpdCorreoComponent implements OnInit {
     if(isNaN(Number(this.ruc))){
         window.location.href = document.querySelector('base').href+"login";
     }
-    if(String(this.ruc).length != 11){
+    if(String(this.ruc).length !== 11){
         window.location.href = document.querySelector('base').href+"login";
     }
   }

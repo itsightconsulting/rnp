@@ -1,19 +1,18 @@
 package pe.gob.osce.rnp.seg.interceptor;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.Optional;
-
 import org.hibernate.EmptyInterceptor;
 import org.hibernate.type.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
 import pe.gob.osce.rnp.seg.model.jpa.base.AuditingEntity;
 import pe.gob.osce.rnp.seg.svc.DateTimeRetriever;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Optional;
 
 @Component
 public class EntityInterceptorImpl extends EmptyInterceptor implements EntityInterceptor {

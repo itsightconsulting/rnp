@@ -2,7 +2,7 @@
 <Configuration status="WARN" monitorInterval="30">
     <Properties>
         <Property name="LOG_PATH">
-            fslogs/segrnp-svc/app.log
+            fslogs/segrnp-svc
         </Property>
         <Property name="LOG_PATTERN">
             [%-5level] %d{yyyy-MM-dd HH:mm:ss.SS} ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex

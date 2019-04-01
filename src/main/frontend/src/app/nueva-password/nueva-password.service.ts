@@ -8,7 +8,7 @@ import {Utilitarios} from "../utilitarios";
 })
 export class NuevaPasswordService {
 
-    constructor(private http: HttpClient, private cookie: CookieService, private utilitarios: Utilitarios) {}
+    constructor(private readonly http: HttpClient, private readonly cookie: CookieService, private readonly utilitarios: Utilitarios) {}
 
     validacionCambioPassword() {
         const rucHash = this.utilitarios.$urlParam("cd");

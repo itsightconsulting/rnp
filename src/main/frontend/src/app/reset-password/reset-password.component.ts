@@ -14,7 +14,7 @@ export class ResetPasswordComponent implements OnInit {
   errorMessage: string;
   activeOpsCambio = false;
 
-  constructor(private resetPasswordService: ResetPasswordService, private cookie: CookieService) { }
+  constructor(private readonly resetPasswordService: ResetPasswordService, private readonly cookie: CookieService) { }
 
   ngOnInit() {
     this.resetPasswordService.getCaptcha().subscribe((res: any)=>{
@@ -27,7 +27,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
     refreshCaptcha(fail?){
-        if(fail != undefined) this.failCaptcha = true;
+        if(fail !== undefined) this.failCaptcha = true;
         this.resetPasswordService.refreshCaptcha().subscribe((res: any)=>{
             if(res.flag){
                 const d = res.d;
@@ -49,10 +49,6 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     preventMultipleSubmit(btn, r){
-        if(!r.valid){
-            r.controls.forEach(v=>v.markAsTouched());
-            return;
-        }
         const captchaVal = r.controls.CodeCaptcha.value === this.cookie.get('cap_code');
 
         if (!captchaVal) {
@@ -85,7 +81,7 @@ export class ResetPasswordComponent implements OnInit {
             Array.from(document.querySelectorAll('label.group-rbt')).forEach(v => v.classList.remove('hidden'));
             const objValues = Object.keys(d.d).map(key=>d.d[key]);
             for(let i=0; i<objValues.length; i++){
-                if(objValues[i] == "NO") {
+                if(objValues[i] === "NO") {
                     document.querySelectorAll('label.group-rbt')[i].classList.add('hidden');
                 }
             }
