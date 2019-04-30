@@ -7,7 +7,7 @@ import pe.gob.osce.rnp.seg.model.jpa.base.OauthBaseEntity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "OAUTH_ACCESS_TOKEN")
+@Table(name = "OAUTH_ACCESS_TOKEN", uniqueConstraints = {@UniqueConstraint(columnNames = {"AUTHENTICATION_ID"})})
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class OauthAccessToken extends OauthBaseEntity {
