@@ -13,7 +13,8 @@
                        minlength="8"
                        maxlength="40"
                        validateEqual="ReCorreoEle" reverse="true"
-                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                       (focusout)="removeSpaces(CorreoEle)">
                 <div class="text-danger" *ngIf="CorreoEle.touched && !CorreoEle.valid">
                     <div *ngIf="CorreoEle.errors.required">El correo es requerido</div>
                     <div *ngIf="CorreoEle.errors.minlength">El correo debe tener mínimo {{CorreoEle.errors.minlength.requiredLength}} caracteres</div>
@@ -28,7 +29,8 @@
                        minlength="8"
                        maxlength="40"
                        validateEqual="CorreoEle"
-                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                       (focusout)="removeSpaces(ReCorreoEle)">
                 <div class="text-danger" *ngIf="ReCorreoEle.touched && !ReCorreoEle.valid">
                     <div *ngIf="ReCorreoEle.errors.required">La confirmación es requerida</div>
                     <div *ngIf="ReCorreoEle.errors.minlength">El correo debe tener mínimo {{ReCorreoEle.errors.minlength.requiredLength}} caracteres</div>

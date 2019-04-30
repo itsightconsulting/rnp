@@ -11,7 +11,8 @@ export class AuthenticationService {
     }
 
     authProcess(objAutth: any) {
-        const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        const headers = new HttpHeaders()
+            .set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         const params = new HttpParams({
             fromObject : objAutth
         });

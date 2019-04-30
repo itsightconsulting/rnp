@@ -77,8 +77,10 @@ export class ListadoOpcionComponent implements OnInit {
                 if(x.d.length === 1){
                     this.cookie.set('email_prov', x.d[0].correoRepresentante, 0, '/');
                     this.cookie.set('checkCaptcha', this.passCaptcha,  0.083, '/');
+                    this.cookie.set('by_rep_mail', "1",  0.0005, '/');
                     window.location.href = document.querySelector('base').href+this.hrefRouteValidacion;
                 }else{
+                    this.cookie.set('by_rep_mail', "1",  0.0005, '/');
                     this.existsLstRepre = true;
                     this.lstRepresentante = Array.from(new Set(x.d.map(v=>JSON.stringify(v)))).map((v: any)=>JSON.parse(v)).map(v=>
                         new RepresentanteDto(
@@ -143,5 +145,9 @@ export class ListadoOpcionComponent implements OnInit {
     } catch (e) {
         return false;
     }
+  }
+
+  backLogin(){
+      window.location.href = document.querySelector('base').href+"login";
   }
 }

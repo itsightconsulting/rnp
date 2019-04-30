@@ -1,5 +1,6 @@
 package pe.gob.osce.rnp.seg.svc.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.gob.osce.rnp.seg.dao.ParametroRepository;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Transactional
 public class ParametroServiceImpl extends BaseServiceImpl<ParametroRepository> implements ParametroService {
 
+    @Autowired
     public ParametroServiceImpl(ParametroRepository repository) {
         super(repository);
     }

@@ -24,13 +24,13 @@
             <div class="form-group two-buttons mrg-top">
                 <div class="no-remember text-center">
                     <p><a href="javascript:void(0)" (click)="mostrarMensaje()">¿No ha podido recuperar su usuario con ninguna de las opciones anteriores?</a></p>
-                    <div class="alert alert-info" style="font-size: 0.9em" [class.hidden]="!lastMsgActive">
-                        Estimado proveedor, si no ha podido recuperar su usuario RNP con ninguna de las opciones anteriores, le recomendamos que se comunique con nosotros: <br/><strong>RNP-Atiende. Teléfono: 6135555 Anexo 5000</strong>
+                    <div class="alert alert-info" style="font-size: 1em" [class.hidden]="!lastMsgActive">
+                        Estimado proveedor, si no ha podido recuperar su usuario RNP con ninguna de las opciones anteriores, le recomendamos que se comunique con nosotros: <br/><strong>RNP-Atiende. Teléfono: 6135555 Anexo 5000. Correo: rnpatiende@osce.gob.pe.<br/>Horario de atención: <br/> 08:30 a.m. a 05:30 p.m.</strong>
                     </div>
                 </div>
 
-                <a href="login"><button class="btn btn-default" type="button">CANCELAR</button></a>
-                <a href="javascript:void(0)" (click)="irOpcionRecuperacion()"><button class="btn btn-success" type="button">SIGUIENTE</button></a>
+                <a href="login"><button (click)="backLogin()" class="btn btn-default" type="button">CANCELAR</button></a>
+                <a href="javascript:void(0)" (click)="irOpcionRecuperacion()"><button (click)="irOpcionRecuperacion()" class="btn btn-success" type="button">SIGUIENTE</button></a>
             </div>
         </form>
         <form class="body-content" #f="ngForm" action="" [class.hidden]="!activeOpcion1">
@@ -41,7 +41,8 @@
                        required
                        minlength="8"
                        maxlength="40"
-                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                       (focusout)="removeSpaces(CorreoEle)">
                 <div class="text-danger" *ngIf="CorreoEle.touched && !CorreoEle.valid">
                     <div *ngIf="CorreoEle.errors.required">El correo es requerido</div>
                     <div *ngIf="CorreoEle.errors.minlength">El correo debe tener mínimo {{CorreoEle.errors.minlength.requiredLength}} caracteres</div>
@@ -82,7 +83,7 @@
                 <p>¿No reconoces la información mostrada?<a href="recuperar/usuario">PRUEBA DE OTRA MANERA</a></p>
             </div>
             <div class="form-group two-buttons">
-                <a href="login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                <a href="login"><button (click)="backLogin()" class="btn btn-default" type="button">CANCELAR</button></a>
                 <button class="btn btn-success" type="submit" [disabled]="!f.valid" (click)="submit($event.target, f)">INICIAR </button>
             </div>
         </form>
@@ -94,7 +95,8 @@
                        required
                        minlength="8"
                        maxlength="40"
-                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                       (focusout)="removeSpaces(CorreoEleRepre)">
                 <div class="text-danger" *ngIf="CorreoEleRepre.touched && !CorreoEleRepre.valid">
                     <div *ngIf="CorreoEleRepre.errors.required">El correo es requerido</div>
                     <div *ngIf="CorreoEleRepre.errors.minlength">El correo debe tener mínimo {{CorreoEleRepre.errors.minlength.requiredLength}} caracteres</div>
@@ -135,14 +137,14 @@
                 <p>¿No reconoces la información mostrada?<a href="recuperar/usuario">PRUEBA DE OTRA MANERA</a></p>
             </div>
             <div class="form-group two-buttons">
-                <a href="login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                <a href="login"><button (click)="backLogin()" class="btn btn-default" type="button">CANCELAR</button></a>
                 <button class="btn btn-success" type="submit" [disabled]="!f1.valid" (click)="submit2($event.target, f1)">INICIAR </button>
             </div>
         </form>
         <div [class.hidden]="!finalScssMsg">
             <div class="text-primary text-center" style="padding: 5px 15px 0px;">{{scssMsg}}</div>
             <div class="text-center" style="padding: 15px">
-                <a href="login"><button style="width: 70% !important;" class="btn btn-success" type="button">REGRESAR AL LOGIN</button></a>
+                <a href="login"><button (click)="backLogin()" style="width: 70% !important;" class="btn btn-success" type="button">REGRESAR AL LOGIN</button></a>
             </div>
         </div>
     </div>

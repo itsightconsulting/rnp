@@ -6,10 +6,9 @@
         <form class="body-content" #f="ngForm" action="" [ngClass]="{hidden: scssValidacion}">
             <p class="ruc_description"><span class="bg"><strong>RUC:</strong>{{ruc}}</span><span class="line"></span></p>
             <p class="subtitle-form icon"><img class="svg" alt="Icono Rnp Seguridad" src="assets/img/iconos_Rpn-02.svg">DATOS DE IDENTIFICACION</p>
-            <p class="description-form">A continuación usted deberá brindar la información de su representante legal o apoderado en el Perú, completando los siguientes campos:</p>
             <div class="form-group select-control"><span><img alt="Icono Select Arrow" src="assets/img/select-arrow.png"></span>
                 <select ngModel #Pais="ngModel" id="Pais" name="Pais" class="form-control" required>
-                    <option selected="selected" value="">País de Origen</option>
+                    <option selected="selected" value="">País de origen del proveedor extranjero</option>
                     <option *ngFor="let p of lstPais" [value]="p.iden">
                         {{p.valor}}
                     </option>
@@ -18,6 +17,7 @@
                     <div *ngIf="Pais.errors.required">El país es requerido</div>
                 </div>
             </div>
+            <p class="description-form">A continuación usted deberá brindar la información de su representante legal o apoderado en el Perú, completando los siguientes campos:</p>
             <div class="form-group select-control"><span><img alt="Icono Select Arrow" src="assets/img/select-arrow.png"></span>
                 <select ngModel #TipoDoc="ngModel" id="TipoDoc" name="TipoDoc" class="form-control" required>
                     <option selected="selected" value="">Tipo de documento de identidad</option>
@@ -88,7 +88,7 @@
                 <p>¿No reconoces la información mostrada?<a href="recuperar/password/opcs">PRUEBA DE OTRA MANERA</a></p>
             </div>
             <div class="form-group two-buttons">
-                <a href="login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                <a href="login"><button (click)="backLogin()" class="btn btn-default" type="button">CANCELAR</button></a>
                 <button class="btn btn-success" type="submit" [disabled]="!f.valid" (click)="validarDatos(f, $event)">SIGUIENTE</button>
             </div>
             <div class="text-danger text-center" style="padding: 5px 15px 0px;">{{err}}</div>
@@ -103,7 +103,8 @@
                        minlength="8"
                        maxlength="40"
                        validateEqual="ReCorreoEle" reverse="true"
-                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                       (focusout)="removeSpaces(CorreoEle)">
                 <div class="text-danger" *ngIf="CorreoEle.touched && !CorreoEle.valid">
                     <div *ngIf="CorreoEle.errors.required">El correo es requerido</div>
                     <div *ngIf="CorreoEle.errors.minlength">El correo debe tener mínimo {{CorreoEle.errors.minlength.requiredLength}} caracteres</div>
@@ -118,7 +119,8 @@
                        minlength="8"
                        maxlength="40"
                        validateEqual="CorreoEle"
-                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                       (focusout)="removeSpaces(ReCorreoEle)">
                 <div class="text-danger" *ngIf="ReCorreoEle.touched && !ReCorreoEle.valid">
                     <div *ngIf="ReCorreoEle.errors.required">La confirmación es requerida</div>
                     <div *ngIf="ReCorreoEle.errors.minlength">El correo debe tener mínimo {{ReCorreoEle.errors.minlength.requiredLength}} caracteres</div>

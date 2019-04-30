@@ -36,12 +36,12 @@ public class EmailServiceImpl extends EmailGeneric implements EmailService {
     @Override
     public Boolean enviarCorreoInformativo(String asunto, String receptor, String contenido) {
         MimeMessagePreparator preparator;
-        try {//YOSELIN.RODRIGUEZ@ITSIGHT.PE|EGMP.RNP.CLAVE@GMAIL.COM
+        try {
             receptor = profile.equals("production") ? receptor : "EGMP.RNP.CLAVE@GMAIL.COM";
             preparator = mimeMessagePreparator(asunto, receptor, contenido, new InternetAddress(context.getAttribute("MAIL_USERNAME").toString(),"RNP Plataforma Electrónica"));
             emailSender.send(preparator);
-        } catch (UnsupportedEncodingException|MailException | NullPointerException ex) {
-            LOGGER.info(ex.getMessage());
+        } catch (UnsupportedEncodingException | MailException | NullPointerException ex) {
+            LOGGER.error(ex.getMessage());
             return false;
         }
         return true;

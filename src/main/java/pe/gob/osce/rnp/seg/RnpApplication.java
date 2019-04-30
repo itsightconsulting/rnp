@@ -43,7 +43,6 @@ public class RnpApplication extends SpringBootServletInitializer /*implements Co
         return dataSourceLookup.getDataSource(jndiNameProduction);
     }
 
-
     @Profile(value = "!production")
     @Bean
     @Primary

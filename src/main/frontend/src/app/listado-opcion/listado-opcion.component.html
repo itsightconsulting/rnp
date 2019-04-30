@@ -19,11 +19,11 @@
                 <div class="form-group two-buttons mrg-top">
                     <div class="no-remember text-center">
                         <p><a href="javascript:void(0)" (click)="msgNoRecuperado()">¿No ha podido recuperar su clave con ninguna de las opciones anteriores?</a></p>
-                        <div class="alert alert-info" style="font-size: 0.9em" [class.hidden]="!valMsgNoRecuperado">
-                            Estimado proveedor, si no ha podido recuperar su usuario RNP con ninguna de las opciones anteriores, le recomendamos que se comunique con nosotros: <br/><strong>RNP-Atiende. Teléfono: 6135555 Anexo 5000</strong>
+                        <div class="alert alert-info" style="font-size: 1em" [class.hidden]="!valMsgNoRecuperado">
+                            Estimado proveedor, si no ha podido recuperar su usuario RNP con ninguna de las opciones anteriores, le recomendamos que se comunique con nosotros: <br/><strong>RNP-Atiende. Teléfono: 6135555 Anexo 5000. Correo: rnpatiende@osce.gob.pe.<br/>Horario de atención: <br/>08:30 a.m. a 05:30 p.m.</strong>
                         </div>
                     </div>
-                    <a href="login"><button class="btn btn-default" type="button">CANCELAR</button></a>
+                    <a href="login"><button (click)="backLogin()" class="btn btn-default" type="button">CANCELAR</button></a>
                     <button class="btn btn-success" (click)="enviarOpcion($event)" type="button">SIGUIENTE</button>
                 </div>
                 <div class="text-center"><span class="text-danger" style="font-size: 0.9em;">{{err}}</span></div>

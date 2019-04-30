@@ -33,7 +33,7 @@ public class SeguridadController {
 
     @PostMapping("/login")
     public Respuesta<String> login(@RequestParam(value = "ruc") Long ruc, @RequestParam(value = "clave") String clave){
-        if(ruc != null && clave != null && clave.length()>7)
+        if(ruc != null && clave != null && clave.length()>0)
             return seguridadService.validarIngreso(ruc, clave);
         return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0, "El usuario y/o clave inválidos");
     }

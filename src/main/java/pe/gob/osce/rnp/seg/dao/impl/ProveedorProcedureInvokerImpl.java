@@ -12,10 +12,7 @@ import pe.gob.osce.rnp.seg.utils.Parseador;
 import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
 import javax.persistence.StoredProcedureQuery;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Repository
 @Transactional
@@ -98,14 +95,14 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvokerR
         // Registrar los parámetros de entrada y salida
         spQuery.registerStoredProcedureParameter(P_C_DES_RUC, String.class, ParameterMode.IN);
         spQuery.registerStoredProcedureParameter(P_C_DES_IP, String.class, ParameterMode.IN);
-        spQuery.registerStoredProcedureParameter(P_MENSAJE.toLowerCase(), String.class, ParameterMode.OUT);
-        spQuery.registerStoredProcedureParameter(P_RESPUESTA.toLowerCase(), String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter(P_MENSAJE, String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter(P_RESPUESTA, String.class, ParameterMode.OUT);
 
         spQuery.setParameter(P_C_DES_RUC, ruc);
         spQuery.setParameter(P_C_DES_IP, ipCliente);
 
         spQuery.execute();
-        return spQuery.getOutputParameterValue(P_RESPUESTA.toLowerCase()).equals("1");
+        return spQuery.getOutputParameterValue(P_RESPUESTA).equals("1");
     }
 
     @Override
@@ -116,20 +113,20 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvokerR
         spQuery.registerStoredProcedureParameter(P_C_DES_RUC, String.class, ParameterMode.IN);
         spQuery.registerStoredProcedureParameter(P_C_DES_CORREO, String.class, ParameterMode.IN);
         spQuery.registerStoredProcedureParameter(P_C_DES_IP, String.class, ParameterMode.IN);
-        spQuery.registerStoredProcedureParameter(P_MENSAJE.toLowerCase(), String.class, ParameterMode.OUT);
-        spQuery.registerStoredProcedureParameter(P_RESPUESTA.toLowerCase(), String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter(P_MENSAJE, String.class, ParameterMode.OUT);
+        spQuery.registerStoredProcedureParameter(P_RESPUESTA, String.class, ParameterMode.OUT);
 
         spQuery.setParameter(P_C_DES_RUC, ruc);
         spQuery.setParameter(P_C_DES_CORREO, correo);
         spQuery.setParameter(P_C_DES_IP, ipCliente);
 
         spQuery.execute();
-        boolean existeRuc = spQuery.getOutputParameterValue(P_MENSAJE.toLowerCase()).equals("1");
-        return existeRuc ? spQuery.getOutputParameterValue(P_RESPUESTA.toLowerCase()).toString() : null;
+        boolean existeRuc = spQuery.getOutputParameterValue(P_RESPUESTA).equals("1");
+        return existeRuc ? spQuery.getOutputParameterValue(P_MENSAJE).toString() : null;
     }
 
     @Override
-    public ContenidoCorreoPOJO obtenerContenidoCorreoByTipo(int tipo, String ruc, String codVerificacion, String obs1, String expiration) {
+    public ContenidoCorreoPOJO obtenerContenidoCorreoByTipo(int tipo, String ruc, String codVerificacion, String obs1, String fecExpYcorreo) {
         StoredProcedureQuery spQuery = em.createStoredProcedureQuery(StoredProcedureName.SP_OBTENER_BODY_CORREO);
 
         // Registrar los parámetros de entrada y salida
@@ -147,16 +144,19 @@ public class ProveedorProcedureInvokerImpl implements ProveedorProcedureInvokerR
         spQuery.setParameter("D_FEC_CAMBIO", new Date());
         spQuery.setParameter("C_COD_VERIFIC", codVerificacion);
         spQuery.setParameter("C_DES_OBSERV1", obs1);
-        if(expiration != null) {
+        if(fecExpYcorreo != null) {//OBS 4 NULLABLE: PARA EL CU ACTUALIZAR_CLAVE SE USA PARA INSERTAR UN LINK AL CUERPO DEL CORREO
+            String[] fecExpAndCorreo = fecExpYcorreo.split("\\|");
             String rucEncode = Parseador.getEncodeHash32Id("its_rnp_seg_mod", Long.valueOf(ruc));
             String codeEncode = Parseador.getEncodeHash32Id("its_rnp_seg_mod", Long.valueOf(codVerificacion));
             StringBuilder sb = new StringBuilder(1000);
             sb.append("?de=");
-            sb.append(expiration);
+            sb.append(fecExpAndCorreo[0]);
             sb.append("&key=");
             sb.append(rucEncode);
             sb.append("&cd=");
             sb.append(codeEncode);
+            sb.append("&lm=");
+            sb.append(new String(Base64.getEncoder().encode(fecExpAndCorreo[1].getBytes())).replaceAll("=",""));
             spQuery.setParameter("C_DES_OBSERV4", sb.toString());
         }
         List<Object[]> result = spQuery.getResultList();

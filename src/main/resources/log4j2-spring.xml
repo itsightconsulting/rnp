@@ -2,7 +2,7 @@
 <Configuration status="WARN" monitorInterval="30">
     <Properties>
         <Property name="LOG_PATH">
-            fslogs/segrnp-svc
+            /fslogs/segrnp-svc
         </Property>
         <Property name="LOG_PATTERN">
             [%-5level] %d{yyyy-MM-dd HH:mm:ss.SS} ${hostName} --- [%15.15t] %-40.40c{1.} : %m%n%ex
@@ -12,20 +12,38 @@
         <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
-        <File name="AppFileAppender" fileName="${LOG_PATH}/app.log">
+        <File name="AppFileAppender" fileName="${LOG_PATH}/segrnp-svc.log">
             <PatternLayout>
                 <pattern>
                     [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
                 </pattern>
             </PatternLayout>
         </File>
-        <File name="AppFileAppenderWarn" fileName="${LOG_PATH}/app_warn.log">
+        <File name="AppFileAppenderWarn" fileName="${LOG_PATH}/segrnp-svc_warn.log">
             <PatternLayout>
                 <pattern>
                     [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
                 </pattern>
             </PatternLayout>
         </File>
+        <!--SMTP Appender-->
+        <SMTP name="MailAppender"
+              subject="RNP OSCE - SMTP [PROD]"
+              to="contoso.peru@gmail.com"
+              cc="hisla@osce.gob.pe"
+              from="contoso.peru@gmail.com"
+              smtpHost="smtp.gmail.com"
+              smtpPort="465"
+              smtpUsername="contoso.peru@gmail.com"
+              smtpPassword="p1ls3n@147"
+              smtpProtocol="smtps"
+              smtpDebug="false"
+              bufferSize="2">
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+        </SMTP>
     </Appenders>
     <Loggers>
         <Logger name="pe.gob.osce.rnp.seg" level="info" additivity="false">
@@ -33,7 +51,11 @@
             <AppenderRef ref="ConsoleAppender"/>
         </Logger>
         <Logger name="pe.gob.osce.rnp.seg.controller" level="warn" additivity="false">
-           <AppenderRef ref="AppFileAppenderWarn"/>
+           <AppenderRef ref="AppFileAppender"/>
+        </Logger>
+        <Logger name="pe.gob.osce.rnp.seg.svc.impl.EmailServiceImpl" level="error" additivity="false">
+            <AppenderRef ref="AppFileAppender"/>
+            <AppenderRef ref="MailAppender"/>
         </Logger>
         <Root level="info">
             <AppenderRef ref="ConsoleAppender"/>

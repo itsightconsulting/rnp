@@ -1,6 +1,0 @@
-[INFO ] 2019-04-01 12:34:06.101 [restartedMain] RnpApplication - The following profiles are active: development
-[INFO ] 2019-04-01 12:34:39.743 [restartedMain] StartUpListener - > Record already exist <
-[INFO ] 2019-04-01 12:34:39.870 [restartedMain] StartUpListener - INIT APPLICATION'S CLIENT ALREADY EXISTS
-[INFO ] 2019-04-01 12:34:39.932 [restartedMain] RnpApplication - Started RnpApplication in 42.777 seconds (JVM running for 48.234)
-[INFO ] 2019-04-01 14:37:30.558 [restartedMain] RnpApplication - The following profiles are active: development
-[INFO ] 2019-04-01 14:39:39.383 [restartedMain] WebMvcConfiguration - CONFIGURATION MAIL EXCEPTION: Could not open JPA EntityManager for transaction; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection

@@ -17,7 +17,7 @@ public class UpdClaveDto implements Serializable {
     @Size(min = 1)
     private String clave;
     @NotNull
-    @Size(min = 1)
+    @Size(min = 8)
     private String correo;
     @NotNull
     @Size(min = 1)

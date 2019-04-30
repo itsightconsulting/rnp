@@ -38,11 +38,12 @@
                 </div>
             </div>
             <div class="form-group search-content">
-                <label>Nombre o Razón social</label>
+                <label>NOMBRE O RAZÓN SOCIAL</label>
                 <input class="form-control" type="text" placeholder="" ngModel #RazonSocial="ngModel" name="RazonSocial" id="RazonSocial"
                        required="required"
                        minlength="5"
-                       maxlength="40">
+                       maxlength="40"
+                       (focusout)="removeSpaces(RazonSocial)">
                 <div class="text-danger" *ngIf="RazonSocial.touched && !RazonSocial.valid">
                     <div *ngIf="RazonSocial.errors.required">La razón social es requerida</div>
                     <div *ngIf="RazonSocial.errors.minlength || RazonSocial.errors.maxlength">La razón social debe tener {{RazonSocial.errors.minlength.requiredLength}} caracteres como mínimo</div>
@@ -81,7 +82,7 @@
                 <p>¿No reconoces la información mostrada?<a href="recuperar/usuario">PRUEBA DE OTRA MANERA</a></p>
             </div>
             <div class="form-group">
-                <a href="login"><button class="btn btn-success full" type="button">CANCELAR</button></a>
+                <a href="login"><button (click)="backLogin()" class="btn btn-success full" type="button">CANCELAR</button></a>
             </div>
         </form>
     </div>

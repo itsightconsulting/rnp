@@ -95,4 +95,8 @@ export class ResetPasswordComponent implements OnInit {
             return;
         }
     }
+
+    backLogin(){
+        window.location.href = document.querySelector('base').href+"login";
+    }
 }

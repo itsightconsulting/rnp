@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>pe.gob.osce.rnp.seg</groupId>
-    <artifactId>rnp</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>segrnp-svc</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>RNP</name>

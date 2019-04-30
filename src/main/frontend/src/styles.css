@@ -26,6 +26,19 @@ body{
 #overlayAlert .mensaje-personalizado{
     margin-left: 10%;
     width: 80%;
+    font-size: 20px !important;
+}
+
+#overlay .mensaje-personalizado{
+    font-size: 20px !important;
+}
+
+#overlayConfirm .mensaje-personalizado{
+    font-size: 20px !important;
+}
+
+#overlayAlert .mensaje-personalizado{
+    font-size: 20px !important;
 }
 
 #overlay, #overlayConfirm, #overlayAlert {

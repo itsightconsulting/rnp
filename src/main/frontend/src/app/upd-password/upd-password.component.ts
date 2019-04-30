@@ -13,8 +13,9 @@ export class UpdPasswordComponent implements OnInit {
 
   preCorreo: any;
   ruc: string = this.cookie.check('ruc_prov') ? this.cookie.get('ruc_prov'): "";
-  correo: string = this.cookie.check('email_prov')? this.cookie.get('email_prov'): "";
-  correoFormatter: string = this.correo.slice(0,4)+ '*'.repeat(this.correo.indexOf('@')-4)+ this.correo.slice(this.correo.indexOf('@'));
+  correo: string = this.cookie.check('email_prov') ? this.cookie.get('email_prov'): "";
+  checkByRep: string = this.cookie.check('by_rep_mail') ? this.cookie.get('by_rep_mail'): "";
+  correoFormatter: string = this.correo.length === 0 ? "":this.correo.slice(0,4)+ '*'.repeat(this.correo.indexOf('@')-4)+ this.correo.slice(this.correo.indexOf('@'));
   initFormActive = true;
   err = "";
   codVerCorrecto = false;
@@ -24,9 +25,18 @@ export class UpdPasswordComponent implements OnInit {
   err3 = "";
   finalScssMsg = false;
   overlayAlert: any;
+  titleForm = "Correo electrónico de contacto";
 
   constructor(private readonly updPasswordService: UpdPasswordService, private readonly cookie: CookieService, private readonly utilitarios: Utilitarios) {
+      this.fnCheckByRep();
       this.mostrarContenidoByCondiciones();
+  }
+
+  fnCheckByRep(){
+      if(this.checkByRep === "1"){
+          this.titleForm = "Correo electrónico del representante";
+          this.cookie.delete('by_rep_mail', '/');
+      }
   }
 
   mostrarContenidoByCondiciones(){
@@ -34,7 +44,9 @@ export class UpdPasswordComponent implements OnInit {
       const expDateParam = this.utilitarios.$urlParam("de");
       const rucParam = this.utilitarios.$urlParam("key");
       const codParam = this.utilitarios.$urlParam("cd");
-      if(expDateParam === null || rucParam === null || codParam ===null){
+      const lm = this.utilitarios.$urlParam("lm");
+
+      if(expDateParam === null || rucParam === null || codParam ===null || lm === null){
           if(!this.cookie.check('checkCaptcha')){
               window.location.href = document.querySelector('base').href+"recuperar/password";
           }
@@ -43,7 +55,8 @@ export class UpdPasswordComponent implements OnInit {
       const rucDecode = hashIds.decode(rucParam)[0];
       const expDateDecode = hashIds.decode(expDateParam)[0];
       const codDecode = hashIds.decode(codParam)[0];
-      if(rucDecode === null || expDateDecode === null || codDecode === null){
+      const mailDecode = atob(""+lm);
+      if(rucDecode === null || expDateDecode === null || codDecode === null || !mailDecode.includes("@")){
           window.location.href = document.querySelector('base').href+"login";
       }
       const t = new Date().getTime();
@@ -60,6 +73,8 @@ export class UpdPasswordComponent implements OnInit {
 
       this.cookie.set('ruc_prov', rucDecode, 0, '/');
       this.ruc = rucDecode;
+      this.correo = mailDecode;
+      this.correoFormatter = this.correo.length === 0 ? "":this.correo.slice(0,4)+ '*'.repeat(this.correo.indexOf('@')-4)+ this.correo.slice(this.correo.indexOf('@'));
       this.initFormActive = false;
   }
 
@@ -152,5 +167,9 @@ export class UpdPasswordComponent implements OnInit {
             return false;
         }
         return true;
+    }
+
+    backLogin(){
+        window.location.href = document.querySelector('base').href+"login";
     }
 }

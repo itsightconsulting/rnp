@@ -134,4 +134,12 @@ export class ResetUserComponent implements OnInit {
             }
         }
     }
+
+    backLogin(){
+        window.location.href = document.querySelector('base').href+"login";
+    }
+
+    removeSpaces(e){
+        e.control.setValue(e.value.trim());
+    }
 }

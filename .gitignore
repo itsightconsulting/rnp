@@ -2,7 +2,9 @@
 !.mvn/wrapper/maven-wrapper.jar
 
 ### CUSTOM ##
+fslogs/
 rnp_logs/
+dist/
 src/main/frontend/node_modules
 ### STS ###
 .apt_generated

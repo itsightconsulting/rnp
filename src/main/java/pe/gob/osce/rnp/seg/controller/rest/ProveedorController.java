@@ -87,7 +87,7 @@ public class ProveedorController {
     public Respuesta<String> actualizarCorreoRepExtNoDom(
             @RequestParam(value = "ruc") Long ruc,
             @RequestParam(value = "correo") String correo){
-        if(ruc != null && correo != null)
+        if(ruc != null && correo != null && correo.length()>7)
             return proveedorService.actualizarCorreoExtNoDom(ruc, correo);
         return new Respuesta<>(Enums.ResponseCode.EX_VALIDATION_FAILED.get(), 0);
     }

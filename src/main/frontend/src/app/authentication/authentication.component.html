@@ -20,7 +20,7 @@
             <div class="form-group">
                 <label for="Clave">CONTRASEÑA</label>
                 <input ngModel name="Clave" #Clave="ngModel" id="Clave" class="form-control" type="password" placeholder="Clave RNP"
-                    minlength="8"
+                    minlength="1"
                     maxlength="20"
                     required>
                 <div class="text-danger" *ngIf="Clave.touched && !Clave.valid">
@@ -34,8 +34,11 @@
             </div>
             <ul class="option-login">
                 <li><a href="javascript:void(0)" (click)="activeSegForm=true" id="btnNoInitSesion" class="login-ops">¿No puedes iniciar sesión?</a></li>
-                <li><a href="http://www.rnp.gob.pe/informativo.asp" class="login-ops">¿Eres un nuevo usuario?</a></li>
+                <li><a href="javascript:void(0)" (click)="msgNueUsu=true" class="login-ops">¿Eres un nuevo usuario?</a></li>
             </ul>
+            <div class="alert alert-info" [class.hidden]="!msgNueUsu">Recuerde que la clave viene en el voucher de pago sólo cuando inicia el procedimiento de inscripción por primera vez.
+                <a href="https://www.rnp.gob.pe/informativo.asp" target="_blank" style="text-decoration: underline">Click aquí</a>
+            </div>
         </form>
         <form class="body-content hidden" action="" [class.hidden]="!activeSegForm">
             <p class="subtitle-form">¿Por qué no puedes iniciar sesión?</p>
@@ -50,23 +53,23 @@
                 </label>
             </div>
             <div class="form-group two-buttons mrg-top">
-                <a href="javascript:void(0)" (click)="activeSegForm=false"><button class="btn btn-default" type="button">CANCELAR</button></a>
-                <a href="javascript:void(0)" (click)="irOpcionRecuperacion()"><button class="btn btn-success" type="button">SIGUIENTE</button></a>
+                <a href="javascript:void(0)" (click)="activeSegForm=false"><button (click)="activeSegForm=false" class="btn btn-default" type="button">CANCELAR</button></a>
+                <a href="javascript:void(0)" (click)="irOpcionRecuperacion()"><button (click)="irOpcionRecuperacion()" class="btn btn-success" type="button">SIGUIENTE</button></a>
             </div>
         </form>
         <form class="body-content hidden" action="" [class.hidden]="!flagSinUsuario" style="max-width: 98%; !important;">
-            <label class="subtitle-form" style="padding-bottom: 15px;">Para proceder con las opciones de recuperación de ususario, elija la categoría en la que se encuentra: </label><br>
+            <label class="subtitle-form" style="padding-bottom: 15px;">Para proceder con las opciones de recuperación de usuario, elija la categoría en la que se encuentra: </label><br>
             <div class="form-group">
                 <button class="btn btn-primary" type="button" (click)="showMsgUsuario()" style="white-space: normal !important;">Soy proveedor nacional o extranjero con domicilio en el Perú</button>
             </div>
             <div class="form-group">
-                <a href="recuperar/usuario"><button class="btn btn-primary" type="button" style="white-space: normal !important;">Soy proveedor extranjero sin domicilio en el Perú</button></a>
+                <a href="recuperar/usuario"><button (click)="redirectRecUsu()" class="btn btn-primary" type="button" style="white-space: normal !important;">Soy proveedor extranjero sin domicilio en el Perú</button></a>
             </div>
             <div class="text-success" [class.hidden]="msgInformacionUsuario == ''" style="font-size: 0.9em;border: 2px solid #b9a9a9;padding: 10px;border-radius: 10px;">
                 {{msgInformacionUsuario}}
             </div>
             <div class="form-group two-buttons" style="margin-top: 15px">
-                <a href="javascript:void(0)" href="login"><button class="btn btn-success" type="button">VOLVER AL LOGIN</button></a>
+                <a href="login"><button (click)="backLogin()" class="btn btn-success" type="button">VOLVER AL LOGIN</button></a>
             </div>
         </form>
         <iframe title="Legacy RNP Login" id="IframeReceiver" class="hidden" src="https://www.rnp.gob.pe/login.asp" height="500px" width="500px" (load)="iframeCheckLogged()"></iframe>

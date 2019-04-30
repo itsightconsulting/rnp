@@ -19,6 +19,7 @@ export class AuthenticationComponent implements OnInit {
   flagSinUsuario = false;
   activeSegForm= false;
   iframeReceiver: any;
+  msgNueUsu=false;
 
   constructor(private readonly authenticationService: AuthenticationService, private readonly utilitarios: Utilitarios) {
   }
@@ -112,5 +113,13 @@ export class AuthenticationComponent implements OnInit {
           this.msgLogin = "El servicio de login no se encuentra disponible. Intentelo nuevamente más tarde o comuníquese al teléfono: 6135555 Anexo 5000";
           document.getElementById("overlay").style.display = "none";
       }, 5000)
+  }
+
+  redirectRecUsu(){
+      window.location.href = document.querySelector('base').href+"recuperar/usuario";
+  }
+
+  backLogin(){
+      window.location.href = document.querySelector('base').href+"login";
   }
 }

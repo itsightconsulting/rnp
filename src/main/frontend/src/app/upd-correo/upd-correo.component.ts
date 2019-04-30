@@ -52,4 +52,8 @@ export class UpdCorreoComponent implements OnInit {
           })
       }
   }
+
+  removeSpaces(e){
+      e.control.setValue(e.value.trim());
+  }
 }

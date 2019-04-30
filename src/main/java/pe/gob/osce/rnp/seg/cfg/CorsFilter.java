@@ -24,6 +24,7 @@ public class CorsFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         String path = req.getRequestURI();
         if (path.contains(apiBaseHref)) {
+            //res.addHeader("Access-Control-Allow-Credentials", "true");
             res.addHeader("Access-Control-Allow-Origin", "*");
             res.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
             res.addHeader("Access-Control-Max-Age", "3600");

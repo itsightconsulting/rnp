@@ -91,7 +91,7 @@ public class SeguridadServiceImpl extends BaseServiceImpl<SeguridadProcedureInvo
                     ContenidoCorreoPOJO contenidoCorreo = optCorreo.get();
                     boolean mailEnviado = emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correo, contenidoCorreo.getCuerpo());
                     if(mailEnviado){
-                        boolean exitoRegistro = proveedorRepository.registrarCorreoEnviado(ruc, contenidoCorreo.getAsuntoId(), correo).equals("1");
+                        boolean exitoRegistro = proveedorRepository.registrarCorreoEnviado(ruc, contenidoCorreo.getAsuntoId(), contenidoCorreo.getCuerpo()).equals("1");
                         if (exitoRegistro)
                             return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Su clave ha sido actualizada satisfactoriamente y un correo electrónico de confirmación le ha sido enviado");
                         LOGGER.info("La clave ha sido actualizada y el correo enviado pero el registro del correo en bandeja ha fallado");

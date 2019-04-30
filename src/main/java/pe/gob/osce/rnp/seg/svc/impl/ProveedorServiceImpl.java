@@ -31,7 +31,7 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
     private static final String MSG_CORREO_S_FAIL = "El servicio de envio de correo no se encuentra disponible en este momento. Intentarlo nuevamente más tarde";
     private static final String MSG_CORREO_S_FAIL_LOG = "El servicio de envio de correo no se encuentra disponible en este momento | Metodo: ProveedorServiceImpl.enviarCorreoProvExtNoDom(String correo)";
     private static final String MSG_CONF_CORREO = "Un correo le ha sido enviado con todos los nombres de usuario a los que el correo brindado esta asociado. Por favor revisar su bandeja de correo";
-    private static final String MSG_MATCHES_NF = "No tenemos registrado la cuenta de correo proporcionada";
+    private static final String MSG_MATCHES_NF = "No tenemos registrada la cuenta de correo proporcionada";
 
     private EmailService emailService;
 
@@ -111,17 +111,17 @@ public class ProveedorServiceImpl extends BaseServiceImpl<ProveedorProcedureInvo
 
             Optional<String> optCodVer = Optional.ofNullable(repository.obtenerCodigoVerificacion(ruc.toString(), correoDestino, preCorreoDTO.getIpCliente()));
             if(optCodVer.isPresent()){
-                String fechaExpiration = preCorreoDTO.getExpiration();
-                Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(repository.obtenerContenidoCorreoByTipo(1, ruc.toString(), optCodVer.get(), null, fechaExpiration));
+                String fecExpYcorreo = preCorreoDTO.getExpiration() +"|"+correoDestino;
+                Optional<ContenidoCorreoPOJO> optCorreo = Optional.ofNullable(repository.obtenerContenidoCorreoByTipo(1, ruc.toString(), optCodVer.get(), null, fecExpYcorreo));
                 if(optCorreo.isPresent()){
                     ContenidoCorreoPOJO contenidoCorreo = optCorreo.get();
                     Boolean mailEnviado = emailService.enviarCorreoInformativo(contenidoCorreo.getNombreAsunto(), correoDestino,contenidoCorreo.getCuerpo());
                     if(mailEnviado){
-                        boolean exitoRegistro = repository.registrarCorreoEnviado(ruc.toString(), contenidoCorreo.getAsuntoId(), contenidoCorreo.getCuerpo()).equals("1");
-                        if(exitoRegistro)
+                        /*boolean exitoRegistro = repository.registrarCorreoEnviado(ruc.toString(), contenidoCorreo.getAsuntoId(), contenidoCorreo.getCuerpo()).equals("1");
+                        if(exitoRegistro)*/
                             return new Respuesta<>(ResponseCode.EXITO_GENERICA.get(), 1, "Un código de verificación ha sido enviado satisfactoriamente a su correo. Revise su bandeja");
-                        LOGGER.info("El correo ha sido enviado pero no ha sido registrado en BD | Metodo: ProveedorServiceImpl.enviarCorreo(PreCorreoDTO preCorreoDTO)");
-                        return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED_BUT_MAIN_REQ_SUCCESS.get(), 1, "Un código de verificación ha sido enviado satisfactoriamente a su correo. Revise su bandeja");
+                        /*LOGGER.info("El correo ha sido enviado pero no ha sido registrado en BD | Metodo: ProveedorServiceImpl.enviarCorreo(PreCorreoDTO preCorreoDTO)");
+                        return new Respuesta<>(ResponseCode.EX_SP_VALIDATION_FAILED_BUT_MAIN_REQ_SUCCESS.get(), 1, "Un código de verificación ha sido enviado satisfactoriamente a su correo. Revise su bandeja");*/
                     }
                     LOGGER.info("El servicio de envio de correo no se encuentra disponible en este momento | Metodo: ProveedorServiceImpl.enviarCorreo(PreCorreoDTO preCorreoDTO)");
                     return new Respuesta<>(ResponseCode.EX_MAIL_EXCEPTION.get(), 0, MSG_CORREO_S_FAIL);
