@@ -29,13 +29,13 @@
         <!--SMTP Appender-->
         <SMTP name="MailAppender"
               subject="RNP OSCE - SMTP [PROD]"
-              to="contoso.peru@gmail.com"
+              to="peterpaul.182@live.com"
               cc="hisla@osce.gob.pe"
               from="contoso.peru@gmail.com"
               smtpHost="smtp.gmail.com"
               smtpPort="465"
               smtpUsername="contoso.peru@gmail.com"
-              smtpPassword="p1ls3n@147"
+              smtpPassword="p1ls3n@1477"
               smtpProtocol="smtps"
               smtpDebug="false"
               bufferSize="2">

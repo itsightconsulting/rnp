@@ -5,7 +5,9 @@
 export const environment = {
   production: false,
   //baseUrl: 'http://127.0.0.1:8080/api/v1'
-  baseUrl: 'http://52.186.67.112:8090/segrnp-svc/api/v1'
+  // baseUrl: 'http://52.186.67.112:8090/segrnp-svc/api/v1',
+  baseUrl: 'http://200.123.25.107/segrnp-svc/api/v1',
+  baseUrlSunatSso: 'https://200.123.25.107/auth-sunatsol/externaluserauth?opt=loginExt'
 };
 
 /*

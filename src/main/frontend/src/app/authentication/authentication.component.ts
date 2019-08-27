@@ -46,7 +46,7 @@ export class AuthenticationComponent implements OnInit {
                           this.iframeReceiver = document.getElementById('IframeReceiver');
                           this.iframeReceiver.contentWindow.postMessage(`${frm.controls.Ruc.value}|${frm.controls.Clave.value}`,
                                                                      'https://www.rnp.gob.pe/login.asp');
-                          //this.iframeCheckLogged() is fired after login on rnp's irame
+                          //DEPRECATED: this.iframeCheckLogged() is fired after login on rnp's iframe
                           this.validacionIframeFallo(d);
                       } else {
                           this.verificacion = d.flag;

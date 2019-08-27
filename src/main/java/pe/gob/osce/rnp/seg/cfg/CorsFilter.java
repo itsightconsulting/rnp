@@ -18,14 +18,17 @@ import java.io.IOException;
 @Order(Ordered.HIGHEST_PRECEDENCE)//Very important to everything works correctly
 public class CorsFilter extends OncePerRequestFilter {
 
+    @Value("${spring.profiles.active}")
+    private String profileActive;
+
     @Value("${api.bs.route}")
     private String apiBaseHref;
 
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         String path = req.getRequestURI();
         if (path.contains(apiBaseHref)) {
-            //res.addHeader("Access-Control-Allow-Credentials", "true");
-            res.addHeader("Access-Control-Allow-Origin", "*");
+            String directionAllowOrigin = profileActive.equals("production") ? "https://apps.osce.gob.pe" : "*";
+            res.addHeader("Access-Control-Allow-Origin", directionAllowOrigin);
             res.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
             res.addHeader("Access-Control-Max-Age", "3600");
             res.addHeader("Access-Control-Allow-Headers", "X-XSRF-TOKEN,X-PINGOTHER,Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");

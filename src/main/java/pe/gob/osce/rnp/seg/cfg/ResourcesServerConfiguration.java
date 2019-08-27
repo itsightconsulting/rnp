@@ -30,9 +30,6 @@ public class ResourcesServerConfiguration extends ResourceServerConfigurerAdapte
         resources.resourceId("rnp_api").stateless(false).tokenStore(tokenStore);
     }
 
-    @Autowired
-    CorsFilter corsFilterCustom;
-
     @Value("${api.bs.route}")
     private String apiBaseRoute;
 

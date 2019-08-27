@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CookieService} from 'ngx-cookie-service';
 import {ListadoOpcionService} from "./listado-opcion.service";
 import {RepresentanteDto} from "./representante-dto";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-listado-opcion',
@@ -114,7 +115,7 @@ export class ListadoOpcionComponent implements OnInit {
         }
 
         if(this.opcElegida === 3){
-            window.location.href = 'https://200.123.25.107/auth-sunatsol/externaluserauth?opt=loginExt';
+            window.location.href = environment.baseUrlSunatSso;
         }
 
         if(this.opcElegida === 4){

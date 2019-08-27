@@ -25,6 +25,11 @@ public class RnpApplication extends SpringBootServletInitializer /*implements Co
     @Value("${datasource.jndi.primary:#{null}}")
     private String jndiNameProduction;
 
+
+
+    @Value("${spring.profiles.active}")
+    private String profileActive;
+
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder.sources(RnpApplication.class);
@@ -55,9 +60,10 @@ public class RnpApplication extends SpringBootServletInitializer /*implements Co
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
-        source.registerCorsConfiguration("/**", config);
+        //config.setAllowCredentials(true);
+        String directionAllowOrigin = profileActive.equals("production") ? "https://apps.osce.gob.pe" : "*";
+        config.addAllowedOrigin(directionAllowOrigin);
+        source.registerCorsConfiguration("/api/**", config);
         return new CorsFilter(source);
     }
 }
