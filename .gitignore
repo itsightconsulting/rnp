@@ -6,6 +6,7 @@ fslogs/
 rnp_logs/
 dist/
 src/main/frontend/node_modules
+src/main/frontend/dist/
 ### STS ###
 .apt_generated
 .classpath
