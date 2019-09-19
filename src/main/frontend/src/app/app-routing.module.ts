@@ -49,7 +49,7 @@ const routes: Routes = [
         component: ErrorApiComponent
     },
     {
-        path: 'validacion/via/sunat/:itscur/:itsnekot',
+        path: 'validacion/via/sunat/:itscur/:itsnekot/:itspi',
         component: ValidacionSsoComponent,
     },
     {
