@@ -46,7 +46,11 @@ const routes: Routes = [
     },
     {
         path: 'informativo',
-        component: ErrorApiComponent
+        component: ErrorApiComponent,
+    },
+    {
+        path: 'informativo/:wildcardmessage',
+        component: ErrorApiComponent,
     },
     {
         path: 'validacion/via/sunat/:itscur/:itsnekot/:itspi',

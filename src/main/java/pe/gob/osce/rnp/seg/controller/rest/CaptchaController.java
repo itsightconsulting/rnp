@@ -37,7 +37,7 @@ public class CaptchaController {
         java.util.List<Font> textFonts = Arrays.asList(
                 new Font("Arial", Font.PLAIN, 40));
 
-        Captcha captcha = new Captcha.Builder(126, 50)
+        Captcha captcha = new Captcha.Builder(151, 50)
                 .addText(
                         new DefaultTextProducer(),
                         new DefaultWordRenderer(textColors, textFonts))

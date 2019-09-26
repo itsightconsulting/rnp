@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-error-api',
@@ -7,9 +8,23 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ErrorApiComponent implements OnInit {
 
-  constructor() { }
+    urlParts: string[];
+    ruc: string;
+    existsCustomMessage = false;
+    message: string;
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
+      this.checkWildCardMessage();
   }
 
+  checkWildCardMessage(){
+      this.urlParts = window.location.href.split("/");
+      const wildcardmessage = this.route.snapshot.paramMap.get("wildcardmessage");
+      if(wildcardmessage){
+          this.existsCustomMessage = true;
+          this.message = atob(wildcardmessage);
+      }
+  }
 }

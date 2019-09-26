@@ -5,8 +5,12 @@
             <p><img class="svg" alt="" src="assets/img/iconos_Rpn-01.png"><strong>RNP</strong>Informativo</p>
         </div>
         <div>
-            <div class="text-alert text-center" style="padding: 5px 15px 0px;">
+            <div [class.hidden]="existsCustomMessage" class="text-alert text-center" style="padding: 5px 15px 0px;">
                 Estimado proveedor, nuestro portal no se encuentra disponible en estos momentos, inténtelo nuevamente más tarde. Gracias por su comprensión.
+            </div>
+            <div [class.hidden]="!existsCustomMessage" class="text-alert text-center" style="padding: 5px 15px 0px;color: #cd0000">
+                <i class="fa fa-exclamation-triangle fa-fw fa-3x"></i><br><br>
+                <p>{{message}}</p>
             </div>
         </div>
     </div>

@@ -14,6 +14,7 @@ export class ValidacionSsoComponent implements OnInit {
   ruc: string;
   maxTime: string;
   ip: string;
+  initRuc: string;
 
   constructor(private readonly validacionSsoService: ValidacionSsoService, private readonly cookie: CookieService) { }
 
@@ -27,12 +28,21 @@ export class ValidacionSsoComponent implements OnInit {
     this.ruc = this.urlParts[lenUrl-3];
     this.maxTime = this.urlParts[lenUrl-2];
     this.ip = this.urlParts[lenUrl-1];
+    this.initRuc = this.cookie.get('ruc_prov');
 
     const hashids = new Hashids("its_sunat_sso", 32);
     const rucHash = hashids.decode(this.ruc)[0];
     const maxTimeHash = this.maxTime;
     const maxTime = hashids.decode(this.maxTime)[0];
     const ipCliente = atob(""+this.ip);
+
+    if(rucHash != this.initRuc){
+        const msg = btoa("Usted ha pasado la autenticación en Clave SOL-SUNAT con un ruc diferente al ruc que "
+                                +"inicio el proceso de cambio de contraseña. Es por ello que el proceso ha sido interrumpido, "
+                                +"realizar el procedimiento correctamente nuevamente");
+        window.location.href = document.querySelector('base').href+"informativo/"+msg;
+        return;
+    }
 
     if(maxTime>0){
         const maxTimeYear = new Date(maxTime).getFullYear();
