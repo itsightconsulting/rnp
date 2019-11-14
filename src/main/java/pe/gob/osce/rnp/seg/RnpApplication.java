@@ -22,6 +22,9 @@ import javax.sql.DataSource;
 @EnableMBeanExport(registration= RegistrationPolicy.IGNORE_EXISTING)
 public class RnpApplication extends SpringBootServletInitializer /*implements CommandLineRunner */{
 
+    private static final String PROF_PROD = "production";
+    private static final String PROF_PRE_PROD = "devclient";
+
     @Value("${datasource.jndi.primary:#{null}}")
     private String jndiNameProduction;
 
@@ -40,7 +43,7 @@ public class RnpApplication extends SpringBootServletInitializer /*implements Co
     }
 
 
-    @Profile(value = "production")
+    @Profile(value = {PROF_PROD, PROF_PRE_PROD})
     @Bean(destroyMethod = "")
     @Primary
     public DataSource mainDataSource() {

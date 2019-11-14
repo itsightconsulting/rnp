@@ -27,6 +27,7 @@ import javax.sql.DataSource;
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
     private static final String PROF_PROD = "production";
+    private static final String PROF_PRE_PROD = "devclient";
 
     @Value("${api.bs.route}")
     private String apiBaseRoute;
@@ -37,7 +38,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Value("${spring.profiles.active}")
     private String profile;
 
-    @Profile(value = PROF_PROD)
+    @Profile(value = {PROF_PROD, PROF_PRE_PROD})
     @Bean(destroyMethod = "")
     public DataSource oauthDataSource() {
         JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
@@ -53,22 +54,22 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Bean
     public JdbcClientDetailsService clientDetailsService() {
-        return new JdbcClientDetailsService(profile.equals(PROF_PROD) ? oauthDataSource() : oauthDataSourceDev());
+        return new JdbcClientDetailsService(checkIfProfileProdOrPreProdAreActived() ? oauthDataSource() : oauthDataSourceDev());
     }
 
     @Bean
     public TokenStore tokenStore() {
-        return new JdbcTokenStore(profile.equals(PROF_PROD) ? oauthDataSource() : oauthDataSourceDev());
+        return new JdbcTokenStore(checkIfProfileProdOrPreProdAreActived() ? oauthDataSource() : oauthDataSourceDev());
     }
 
     @Bean
     public ApprovalStore approvalStore() {
-        return new JdbcApprovalStore(profile.equals(PROF_PROD) ? oauthDataSource() : oauthDataSourceDev());
+        return new JdbcApprovalStore(checkIfProfileProdOrPreProdAreActived() ? oauthDataSource() : oauthDataSourceDev());
     }
 
     @Bean
     public AuthorizationCodeServices authorizationCodeServices() {
-        return new JdbcAuthorizationCodeServices(profile.equals(PROF_PROD) ? oauthDataSource() : oauthDataSourceDev());
+        return new JdbcAuthorizationCodeServices(checkIfProfileProdOrPreProdAreActived() ? oauthDataSource() : oauthDataSourceDev());
     }
 
     @Override
@@ -90,5 +91,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .tokenStore(tokenStore())//Registra el token
                 .pathMapping("/oauth/token", apiBaseRoute+"/oauth/token");
         super.configure(endpoints);
+    }
+
+    public boolean checkIfProfileProdOrPreProdAreActived(){
+        return profile.equals(PROF_PROD) || profile.equals(PROF_PRE_PROD);
     }
 }
