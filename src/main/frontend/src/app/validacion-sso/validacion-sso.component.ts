@@ -11,7 +11,7 @@ import {ValidacionSsoService} from "./validacion-sso.service";
 export class ValidacionSsoComponent implements OnInit {
 
   urlParts: string[];
-  ruc: string;
+  sunatToken: string;
   maxTime: string;
   ip: string;
   initRuc: string;
@@ -23,23 +23,26 @@ export class ValidacionSsoComponent implements OnInit {
   }
 
   validarTknRuc(){
+
     this.urlParts = window.location.href.split("/");
     const lenUrl = this.urlParts.length;
-    this.ruc = this.urlParts[lenUrl-3];
+    this.sunatToken = this.urlParts[lenUrl-3];
     this.maxTime = this.urlParts[lenUrl-2];
     this.ip = this.urlParts[lenUrl-1];
     this.initRuc = this.cookie.get('ruc_prov');
 
+      //
     const hashids = new Hashids("its_sunat_sso", 32);
-    const rucHash = hashids.decode(this.ruc)[0];
+    const rucHash = JSON.parse(atob(this.sunatToken.split(".")[1])).userdata.numRUC;
     const maxTimeHash = this.maxTime;
     const maxTime = hashids.decode(this.maxTime)[0];
     const ipCliente = atob(""+this.ip);
 
     if(rucHash != this.initRuc){
-        const msg = btoa("Usted ha pasado la autenticación en Clave SOL-SUNAT con un ruc diferente al ruc que "
-                                +"inicio el proceso de cambio de contraseña. Es por ello que el proceso ha sido interrumpido, "
-                                +"realizar el procedimiento correctamente nuevamente");
+        const msg = btoa("Estimado usuario, hemos recibido su solicitud para recuperar su clave RNP, " +
+            "a través de la opción Clave SOL-SUNAT; sin embargo, advertimos que intenta hacerlo con un RUC diferente " +
+            "con el que inició el procedimiento. En ese sentido, hemos procedido a interrumpir su solicitud. " +
+            "Inicie nuevamente el procedimiento.");
         window.location.href = document.querySelector('base').href+"informativo/"+msg;
         return;
     }

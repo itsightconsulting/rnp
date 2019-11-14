@@ -8,9 +8,14 @@
             <div [class.hidden]="existsCustomMessage" class="text-alert text-center" style="padding: 5px 15px 0px;">
                 Estimado proveedor, nuestro portal no se encuentra disponible en estos momentos, inténtelo nuevamente más tarde. Gracias por su comprensión.
             </div>
-            <div [class.hidden]="!existsCustomMessage" class="text-alert text-center" style="padding: 5px 15px 0px;color: #cd0000">
+            <div [class.hidden]="!existsCustomMessage" class="text-alert text-center" style="padding: 5px 15px 0px;color: #cd0000c2">
                 <i class="fa fa-exclamation-triangle fa-fw fa-3x"></i><br><br>
-                <p>{{message}}</p>
+                <p style="color: #66a1d8">{{message}}</p>
+                <div class="text-center">
+                    <a class="btn btn-success" href="login" style="width: 70%;">
+                        REGRESAR AL LOGIN
+                    </a>
+                </div>
             </div>
         </div>
     </div>
