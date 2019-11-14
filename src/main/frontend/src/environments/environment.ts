@@ -10,7 +10,8 @@ export const environment = {
   //baseUrl: 'http://127.0.0.1:8080/api/v1'
   // baseUrl: 'http://52.186.67.112:8090/segrnp-svc/api/v1',
   baseUrl: 'http://200.123.25.107/segrnp-svc/api/v1',
-  baseUrlSunatSso: `${oauth2SunatBaseURL}/${oauth2SunatClientId}/oauth2/login?originalUrl=${rnpServerPostSunatLogin}`
+  oauth2SunatClientId: oauth2SunatClientId,
+  baseUrlSunatSso: `${oauth2SunatBaseURL}/${oauth2SunatClientId}/oauth2/authen?client_id=${oauth2SunatClientId}&response_type=code&state=st&redirect_uri=${rnpServerPostSunatLogin}`
 };
 
 /*
