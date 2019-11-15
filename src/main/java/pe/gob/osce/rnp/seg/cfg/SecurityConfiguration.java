@@ -83,8 +83,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/fonts/**",
                         "/sound/**"
                 ).permitAll()
-                .anyRequest().authenticated();
-        http.authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

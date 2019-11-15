@@ -28,7 +28,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     private static final String PROF_PROD = "production";
     private static final String PROF_PRE_PROD = "devclient";
-    private static final String DIFF_TO_PRO_AND_PRE_PROD = "!"+ PROF_PROD + "&" + "!"+PROF_PRE_PROD;
+    private static final String DIFF_TO_PRO_AND_PRE_PROD = "!"+ PROF_PROD + " & " + "!"+PROF_PRE_PROD;
 
 
     @Value("${api.bs.route}")
