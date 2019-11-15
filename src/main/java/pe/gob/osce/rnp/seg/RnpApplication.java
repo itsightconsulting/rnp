@@ -24,6 +24,7 @@ public class RnpApplication extends SpringBootServletInitializer /*implements Co
 
     private static final String PROF_PROD = "production";
     private static final String PROF_PRE_PROD = "devclient";
+    private static final String DIFF_TO_PRO_AND_PRE_PROD = "!"+ PROF_PROD + "&" + "!"+PROF_PRE_PROD;
 
     @Value("${datasource.jndi.primary:#{null}}")
     private String jndiNameProduction;
@@ -51,7 +52,7 @@ public class RnpApplication extends SpringBootServletInitializer /*implements Co
         return dataSourceLookup.getDataSource(jndiNameProduction);
     }
 
-    @Profile(value = "!production")
+    @Profile(value = DIFF_TO_PRO_AND_PRE_PROD)
     @Bean
     @Primary
     @ConfigurationProperties(prefix = "spring.datasource")
