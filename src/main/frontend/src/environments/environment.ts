@@ -1,7 +1,7 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-const oauth2SunatBaseURL = 'https://api-seguridad-desa.sunat.gob.pe:444/v1/clientessol';
+const oauth2SunatBaseURL = 'https://api-seguridad-test.sunat.gob.pe:444/v1/clientessol';
 const oauth2SunatClientId = '1081141b-2fea-4f62-9234-332f36f5d8a5';
 const rnpServerPostSunatLogin = 'https://eap.osce.gob.pe/auth-sunatsol/externaluserauth&state=st';
 

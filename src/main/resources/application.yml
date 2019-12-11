@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: devclient
+    active: production
   jpa:
     hibernate:
         ddl-auto: none
